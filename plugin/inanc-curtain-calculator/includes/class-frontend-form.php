@@ -43,7 +43,11 @@ class ICC_Frontend_Form {
             return;
         }
 
-        global $product;
+        global $post;
+        $product = wc_get_product($post->ID);
+        if (!$product) {
+            return;
+        }
         $product_type = get_post_meta($product->get_id(), '_icc_product_type', true);
         if (empty($product_type)) {
             return;
