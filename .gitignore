@@ -15,3 +15,9 @@ gitopsprod/docker/traefik/acme.json
 
 # OS
 .DS_Store
+
+# Playwright MCP logs
+.playwright-mcp/
+
+# PHPUnit cache
+.phpunit.result.cache
