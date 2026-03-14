@@ -1,7 +1,7 @@
 /* Announcement Bar */
 .isf-announcement-bar {
-    background-color: #5C4033;
-    color: #F5F0EB;
+    background-color: #1B2A4A;
+    color: #FFFFFF;
     text-align: center;
     padding: 8px 16px;
     font-size: 13px;
@@ -96,9 +96,9 @@
     gap: 8px;
     margin: 16px 0;
     padding: 16px;
-    background: #F5F0EB;
+    background: #F8F8F8;
     border-radius: 8px;
-    border: 1px solid #D6CFC7;
+    border: 1px solid #E5E5E5;
 }
 
 .isf-trust-item {
@@ -106,7 +106,7 @@
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: #5C4033;
+    color: #333333;
 }
 
 .isf-trust-icon {
@@ -115,7 +115,7 @@
 }
 
 .isf-trust-item a {
-    color: #C17F59;
+    color: #1B2A4A;
     text-decoration: none;
 }
 

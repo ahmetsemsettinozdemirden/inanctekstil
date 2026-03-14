@@ -186,8 +186,8 @@ Inanc Tekstil Icerik/
   ├── 2026-05/
   │   └── ...
   └── Logo-ve-Sabitler/
-      ├── logo.png
-      ├── logo-beyaz.png
+      ├── inanc-tekstil-logo.png
+      ├── inanc-tekstil-logo-white.png
       └── ...
 ```
 

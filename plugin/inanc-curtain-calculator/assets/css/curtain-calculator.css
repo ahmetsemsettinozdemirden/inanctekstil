@@ -1,16 +1,16 @@
 .icc-calculator {
-    border: 2px solid #e0e0e0;
+    border: 2px solid #E5E5E5;
     border-radius: 12px;
     padding: 24px;
     margin: 24px 0;
-    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    background: #F8F8F8;
 }
 
 .icc-calculator h3 {
     margin: 0 0 16px 0;
     font-size: 1.3em;
-    color: #333;
-    border-bottom: 2px solid #4caf50;
+    color: #1B2A4A;
+    border-bottom: 2px solid #1B2A4A;
     padding-bottom: 8px;
 }
 
@@ -19,7 +19,7 @@
     padding: 12px;
     border-radius: 6px;
     margin-bottom: 20px;
-    border-left: 4px solid #2196f3;
+    border-left: 4px solid #1B2A4A;
     font-size: 0.95em;
 }
 
@@ -32,7 +32,7 @@
     margin-bottom: 6px;
     font-weight: 600;
     font-size: 0.95em;
-    color: #555;
+    color: #333333;
 }
 
 .icc-field-group input[type="number"],
@@ -41,7 +41,7 @@
     width: 100%;
     max-width: 300px;
     padding: 10px 14px;
-    border: 2px solid #ddd;
+    border: 2px solid #E5E5E5;
     border-radius: 6px;
     font-size: 1em;
     transition: border-color 0.3s;
@@ -50,22 +50,22 @@
 .icc-field-group input:focus,
 .icc-field-group select:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #1B2A4A;
 }
 
 .icc-field-group small {
     display: block;
     margin-top: 4px;
-    color: #777;
+    color: #999999;
     font-size: 0.85em;
 }
 
 .icc-result {
     margin-top: 20px;
     padding: 16px;
-    background: #e8f5e9;
+    background: #FFFFFF;
     border-radius: 8px;
-    border-left: 5px solid #4caf50;
+    border-left: 5px solid #2D7D46;
 }
 
 .icc-result p {
@@ -75,33 +75,33 @@
 
 .icc-result hr {
     border: none;
-    border-top: 1px solid #c8e6c9;
+    border-top: 1px solid #E5E5E5;
     margin: 12px 0;
 }
 
 .icc-result .icc-total-price {
     font-size: 1.4em;
     font-weight: 700;
-    color: #2e7d32;
+    color: #1B2A4A;
     margin-top: 12px;
 }
 
 .icc-error {
     margin-top: 16px;
     padding: 12px;
-    background: #ffebee;
+    background: #FEF2F2;
     border-radius: 6px;
-    border-left: 5px solid #f44336;
-    color: #c62828;
+    border-left: 5px solid #D32F2F;
+    color: #D32F2F;
     font-size: 0.95em;
     font-weight: 500;
 }
 
 .icc-calculator-saten .icc-result {
-    background: #fff3e0;
-    border-left-color: #ff9800;
+    background: #FFFFFF;
+    border-left-color: #1B2A4A;
 }
 
 .icc-calculator-saten .icc-total-price {
-    color: #e65100;
+    color: #1B2A4A;
 }

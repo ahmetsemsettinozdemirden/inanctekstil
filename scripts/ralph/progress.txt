@@ -264,6 +264,55 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   5. Wordfence scan: Run full security scan from wp-admin > Wordfence > Scan
   6. Sample Page (ID 2): Delete the default WordPress sample page
 
+## Browser QA — Full Site Verification and Fixes
+- Date: 2026-03-14
+- Status: ALL ISSUES FIXED
+- Tested at: 1440px desktop and 375px mobile via Playwright browser
+
+### Issues Found & Fixed:
+1. **Hero slider completely blank** — Smart Slider 3 shortcode rendered empty (DB-inserted slides not valid)
+   - Fix: Replaced with custom HTML/CSS hero section (navy gradient, Playfair Display heading, CTAs)
+
+2. **Footer 4-column layout not rendering** — Astra Free only supports html-1/html-2 (not html-3+)
+   - Fix: Reconfigured to use html-1, html-2, widget-1, widget-2 components
+
+3. **WooCommerce/plugin UI strings in English** — Plugin translation packs not installed
+   - Fix: `wp language plugin install --all tr_TR` and `wp language theme install --all tr_TR`
+
+4. **"Uncategorized" category visible in shop sidebar**
+   - Fix: Set `hide_empty: 1` in product categories widget
+
+5. **Sidebar showing on Cart/Checkout pages**
+   - Fix: Set Astra post meta `site-sidebar-layout: no-sidebar` on post IDs 8 and 9
+
+6. **Site title text rendering vertically on mobile** — Logo AND text both showing
+   - Fix: Set `display-site-title-responsive` to false for all breakpoints
+
+7. **Mobile hamburger menu showing ALL pages** — No menu assigned to `mobile_menu` location
+   - Fix: Assigned Ana Menu (ID 20) to `mobile_menu` theme location
+
+8. **Page titles not translated** — Shop, Cart, Checkout had English names
+   - Fix: Renamed to "Ürünler", "Sepetim", "Ödeme"
+
+9. **Sample Page (ID 2) still published**
+   - Fix: Deleted via `wp post delete 2 --force`
+
+### Pages Verified (Desktop 1440px + Mobile 375px):
+- [x] Homepage: hero, category cards, trust badges, about teaser, 8 featured products, CTAs
+- [x] Navigation: Ana Sayfa, Urunler (dropdown with 4 categories), Hakkimizda, Iletisim
+- [x] Shop page: 13 products, sidebar (Kategoriler + Fiyat Filtresi), sort dropdown, breadcrumbs
+- [x] Product page: breadcrumbs, price, curtain calculator, tabs, YITH Wishlist, trust signals
+- [x] Cart: KDV, quantity controls, Turkish labels
+- [x] Checkout: guest checkout, Turkey provinces, terms links
+- [x] Legal pages: Gizlilik Politikasi (full KVKK), Mesafeli Satis, Iade, Cookie Policy
+- [x] Hakkimizda: Hikayemiz, Neden Bizi Secmelisiniz (3 cards), Hizmetlerimiz, Magazamiz
+- [x] Iletisim: WhatsApp, email, address, working hours, contact methods
+- [x] Search: "tul perde" returns 7 results with Turkish UI
+- [x] Cookie banner: Complianz active, "Cerez Tercihlerini Yonet" button visible
+- [x] Footer: 4 columns (brand, links, customer service, contact) + copyright
+- [x] WhatsApp FAB: "Bize Yazın" floating button on all pages
+- [x] Mobile: hamburger menu (Ana Menu), responsive layout, sticky header
+
 ---
 
 ## FINAL SUMMARY
@@ -271,5 +320,6 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
 - Completed (passes=true): 26
 - Blocked: 1 (US-025 PayTR — external dependency)
 - All non-blocked stories PASSED
+- Browser QA: ALL VERIFIED AND FIXED
 - Date completed: 2026-03-14
-- Total iterations: 21
+- Total iterations: 21 + 1 browser QA session

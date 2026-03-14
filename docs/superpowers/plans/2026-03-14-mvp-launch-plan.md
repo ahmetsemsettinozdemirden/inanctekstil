@@ -166,7 +166,7 @@ General > Typography:
   Heading font: Playfair Display (luxury textile feel)
 
 General > Colors:
-  Primary: #1a237e (deep navy) or #800020 (burgundy) — pick based on brand guide
+  Primary: #1B2A4A (Deep Navy — per brand guide)
   Link color: harmonize with primary
 
 Header Builder:
@@ -463,14 +463,14 @@ Add the delivery notice snippet from `docs/ecommerce/shipping-delivery.md` (line
 ```php
 add_action('woocommerce_review_order_before_payment', function () {
     echo '<div class="icc-delivery-notice" style="
-        background: #fff3e0;
-        border-left: 4px solid #ff9800;
+        background: #F8F8F8;
+        border-left: 4px solid #1B2A4A;
         padding: 12px 16px;
         margin-bottom: 20px;
         font-size: 0.95em;
     ">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';
@@ -484,9 +484,9 @@ docker exec wordpress bash -c "mkdir -p /var/www/html/wp-content/mu-plugins"
 docker exec wordpress bash -c "cat > /var/www/html/wp-content/mu-plugins/icc-checkout-notice.php << 'PHPEOF'
 <?php
 add_action('woocommerce_review_order_before_payment', function () {
-    echo '<div class=\"icc-delivery-notice\" style=\"background:#fff3e0;border-left:4px solid #ff9800;padding:12px 16px;margin-bottom:20px;font-size:0.95em;\">';
+    echo '<div class=\"icc-delivery-notice\" style=\"background:#F8F8F8;border-left:4px solid #1B2A4A;padding:12px 16px;margin-bottom:20px;font-size:0.95em;\">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';
