@@ -14,3 +14,13 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Set permalink structure to /%postname%/ and flushed rewrite rules
 - Verifications: All 5 options confirmed via wp option get
 - Note: WP-CLI must be reinstalled if the container is recreated (not baked into the image)
+
+## Iteration 2 — US-006: Install Core Plugins
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Installed 6 new plugins: ajax-search-for-woocommerce, yith-woocommerce-wishlist, smart-slider-3, creame-whatsapp-me (joinchat), shortpixel-image-optimiser, astra-sites (starter-templates)
+  - 4 plugins already installed: wp-mail-smtp, complianz-gdpr, google-site-kit, wordfence
+  - All 10 activated
+- Slug corrections: joinchat -> creame-whatsapp-me, starter-templates -> astra-sites
+- Verifications: wp plugin list --status=active shows all 10 plus existing plugins (14 total active)

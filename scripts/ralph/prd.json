@@ -113,8 +113,8 @@
         "Verify: docker exec wordpress wp plugin list --status=active --allow-root shows all 10 plugins active"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "Single command: docker exec wordpress wp plugin install ajax-search-for-woocommerce yith-woocommerce-wishlist smart-slider-3 joinchat shortpixel-image-optimiser wp-mail-smtp complianz-gdpr google-site-kit wordfence starter-templates --activate --allow-root",
+      "passes": true,
+      "notes": "Correct slugs: joinchat = creame-whatsapp-me, starter-templates = astra-sites. Some plugins were already installed (wp-mail-smtp, complianz-gdpr, google-site-kit, wordfence).",
       "dependsOn": ["US-001"]
     },
     {
