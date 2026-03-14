@@ -53,13 +53,16 @@
     color: #FFFFFF !important;
 }
 
-/* ===== FOOTER FIX: Make text visible on navy background ===== */
+/* ===== FOOTER FIX: Navy background and visible text ===== */
 .site-footer,
+.site-primary-footer-wrap,
+.site-below-footer-wrap,
 .site-footer .ast-builder-grid-row,
 .site-footer .ast-builder-layout-element,
 .site-footer .ast-builder-html-element,
 .site-footer .widget,
 .site-footer .widget_custom_html {
+    background-color: #1B2A4A !important;
     color: #C5CDD8 !important;
 }
 .site-footer h1,
