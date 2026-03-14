@@ -45,3 +45,17 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Created 4 product categories: Tul Perdeler (16), Fon Perdeler (17), Blackout Perdeler (18), Saten (19)
   - Test products 12-14 did not exist (nothing to delete)
 - Verifications: wp wc product_cat list shows all 4 categories with correct slugs
+
+## Iteration 5 — US-003: KDV Tax Configuration
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Tax calculation enabled, prices include tax, based on store address
+  - Tax display inclusive in shop and cart, suffix "KDV dahil"
+  - Inserted TR 20% KDV tax rate via direct DB query (applied to shipping)
+- Key findings:
+  - DB table prefix is `inct_` not `wp_`
+  - Database name: inanctekstil_db
+  - MariaDB client binary is `mariadb` not `mysql` in the container
+  - wp db query doesn't work (no mysql client in wordpress container)
+- Verifications: SELECT from inct_woocommerce_tax_rates shows TR 20.0000 KDV row

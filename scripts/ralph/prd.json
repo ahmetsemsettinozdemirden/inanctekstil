@@ -56,8 +56,8 @@
         "Verify: docker exec wordpress wp db query 'SELECT * FROM wp_woocommerce_tax_rates' --allow-root shows TR 20% KDV row"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "Tax rate must be inserted via direct DB query. See MVP plan Task 2 Step 4 for exact SQL.",
+      "passes": true,
+      "notes": "DB table prefix is inct_ (not wp_). Tax rate inserted via mariadb container. DB name: inanctekstil_db.",
       "dependsOn": ["US-002"]
     },
     {
