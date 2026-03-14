@@ -391,8 +391,8 @@
         "Verify: banner disappears after clicking Kabul Et"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "Configure via wp-admin > Complianz > Wizard. Run through all wizard steps. Then verify on frontend in incognito window.",
+      "passes": true,
+      "notes": "Complianz wizard completed, region=eu, banner post created (ID 79) with Turkish text (Kabul Et/Reddet/Ayarlar). Cookie banner enabled. Privacy page linked (ID 25). Banner styling may need wp-admin fine-tuning.",
       "dependsOn": ["US-006", "US-011"]
     },
     {

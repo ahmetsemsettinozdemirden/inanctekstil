@@ -193,3 +193,14 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Sticky header on both desktop and mobile
   - Shop grid 2 columns on mobile
 - Note: Phone number is placeholder — needs real number. Visual verification at 375px recommended.
+
+## Iteration 18 — US-020: Complianz Cookie Consent
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Complianz wizard already completed, region=eu
+  - Created banner post (ID 79) with Turkish text: Kabul Et, Reddet, Ayarlar
+  - Banner message: "Bu site cerezleri kullanmaktadir..."
+  - Cookie banner enabled, cookie policy page = Cookie Policy (EU) page (ID 23)
+  - Cookie Policy NOT in main nav menu (only in footer)
+- Note: Banner visual styling may need fine-tuning in wp-admin > Complianz
