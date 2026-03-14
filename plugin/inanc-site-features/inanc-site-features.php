@@ -12,8 +12,7 @@ define('ISF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ISF_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ISF_VERSION', '1.0.0');
 
-// WhatsApp number (update with real number)
-define('ISF_WHATSAPP_NUMBER', '905320000000');
+define('ISF_WHATSAPP_NUMBER', '905414288005');
 define('ISF_WHATSAPP_MESSAGE', 'Merhaba, perde siparişi hakkında bilgi almak istiyorum.');
 
 add_action('wp_enqueue_scripts', function () {
@@ -38,7 +37,7 @@ add_action('astra_header_before', function () {
             <span class="isf-announcement-sep">|</span>
             <span class="isf-announcement-item">🚚 Hatay İçi Ücretsiz Kargo (1.000 TL+)</span>
             <span class="isf-announcement-sep">|</span>
-            <span class="isf-announcement-item">📞 WhatsApp: 0532 XXX XX XX</span>
+            <span class="isf-announcement-item">📞 WhatsApp: 0541 428 80 05</span>
         </div>
     </div>
     <?php
