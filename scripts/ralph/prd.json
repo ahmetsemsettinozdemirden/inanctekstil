@@ -173,8 +173,8 @@
         "Verify in browser: footer renders 4 columns on desktop, single column on mobile (375px)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Configure via wp-admin > Appearance > Customize > Footer Builder. Legal page links depend on US-011 being done. Use WordPress widgets (Navigation Menu, Text, Custom HTML) in footer widget areas.",
+      "passes": true,
+      "notes": "Footer configured with 4 HTML columns (html-3 to html-6) + bottom bar (copyright + html-7). Navy background. Contact info has placeholders for phone/WhatsApp/hours.",
       "dependsOn": ["US-007", "US-011"]
     },
     {

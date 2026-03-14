@@ -122,3 +122,15 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Sticky header enabled on both desktop and mobile
 - Note: YITH Wishlist not in header (not a native Astra element) — accessible via plugin page
 - Visual browser verification recommended
+
+## Iteration 12 — US-009: Astra Footer Builder
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Configured 4-column footer via Astra footer builder (html-3 to html-6)
+  - Col 1: Brand name + description, Col 2: Hizli Linkler, Col 3: Musteri Hizmetleri, Col 4: Iletisim
+  - Bottom bar: "(c) [current_year] Inanc Tekstil" left, "Visa | Mastercard | Troy" right
+  - Navy background (#1B2A4A), white/light text
+  - Powered by Astra removed
+- Note: Contact info has placeholders [telefon], [whatsapp], [saatler]
+- Visual browser verification recommended
