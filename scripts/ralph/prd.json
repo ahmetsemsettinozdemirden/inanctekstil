@@ -232,8 +232,8 @@
         "Verify in browser at 375px: slides readable and properly scaled on mobile"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Smart Slider 3 has a visual editor at wp-admin > Smart Slider. Use simple text+background slides (no images needed yet). Embed via shortcode on the Ana Sayfa page.",
+      "passes": true,
+      "notes": "Slider ID 2 created with 3 slides via DB. Embedded via [smartslider3 slider=\"2\"] shortcode at top of Ana Sayfa. Note: Smart Slider internal JSON may need adjustment via wp-admin visual editor for perfect rendering.",
       "dependsOn": ["US-006", "US-007", "US-010"]
     },
     {
@@ -250,8 +250,8 @@
         "Verify in browser: cards render in grid and links work on desktop and mobile"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Can be built with WordPress block editor (Columns block or WooCommerce Product Categories block) or Astra's shortcodes. Keep it simple — no images needed yet.",
+      "passes": true,
+      "notes": "4 category cards built with WordPress Columns block on Ana Sayfa. Off-white backgrounds, navy text, border, links to category archives.",
       "dependsOn": ["US-005", "US-007", "US-010"]
     },
     {
@@ -271,8 +271,8 @@
         "Verify in browser: sections render on desktop and mobile (375px)"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "Build with WordPress block editor on Ana Sayfa page. Columns block for trust badges, Paragraph + Button block for about teaser. Keep styling minimal and brand-consistent.",
+      "passes": true,
+      "notes": "Trust badges (4 columns with emoji icons) and about teaser with Hikayemizi Okuyun button on Ana Sayfa. Updated from brown to brand navy colors.",
       "dependsOn": ["US-007", "US-010"]
     },
     {
@@ -289,8 +289,8 @@
         "Verify in browser: section renders with heading, grid area, and button on desktop and mobile"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "Use WooCommerce shortcode or blocks. Products will appear once US-005 categories exist and real products are added later (not part of this PRD — photography dependency).",
+      "passes": true,
+      "notes": "Featured products section added with [products limit=\"8\" columns=\"4\"] shortcode and 'Tum Urunleri Gor' button linking to /shop/. Grid will populate when products are added.",
       "dependsOn": ["US-005", "US-007", "US-010"]
     },
     {

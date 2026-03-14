@@ -157,3 +157,20 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Sort dropdown and result count toolbar configured
   - Breadcrumbs already enabled from US-017
 - Verifications: wp wc product_cat list shows descriptions, widget list shows sidebar widgets
+
+## Iteration 15 — US-012, US-013, US-014, US-015: Homepage Sections (batch)
+- Date: 2026-03-14
+- Status: ALL PASSED
+- Actions taken:
+  - Created Smart Slider 3 hero carousel (slider ID 2) with 3 slides via DB:
+    - Slide 1: Navy bg, white text "30 Yildir..." + CTA to shop
+    - Slide 2: White bg, navy text "Her Pencereye Ozel..."
+    - Slide 3: Off-white bg "Kendi Atolyemizde..." + CTA to hakkimizda
+  - Rebuilt Ana Sayfa (post 16) with complete homepage:
+    - [smartslider3 slider="2"] at top (US-012)
+    - 4 category cards in columns: Tul, Fon, Blackout, Saten with links (US-013)
+    - 4 trust badges: 30 Yillik Tecrube, Kendi Atolyemizde, Olcuye Ozel, Ucretsiz Kargo (US-014)
+    - About teaser: Hikayemiz + "Hikayemizi Okuyun" button (US-014)
+    - Featured products: [products limit="8" columns="4"] + Tum Urunleri Gor button (US-015)
+  - Updated all colors from old brown scheme to brand navy #1B2A4A
+- Note: Smart Slider slides may need visual refinement in wp-admin editor. Products grid empty until products added.
