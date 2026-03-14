@@ -62,6 +62,36 @@ add_action('wp_footer', function () {
     <?php
 });
 
+// Meta descriptions for SEO
+add_action('wp_head', function () {
+    // Skip if an SEO plugin handles this
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('FLAVOR_SEO_VERSION')) {
+        return;
+    }
+
+    $description = '';
+
+    if (is_front_page()) {
+        $description = '30 yıldır İskenderun\'da hizmet veren İnanç Tekstil. Tül, fon, blackout perde. Ölçünüze özel dikim, kendi atölyemizde imalat.';
+    } elseif (is_page('hakkimizda')) {
+        $description = 'Hatice ve Hüseyin Özdemirden tarafından kurulan İnanç Tekstil\'in hikayesi.';
+    } elseif (is_page('iletisim')) {
+        $description = 'İnanç Tekstil mağaza adresi, telefon, WhatsApp ve iletişim bilgileri.';
+    } elseif (is_tax('product_cat', 'tul-perdeler') || is_tax('product_cat', 'tul')) {
+        $description = 'Tül perde modelleri. Ölçüye özel dikim, kendi atölyemizde imalat. İnanç Tekstil, İskenderun.';
+    } elseif (is_tax('product_cat', 'fon-perdeler') || is_tax('product_cat', 'fon')) {
+        $description = 'Fon perde modelleri. Ölçüye özel dikim, kendi atölyemizde imalat. İnanç Tekstil, İskenderun.';
+    } elseif (is_tax('product_cat', 'blackout-perdeler') || is_tax('product_cat', 'blackout')) {
+        $description = 'Blackout karartma perde modelleri. Ölçüye özel dikim. İnanç Tekstil, İskenderun.';
+    } elseif (is_tax('product_cat', 'saten-perdeler') || is_tax('product_cat', 'saten')) {
+        $description = 'Saten perde modelleri. Hazır dikim, şık tasarım. İnanç Tekstil, İskenderun.';
+    }
+
+    if ($description) {
+        echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+    }
+}, 1);
+
 // Trust signals on product pages
 add_action('woocommerce_single_product_summary', function () {
     ?>
