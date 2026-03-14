@@ -4,6 +4,11 @@
     const data = window.iccData;
     if (!data) return;
 
+    data.pricePerMeter = parseFloat(data.pricePerMeter) || 0;
+    data.tulSewingCost = parseFloat(data.tulSewingCost) || 0;
+    data.fonSewingCost = parseFloat(data.fonSewingCost) || 0;
+    data.satenPrice = parseFloat(data.satenPrice) || 0;
+
     const resultDiv = document.getElementById('icc-result');
     const errorDiv = document.getElementById('icc-error');
 
