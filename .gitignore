@@ -1,0 +1,17 @@
+# Terraform
+gitopsprod/.terraform/
+gitopsprod/*.tfstate
+gitopsprod/*.tfstate.backup
+gitopsprod/*.tfplan
+gitopsprod/crash.log
+
+# Terraform secrets
+gitopsprod/*.tfvars
+!gitopsprod/terraform.tfvars.example
+
+# Docker secrets
+gitopsprod/docker/.env
+gitopsprod/docker/traefik/acme.json
+
+# OS
+.DS_Store
