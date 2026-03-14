@@ -193,8 +193,8 @@
         "Verify: docker exec wordpress wp menu list --allow-root shows 'Ana Menu' and 'Footer Menu'"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "Category menu items require US-005 categories to exist. Use wp menu item add-taxonomy for category links. Reference: docs/superpowers/plans/2026-03-14-mvp-launch-plan.md Task 4.",
+      "passes": true,
+      "notes": "All pages and menus already existed. Ana Menu (ID 20) at primary with 8 items. Footer menu 'Yasal Bilgiler' (ID 21) at footer_menu with 5 legal pages. Front page set to Ana Sayfa (ID 16).",
       "dependsOn": ["US-001", "US-005"]
     },
     {

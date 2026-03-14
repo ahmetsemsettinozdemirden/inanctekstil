@@ -70,3 +70,13 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Local pickup "Elden Teslim (Iskenderun)" 0 TL
   - Zone 0 (fallback) has no methods — blocks non-Hatay orders
 - Verifications: wp wc shipping_zone_method list confirmed all 3 methods; zone 0 confirmed empty
+
+## Iteration 7 — US-010: Essential Pages and Navigation Menu
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken: All already configured (no changes needed)
+  - Ana Sayfa (ID 16) as static front page
+  - Hakkimizda (ID 17), Iletisim (ID 18), Shop (ID 7) pages exist
+  - Ana Menu (ID 20) at primary location: Ana Sayfa, Urunler, 4 categories, Hakkimizda, Iletisim
+  - Footer menu "Yasal Bilgiler" (ID 21) at footer_menu location with 5 legal pages
+- Verifications: wp post list, wp menu list, wp menu item list, show_on_front=page, page_on_front=16
