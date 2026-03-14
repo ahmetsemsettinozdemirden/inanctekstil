@@ -25,7 +25,7 @@ Bu klasor, Inanc Tekstil'in marka kimligine ait tum dokumanlari icerir. E-ticare
 - **Konum:** Iskenderun, Hatay, Turkiye
 - **Faaliyet Alani:** Ev tekstili, ozel dikim perde, online satis
 - **Hedef Kitle:** 25-55 yas arasi kadinlar, Iskenderun ve Hatay bolgesi
-- **Sosyal Medya:** Instagram, Facebook (aktif); TikTok (planlanmakta)
+- **Sosyal Medya:** Instagram, Facebook (kurulacak); TikTok (Ay 3+ planlanmakta)
 
 ### Bu Dokumantasyon Kimin Icin?
 

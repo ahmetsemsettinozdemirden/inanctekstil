@@ -39,7 +39,7 @@ Henuz Inanc Tekstil'i tanimayan, ancak perde veya ev dekorasyonu ile ilgilenen y
 #### Konum
 
 - **Birincil:** Iskenderun, Hatay
-- **Yaricap:** Iskenderun merkez + 25 km
+- **Yaricap:** Iskenderun merkez + 30 km
 - **Hedefleme Tipi:** "Bu konumda yasayan kisiler" (People living in this location)
 
 **Not:** "Bu konumu ziyaret eden kisiler" secmeyin. Turistlere reklam gostermek butce israfi olur.

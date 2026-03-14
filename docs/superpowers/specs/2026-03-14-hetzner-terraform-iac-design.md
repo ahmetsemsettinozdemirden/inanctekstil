@@ -36,7 +36,7 @@ gitopsprod/
 - Public key: read from `~/.ssh/inanctekstil.pub`
 
 **hcloud_server:**
-- Name: `inanctekstil-web`
+- Name: `inanctekstil-prod`
 - Server type: `cx23` (2 vCPU, 4GB RAM, 40GB SSD, €3.62/month)
 - Image: `ubuntu-24.04`
 - Location: `nbg1` (Nuremberg, Germany)
@@ -71,7 +71,7 @@ gitopsprod/
 **hcloud_zone_record — TXT records:**
 - `@` → Google site verification
 - `@` → SPF: `v=spf1 include:_spf.google.com include:send.resend.com ~all`
-- `_dmarc` → DMARC: `v=DMARC1; p=none; rua=mailto:dmarc@inanctekstil.store`
+- `_dmarc` → DMARC: `v=DMARC1; p=none; rua=mailto:dmarc-reports@inanctekstil.store`
 - `google._domainkey` → Google Workspace DKIM (actual value from DNS)
 
 **Resend records:** Commented out in dns.tf, to be added after Resend domain verification.

@@ -97,7 +97,7 @@ add_action('woocommerce_review_order_before_payment', function () {
         font-size: 0.95em;
     ">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';
@@ -112,7 +112,7 @@ WooCommerce e-posta sablonlarini ozellestir:
 WooCommerce > Ayarlar > E-postalar > Isleniyor (Processing) > Yonet
 
 Ek Icerik alanina ekle:
-  "Perdeniz dikime alindi. Tahmini hazirlik suresi 5-7 is gunudur.
+  "Perdeniz dikime alindi. Tahmini hazirlik suresi 5-10 is gunudur.
    Teslimat oncesinde sizinle iletisime gececegiz."
 ```
 

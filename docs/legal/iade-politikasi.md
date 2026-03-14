@@ -169,8 +169,8 @@ Sizin belirttiginiz olculerden farkli olarak uretim yapilmasi durumunda urun ucr
 
 **Not:** Musterinin kendisinin olcu hatasi yapmasi durumunda bu madde gecerli degildir. Ancak olcu sonradan degistiyse (siparis sonrasi), alterasyon/duzeltme hizmeti sunuyoruz.
 
-**d) Olcu Degisikligi ve Duzeltme**
-Siparis verdikten sonra olcunuz degismis olabilir veya perde asildiktan sonra duzeltme ihtiyaci dogabilir. Boyle durumlarda alterasyon/duzeltme hizmetimizden faydalanabilirsiniz (sinirli ucretle veya ucretsiz).
+**d) Olcu Degisikligi ve Duzeltme (Iyi Niyet Hizmeti)**
+Siparis verdikten sonra olcunuz degismis olabilir veya perde asildiktan sonra duzeltme ihtiyaci dogabilir. Boyle durumlarda alterasyon/duzeltme hizmetimizden faydalanabilirsiniz (sinirli ucretle veya ucretsiz). **Not:** Bu hizmet yasal cayma hakki kapsaminda degil, musteri memnuniyetine yonelik iyi niyet hizmetidir.
 
 **e) Kargo/Nakliye Hasari**
 Kargo sirasinda zarar goren urunler icin ucretsiz degisim veya iade yapilir.

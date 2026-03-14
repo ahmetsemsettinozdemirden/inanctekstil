@@ -124,10 +124,10 @@ Donusum etkisi en yuksek icerik tipidir.
 | Gun | Icerik Turu | Platform | Detay | Durum |
 |-----|-------------|----------|-------|-------|
 | Pazartesi | Kumas yakin cekim | Instagram Feed | Haftanin kumasi tanitimi | |
-| Sali | Perde yapim sureci | Reels/Stories | Timelapse dikim videosu | |
+| Sali | Perde yapim sureci (video) | Reels/Stories | Timelapse dikim videosu | |
 | Carsamba | Tamamlanmis perde | Instagram Feed, Facebook | Oda ici fotograf | |
-| Persembe | Story/Gunluk icerik | Instagram Stories | Atolyeden anlar, kumas ornekleri | |
-| Cuma | Oncesi-sonrasi | Reels | Donusum videosu | |
+| Persembe | Kumas secim rehberi (video) | Reels/Stories | Hangi kumas hangi oda? | |
+| Cuma | Oncesi-sonrasi (video) | Reels | Donusum videosu | |
 | Cumartesi | (Opsiyonel) Musteri memnuniyeti | Instagram Feed | Tamamlanmis proje, musteri yorumu | |
 | Pazar | Dinlenme / icerik planlama | - | Gelecek hafta icin planlama | |
 

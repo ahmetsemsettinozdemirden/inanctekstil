@@ -66,14 +66,14 @@
 
 **3. Fon (Decorative Side Panels)**
 - **Purpose:** Decorative panels that hang on the sides of windows
-- **Sizes:** 100×260 cm or 80×260 cm depending on window
+- **Sizes:** Typically 100×260 cm or 80×260 cm, but accepts 50-150 cm panel width
 - **Always sold in pairs** (double panel)
-- **Pleating:**
-  - 100×260 → 1:3 pleat ratio
-  - 80×260 → 1:2.5 pleat ratio
+- **Pleating:** Customer selects ratio (1:2, 1:2.5, or 1:3). Defaults:
+  - 100×260 → 1:3 pleat ratio (default)
+  - 80×260 → 1:2.5 pleat ratio (default)
 - **Fabric pricing:** 150-750 TL/meter (wholesale), 400-1500 TL/meter (retail)
 - **Sewing cost:** 500 TL per pair (fixed)
-- **Sub-type:** Blackout fon (300×260 cm, fabric 160-400 TL/meter)
+- **Sub-type:** Blackout fon (typically 300×260 cm, accepts variable widths via fon calculation, fabric 160-400 TL/meter)
 - **Also available:** Ready-made fons at lower prices
 
 ### Kartela System (Fabric Catalog)
@@ -165,9 +165,9 @@ Example: 100cm panels, 1:3 pleat, 400 TL/m fabric
 - Backend: PHP WooCommerce hooks validate dimensions and calculate correct price at add-to-cart and checkout (never trust client-side price)
 - Dimensions, curtain type, pleat ratio stored as order item meta (visible in WooCommerce dashboard and order emails)
 - Validation rules:
-  - Tül: min 30cm, max 600cm (width), min 100cm, max 300cm (height)
+  - Tül: min 100cm, max 600cm (width), min 100cm, max 300cm (height)
   - Saten: fixed size (no input needed) or custom input if needed
-  - Fon: panel width options (80cm or 100cm), height min 200cm, max 300cm
+  - Fon: panel width min 50cm, max 150cm (typical: 80cm or 100cm), height min 200cm, max 300cm
 - The fabric's per-meter price is stored as a custom field on each WooCommerce product
 - Curtain type availability stored as product attribute (e.g., "suitable_for" = "tul,fon")
 
@@ -198,7 +198,7 @@ Example: 100cm panels, 1:3 pleat, 400 TL/m fabric
 - **Method:** Flat-rate shipping or free delivery (since it's local, consider hand-delivery for nearby orders)
 - **Installation included:** İnanç Tekstil hangs curtains at customer's location (key differentiator)
 - **WooCommerce config:** Set up shipping zones — Hatay province = enabled, everywhere else = disabled with "Bölgenize teslimat henüz mevcut değil" message
-- **Production time:** Communicate clearly on product page (e.g., "5-7 iş günü içinde teslim")
+- **Production time:** Communicate clearly on product page (e.g., "5-10 iş günü içinde teslim")
 - **Alterations:** Post-installation adjustments available if needed
 
 ## Essential Pages

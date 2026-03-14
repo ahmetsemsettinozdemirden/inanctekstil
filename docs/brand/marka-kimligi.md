@@ -8,7 +8,7 @@ Bu dokuman, Inanc Tekstil'in marka kimligini tanimlar. Tum iletisim kanallari, i
 
 ### Nereden Geldik
 
-Inanc Tekstil, **30 yildir** Iskenderun'da hizmet veren, **Hatice ve Huseyin Ozdemirden** tarafindan kurulan bir aile isletmesidir. Ucuz yillik bu yolculukta, yuzlerce musteriye ozel dikim perde, tul ve ev tekstili urunleri sunduk.
+Inanc Tekstil, **30 yildir** Iskenderun'da hizmet veren, **Hatice ve Huseyin Ozdemirden** tarafindan kurulan bir aile isletmesidir. 30 yillik bu yolculukta, yuzlerce musteriye ozel dikim perde, tul ve ev tekstili urunleri sunduk.
 
 Basarimiz **guven ve tavsiye** uzerine kurulu. Bir musteriyle basliyor, onun tavsiyesiyle komsusuna, arkadasina, ailesine ulasiyoruz. Her perdeyi kendi evimize dikiyormus gibi ozenle hazirliyor, her olcuye dikkat ediyor, her dikiste kaliteyi on planda tutuyoruz.
 
@@ -24,7 +24,7 @@ Bu, bir aile isletmesinin dijital donusumu. Geleneksel ustalik ve guven ile mode
 
 Inanc Tekstil, "Iskenderun'un 30 yillik guvenilir perde uzmani" olarak konumlandirilmaktadir. Bu konumlandirma dort temel ayak uzerine kuruludur:
 
-1. **30 yillik tecrube:** Hatice ve Huseyin Ozdemirden'in kurdugu, ucuz yildir guven kazanmis bir marka.
+1. **30 yillik tecrube:** Hatice ve Huseyin Ozdemirden'in kurdugu, 30 yildir guven kazanmis bir marka.
 2. **Kendi atölyemizde imalat:** Disariya yaptirmiyoruz, her seyi kendi elimizle dikiliyoruz.
 3. **Kisiye ozel hizmet:** Hazir urun satisi degil, musterinin olcusune gore ozel dikim perdeler.
 4. **Online erisim kolayligi:** Fiziksel magazaya gitmeden, telefondan veya bilgisayardan siparis verebilme imkani.

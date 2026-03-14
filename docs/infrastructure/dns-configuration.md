@@ -7,7 +7,7 @@ Bu dokuman `inanctekstil.store` alan adi icin gerekli tum DNS kayitlarini kapsar
 > - `oxygen.ns.hetzner.com`
 > - `helium.ns.hetzner.de`
 
-Asagidaki orneklerde `65.108.XX.XX` yerine Hetzner sunucunun gercek IPv4 adresini kullan.
+Asagidaki orneklerde sunucunun gercek IPv4 adresi `5.75.165.158` kullanilmistir.
 
 ---
 
@@ -17,8 +17,8 @@ Asagidaki orneklerde `65.108.XX.XX` yerine Hetzner sunucunun gercek IPv4 adresin
 
 | Type | Name | Value | TTL |
 |---|---|---|---|
-| A | `@` | `65.108.XX.XX` | 300 |
-| A | `www` | `65.108.XX.XX` | 300 |
+| A | `@` | `5.75.165.158` | 300 |
+| A | `www` | `5.75.165.158` | 300 |
 
 Alternatif olarak `www` icin CNAME kullanabilirsin:
 
@@ -170,12 +170,12 @@ Resend icin bounce domain ayarlamak deliverabilityi arttirir:
 
 ## 7. Tam DNS Kayit Tablosu (Ozet)
 
-Asagida tum DNS kayitlarinin birlesmis listesi. `65.108.XX.XX` yerine gercek IP adresini koy.
+Asagida tum DNS kayitlarinin birlesmis listesi. `5.75.165.158` yerine gercek IP adresini koy.
 
 | Type | Name | Value | Priority | TTL |
 |---|---|---|---|---|
-| A | `@` | `65.108.XX.XX` | - | 300 |
-| A | `www` | `65.108.XX.XX` | - | 300 |
+| A | `@` | `5.75.165.158` | - | 300 |
+| A | `www` | `5.75.165.158` | - | 300 |
 | CAA | `@` | `0 issue "letsencrypt.org"` | - | 3600 |
 | MX | `@` | `aspmx.l.google.com.` | 1 | 3600 |
 | MX | `@` | `alt1.aspmx.l.google.com.` | 5 | 3600 |
@@ -230,7 +230,8 @@ Online araclar:
 
 ## 9. DNS Propagasyon Notlari
 
-- TTL degerlerini baslangicta **300** (5 dakika) olarak ayarla, boylece degisiklikler hizla yayilir
-- Her sey calismaya basladiktan sonra TTL'leri **3600** (1 saat) veya **86400** (1 gun) olarak artir
+- A kayitlari icin TTL **300** (5 dakika) kullan — degisiklik gerektiginde hizli propagasyon saglar
+- MX, TXT, CAA ve CNAME kayitlari icin TTL **3600** (1 saat) kullan — nadiren degistirilen kayitlar icin uygundur
+- Her sey stabilize olduktan sonra A kayitlarinin TTL'lerini de **3600** veya **86400** (1 gun) olarak artirabilirsin
 - DNS propagasyonu genellikle 5-30 dakika surer, ancak bazi durumlarda 48 saate kadar uzayabilir
 - Propagasyon surecinde `dig` komutlariyla kontrol et, tarayiciya guvenme (tarayici cache'i yaniltici olabilir)

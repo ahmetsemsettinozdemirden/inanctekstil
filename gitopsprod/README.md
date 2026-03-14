@@ -41,7 +41,7 @@ Sunucuda `/opt/inanctekstil/` dizininde calisir. Kaynak dosyalar `docker/` klaso
 
 | Servis | Imaj | Gorev |
 |--------|------|-------|
-| traefik | traefik:v3 | Reverse proxy, SSL (Let's Encrypt), routing |
+| traefik | traefik:v3.2 | Reverse proxy, SSL (Let's Encrypt), routing |
 | wordpress | wordpress:6-php8.2-apache | WordPress + WooCommerce |
 | mariadb | mariadb:11 | Veritabani |
 | redis | redis:7-alpine | Object cache |

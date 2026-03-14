@@ -8,9 +8,35 @@ Bu dizin, **Inanc Tekstil** e-ticaret sitesinin Turk mevzuatina uyumlu sekilde i
 
 ## Isletme Bilgileri
 
+Bu bolum, yasal dokumanlardaki `[PLACEHOLDER]` alanlari icin otoriter kaynak olarak kullanilmalidir.
+
+### Temel Bilgiler
+
 - **Isletme Adi:** Inanc Tekstil
+- **Isletme Tam Unvani:** [ISLETME TAM UNVANI — avukat/muhasebeci ile teyit edilmeli]
 - **Faaliyet Alani:** Ozel olcule ve siparis uzerine perde imalati ve satisi (home textiles)
-- **Konum:** Iskenderun, Hatay, Turkiye
+- **Kurucular:** Hatice ve Huseyin Ozdemirden
+
+### Adres ve Iletisim
+
+- **Tam Adres:** [TAM ADRES], Iskenderun, Hatay, Turkiye
+- **Telefon:** [TELEFON NUMARASI — doldurulacak]
+- **WhatsApp:** [WHATSAPP NUMARASI — doldurulacak]
+- **E-posta (Destek):** info@inanctekstil.store
+- **E-posta (Bildirim):** bildirim@inanctekstil.store
+- **Web Sitesi:** inanctekstil.store
+- **Calisma Saatleri:** [CALISMA SAATLERI — ornegin Pazartesi-Cumartesi 09:00-19:00]
+
+### Resmi Kayit Bilgileri
+
+- **Vergi Dairesi:** [VERGI DAIRESI — doldurulacak]
+- **Vergi Numarasi:** [VERGI NUMARASI — doldurulacak]
+- **MERSIS Numarasi:** [MERSIS NUMARASI — varsa doldurulacak]
+
+> **Not:** Yukaridaki `[...]` alanlari gercek degerler ile dolduruldugunda, tum yasal dokumanlardaki (`kvkk-gizlilik-politikasi.md`, `mesafeli-satis-sozlesmesi.md`, `iade-politikasi.md`, `on-bilgilendirme-formu.md`, `cerez-politikasi.md`) ilgili placeholder'lar da bu degerlere guncellenmeli.
+
+### Teknik Altyapi
+
 - **Satis Kanali:** WooCommerce uzerinden e-ticaret
 - **Odeme Altyapisi:** PayTR
 - **Cerez Yonetimi:** Complianz eklentisi

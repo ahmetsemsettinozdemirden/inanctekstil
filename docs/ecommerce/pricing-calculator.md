@@ -49,7 +49,7 @@ toplam_fiyat = (gerekli_kumaş_metre × kumaş_metre_fiyatı) + (gerekli_kumaş_
 #### 3. FON (Decorative Side Panels)
 
 **Müşteri Girdileri:**
-- Panel eni (tipik: 80cm veya 100cm)
+- Panel eni (50-150 cm arası, tipik: 80cm veya 100cm)
 - Pile oranı (1:2, 1:2.5, 1:3)
 
 **Formül:**
@@ -63,7 +63,7 @@ toplam_fiyat = (toplam_kumaş × kumaş_metre_fiyatı) + dikiş_maliyeti_çift
 - Dikiş maliyeti: 500 TL (çift panel için sabit)
 - Her zaman çift satılır (2 panel)
 
-**Yaygın Konfigürasyonlar:**
+**Varsayılan Konfigürasyonlar (müşteri farklı seçebilir):**
 - 100cm panel, 1:3 pile → 3m/panel → 6m toplam
 - 80cm panel, 1:2.5 pile → 2m/panel → 4m toplam
 
@@ -79,9 +79,9 @@ toplam_fiyat = (toplam_kumaş × kumaş_metre_fiyatı) + dikiş_maliyeti_çift
 #### 4. BLACKOUT FON
 
 **Özellikler:**
-- Fon'a benzer ama daha büyük: 300×260 cm
+- Fon ile aynı hesaplama mantığını kullanır (değişken panel genişliği kabul eder)
+- Tipik boyut: 300×260 cm, ancak farklı genişlikler de girilebilir
 - Kumaş fiyatı: 160-400 TL/metre aralığında
-- Hesaplama fon ile aynı mantık
 
 ---
 

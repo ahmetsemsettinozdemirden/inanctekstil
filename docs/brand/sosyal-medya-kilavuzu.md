@@ -104,7 +104,7 @@ Hashtag'ler gonderinin kesfedilme sansini arttirir. Asagida kategorilere ayrilmi
 ### Marka Hashtag'leri (Her gonderide kullanilir)
 
 ```
-#InanckTekstil
+#InancTekstil
 #InancTekstilIskenderun
 ```
 
@@ -186,7 +186,7 @@ Fiyat bilgisi ve siparis icin web sitemizi ziyaret edebilir veya bize mesaj atab
 
 inanctekstil.store
 
-#InanckTekstil #PerdeModelleri #OzelDikimPerde #EvDekorasyonu #Iskenderun
+#InancTekstil #PerdeModelleri #OzelDikimPerde #EvDekorasyonu #Iskenderun
 ```
 
 ### Sablon 2: Once/Sonra
@@ -204,7 +204,7 @@ Model: [model adi veya aciklamasi]
 
 Siz de eviniz icin ucretsiz danismanlik almak ister misiniz? Bize yazin.
 
-#InanckTekstil #EvDekorasyonu #PencereDekorasyonu #OnceSonra #Iskenderun
+#InancTekstil #EvDekorasyonu #PencereDekorasyonu #OnceSonra #Iskenderun
 ```
 
 ### Sablon 3: Uretim Sureci
@@ -221,7 +221,7 @@ Hazir urun degil, size ozel uretim. Her olcuyu tek tek aliyoruz, her dikisi dikk
 
 Ozel dikim siparis icin: inanctekstil.store
 
-#InanckTekstil #OzelDikimPerde #ElEmegi #PerdeUretim #Iskenderun
+#InancTekstil #OzelDikimPerde #ElEmegi #PerdeUretim #Iskenderun
 ```
 
 ### Sablon 4: Musteri Yorumu / Memnuniyet
@@ -238,7 +238,7 @@ Musterimizin memnuniyeti bizim icin en degerli referanstir.
 
 Siz de deneyiminizi bizimle paylasin. Her yorumunuz bizi daha iyi yapmak icin motive ediyor.
 
-#InanckTekstil #MusteriMemnuniyeti #EvDekorasyonu #Iskenderun
+#InancTekstil #MusteriMemnuniyeti #EvDekorasyonu #Iskenderun
 ```
 
 **Onemli not:** Musteri yorumu paylasiminda mutlaka musteriden izin alinmalidir. Fotograf paylasimi icin de yazili veya mesaj yoluyla onay alinmalidir.
@@ -257,7 +257,7 @@ Siz de deneyiminizi bizimle paylasin. Her yorumunuz bizi daha iyi yapmak icin mo
 
 Detaylar icin: inanctekstil.store
 
-#InanckTekstil #[MevsiselHashtag] #EvDekorasyonu #PerdeModelleri #Iskenderun
+#InancTekstil #[MevsiselHashtag] #EvDekorasyonu #PerdeModelleri #Iskenderun
 ```
 
 ### Haftalik Icerik Plani Onerisi
@@ -268,7 +268,7 @@ Detaylar icin: inanctekstil.store
 | Carsamba | Uretim Sureci / Ipucu | Dikimden bir sahne veya dekorasyon ipucu |
 | Cuma | Once/Sonra veya Musteri Yorumu | Donusum fotografi veya memnuniyet paylasimi |
 
-**Not:** Haftada 3 gonderi baslangic icin yeterlidir. Hikayeler (Stories) her gun paylasılabilir — uretimden anlar, magaza ici goruntuler, anketler ile etkilesim arttirilir.
+**Not:** Haftada 3 gonderi baslangic icin minimum hedeftir. Icerik uretim kapasitesi arttikca haftada 4-6 gonderiye cikılabilir (detaylar icin icerik planina bakiniz: [content/README.md](../marketing/content/README.md)). Hikayeler (Stories) her gun paylasilabilir — uretimden anlar, magaza ici goruntuler, anketler ile etkilesim arttirilir.
 
 ---
 

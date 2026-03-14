@@ -12,7 +12,10 @@ Iskenderun, Hatay merkezli ozel dikim perde e-ticaret projesi.
 
 ```
 docs/
-├── superpowers/specs/       # Tasarim spesifikasyonlari
+├── superpowers/
+│   ├── specs/               # Tasarim spesifikasyonlari
+│   └── plans/               # Uygulama planlari
+├── benchmark/               # Rakip analizi ve guncelleme plani
 ├── infrastructure/          # Sunucu, DNS, e-posta, guvenlik, yedekleme
 ├── ecommerce/               # WooCommerce, PayTR, fiyat hesaplama, urunler
 ├── marketing/               # Dijital pazarlama stratejisi
@@ -26,11 +29,30 @@ docs/
 
 ---
 
-## Tasarim Spesifikasyonu
+## Tasarim Spesifikasyonlari (superpowers/specs/)
 
 | Dosya | Icerik |
 |-------|--------|
-| [Tasarim Spesifikasyonu](superpowers/specs/2026-03-14-inanc-tekstil-ecommerce-design.md) | Tum projenin mimari, teknik ve pazarlama tasarimi |
+| [E-Ticaret Tasarimi](superpowers/specs/2026-03-14-inanc-tekstil-ecommerce-design.md) | Tum projenin mimari, teknik ve pazarlama tasarimi |
+| [Hetzner Terraform IaC](superpowers/specs/2026-03-14-hetzner-terraform-iac-design.md) | Terraform ile Hetzner Cloud altyapi yonetimi |
+| [Marka Kimligi Yenileme](superpowers/specs/2026-03-14-brand-identity-redesign-design.md) | Yeni beyaz/navy minimal marka kimligi tasarimi |
+| [Perde Hesaplayici Test Suiti](superpowers/specs/2026-03-14-curtain-calculator-test-suite-design.md) | Hesap makinesi eklentisi test altyapisi tasarimi |
+
+## Uygulama Planlari (superpowers/plans/)
+
+| Dosya | Icerik |
+|-------|--------|
+| [MVP Lansman Plani](superpowers/plans/2026-03-14-mvp-launch-plan.md) | Guncel uygulama plani ve lansman kontrol listesi |
+| [Perde Hesaplayici Eklenti](superpowers/plans/2026-03-14-curtain-calculator-plugin.md) | Hesap makinesi eklentisi uygulama plani |
+| [Hesaplayici Test Suiti](superpowers/plans/2026-03-14-curtain-calculator-test-suite.md) | Test suiti uygulama plani |
+
+## Benchmark Analizi (benchmark/)
+
+| Dosya | Icerik |
+|-------|--------|
+| [TAC Analiz](benchmark/tac/README.md) | TAC rakip analizi genel bakis |
+| [TAC Detayli Analiz](benchmark/tac/analysis.md) | TAC web sitesi detayli benchmark analizi |
+| [Guncelleme Plani](benchmark/update-plan.md) | TAC bulgularina dayali aksiyon plani (MVP plani ile guncellendi) |
 
 ---
 

@@ -83,11 +83,11 @@ TikTok'a baslamak icin diger kanallarda pozitif ROI elde edilmesi ve en az 10 vi
 
 ## Butce Dagilimi
 
-| Platform    | Aylik Butce | Paylasim |
-|-------------|-------------|----------|
-| Google Ads  | 2.500 TL    | %62.5    |
-| Meta Ads    | 1.500 TL    | %37.5    |
-| **Toplam**  | **4.000 TL**| **%100** |
+| Platform    | Aylik Butce | Paylasim | Not |
+|-------------|-------------|----------|-----|
+| Google Ads  | 2.500 TL    | %62.5    | |
+| Meta Ads    | 1.500 TL    | %37.5    | Retargeting (300 TL) 500+ ziyaretci sonrasi baslar; Ay 1'de efektif butce 1.200 TL |
+| **Toplam**  | **4.000 TL**| **%100** | |
 
 TikTok eklendiginde (Ay 3+), butce yeniden degerlendirilerek 1.000-1.500 TL ek butce ayrilacak.
 

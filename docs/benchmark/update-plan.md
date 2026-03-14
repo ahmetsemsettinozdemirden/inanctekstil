@@ -3,7 +3,8 @@
 
 > **Tarih:** 2026-03-14
 > **Referans:** [TAC Benchmark Analizi](tac/analysis.md)
-> **Mevcut Durum:** Site "Coming soon" modunda, Astra tema varsayilan, urun yok, icerik yok
+> **Durum:** ⚠️ Bu dokuman, benchmark analizi sirasindaki durumu yansitir. Guncel uygulama plani icin [MVP Lansman Plani](../superpowers/plans/2026-03-14-mvp-launch-plan.md) dokumanina bakiniz.
+> **Yazildigi Siradaki Durum:** Site "Coming soon" modunda, Astra tema varsayilan, urun yok, icerik yok. O zamandan bu yana plugin v2.0.0 deploy edildi ve WooCommerce yapilandirildi.
 
 ---
 
@@ -37,12 +38,12 @@ inanctekstil.store su an esasen bos bir WordPress/WooCommerce kurulumu:
 
 Astra tema Customizer uzerinden yapilandirilacak:
 
-**Renk Paleti Uygulamasi:**
-- Ana arka plan: Warm Sand White `#F5F0EB`
-- Metin rengi: Dark Earth `#5C4033`
-- Vurgu/CTA rengi: Cinnamon `#C17F59`
-- Ikincil arka plan: Adana Stone Gray `#D6CFC7`
-- Dekoratif aksanlar: Deep Olive `#6B7C5E`
+**Renk Paleti Uygulamasi:** (guncel palet icin [gorsel-kimlik.md](../brand/gorsel-kimlik.md) bakiniz)
+- Ana arka plan: Pure White `#FFFFFF`
+- Birincil/Marka: Deep Navy `#1B2A4A`
+- Govde metni: Charcoal `#333333`
+- Kenarliklar: Light Gray `#E5E5E5`
+- Hafif arka plan: Off-White `#F8F8F8`
 
 **Tipografi:**
 - Basliklar: Playfair Display (Google Fonts)
