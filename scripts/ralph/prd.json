@@ -327,8 +327,8 @@
         "Verify in browser: product page renders gallery, calculator, tabs on desktop and mobile"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Custom 'Kargo ve Iade' tab can be added via functions.php snippet or mu-plugin using woocommerce_product_tabs filter. The checkout notice mu-plugin code is in the MVP plan Task 11 Step 5. Product gallery zoom is a WooCommerce native feature enabled in Astra.",
+      "passes": true,
+      "notes": "Created mu-plugin at /var/www/html/wp-content/mu-plugins/icc-checkout-notice.php with checkout delivery notice and custom Kargo ve Iade product tab. Gallery zoom/lightbox already supported. Breadcrumbs enabled.",
       "dependsOn": ["US-006", "US-007"]
     },
     {

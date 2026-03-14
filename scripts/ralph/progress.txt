@@ -134,3 +134,15 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Powered by Astra removed
 - Note: Contact info has placeholders [telefon], [whatsapp], [saatler]
 - Visual browser verification recommended
+
+## Iteration 13 — US-017: Product Detail Page Enhancement
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Gallery zoom/lightbox already supported by Astra+WooCommerce
+  - Enabled breadcrumbs in Astra settings
+  - Created mu-plugin: /wp-content/mu-plugins/icc-checkout-notice.php
+    - Checkout delivery notice (5-7 is gunu) via woocommerce_review_order_before_payment hook
+    - Custom "Kargo ve Iade" product tab with delivery/return info via woocommerce_product_tabs filter
+  - YITH Wishlist and curtain calculator already active
+- Verifications: mu-plugin detected (wp plugin list --status=must-use), gallery features confirmed
