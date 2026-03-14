@@ -89,3 +89,14 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Deletes backups older than 14 days
   - Cron: `0 2 * * *` at 02:00 daily
   - Backup files from today verified: db-2026-03-14.sql, wp-content-2026-03-14.tar.gz, acme-2026-03-14.json
+
+## Iteration 9 — US-007: Astra Theme Colors and Typography
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Updated global color palette from brown (#C17F59 etc) to brand navy (#1B2A4A)
+  - Set palette: Primary #1B2A4A, Hover #2A3D5F, Text #333333, Surface #F8F8F8, Border #E5E5E5, White #FFFFFF
+  - Button border-radius changed from 6px to 4px
+  - Fonts were already correct: Inter body 16px, Playfair Display 700 headings
+- Verifications: wp eval confirmed all color/font/button settings via astra-settings option
+- Note: Visual browser verification recommended at 1440px and 375px

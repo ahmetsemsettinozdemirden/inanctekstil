@@ -133,8 +133,8 @@
         "Reference: docs/brand/gorsel-kimlik.md"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "Configure via wp-admin > Appearance > Customize > Global > Colors and Typography. Or use Astra's customizer API via wp option update.",
+      "passes": true,
+      "notes": "Updated global color palette from brown to navy brand colors. Fonts were already set (Inter body, Playfair Display headings). Button radius changed from 6px to 4px.",
       "dependsOn": ["US-006"]
     },
     {
