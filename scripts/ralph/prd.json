@@ -407,8 +407,8 @@
         "Verify: plugin settings saved without errors"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "Reference: docs/infrastructure/email-setup.md. If SMTP credentials are not yet available, configure the plugin structure and leave credentials blank — mark in notes for manual completion. Do NOT commit any credentials to git.",
+      "passes": true,
+      "notes": "WP Mail SMTP configured: from=info@inanctekstil.store, name=Inanc Tekstil, mailer=smtp. SMTP host/credentials need manual configuration (Resend or Google Workspace).",
       "dependsOn": ["US-006"]
     },
     {
@@ -424,8 +424,8 @@
         "Verify: docker exec wordpress wp plugin get wordfence --field=status --allow-root returns 'active'"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "Configure via wp-admin > Wordfence > All Options. Requires accepting Wordfence license terms. Free tier is sufficient.",
+      "passes": true,
+      "notes": "Wordfence active. Brute force: 5 max failures, 240min lockout. Rate limiting enabled. Firewall enabled. Security scan requires manual wp-admin run.",
       "dependsOn": ["US-006"]
     },
     {
@@ -441,8 +441,8 @@
         "Verify: Site Kit dashboard accessible at wp-admin > Site Kit"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "Site Kit requires Google account OAuth authentication via the wp-admin browser wizard. This cannot be fully automated via CLI. Activate plugin and prepare — manual auth step may be needed.",
+      "passes": true,
+      "notes": "Site Kit plugin active. Google OAuth authentication requires manual wp-admin wizard — cannot be automated via CLI. Plugin ready for setup.",
       "dependsOn": ["US-006"]
     },
     {

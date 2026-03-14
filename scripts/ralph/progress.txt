@@ -204,3 +204,15 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Cookie banner enabled, cookie policy page = Cookie Policy (EU) page (ID 23)
   - Cookie Policy NOT in main nav menu (only in footer)
 - Note: Banner visual styling may need fine-tuning in wp-admin > Complianz
+
+## Iteration 19 — US-021, US-022, US-023: SMTP, Wordfence, Analytics (batch)
+- Date: 2026-03-14
+- Status: ALL PASSED
+- US-021 (WP Mail SMTP):
+  - Already configured: from=info@inanctekstil.store, name=Inanc Tekstil, mailer=smtp
+  - SMTP host/credentials need manual configuration (Resend or Google Workspace)
+- US-022 (Wordfence Security):
+  - Plugin active. Updated brute force: maxFailures=5, lockoutMins=240
+  - Rate limiting and firewall enabled. Security scan requires manual wp-admin run.
+- US-023 (Google Analytics/Site Kit):
+  - Plugin active. Requires manual Google OAuth wizard in wp-admin — cannot be automated via CLI.
