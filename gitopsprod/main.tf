@@ -43,6 +43,8 @@ resource "hcloud_server" "web" {
 
   firewall_ids = [hcloud_firewall.web.id]
 
+  backups = true
+
   labels = {
     project = "inanctekstil"
     role    = "web"
