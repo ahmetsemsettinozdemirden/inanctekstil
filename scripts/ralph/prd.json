@@ -91,8 +91,8 @@
         "Verify: docker exec wordpress wp wc product_cat list --user=1 --allow-root shows all 4 categories"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "Use: docker exec wordpress wp wc product_cat create --name='Tul Perdeler' --slug='tul-perdeler' --user=1 --allow-root",
+      "passes": true,
+      "notes": "Categories created: Tul Perdeler (16), Fon Perdeler (17), Blackout Perdeler (18), Saten (19). Test products 12-14 did not exist.",
       "dependsOn": ["US-002"]
     },
     {

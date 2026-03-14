@@ -37,3 +37,11 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Guest checkout enabled, account creation at checkout and My Account
 - Most settings were already configured; added checkout login reminder
 - Verifications: Confirmed currency=TRY, country=TR:31, allowed_countries=specific, guest_checkout=yes
+
+## Iteration 4 — US-005: Product Categories
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Created 4 product categories: Tul Perdeler (16), Fon Perdeler (17), Blackout Perdeler (18), Saten (19)
+  - Test products 12-14 did not exist (nothing to delete)
+- Verifications: wp wc product_cat list shows all 4 categories with correct slugs
