@@ -62,6 +62,7 @@ services:
       - wp-content:/var/www/html/wp-content
       - wp-core:/var/www/html
       - ./wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - /opt/inanc-curtain-calculator:/var/www/html/wp-content/plugins/inanc-curtain-calculator:ro
     networks:
       - web
       - backend
