@@ -146,3 +146,14 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
     - Custom "Kargo ve Iade" product tab with delivery/return info via woocommerce_product_tabs filter
   - YITH Wishlist and curtain calculator already active
 - Verifications: mu-plugin detected (wp plugin list --status=must-use), gallery features confirmed
+
+## Iteration 14 — US-016: Shop Page Configuration
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Set shop grid: 3 columns desktop, 2 columns tablet/mobile
+  - Enabled left sidebar with Kategoriler (product_categories) and Fiyat Filtresi (price_filter) widgets
+  - Added Turkish descriptions for all 4 product categories
+  - Sort dropdown and result count toolbar configured
+  - Breadcrumbs already enabled from US-017
+- Verifications: wp wc product_cat list shows descriptions, widget list shows sidebar widgets

@@ -309,8 +309,8 @@
         "Verify in browser at 375px: shop page is usable on mobile"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Configure via Astra Customizer > WooCommerce > Shop/Product Catalog. Sidebar widgets via Appearance > Widgets. Category descriptions via Products > Categories > Edit each category.",
+      "passes": true,
+      "notes": "Shop grid 3-col desktop/2-col mobile, left sidebar with Kategoriler+Fiyat Filtresi widgets, breadcrumbs enabled, sort+results toolbar. Category descriptions added for all 4 categories.",
       "dependsOn": ["US-005", "US-006", "US-007"]
     },
     {
