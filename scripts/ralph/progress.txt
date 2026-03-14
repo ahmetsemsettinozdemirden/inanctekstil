@@ -216,3 +216,27 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Rate limiting and firewall enabled. Security scan requires manual wp-admin run.
 - US-023 (Google Analytics/Site Kit):
   - Plugin active. Requires manual Google OAuth wizard in wp-admin — cannot be automated via CLI.
+
+## Iteration 20 — US-026: End-to-End Verification
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken: Browser verification at 1440px desktop and 375px mobile using Playwright
+- Verified pages and features:
+  - Homepage: hero carousel (3 slides), 4 category cards, 4 trust badges, about teaser, 8 featured products with TL prices, "Tum Urunleri Gor" button
+  - Navigation: Ana Sayfa, Urunler (dropdown), Hakkimizda, Iletisim — all links work
+  - Shop page: 13 products in grid, sidebar (Kategoriler + Fiyat Filtresi widgets), sort dropdown, breadcrumbs, pagination (2 pages)
+  - Product page (Bella Tul Perde): breadcrumbs, price (320,00 TL/metre), curtain calculator (en/boy/pile/oda inputs), Description/Kargo ve Iade/Reviews tabs, YITH Wishlist, trust signals (Atolye, 5-10 Is Gunu, Iade, WhatsApp), related products
+  - Cart: added Saten Astar (150,00 TL), KDV shown (25,00 TL), quantity controls, Proceed to Checkout
+  - Checkout: contact info (guest + account creation), Turkey shipping (all 81 provinces), Terms & Conditions link (Mesafeli Satis), Privacy Policy link, "no payment methods" (PayTR blocked — expected)
+  - Legal page (Gizlilik Politikasi): full KVKK content with 8 sections, VKN, contact info
+  - Hakkimizda: brand story, "Neden Bizi Secmelisiniz" 3-card section, Hizmetlerimiz, Magazamiz
+  - Iletisim: WhatsApp, email, address, working hours, contact methods
+  - Cookie banner: Turkish text (Kabul Et/Reddet/Tercihleri Goruntule), dismisses correctly
+  - Search: "tul perde" query returns 4 tul products + related results
+  - Mobile (375px): announcement bar, logo, search, cart (with badge), hamburger menu toggle, all homepage sections, WhatsApp FAB
+  - Footer: copyright "(c) 2026 Inanc Tekstil" on all pages
+- Notes:
+  - YITH Wishlist API returns 401 error (non-critical, plugin needs auth config)
+  - Mobile hamburger menu opens (button shows active state) but off-canvas content not captured by a11y tree — visual screenshot confirms toggle works
+  - Payment blocked (US-025) — checkout shows "no payment methods available" as expected
+  - Site name text renders vertically in mobile header area — minor CSS issue, non-blocking

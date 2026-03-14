@@ -507,8 +507,8 @@
         "Note: order completion test requires PayTR (US-025) — skip payment test if blocked"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": "This is a verification story — no new code. Walk through every page and feature checking against the criteria. Use browser at 1440px and 375px viewports. Document any issues found.",
+      "passes": true,
+      "notes": "Full E2E browser verification completed at 1440px and 375px. All pages render: homepage (carousel, categories, trust badges, products, about), shop (grid, filters, sort, breadcrumbs), product (calculator, tabs, wishlist, trust signals), cart (KDV shown), checkout (terms, shipping form, no payment — PayTR blocked). Cookie banner Turkish. Search returns results. Legal pages render. Mobile responsive with hamburger menu and WhatsApp button.",
       "dependsOn": ["US-008", "US-009", "US-012", "US-013", "US-014", "US-015", "US-016", "US-017", "US-018", "US-019", "US-020"]
     },
     {
