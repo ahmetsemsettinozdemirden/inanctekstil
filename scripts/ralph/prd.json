@@ -38,8 +38,8 @@
         "Verify: docker exec wordpress wp option get woocommerce_default_country --allow-root returns TR:31"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "Reference: docs/ecommerce/woocommerce-setup.md for all WP-CLI commands.",
+      "passes": true,
+      "notes": "Most settings were already configured. Added checkout login reminder. Verified currency=TRY, country=TR:31, guest checkout=yes.",
       "dependsOn": ["US-001"]
     },
     {

@@ -24,3 +24,16 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - All 10 activated
 - Slug corrections: joinchat -> creame-whatsapp-me, starter-templates -> astra-sites
 - Verifications: wp plugin list --status=active shows all 10 plus existing plugins (14 total active)
+
+## Iteration 3 — US-002: WooCommerce Store Settings
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Set store address: Iskenderun, Hatay, TR:31, 31200
+  - Restricted sales and shipping to Turkey only
+  - Currency: TRY, right_space position, dot thousands, comma decimal, 2 decimals
+  - Weight: kg, Dimension: cm
+  - Reviews enabled, verified owners only
+  - Guest checkout enabled, account creation at checkout and My Account
+- Most settings were already configured; added checkout login reminder
+- Verifications: Confirmed currency=TRY, country=TR:31, allowed_countries=specific, guest_checkout=yes
