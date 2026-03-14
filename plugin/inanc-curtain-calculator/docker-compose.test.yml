@@ -1,0 +1,39 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress_test
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  phpunit:
+    image: php:8.2-cli
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      DB_NAME: wordpress_test
+      DB_USER: root
+      DB_PASS: root
+      DB_HOST: db
+      WP_TESTS_DIR: /tmp/wordpress-tests-lib
+      WP_CORE_DIR: /tmp/wordpress
+    entrypoint: >
+      bash -c "
+        apt-get update -qq &&
+        apt-get install -y -qq subversion unzip libzip-dev default-mysql-client > /dev/null 2>&1 &&
+        docker-php-ext-install mysqli pdo_mysql zip > /dev/null 2>&1 &&
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer > /dev/null 2>&1 &&
+        composer install --no-interaction --quiet &&
+        bash bin/install-wp-tests.sh wordpress_test root root db latest 9.0.0 &&
+        vendor/bin/phpunit --colors=always
+      "
