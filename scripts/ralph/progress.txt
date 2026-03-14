@@ -1,0 +1,16 @@
+# Ralph Progress Log
+Started: 2026-03-14
+PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
+---
+
+## Iteration 1 — US-001: WordPress Base Configuration
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Installed WP-CLI (wp-cli.phar) inside the wordpress container (not present by default)
+  - Set language to tr_TR (already was set)
+  - Set timezone to Europe/Istanbul (already was set)
+  - Set date format to d/m/Y, time format to H:i (already were set)
+  - Set permalink structure to /%postname%/ and flushed rewrite rules
+- Verifications: All 5 options confirmed via wp option get
+- Note: WP-CLI must be reinstalled if the container is recreated (not baked into the image)

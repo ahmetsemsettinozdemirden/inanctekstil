@@ -1,0 +1,537 @@
+{
+  "project": "inanc-tekstil",
+  "branchName": "ralph/ecommerce-storefront-mvp",
+  "description": "Transform inanctekstil.store from empty WooCommerce install into a fully functional, legally compliant custom curtain e-commerce store matching TAC-level UX quality. Server: Hetzner Docker (Traefik + WordPress + MariaDB + Redis). SSH: ssh -i ~/.ssh/inanctekstil root@5.75.165.158. WP-CLI prefix: docker exec wordpress wp ... --allow-root. Brand: Navy #1B2A4A on White #FFFFFF, Playfair Display + Inter fonts. Curtain calculator plugin v2.0.0 already deployed.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "WordPress Base Configuration",
+      "description": "As a store owner, I want WordPress configured for Turkish language, correct timezone, and SEO-friendly URLs so that the site feels native to Turkish customers.",
+      "acceptanceCriteria": [
+        "WordPress language set to tr_TR via: docker exec wordpress wp language core install tr_TR --allow-root && docker exec wordpress wp site switch-language tr_TR --allow-root",
+        "Timezone set to Europe/Istanbul via: docker exec wordpress wp option update timezone_string 'Europe/Istanbul' --allow-root",
+        "Date format set to d/m/Y, time format H:i",
+        "Permalink structure set to /%postname%/ via: docker exec wordpress wp rewrite structure '/%postname%/' --allow-root",
+        "Rewrite rules flushed via: docker exec wordpress wp rewrite flush --allow-root",
+        "Verify: docker exec wordpress wp option get WPLANG --allow-root returns tr_TR",
+        "Verify: docker exec wordpress wp option get permalink_structure --allow-root returns /%postname%/"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "SSH: ssh -i ~/.ssh/inanctekstil root@5.75.165.158. All WP-CLI commands need --allow-root flag. WP-CLI installed manually in container (curl phar).",
+      "dependsOn": []
+    },
+    {
+      "id": "US-002",
+      "title": "WooCommerce Store Settings",
+      "description": "As a store owner, I want WooCommerce configured with correct store address, currency, product settings, and guest checkout enabled so that the store operates correctly for Turkish customers.",
+      "acceptanceCriteria": [
+        "Store address set to Iskenderun, Hatay, TR:31, 31200",
+        "Sales restricted to Turkey only (woocommerce_allowed_countries = specific, woocommerce_specific_allowed_countries = [TR])",
+        "Shipping restricted to Turkey only (woocommerce_ship_to_countries = specific, woocommerce_specific_ship_to_countries = [TR])",
+        "Currency: TRY, position right_space, dot thousands sep, comma decimal sep, 2 decimal places",
+        "Weight unit: kg, Dimension unit: cm",
+        "Reviews enabled, verified owners only required",
+        "Guest checkout enabled",
+        "Account creation enabled at checkout and My Account page",
+        "Verify: docker exec wordpress wp option get woocommerce_currency --allow-root returns TRY",
+        "Verify: docker exec wordpress wp option get woocommerce_default_country --allow-root returns TR:31"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Reference: docs/ecommerce/woocommerce-setup.md for all WP-CLI commands.",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-003",
+      "title": "KDV Tax Configuration",
+      "description": "As a store owner, I want 20% KDV (VAT) configured with prices displayed tax-inclusive so that customers see final prices.",
+      "acceptanceCriteria": [
+        "Tax calculation enabled: woocommerce_calc_taxes = yes",
+        "Prices entered including tax: woocommerce_prices_include_tax = yes",
+        "Tax based on store base address: woocommerce_tax_based_on = base",
+        "Tax display in shop and cart: inclusive",
+        "Price display suffix: KDV dahil",
+        "Standard tax rate inserted: country TR, rate 20.0000, name KDV, applied to shipping",
+        "Verify: docker exec wordpress wp db query 'SELECT * FROM wp_woocommerce_tax_rates' --allow-root shows TR 20% KDV row"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Tax rate must be inserted via direct DB query. See MVP plan Task 2 Step 4 for exact SQL.",
+      "dependsOn": ["US-002"]
+    },
+    {
+      "id": "US-004",
+      "title": "Shipping Zones — Hatay Only",
+      "description": "As a store owner, I want shipping configured for Hatay province only with flat rate, free shipping threshold, and local pickup so that orders outside Hatay are blocked.",
+      "acceptanceCriteria": [
+        "Hatay shipping zone created covering postcodes 31000-31999",
+        "Flat rate method added: name 'Kargo ile Teslimat', cost 75 TL",
+        "Free shipping method added: name 'Ucretsiz Kargo', minimum order 1000 TL",
+        "Local pickup method added: name 'Elden Teslim (Iskenderun)', cost 0 TL",
+        "No shipping methods exist for 'Locations not covered by your other zones' (blocks non-Hatay orders)",
+        "Verify via browser: enter non-Hatay address at checkout, shipping shows no available methods",
+        "Reference: docs/ecommerce/shipping-delivery.md"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Shipping zones are easiest to configure via wp-admin UI: WooCommerce > Settings > Shipping > Shipping zones. WP-CLI can also work but is more complex.",
+      "dependsOn": ["US-002"]
+    },
+    {
+      "id": "US-005",
+      "title": "Product Categories",
+      "description": "As a store owner, I want product categories created for the 4 curtain types so that products are organized and filterable.",
+      "acceptanceCriteria": [
+        "Category 'Tul Perdeler' created with slug tul-perdeler",
+        "Category 'Fon Perdeler' created with slug fon-perdeler",
+        "Category 'Blackout Perdeler' created with slug blackout-perdeler",
+        "Category 'Saten' created with slug saten",
+        "Any existing test products (IDs 12, 13, 14 if they exist) deleted with --force flag",
+        "Verify: docker exec wordpress wp wc product_cat list --user=1 --allow-root shows all 4 categories"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Use: docker exec wordpress wp wc product_cat create --name='Tul Perdeler' --slug='tul-perdeler' --user=1 --allow-root",
+      "dependsOn": ["US-002"]
+    },
+    {
+      "id": "US-006",
+      "title": "Install Core Plugins",
+      "description": "As a store owner, I want all required plugins installed and activated so that the store has search, wishlist, slider, chat, image optimization, email, analytics, security, and compliance functionality.",
+      "acceptanceCriteria": [
+        "ajax-search-for-woocommerce (FiboSearch) installed and active",
+        "yith-woocommerce-wishlist installed and active",
+        "smart-slider-3 installed and active",
+        "joinchat (Join.chat WhatsApp) installed and active",
+        "shortpixel-image-optimiser installed and active",
+        "wp-mail-smtp installed and active",
+        "complianz-gdpr installed and active",
+        "google-site-kit installed and active",
+        "wordfence installed and active",
+        "starter-templates installed and active",
+        "Verify: docker exec wordpress wp plugin list --status=active --allow-root shows all 10 plugins active"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Single command: docker exec wordpress wp plugin install ajax-search-for-woocommerce yith-woocommerce-wishlist smart-slider-3 joinchat shortpixel-image-optimiser wp-mail-smtp complianz-gdpr google-site-kit wordfence starter-templates --activate --allow-root",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-007",
+      "title": "Astra Theme Colors and Typography",
+      "description": "As a visitor, I want the site to use the Inanc Tekstil brand identity (navy #1B2A4A on white #FFFFFF, Playfair Display headings, Inter body) so that it looks professional and matches the brand guidelines.",
+      "acceptanceCriteria": [
+        "Astra global colors set: Primary #1B2A4A (Deep Navy), Background #FFFFFF, Text #333333, Accent/links #1B2A4A, Border #E5E5E5, Surface #F8F8F8",
+        "Heading font set to Playfair Display weight 700 via Astra Customizer > Global > Typography",
+        "Body font set to Inter weight 400/600 via Astra Customizer > Global > Typography",
+        "Base font size: 16px",
+        "Button style: background #1B2A4A, text white, border-radius 4px",
+        "Link color: #1B2A4A with hover state slightly lighter",
+        "Verify in browser: homepage displays Playfair Display headings, Inter body text, navy accents",
+        "Verify in browser at 375px: typography is readable on mobile",
+        "Reference: docs/brand/gorsel-kimlik.md"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Configure via wp-admin > Appearance > Customize > Global > Colors and Typography. Or use Astra's customizer API via wp option update.",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-008",
+      "title": "Astra Header Builder",
+      "description": "As a visitor, I want a professional header with announcement bar, logo, search bar, account/wishlist/cart icons, and navigation menu so that I can easily browse and shop.",
+      "acceptanceCriteria": [
+        "Above Header row: promo text 'Olcunuze Ozel Dikim Perde — Hatay Icine 1000 TL Uzeri Ucretsiz Kargo' with background #F8F8F8, text centered",
+        "Primary Header: Logo left (upload SVG from docs/brand/assets/logo/inanc-tekstil-logo.svg, max 200px wide)",
+        "Primary Header: FiboSearch search bar in center position",
+        "Primary Header: Account icon + YITH Wishlist icon + WooCommerce cart icon with badge in right position",
+        "Below Header: Navigation menu 'Ana Menu' with items: Ana Sayfa, Tul Perdeler, Fon Perdeler, Blackout, Saten, Hakkimizda, Iletisim",
+        "Sticky header enabled",
+        "Mobile: hamburger menu triggers off-canvas drawer with full navigation",
+        "Mobile: search bar accessible from header",
+        "Verify in browser at 1440px: header shows all elements correctly",
+        "Verify in browser at 375px: hamburger menu, search, cart icon visible"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Configure via wp-admin > Appearance > Customize > Header Builder. FiboSearch adds its own widget for header. YITH Wishlist adds a shortcode/widget. Navigation menu must be created first (see US-010).",
+      "dependsOn": ["US-007", "US-010"]
+    },
+    {
+      "id": "US-009",
+      "title": "Astra Footer Builder",
+      "description": "As a visitor, I want a professional 4-column footer with navigation, customer service links, legal links, contact info, and payment icons.",
+      "acceptanceCriteria": [
+        "Footer widget area with 4 columns configured via Astra footer builder",
+        "Col 1: Site title or logo + short text 'Iskenderun'da 30 yildir olcuye ozel perde dikimi' + Instagram link placeholder",
+        "Col 2: 'Hizli Linkler' heading with links: Ana Sayfa, Urunler (shop), Hakkimizda, Iletisim",
+        "Col 3: 'Musteri Hizmetleri' heading with links: Iade Politikasi, KVKK/Gizlilik, Mesafeli Satis Sozlesmesi, Cerez Politikasi",
+        "Col 4: 'Iletisim' heading with: Iskenderun Hatay (address placeholder), Telefon (placeholder), WhatsApp (placeholder), Calisma Saatleri (placeholder)",
+        "Footer bottom bar: '(c) 2026 Inanc Tekstil' left side, payment icons text 'Visa | Mastercard | Troy' right side",
+        "'Powered by Astra' text removed or replaced",
+        "Verify in browser: footer renders 4 columns on desktop, single column on mobile (375px)"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Configure via wp-admin > Appearance > Customize > Footer Builder. Legal page links depend on US-011 being done. Use WordPress widgets (Navigation Menu, Text, Custom HTML) in footer widget areas.",
+      "dependsOn": ["US-007", "US-011"]
+    },
+    {
+      "id": "US-010",
+      "title": "Essential Pages and Navigation Menu",
+      "description": "As a store owner, I want all essential static pages created and linked in the navigation menu so that the site structure is complete.",
+      "acceptanceCriteria": [
+        "'Ana Sayfa' page created and set as static front page (show_on_front = page)",
+        "'Hakkimizda' page created with placeholder content: family story about Hatice and Huseyin Ozdemirden, 30 years experience, Iskenderun workshop",
+        "'Iletisim' page created with placeholder content: address, phone, WhatsApp, Google Maps embed placeholder, working hours",
+        "WooCommerce shop page verified as existing",
+        "Navigation menu 'Ana Menu' created with items: Ana Sayfa, Tul Perdeler (category), Fon Perdeler (category), Blackout (category), Saten (category), Hakkimizda, Iletisim",
+        "Menu assigned to Astra primary menu location",
+        "Footer menu 'Footer Menu' created (empty for now — legal pages added in US-011)",
+        "Verify: docker exec wordpress wp option get show_on_front --allow-root returns 'page'",
+        "Verify: docker exec wordpress wp menu list --allow-root shows 'Ana Menu' and 'Footer Menu'"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Category menu items require US-005 categories to exist. Use wp menu item add-taxonomy for category links. Reference: docs/superpowers/plans/2026-03-14-mvp-launch-plan.md Task 4.",
+      "dependsOn": ["US-001", "US-005"]
+    },
+    {
+      "id": "US-011",
+      "title": "Legal Pages",
+      "description": "As a store owner, I want all legally required pages created with content from the legal templates so that the site is compliant with Turkish e-commerce law.",
+      "acceptanceCriteria": [
+        "'Gizlilik Politikasi' page created and populated with content from docs/legal/kvkk-gizlilik-politikasi.md",
+        "'Mesafeli Satis Sozlesmesi' page created and populated with content from docs/legal/mesafeli-satis-sozlesmesi.md",
+        "'Iade Politikasi' page created and populated with content from docs/legal/iade-politikasi.md",
+        "'Cerez Politikasi' page created and populated with content from docs/legal/cerez-politikasi.md",
+        "'On Bilgilendirme Formu' page created and populated with content from docs/legal/on-bilgilendirme-formu.md",
+        "Privacy policy linked in WooCommerce: wp_page_for_privacy_policy set to Gizlilik Politikasi page ID",
+        "WooCommerce terms page set to Mesafeli Satis Sozlesmesi page ID",
+        "All 5 legal pages added to 'Footer Menu' and menu assigned to footer location",
+        "Verify in browser: each legal page renders with Turkish content"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Legal template files are in docs/legal/. Content has placeholder values ([ADRES], [TELEFON], etc.) that should remain as-is for now — store owner will replace manually. Use WP-CLI wp post create with --post_content from file.",
+      "dependsOn": ["US-010"]
+    },
+    {
+      "id": "US-012",
+      "title": "Homepage — Hero Carousel",
+      "description": "As a visitor, I want to see an engaging hero carousel on the homepage with 2-3 slides showcasing the brand's value propositions.",
+      "acceptanceCriteria": [
+        "Smart Slider 3 slider created with 3 slides",
+        "Slide 1: Navy (#1B2A4A) background, white text: '30 Yildir Iskenderun'un Perde Uzmani — Olcunuze Ozel Dikim' + CTA button 'Urunleri Inceleyin' linking to shop page",
+        "Slide 2: White background, navy text: 'Her Pencereye Ozel, Her Eve Uygun' + subtitle about custom measurement calculator",
+        "Slide 3: Off-white (#F8F8F8) background: 'Kendi Atolyemizde, Kendi Elimizle Dikiyoruz' + CTA 'Hakkimizda' linking to about page",
+        "Slider settings: full width, 400-520px height, left/right arrows, auto-play 5 seconds",
+        "Slider embedded on 'Ana Sayfa' page at the top",
+        "Verify in browser: carousel renders, auto-plays, and arrows work on desktop",
+        "Verify in browser at 375px: slides readable and properly scaled on mobile"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Smart Slider 3 has a visual editor at wp-admin > Smart Slider. Use simple text+background slides (no images needed yet). Embed via shortcode on the Ana Sayfa page.",
+      "dependsOn": ["US-006", "US-007", "US-010"]
+    },
+    {
+      "id": "US-013",
+      "title": "Homepage — Category Cards",
+      "description": "As a visitor, I want to see 4 curtain category cards on the homepage so that I can quickly navigate to the product type I'm interested in.",
+      "acceptanceCriteria": [
+        "4 category cards displayed in responsive grid on Ana Sayfa page below the hero carousel",
+        "Cards for: Tul Perdeler, Fon Perdeler, Blackout Perdeler, Saten",
+        "Each card: solid color placeholder background or simple CSS-styled card, category name as heading, 'Urunleri Gor' text or button as CTA",
+        "Each card links to corresponding WooCommerce product category archive page",
+        "Grid: 4 columns on desktop (>1024px), 2 columns on tablet/mobile",
+        "Cards styled with brand colors: navy text, white or off-white (#F8F8F8) card backgrounds, subtle border or shadow",
+        "Verify in browser: cards render in grid and links work on desktop and mobile"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Can be built with WordPress block editor (Columns block or WooCommerce Product Categories block) or Astra's shortcodes. Keep it simple — no images needed yet.",
+      "dependsOn": ["US-005", "US-007", "US-010"]
+    },
+    {
+      "id": "US-014",
+      "title": "Homepage — Trust Badges and About Section",
+      "description": "As a visitor, I want to see trust signals and a brief about section on the homepage so that I feel confident shopping from this store.",
+      "acceptanceCriteria": [
+        "Trust badges section on Ana Sayfa with 4 items in a responsive row",
+        "Badge 1: '30 Yillik Tecrube' with short description",
+        "Badge 2: 'Kendi Atolyemizde Imalat' with short description",
+        "Badge 3: 'Olcuye Ozel Dikim' with short description",
+        "Badge 4: '1000 TL Uzeri Ucretsiz Kargo' with short description",
+        "Each badge: icon placeholder (emoji or dashicon) above, title below, 1-line description",
+        "Grid: 4 columns desktop, 2 columns mobile",
+        "About teaser section below trust badges: short paragraph about Hatice and Huseyin Ozdemirden + 'Hikayemizi Okuyun' button linking to Hakkimizda page",
+        "Styled with brand colors (navy headings, charcoal text)",
+        "Verify in browser: sections render on desktop and mobile (375px)"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Build with WordPress block editor on Ana Sayfa page. Columns block for trust badges, Paragraph + Button block for about teaser. Keep styling minimal and brand-consistent.",
+      "dependsOn": ["US-007", "US-010"]
+    },
+    {
+      "id": "US-015",
+      "title": "Homepage — Featured Products Grid",
+      "description": "As a visitor, I want to see featured products on the homepage so that I can browse popular items without navigating to the shop.",
+      "acceptanceCriteria": [
+        "'One Cikan Urunler' heading added to Ana Sayfa page",
+        "WooCommerce product grid added below heading (shortcode [products limit='8' columns='4'] or WooCommerce blocks)",
+        "Grid: 4 columns desktop, 2 columns mobile",
+        "Products show: image, title, price, rating (if any)",
+        "'Tum Urunleri Gor' button below grid linking to shop page (/urunler or WooCommerce shop slug)",
+        "Note: grid will be empty until real products are added — empty state is acceptable",
+        "Verify in browser: section renders with heading, grid area, and button on desktop and mobile"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Use WooCommerce shortcode or blocks. Products will appear once US-005 categories exist and real products are added later (not part of this PRD — photography dependency).",
+      "dependsOn": ["US-005", "US-007", "US-010"]
+    },
+    {
+      "id": "US-016",
+      "title": "Shop Page Configuration",
+      "description": "As a visitor, I want a professional shop/listing page with product grid, filters, sorting, and breadcrumbs so that I can browse and find products easily.",
+      "acceptanceCriteria": [
+        "Breadcrumbs enabled in Astra: Anasayfa > category name displayed on shop and category pages",
+        "Product result count displayed on shop page",
+        "Sort dropdown enabled with options: popularity, rating, price low-high, price high-low, newest",
+        "Product grid: 3 columns desktop, 2 columns mobile (configured in Astra > Customize > WooCommerce > Shop)",
+        "Sidebar enabled with WooCommerce widgets: Product Categories filter + Price Filter",
+        "YITH Wishlist heart icon appears on product cards in the grid",
+        "Category descriptions added for each of the 4 categories (2-3 sentences in Turkish about the curtain type, entered via wp-admin > Products > Categories > Edit)",
+        "Verify in browser: shop page renders with grid, filters, sort, breadcrumbs on desktop",
+        "Verify in browser at 375px: shop page is usable on mobile"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Configure via Astra Customizer > WooCommerce > Shop/Product Catalog. Sidebar widgets via Appearance > Widgets. Category descriptions via Products > Categories > Edit each category.",
+      "dependsOn": ["US-005", "US-006", "US-007"]
+    },
+    {
+      "id": "US-017",
+      "title": "Product Detail Page Enhancement",
+      "description": "As a visitor, I want an enhanced product page with image gallery zoom, accordion tabs for details/care/shipping, and the curtain calculator prominently displayed.",
+      "acceptanceCriteria": [
+        "Image gallery with zoom/lightbox enabled via Astra WooCommerce settings",
+        "Curtain calculator section (already deployed via inanc-curtain-calculator plugin v2.0.0) is visually prominent — not hidden or collapsed",
+        "WooCommerce product tabs present with customized content: Tab 1 'Urun Detaylari' (default Description tab), Tab 2 'Bakim Bilgileri' (Additional Information or custom tab with care instructions placeholder), Tab 3 'Kargo ve Iade' (custom tab with content: 5-7 is gunu teslimat, sadece Hatay, iade kosullari from docs/ecommerce/shipping-delivery.md)",
+        "YITH Wishlist button appears on single product page",
+        "Breadcrumbs show: Anasayfa > Category > Product Name",
+        "Checkout delivery notice mu-plugin installed: creates /var/www/html/wp-content/mu-plugins/icc-checkout-notice.php with woocommerce_review_order_before_payment hook showing '5-7 is gunu' notice",
+        "Verify in browser: product page renders gallery, calculator, tabs on desktop and mobile"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Custom 'Kargo ve Iade' tab can be added via functions.php snippet or mu-plugin using woocommerce_product_tabs filter. The checkout notice mu-plugin code is in the MVP plan Task 11 Step 5. Product gallery zoom is a WooCommerce native feature enabled in Astra.",
+      "dependsOn": ["US-006", "US-007"]
+    },
+    {
+      "id": "US-018",
+      "title": "Cart and Checkout Pages",
+      "description": "As a customer, I want a functional cart and checkout flow with quantity controls, shipping options, and a clear order summary.",
+      "acceptanceCriteria": [
+        "Cart page displays: product image, title, curtain meta (measurements, pile ratio from calculator plugin), quantity controls, line totals",
+        "Cart page has coupon code field visible",
+        "Cart page shows totals: subtotal, shipping, tax (KDV), total",
+        "Cart page has 'Odemeye Gec' button linking to checkout",
+        "Checkout page has billing fields: ad, soyad, adres, sehir, ilce, posta kodu, telefon, e-posta",
+        "Checkout page shows shipping options from Hatay zone (Kargo 75TL, Ucretsiz 1000TL+, Elden Teslim)",
+        "Checkout page shows delivery notice '5-7 is gunu' before payment section (from mu-plugin in US-017)",
+        "Checkout page has Mesafeli Satis Sozlesmesi checkbox (WooCommerce terms page set in US-011)",
+        "Order review summary visible on checkout",
+        "Payment section shows default WooCommerce message (PayTR added later in US-025)",
+        "Verify in browser: cart and checkout render correctly on desktop and mobile (375px)"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "WooCommerce creates cart and checkout pages automatically. This story is about verifying they work correctly with our tax, shipping, and legal configurations. May need to switch to WooCommerce block-based cart/checkout for modern layout.",
+      "dependsOn": ["US-003", "US-004", "US-011"]
+    },
+    {
+      "id": "US-019",
+      "title": "Mobile Responsiveness and WhatsApp Button",
+      "description": "As a mobile visitor, I want the entire site to be fully responsive with a sticky header, hamburger menu, and a WhatsApp chat button.",
+      "acceptanceCriteria": [
+        "Sticky header enabled on mobile (does not scroll off-screen)",
+        "Hamburger menu icon visible on mobile, opens off-canvas drawer with full navigation",
+        "Product grid shows 2 columns on screens < 768px",
+        "All interactive elements have minimum 44px touch targets",
+        "Cart icon with badge count visible in mobile header",
+        "Search accessible from mobile header (FiboSearch)",
+        "Join.chat configured: WhatsApp floating button visible bottom-right, ~60px diameter",
+        "Join.chat default message: 'Merhaba! Size nasil yardimci olabiliriz?'",
+        "Join.chat WhatsApp number: set to placeholder '905551234567' (to be updated with real number)",
+        "Footer collapses to single column layout on mobile",
+        "Verify in browser at 375px: homepage, shop, product page, cart all render correctly",
+        "Verify: WhatsApp button visible and tappable on mobile"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Join.chat settings at wp-admin > Join.chat. Astra mobile settings at Customize > Header Builder (mobile tab). Most responsive behavior is handled by Astra defaults — this story verifies and tweaks.",
+      "dependsOn": ["US-006", "US-008"]
+    },
+    {
+      "id": "US-020",
+      "title": "Complianz Cookie Consent — Turkish",
+      "description": "As a visitor, I want a Turkish-language cookie consent banner so that the site is KVKK/GDPR compliant.",
+      "acceptanceCriteria": [
+        "Complianz wizard completed: region set to Turkey/Europe",
+        "Cookie banner language set to Turkish",
+        "Banner displays Turkish text: 'Bu site cerezleri kullanmaktadir' or similar",
+        "Banner has options: Kabul Et (Accept), Reddet (Reject), Ayarlar (Settings)",
+        "Cookie policy page linked to 'Cerez Politikasi' page created in US-011",
+        "Any 'Cookie Policy (EU)' link removed from navigation menus",
+        "Verify in browser (incognito): cookie banner appears on first visit with Turkish text",
+        "Verify: banner disappears after clicking Kabul Et"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Configure via wp-admin > Complianz > Wizard. Run through all wizard steps. Then verify on frontend in incognito window.",
+      "dependsOn": ["US-006", "US-011"]
+    },
+    {
+      "id": "US-021",
+      "title": "WP Mail SMTP Configuration",
+      "description": "As a store owner, I want email delivery configured so that order confirmation and notification emails are reliably sent.",
+      "acceptanceCriteria": [
+        "WP Mail SMTP plugin configured with From email: info@inanctekstil.store, From name: Inanc Tekstil",
+        "SMTP mailer configured (Resend or Google Workspace — check docs/infrastructure/email-setup.md for available credentials)",
+        "If no SMTP credentials available: configure with 'Other SMTP' and leave host/credentials as placeholder, document in notes",
+        "Test email sent from WP Mail SMTP > Tools > Email Test (if credentials available)",
+        "Verify: plugin settings saved without errors"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Reference: docs/infrastructure/email-setup.md. If SMTP credentials are not yet available, configure the plugin structure and leave credentials blank — mark in notes for manual completion. Do NOT commit any credentials to git.",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-022",
+      "title": "Wordfence Security Configuration",
+      "description": "As a store owner, I want basic security hardening so that the site is protected from brute-force attacks and common threats.",
+      "acceptanceCriteria": [
+        "Wordfence plugin activated and initial setup completed",
+        "Brute force protection enabled",
+        "Lockout after 5 failed login attempts",
+        "Rate limiting enabled",
+        "Initial security scan run and results reviewed",
+        "Verify: docker exec wordpress wp plugin get wordfence --field=status --allow-root returns 'active'"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Configure via wp-admin > Wordfence > All Options. Requires accepting Wordfence license terms. Free tier is sufficient.",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-023",
+      "title": "Google Analytics and Search Console",
+      "description": "As a store owner, I want Google Analytics and Search Console connected so that I can track visitors and search performance.",
+      "acceptanceCriteria": [
+        "Site Kit by Google plugin activated",
+        "Google Analytics 4 property connected (or setup wizard started if Google auth not possible from CLI)",
+        "Google Search Console connected (or setup wizard started)",
+        "Enhanced e-commerce tracking enabled in GA4 settings",
+        "If Google auth not possible: document that manual wp-admin authentication is required, leave plugin activated and ready",
+        "Verify: Site Kit dashboard accessible at wp-admin > Site Kit"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Site Kit requires Google account OAuth authentication via the wp-admin browser wizard. This cannot be fully automated via CLI. Activate plugin and prepare — manual auth step may be needed.",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-024",
+      "title": "Backup Automation",
+      "description": "As a store owner, I want automated daily backups of the database and wp-content so that I can recover from any failure.",
+      "acceptanceCriteria": [
+        "Backup directory created: /opt/backups/ on the server",
+        "Backup script created at /opt/backups/daily-backup.sh with: MariaDB dump, wp-content tar.gz, acme.json copy",
+        "Script deletes backups older than 14 days",
+        "Script is executable (chmod +x)",
+        "Cron job added: daily at 02:00 running the backup script",
+        "Manual test run succeeds: /opt/backups/daily-backup.sh creates backup files",
+        "Verify: ls /opt/backups/ shows db-YYYY-MM-DD.sql, wp-content-YYYY-MM-DD.tar.gz, acme-YYYY-MM-DD.json",
+        "Reference: docs/infrastructure/backup-recovery.md"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Server-side only. SSH required. MYSQL_ROOT_PASSWORD comes from /opt/inanctekstil/.env. Exact script in MVP plan Task 13.",
+      "dependsOn": []
+    },
+    {
+      "id": "US-025",
+      "title": "PayTR Payment Gateway (BLOCKED)",
+      "description": "As a customer, I want to pay with credit/debit card via PayTR so that I can complete purchases online.",
+      "acceptanceCriteria": [
+        "BLOCKED: Requires PayTR merchant approval with Merchant ID, Key, and Salt from paytr.com (3-5 business days)",
+        "PayTR WooCommerce plugin ZIP uploaded to server and installed via WP-CLI",
+        "PayTR credentials set in wp-config.php: PAYTR_MERCHANT_ID, PAYTR_MERCHANT_KEY, PAYTR_MERCHANT_SALT",
+        "PayTR enabled in WooCommerce > Payments with title 'Kredi Karti / Banka Karti ile Ode'",
+        "Payment type: iFrame, Language: Turkish, Installments: enabled",
+        "Test mode enabled initially",
+        "Sandbox test payment succeeds with card 4355 0843 5508 4358, expiry 12/30, CVV 000, 3D password: a",
+        "Order status updates to 'Isleniyor' on successful payment",
+        "Failed payment shows error message",
+        "After all tests pass: switch to live mode",
+        "'Taksit Secenekleri' tab added to product pages",
+        "Reference: docs/ecommerce/paytr-integration.md"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "BLOCKED on external dependency: PayTR merchant approval. Plugin ZIP must be downloaded from PayTR panel. Do NOT commit merchant credentials to git. Skip this story until credentials are available.",
+      "dependsOn": ["US-002", "US-018"]
+    },
+    {
+      "id": "US-026",
+      "title": "End-to-End Verification",
+      "description": "As a store owner, I want a complete end-to-end test of the entire site to verify everything works together before launch.",
+      "acceptanceCriteria": [
+        "Homepage: hero carousel, category cards, trust badges, featured products, about teaser, footer all render",
+        "Navigation: all menu items work (Ana Sayfa, 4 categories, Hakkimizda, Iletisim)",
+        "Shop page: product grid, category filter, price filter, sort, breadcrumbs functional",
+        "Product page: image gallery, calculator, tabs (details, care, shipping), wishlist, add-to-cart functional",
+        "Cart: items display with curtain meta, quantities adjustable, totals correct with KDV",
+        "Checkout: billing fields, Hatay shipping options, delivery notice, terms checkbox present",
+        "Legal pages: all 5 pages render with Turkish content from templates",
+        "Cookie banner: appears in incognito browser with Turkish text",
+        "Mobile (375px): all pages render correctly, hamburger menu works, WhatsApp button visible",
+        "Footer: 4 columns render, all links work, payment text visible",
+        "Search: FiboSearch active and returns results page (empty results acceptable if no products)",
+        "Blocked shipping: non-Hatay address shows no shipping methods available",
+        "Note: order completion test requires PayTR (US-025) — skip payment test if blocked"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "This is a verification story — no new code. Walk through every page and feature checking against the criteria. Use browser at 1440px and 375px viewports. Document any issues found.",
+      "dependsOn": ["US-008", "US-009", "US-012", "US-013", "US-014", "US-015", "US-016", "US-017", "US-018", "US-019", "US-020"]
+    },
+    {
+      "id": "US-027",
+      "title": "Pre-Launch Checklist",
+      "description": "As a store owner, I want all final checks completed before going live.",
+      "acceptanceCriteria": [
+        "All test products deleted — only real products remain (or no products if photos not ready yet)",
+        "WP_DEBUG set to false or WP_DEBUG_LOG only (not displaying errors on frontend)",
+        "Admin password verified as strong (not default)",
+        "Wordfence security scan returns clean results",
+        "SSL certificate valid and auto-renewing (Let's Encrypt via Traefik)",
+        "Backup cron job running: verify via 'crontab -l' on server shows daily 02:00 job",
+        "All 5 legal pages populated with content (placeholder business details are acceptable — documented for manual update)",
+        "Google Analytics tracking confirmed active (or ready for manual auth)",
+        "Email delivery tested (or documented as needing SMTP credentials)",
+        "Contact info placeholders documented in a checklist for store owner to update manually",
+        "'Coming soon' or maintenance mode disabled if currently active"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "Final verification story. Check each item, document status. Create a handoff note listing any remaining manual steps (PayTR credentials, SMTP credentials, real phone/address, product photos).",
+      "dependsOn": ["US-026"]
+    }
+  ]
+}
