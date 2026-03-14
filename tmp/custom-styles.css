@@ -268,7 +268,27 @@ a.wp-block-button__link:hover {
     width: 100% !important;
 }
 
+/* ===== FOOTER HIZLI LINKLER LEFT ALIGN ===== */
+.site-footer-primary-section-2 .ast-builder-html-element {
+    text-align: left !important;
+}
+
 /* ===== FOOTER PAYMENT ICONS ===== */
+.site-below-footer-wrap .ast-builder-footer-grid-columns {
+    display: block !important;
+    text-align: center !important;
+}
+.site-below-footer-wrap .site-footer-section {
+    width: 100% !important;
+    text-align: center !important;
+}
+.site-below-footer-wrap .ast-footer-copyright {
+    text-align: center !important;
+    justify-content: center !important;
+}
+.ast-footer-copyright p {
+    text-align: center !important;
+}
 .ast-footer-copyright p span {
     display: inline-flex !important;
     align-items: center !important;
@@ -300,5 +320,10 @@ a.wp-block-button__link:hover {
         max-width: 250px !important;
         padding: 12px 24px !important;
         font-size: 14px !important;
+    }
+    .site-primary-footer-wrap .ast-builder-grid-row-container-inner,
+    .site-below-footer-wrap .ast-builder-grid-row-container-inner {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 }
