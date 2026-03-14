@@ -248,6 +248,23 @@ a.wp-block-button__link:hover {
     background-color: #2A3D5F !important;
 }
 
+/* ===== HEADER SEARCH BAR ===== */
+.site-primary-header-wrap .ast-builder-grid-row {
+    grid-template-columns: auto 1fr auto !important;
+}
+.site-primary-header-wrap .site-header-primary-section-center .ast-header-html,
+.site-primary-header-wrap .site-header-primary-section-center .ast-builder-html-element,
+.site-primary-header-wrap .site-header-primary-section-center .ast-builder-layout-element {
+    width: 100% !important;
+    max-width: 600px !important;
+}
+.dgwt-wcas-search-wrapp {
+    width: 100% !important;
+}
+.dgwt-wcas-search-input {
+    width: 100% !important;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .inanc-hero {
