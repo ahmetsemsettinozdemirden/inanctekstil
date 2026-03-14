@@ -460,8 +460,8 @@
         "Reference: docs/infrastructure/backup-recovery.md"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "Server-side only. SSH required. MYSQL_ROOT_PASSWORD comes from /opt/inanctekstil/.env. Exact script in MVP plan Task 13.",
+      "passes": true,
+      "notes": "Already configured. Script at /opt/backups/daily-backup.sh, cron at 02:00 daily. Backup files verified for 2026-03-14.",
       "dependsOn": []
     },
     {

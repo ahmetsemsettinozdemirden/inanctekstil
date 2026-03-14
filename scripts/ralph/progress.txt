@@ -80,3 +80,12 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Ana Menu (ID 20) at primary location: Ana Sayfa, Urunler, 4 categories, Hakkimizda, Iletisim
   - Footer menu "Yasal Bilgiler" (ID 21) at footer_menu location with 5 legal pages
 - Verifications: wp post list, wp menu list, wp menu item list, show_on_front=page, page_on_front=16
+
+## Iteration 8 — US-024: Backup Automation
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken: All already configured (no changes needed)
+  - Script at /opt/backups/daily-backup.sh: MariaDB dump, wp-content tar.gz, acme.json copy
+  - Deletes backups older than 14 days
+  - Cron: `0 2 * * *` at 02:00 daily
+  - Backup files from today verified: db-2026-03-14.sql, wp-content-2026-03-14.tar.gz, acme-2026-03-14.json
