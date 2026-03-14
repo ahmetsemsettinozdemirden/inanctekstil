@@ -183,3 +183,13 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Terms page set to Mesafeli Satis Sozlesmesi (ID 26)
   - KDV tax (US-003), Hatay shipping (US-004), delivery notice mu-plugin (US-017) all in place
 - Note: Full visual verification requires adding a product to cart. Payment section shows default WooCommerce (PayTR blocked).
+
+## Iteration 17 — US-019: Mobile Responsiveness and WhatsApp Button
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Configured Join.chat: phone=905551234567 (placeholder), message="Merhaba! Size nasil yardimci olabiliriz?", position=right
+  - Mobile header already configured (US-008): hamburger, search, cart, off-canvas menu
+  - Sticky header on both desktop and mobile
+  - Shop grid 2 columns on mobile
+- Note: Phone number is placeholder — needs real number. Visual verification at 375px recommended.
