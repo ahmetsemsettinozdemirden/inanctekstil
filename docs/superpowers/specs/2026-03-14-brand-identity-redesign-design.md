@@ -176,31 +176,31 @@ Stacked layout (secondary, for square formats):
 
 | File | Path | Description |
 |------|------|-------------|
-| `inanc-tekstil-logo.svg` | `brand-assets/logo/` | Horizontal, navy on white |
-| `inanc-tekstil-logo-white.svg` | `brand-assets/logo/` | Horizontal, white (for dark BG) |
-| `inanc-tekstil-icon.svg` | `brand-assets/logo/` | Icon only, navy |
-| `inanc-tekstil-icon-white.svg` | `brand-assets/logo/` | Icon only, white |
-| `inanc-tekstil-logo-stacked.svg` | `brand-assets/logo/` | Stacked, navy on white |
-| `inanc-tekstil-logo-stacked-white.svg` | `brand-assets/logo/` | Stacked, white (for dark BG) |
+| `inanc-tekstil-logo.svg` | `docs/brand-assets/logo/` | Horizontal, navy on white |
+| `inanc-tekstil-logo-white.svg` | `docs/brand-assets/logo/` | Horizontal, white (for dark BG) |
+| `inanc-tekstil-icon.svg` | `docs/brand-assets/logo/` | Icon only, navy |
+| `inanc-tekstil-icon-white.svg` | `docs/brand-assets/logo/` | Icon only, white |
+| `inanc-tekstil-logo-stacked.svg` | `docs/brand-assets/logo/` | Stacked, navy on white |
+| `inanc-tekstil-logo-stacked-white.svg` | `docs/brand-assets/logo/` | Stacked, white (for dark BG) |
 
 ### Favicon and Touch Icons
 
 | File | Path | Specs |
 |------|------|-------|
-| `favicon.svg` | `brand-assets/favicon/` | SVG favicon for modern browsers (copy of icon SVG) |
-| `favicon.ico` | `brand-assets/favicon/` | Multi-resolution ICO (16x16 + 32x32) |
-| `favicon-32x32.png` | `brand-assets/favicon/` | 32x32 PNG |
-| `apple-touch-icon.png` | `brand-assets/favicon/` | 180x180 PNG, icon with padding |
-| `android-chrome-192x192.png` | `brand-assets/favicon/` | 192x192 PNG |
-| `android-chrome-512x512.png` | `brand-assets/favicon/` | 512x512 PNG |
-| `site.webmanifest` | `brand-assets/favicon/` | Web app manifest referencing icons |
+| `favicon.svg` | `docs/brand-assets/favicon/` | SVG favicon for modern browsers (copy of icon SVG) |
+| `favicon.ico` | `docs/brand-assets/favicon/` | Multi-resolution ICO (16x16 + 32x32) |
+| `favicon-32x32.png` | `docs/brand-assets/favicon/` | 32x32 PNG |
+| `apple-touch-icon.png` | `docs/brand-assets/favicon/` | 180x180 PNG, icon with padding |
+| `android-chrome-192x192.png` | `docs/brand-assets/favicon/` | 192x192 PNG |
+| `android-chrome-512x512.png` | `docs/brand-assets/favicon/` | 512x512 PNG |
+| `site.webmanifest` | `docs/brand-assets/favicon/` | Web app manifest referencing icons |
 
 ### Social Media Assets
 
 | File | Path | Specs |
 |------|------|-------|
-| `og-image.png` | `brand-assets/social/` | 1200x630, white BG, stacked logo centered, tagline below |
-| `instagram-profile.png` | `brand-assets/social/` | 400x400, white BG, icon only centered |
+| `og-image.png` | `docs/brand-assets/social/` | 1200x630, white BG, stacked logo centered, tagline below |
+| `instagram-profile.png` | `docs/brand-assets/social/` | 400x400, white BG, icon only centered |
 
 ### OG Image Design
 

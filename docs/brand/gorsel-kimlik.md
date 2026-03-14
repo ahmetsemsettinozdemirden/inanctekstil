@@ -10,12 +10,12 @@ Bu dokuman, Inanc Tekstil'in gorsel kimligine dair tum kurallari icerir. Web sit
 
 | Varyant | Dosya | Kullanim |
 |---------|-------|----------|
-| Yatay (lacivert) | `brand-assets/logo/inanc-tekstil-logo.svg` | Site header, dokumanlar |
-| Yatay (beyaz) | `brand-assets/logo/inanc-tekstil-logo-white.svg` | Footer, koyu arka planlar |
-| Ikon (lacivert) | `brand-assets/logo/inanc-tekstil-icon.svg` | Favicon, uygulama ikonu |
-| Ikon (beyaz) | `brand-assets/logo/inanc-tekstil-icon-white.svg` | Koyu arka plan avatar |
-| Dikey (lacivert) | `brand-assets/logo/inanc-tekstil-logo-stacked.svg` | Sosyal medya profil |
-| Dikey (beyaz) | `brand-assets/logo/inanc-tekstil-logo-stacked-white.svg` | Koyu arka plan sosyal medya |
+| Yatay (lacivert) | `docs/brand-assets/logo/inanc-tekstil-logo.svg` | Site header, dokumanlar |
+| Yatay (beyaz) | `docs/brand-assets/logo/inanc-tekstil-logo-white.svg` | Footer, koyu arka planlar |
+| Ikon (lacivert) | `docs/brand-assets/logo/inanc-tekstil-icon.svg` | Favicon, uygulama ikonu |
+| Ikon (beyaz) | `docs/brand-assets/logo/inanc-tekstil-icon-white.svg` | Koyu arka plan avatar |
+| Dikey (lacivert) | `docs/brand-assets/logo/inanc-tekstil-logo-stacked.svg` | Sosyal medya profil |
+| Dikey (beyaz) | `docs/brand-assets/logo/inanc-tekstil-logo-stacked-white.svg` | Koyu arka plan sosyal medya |
 
 ### Logo Yapisi
 
