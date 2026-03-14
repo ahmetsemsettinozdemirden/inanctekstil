@@ -1,0 +1,132 @@
+/* Announcement Bar */
+.isf-announcement-bar {
+    background-color: #5C4033;
+    color: #F5F0EB;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.isf-announcement-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.isf-announcement-item {
+    white-space: nowrap;
+}
+
+.isf-announcement-sep {
+    opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+    .isf-announcement-sep {
+        display: none;
+    }
+
+    .isf-announcement-inner {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .isf-announcement-bar {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* Floating WhatsApp Button */
+.isf-whatsapp-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #25D366;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.isf-whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+
+.isf-whatsapp-btn:visited {
+    color: #fff;
+}
+
+.isf-whatsapp-btn svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .isf-whatsapp-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 14px;
+        border-radius: 50%;
+    }
+
+    .isf-whatsapp-text {
+        display: none;
+    }
+}
+
+/* Product Page Trust Signals */
+.isf-trust-signals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 16px;
+    background: #F5F0EB;
+    border-radius: 8px;
+    border: 1px solid #D6CFC7;
+}
+
+.isf-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #5C4033;
+}
+
+.isf-trust-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.isf-trust-item a {
+    color: #C17F59;
+    text-decoration: none;
+}
+
+.isf-trust-item a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .isf-trust-signals {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 12px;
+    }
+}
