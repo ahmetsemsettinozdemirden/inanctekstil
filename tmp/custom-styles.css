@@ -5,6 +5,7 @@
     text-align: center !important;
     margin: 0 calc(-50vw + 50%) !important;
     width: 100vw !important;
+    max-width: none !important;
 }
 .inanc-hero h1 {
     font-family: "Playfair Display", serif !important;
