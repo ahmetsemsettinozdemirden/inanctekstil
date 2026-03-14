@@ -8,19 +8,26 @@ Bu dokuman, Inanc Tekstil'in marka kimligini tanimlar. Tum iletisim kanallari, i
 
 ### Nereden Geldik
 
-Inanc Tekstil, Iskenderun'un kalbinde yillardir hizmet veren bir ev tekstili magazasidir. Fiziksel magazamizda yuzlerce musterimize ozel dikim perde, tul ve ev tekstili urunleri sunduk. Her musterimizle yuz yuze kurdugumuz iliski, bize kumas seciminden dikime, olcuden montaja kadar her asamada musteri memnuniyetinin ne kadar onemli oldugunu ogretti.
+Inanc Tekstil, **30 yildir** Iskenderun'da hizmet veren, **Hatice ve Huseyin Ozdemirden** tarafindan kurulan bir aile isletmesidir. Ucuz yillik bu yolculukta, yuzlerce musteriye ozel dikim perde, tul ve ev tekstili urunleri sunduk.
+
+Basarimiz **guven ve tavsiye** uzerine kurulu. Bir musteriyle basliyor, onun tavsiyesiyle komsusuna, arkadasina, ailesine ulasiyoruz. Her perdeyi kendi evimize dikiyormus gibi ozenle hazirliyor, her olcuye dikkat ediyor, her dikiste kaliteyi on planda tutuyoruz.
+
+**Uzman perde ustasi** olarak taniniyoruz. Tum dikim ve imalat isleri **kendi atölyemizde**, kendi elimizle yapiliyor. Bu, hem kalite kontrolunu sagliyor hem de musterilerimize hizli ve guvenilir hizmet sunmamizi mumkun kiliyor.
 
 ### Nereye Gidiyoruz
 
-Artik bu deneyimi ve guveni dijital dunyaya tasiyoruz. **inanctekstil.store** ile Iskenderun ve Hatay bolgesindeki musterilerimize online siparis kolayligi sunuyoruz. Fiziksel magazamizin sicakligini ve guvenilirligini kaybetmeden, teknolojinin sagladigi kolayliklari musterilerimize ulastirmayi hedefliyoruz.
+30 yillik magazamizin deneyimini ve guvenini artik **dijital dunyaya** tasiyoruz. **inanctekstil.store** ile Iskenderun ve Hatay bolgesindeki musterilerimize online siparis kolayligi sunuyoruz. Fiziksel magazamizin sicakligini ve guvenilirligini kaybetmeden, teknolojinin sagladigi kolayliklari musterilerimize ulastirmayi hedefliyoruz.
+
+Bu, bir aile isletmesinin dijital donusumu. Geleneksel ustalik ve guven ile modern e-ticaret hizinin bulusma noktasi.
 
 ### Konumlandirma
 
-Inanc Tekstil, "Iskenderun'un guvenilir perde uzmani" olarak konumlandirilmaktadir. Bu konumlandirma su uc ayak uzerine kuruludur:
+Inanc Tekstil, "Iskenderun'un 30 yillik guvenilir perde uzmani" olarak konumlandirilmaktadir. Bu konumlandirma dort temel ayak uzerine kuruludur:
 
-1. **Yerel uzmanlik:** Yillardir bolgede faaliyet gosteren, kumasi ve islciligi bilen bir ekip.
-2. **Kisiye ozel hizmet:** Hazir urun satisi degil, musterinin ihtiyacina gore olculup dikilen perdeler.
-3. **Online erisim kolayligi:** Fiziksel magazaya gitmeden, telefondan veya bilgisayardan siparis verebilme imkani.
+1. **30 yillik tecrube:** Hatice ve Huseyin Ozdemirden'in kurdugu, ucuz yildir guven kazanmis bir marka.
+2. **Kendi atölyemizde imalat:** Disariya yaptirmiyoruz, her seyi kendi elimizle dikiliyoruz.
+3. **Kisiye ozel hizmet:** Hazir urun satisi degil, musterinin olcusune gore ozel dikim perdeler.
+4. **Online erisim kolayligi:** Fiziksel magazaya gitmeden, telefondan veya bilgisayardan siparis verebilme imkani.
 
 ---
 
@@ -86,31 +93,45 @@ Inanc Tekstil'in iletisim dili, bir komsunuzla sohbet eder gibi samimi ama ayni 
 
 ### Kalite
 
-Her urun, ozenle secilmis kumaslardan, dikkatli islcilikle uretilir. Hazir, seri uretim degil; kisiye ozel dikim yapilir. Kullanilan kumeslarin ozellikleri (yikama, solma, dayaniklilik) hakkinda seffaf bilgi verilir.
+Her urun, ozenle secilmis kumaslardan, **dikkatli imalat** ile uretilir. Hazir, seri uretim degil; **kisiye ozel dikim** yapilir. Kullanilan kumeslarin ozellikleri (yikama, solma, dayaniklilik) hakkinda seffaf bilgi verilir. 30 yillik tecrubemizle her dikiste uzmanlik gosteriyoruz.
 
 ### Guven
 
-Fiziksel magazamiz ile dijital varliklimiz arasinda kopukluk yoktur. Musteri isterse magazaya gelip kumasi gorebilir, dokunabilir. Siparis sureci, teslimat ve iade kosullari net bir sekilde paylasılır. Musteri yorumlari ve gercek fotograflar ile guven insasi yapilir.
+**30 yildir** Iskenderun'da hizmet veriyoruz. Basarimiz **tavsiye ve agizdan agiza** yayilan itibara dayanir. Fiziksel magazamiz ile dijital varliklimiz arasinda kopukluk yoktur. Musteri isterse magazaya gelip kumasi gorebilir, dokunabilir. Siparis sureci, teslimat ve iade kosullari net bir sekilde paylasılır.
 
-### Yerel Uretim
+### Kendi Atölyemizde Imalat
 
-Dikimler yerel olarak yapilir. Bu hem hizli teslimat saglar hem de yerel ekonomiye katki sunar. "Iskenderun'da dikildi" ifadesi bir gurur ve kalite gostergesidir.
+Tum dikim ve imalat isleri **kendi evimizde/magazamizda** yapilir. Disariya yaptirmiyoruz, her seyi kendi elimizle dikiyoruz. Bu hem kalite kontrolunu saglar hem de hizli teslimat mumkun kilar. "Iskenderun'da, kendi atölyemizde dikildi" ifadesi bir gurur ve kalite gostergesidir.
 
 ### Kisiye Ozel Hizmet
 
-Her pencere farklidir, her evin tarzi farklidir. Inanc Tekstil hazir kalip cozumler degil, musterinin ihtiyacina ozel cozumler sunar. Olcu alma, model secimi ve kumas danismanligi hizmetin parcasidir.
+Her pencere farklidir, her evin tarzi farklidir. Inanc Tekstil hazir kalip cozumler degil, musterinin ihtiyacina ozel cozumler sunar. Olcu alma (musteri kendi olcebilir veya biz olceriz), model secimi ve kumas danismanligi hizmetin parcasidir.
+
+Musteri iliskisi cok onemli: siparis sonrasi olcu degisiklikleri olabilir, asildiktan sonra duzeltme gerekebilir. **WhatsApp uzerinden surekli iletisim** ve musteri memnuniyeti on plandadir.
 
 ---
 
 ## 5. Rakiplerden Farklilaşma
 
-### Online Ozel Dikim
+### Ozel Dikim vs Hazir Perdeler
 
-Cogu yerel perde magazasi sadece fiziksel satisla sinirli kalir. Buyuk online platformlar ise genellikle hazir urunler satar. Inanc Tekstil, ozel dikim perdeyi online siparis edilebilir hale getirerek bu iki dunyanin arasindaki boslugu doldurur.
+Buyuk rakipler (TAC, Trendyol, Hepsiburada) genellikle **sadece hazir perdeler** satar: sabit olculer, sinirlı secenekler. Inanc Tekstil ise **her olcuye ozel dikim** yapar. Musterinin penceresi 2.70m ise tam 2.70m dikiriz. Bu, rekabette cok buyuk bir avantajdir.
 
-### Yerel Teslimat Avantaji
+### Kendi Atölyemizde Imalat
 
-Iskenderun ve cevre bolgelerde hizli ve guvenli teslimat imkani. Kargo ile degil, gerektiginde elden teslimat. Montaj destegi ile musterinin isini kolaylastirma.
+Rakiplerin cogu uretimi disariya yaptirtir. Biz ise **kendi atölyemizde**, kendi elimizle dikiyoruz. Bu hem kalite kontrolunu saglar hem de hizli teslimat mumkun kilar. "Kendi evimizde dikildi" guven mesajidir.
+
+### 30 Yillik Guven
+
+Yeni acilan online siteler veya tanınmayan markalar **guven sorunu** yasarlar. Biz ise 30 yildir Iskenderun'dayiz, **tavsiye ve agizdan agiza** buyuduk. Bu, online satis yapan yeni markalara karsi buyuk avantaj.
+
+### Yerel Teslimat ve Montaj
+
+Iskenderun ve Hatay bolgesinde hizli teslimat. Gerektiginde **elden teslimat** yapabiliyoruz. **Montaj hizmeti** (perde asma) sunuyoruz. Buyuk online siteler sadece kargo gonderir, biz ise musterinin kapısına kadar gidip perdelerini asabiliriz.
+
+### Musteri Iliskisi Yonetimi
+
+Siparis sonrasi **WhatsApp destegi**, olcu degisikliklerine esneklik, asildiktan sonra **duzeltme/alterasyon** hizmeti. Musteri memnuniyeti ve uzun vadeli iliski kurmak on planda. Buyuk platformlarda bu mumkun degil.
 
 ### Fiziksel Magaza Guvencesi
 
@@ -118,13 +139,13 @@ Online alisveriste en buyuk engel guven sorunudur. Inanc Tekstil'in fiziksel mag
 
 ### Uzman Danismanlik
 
-Musteri sadece urun almaz, ayni zamanda danismanlik hizmeti alir. "Bu odaya hangi kumas uyar?", "Kuzey cepheli odada hangi renk perde kullanmaliyim?" gibi sorulara cevap veren bir marka konumlandirmasi.
+Musteri sadece urun almaz, ayni zamanda **uzman danismanlik** hizmeti alir. "Bu odaya hangi kumas uyar?", "Kuzey cepheli odada hangi renk perde kullanmaliyim?" gibi sorulara 30 yillik tecrubemizle cevap veriyoruz.
 
 ---
 
 ## 6. Marka Vaadi
 
-> Inanc Tekstil olarak, evinize ozel, kaliteli ve guvenilir perde cozumleri sunuyoruz. Iskenderun'daki magazamizin sicakligini ve ustaligini, online siparise tasiyoruz. Siz olcu verin, biz dikelim; siz begenin, biz teslim edelim.
+> **30 yildir** Iskenderun'da hizmet veren, **Hatice ve Huseyin Ozdemirden'in** kurdugu aile isletmesiyiz. Guven ve tavsiye uzerine buyuduk. Her perdeyi **kendi atölyemizde**, kendi elimizle dikiyoruz. Siz olcunuzu verin, biz size ozel dikelim. Evinize teslim edelim, isterseniz asalim. **30 yillik tecrubemizle**, evinize ozel, kaliteli ve guvenilir perde cozumleri sunuyoruz.
 
 ---
 

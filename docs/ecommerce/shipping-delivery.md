@@ -3,11 +3,13 @@
 ## Genel Politika
 
 - **Hizmet Bolgesi:** Yalnizca Hatay ili (baslangiicta)
-- **Uretim Suresi:** 5-7 is gunu (siparis onayindan itibaren)
+- **Uretim Suresi:** 5-10 is gunu (siparis onayindan itibaren)
+  - Kumas siparisi: 2-3 is gunu (stokta yoksa tedarikci siparis)
+  - Kesim ve dikim: 3-7 is gunu (atölyede imalat)
 - **Teslimat Yontemleri:**
-  - Duz ucretli kargo (Hatay ili geneli)
-  - Ucretsiz teslimat (belirli tutar uzerinde veya Iskenderun merkez)
-  - Elden teslim (Iskenderun ve yakin cevre)
+  - Ev adresine teslimat (Iskenderun/Hatay bolgesi)
+  - Magazadan teslim alma (musteri kendisi alir)
+- **Montaj Hizmeti:** Isteyen musteriler icin perde asma hizmeti sunulur (opsiyonel)
 
 ---
 
@@ -160,33 +162,60 @@ add_action('woocommerce_email_before_order_table', function ($order, $sent_to_ad
 
 ## Siparis Is Akisi (Order Fulfillment Workflow)
 
-### Siparis Durumlari
+### Uretim Sureci
 
-WooCommerce varsayilan durumlari kullanilir:
+1. **Musteri olcu alir** (kendi olcerse) veya Inanc Tekstil olcum hizmeti verir (musteri satin almaya karar verirse)
+2. **Kartela'dan kumas secer** + olculeri girer
+3. **Odeme:** Pesin odeme (PayTR ile kredi karti + taksit) veya banka havalesi (IBAN)
+4. **Kumas siparisi:** Tedarikciden siparis edilir VEYA stok rulolardan kesilir
+5. **Atölyede dikim:** Evde/magazada imalat
+6. **Teslimat:** Ev adresine teslimat (Iskenderun/Hatay) veya magazadan teslim alma
+7. **Montaj (opsiyonel):** Perdelerin pencereye asılması hizmeti
+
+### WooCommerce Siparis Durumlari
+
+Inanc Tekstil icin ozel durum tasarimi:
 
 ```
-1. Beklemede (Pending)      -> Odeme bekleniyor
-2. Isleniyor (Processing)   -> Odeme alindi, uretim basliyor
-3. Beklemede (On-hold)      -> Ozel durum (musteri ile iletisim gerekli)
-4. Tamamlandi (Completed)   -> Urun teslim edildi
-5. Iptal (Cancelled)        -> Siparis iptal edildi
-6. Iade (Refunded)          -> Para iade edildi
+1. Siparis Alindi (wc-pending/processing)     -> Odeme alindi, onay bekleniyor
+2. Kumas Siparişi (wc-fabric-order)           -> Kumas tedarikci'den siparis edildi
+3. Imalatta (wc-sewing)                       -> Kesim ve dikim devam ediyor
+4. Hazir (wc-ready)                           -> Urun hazir, teslimat planlaniyor
+5. Teslim Edildi (wc-completed)               -> Musteriye teslim edildi
+6. Iptal (wc-cancelled)                       -> Siparis iptal
+7. Iade (wc-refunded)                         -> Para iade edildi
 ```
 
-### Ozel Siparis Durumu: "Dikimde" (Opsiyonel)
-
-WooCommerce'e ozel siparis durumu eklemek, uretim surecini izlemeyi kolaylastirir:
+### Ozel Siparis Durumlari Kodu
 
 ```php
-// Ozel siparis durumu: Dikimde
+// Ozel siparis durumlari: Kumas Siparisi, Imalatta, Hazir
 add_action('init', function () {
-    register_post_status('wc-sewing', [
-        'label'                     => 'Dikimde',
+    register_post_status('wc-fabric-order', [
+        'label'                     => 'Kumas Siparişi',
         'public'                    => true,
         'exclude_from_search'       => false,
         'show_in_admin_all_list'    => true,
         'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Dikimde (%s)', 'Dikimde (%s)'),
+        'label_count'               => _n_noop('Kumas Siparişi (%s)', 'Kumas Siparişi (%s)'),
+    ]);
+
+    register_post_status('wc-sewing', [
+        'label'                     => 'Imalatta',
+        'public'                    => true,
+        'exclude_from_search'       => false,
+        'show_in_admin_all_list'    => true,
+        'show_in_admin_status_list' => true,
+        'label_count'               => _n_noop('Imalatta (%s)', 'Imalatta (%s)'),
+    ]);
+
+    register_post_status('wc-ready', [
+        'label'                     => 'Hazir',
+        'public'                    => true,
+        'exclude_from_search'       => false,
+        'show_in_admin_all_list'    => true,
+        'show_in_admin_status_list' => true,
+        'label_count'               => _n_noop('Hazir (%s)', 'Hazir (%s)'),
     ]);
 });
 
@@ -195,7 +224,9 @@ add_filter('wc_order_statuses', function (array $statuses): array {
     foreach ($statuses as $key => $label) {
         $new[$key] = $label;
         if ($key === 'wc-processing') {
-            $new['wc-sewing'] = 'Dikimde';
+            $new['wc-fabric-order'] = 'Kumas Siparişi';
+            $new['wc-sewing'] = 'Imalatta';
+            $new['wc-ready'] = 'Hazir';
         }
     }
     return $new;
@@ -205,18 +236,26 @@ add_filter('wc_order_statuses', function (array $statuses): array {
 Bu durumda is akisi:
 
 ```
-Beklemede -> Isleniyor -> Dikimde -> Tamamlandi
-               |                        |
-               +-> Iptal           +-> Iade
+Siparis Alindi -> Kumas Siparişi -> Imalatta -> Hazir -> Teslim Edildi
+                       |                                       |
+                       +-> Iptal                          +-> Iade
 ```
 
 ### Gunluk Operasyon
 
-1. **Sabah:** Yeni siparisleri kontrol et (WooCommerce > Siparisler, durum: "Isleniyor")
-2. **Uretim planlama:** Siparis detayindan olculeri al (Perde Eni, Perde Boyu, Alan)
-3. **Dikim baslagicinda:** Durum -> "Dikimde" (ozel durum eklendiyse) veya musteri notu ekle
-4. **Dikim tamamlandiginda:** Musteriye bildir (telefon/WhatsApp), teslimat planla
-5. **Teslimattan sonra:** Durum -> "Tamamlandi"
+1. **Sabah:** Yeni siparisleri kontrol et (WooCommerce > Siparisler, durum: "Siparis Alindi")
+2. **Kumas kontrolu:** Stokta var mi? Yoksa tedarikci siparis -> Durum: "Kumas Siparişi"
+3. **Kumas geldi:** Kesim ve dikime basla -> Durum: "Imalatta"
+4. **Dikim tamamlandi:** Durum -> "Hazir", musteriye WhatsApp ile bildir
+5. **Teslimat planlama:** Ev adresine mi, magaza teslim mi? Montaj isteniyor mu?
+6. **Teslimattan sonra:** Durum -> "Teslim Edildi"
+
+### WhatsApp ile Siparis Takibi
+
+Musteri ile surekli WhatsApp iletisimi onemli:
+- Olculerde degisiklik olabilir (siparis sonrasi)
+- Montajdan sonra duzeltme gerekebilir
+- Guclu musteri iliskisi yonetimi gereklidir
 
 ### Admin Siparis Notlari
 
@@ -225,10 +264,11 @@ Her asamada siparis notu ekle:
 ```
 WooCommerce > Siparisler > [Siparis No] > Siparis Notlari
 
-"Musteri notu" secenegini kullanarak musteriye otomatik e-posta gonder:
-- "Perdeniz dikime alindi."
-- "Perdeniz hazir. Teslimat icin sizinle iletisime gececegiz."
-- "Perdeniz teslim edilmistir. Iyi gunlerde kullanin!"
+"Musteri notu" secenegini kullanarak musteriye otomatik e-posta/WhatsApp gonder:
+- "Siparisiniz alindi. Kumas siparisi verildi."
+- "Kumasiniz geldi, dikime aliniyor."
+- "Perdeniz hazir. Teslimat icin WhatsApp'tan iletisime gececegiz."
+- "Perdeniz teslim edildi. Iyi gunlerde kullanin!"
 ```
 
 ---
@@ -270,14 +310,17 @@ Konu: Siparisiniz Alindi - Inanc Tekstil #{siparis_no}
 
 Sayin {isim},
 
-Siparisiniz basariyla alindi. Perdeniz en kisa surede dikime alinacaktir.
+Siparisiniz basariyla alindi. Perdeniz en kisa surede uretime alinacaktir.
 
 Siparis Ozeti:
 - Urun: {urun_adi}
 - Olculer: {en} x {boy} cm
 - Tutar: {toplam} TL
 
-Tahmini hazirlik suresi: 5-7 is gunu
+Tahmini hazirlik suresi: 5-10 is gunu
+(Kumas siparisi + kesim + dikim)
+
+WhatsApp uzerinden siparis durumunuzu takip edebilirsiniz.
 
 Sorulariniz icin bize ulasabilirsiniz:
 Telefon: 0326 XXX XX XX
@@ -286,36 +329,43 @@ WhatsApp: 05XX XXX XX XX
 Inanc Tekstil
 ```
 
-### Dikime Alindi (Manuel Gonderim)
+### Kumas Siparisi Verildi (WhatsApp)
 
 ```
-Konu: Perdeniz Dikime Alindi - #{siparis_no}
+Merhaba {isim},
 
-Sayin {isim},
+#{siparis_no} numarali siparisiniz icin kumas siparisi verildi.
+Kumas geldiginde dikime alinacak, sizi bilgilendirececegiz.
 
-{urun_adi} perdeniz dikime alindi. Tahmini tamamlanma suresi 3-4 gun icindedir.
+Inanc Tekstil
+```
+
+### Dikime Alindi (WhatsApp)
+
+```
+Merhaba {isim},
+
+{urun_adi} perdeniz dikime alindi.
+Tahmini tamamlanma suresi 3-5 gun icindedir.
 
 Hazir oldugunda sizinle iletisime gececegiz.
 
 Inanc Tekstil
 ```
 
-### Teslimata Hazir (Manuel Gonderim)
+### Teslimata Hazir (WhatsApp)
 
 ```
-Konu: Perdeniz Hazir - #{siparis_no}
+Merhaba {isim},
 
-Sayin {isim},
+Perdeniz hazir! Teslim secenekleriniz:
 
-Perdeniz dikildi ve teslimata hazir.
+1. Ev adresinize teslimat (Iskenderun/Hatay)
+2. Magazadan teslim alma
 
-[Elden teslim icin:]
-Size uygun bir zamanda teslim etmek istiyoruz. Lutfen uygun oldugunuz
-gun ve saat araligini bize bildirin.
+Montaj hizmeti isterseniz perdeleri asma hizmeti de sunuyoruz.
 
-[Kargo icin:]
-Perdeniz bugun kargoya verildi. Takip numaraniz: {takip_no}
-Tahmini teslimat: 1-2 is gunu
+Size uygun olan gunu bize bildirin.
 
 Inanc Tekstil
 ```

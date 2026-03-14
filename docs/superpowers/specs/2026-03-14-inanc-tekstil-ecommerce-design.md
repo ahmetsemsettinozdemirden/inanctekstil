@@ -2,11 +2,13 @@
 
 ## Overview
 
-İnanç Tekstil is a physical home textiles store in İskenderun, Hatay, Turkey. This spec covers setting up their first e-commerce channel to sell custom-made curtains online, starting with the local İskenderun/Hatay region.
+İnanç Tekstil is a 30-year-old home textiles store in İskenderun, Hatay, Turkey, owned by Hatice & Hüseyin Özdemirden. Built on trust, expert craftsmanship, and word-of-mouth marketing, İnanç Tekstil specializes in custom-made curtains. This spec covers setting up their first e-commerce channel to sell custom-made curtains online, starting with the local İskenderun/Hatay region.
 
-**Business Model:** Customer selects a fabric, enters window dimensions (width × height), and the site calculates the price automatically. İnanç Tekstil produces the curtain and delivers it.
+**Business Model:** Customer selects fabric from kartela (fabric sample catalog), enters window measurements, and the site calculates the price automatically based on curtain type (Tül, Saten, Fon). İnanç Tekstil produces the curtain and delivers/installs it.
 
-**Product Scope:** Custom-made curtains only. Under 20 fabric options.
+**Product Scope:** Custom-made curtains in three categories: Tül (sheer), Saten (lining), Fon (decorative side panels). Also ready-made fons available.
+
+**Competitive Advantage:** Unlike TAÇ (fixed-size ready-made curtains 1,300-3,300 TL) or Trendyol marketplace sellers (fixed sizes only), İnanç Tekstil offers custom measurements, expert consultation, local delivery + installation, and 30 years of trust.
 
 ## Architecture
 
@@ -41,48 +43,145 @@
 - SPF, DKIM, DMARC → configured for both Google Workspace and Resend
 - A record → Hetzner server IP
 
+## Product Types & Business Model
+
+### 3 Main Curtain Categories
+
+**1. Tül (Sheer/Tulle Curtain)**
+- **Purpose:** Daytime privacy, lets light through
+- **Standard window size:** 300×260 cm
+- **Pleating:** Can be pleated at 1:2, 1:2.5, or 1:3 ratio
+  - Pleat ratio = fabric length needed ÷ window width
+  - Example: 300cm window × 1:3 pleat = 900cm (9 meters) fabric needed
+- **Fabric pricing:** 60-350 TL/meter (wholesale), 150-700 TL/meter (retail)
+- **Sewing cost:** 25 TL/meter
+
+**2. Saten (Satin Lining)**
+- **Purpose:** Nighttime privacy, blocks view from outside
+- **Standard window size:** 325×260 cm
+- **Construction:** Cut flat (no pleats)
+- **Colors:** Cream and white
+- **Fixed price:** 150 TL
+- **Alternative:** Blackout fabric can replace saten
+
+**3. Fon (Decorative Side Panels)**
+- **Purpose:** Decorative panels that hang on the sides of windows
+- **Sizes:** 100×260 cm or 80×260 cm depending on window
+- **Always sold in pairs** (double panel)
+- **Pleating:**
+  - 100×260 → 1:3 pleat ratio
+  - 80×260 → 1:2.5 pleat ratio
+- **Fabric pricing:** 150-750 TL/meter (wholesale), 400-1500 TL/meter (retail)
+- **Sewing cost:** 500 TL per pair (fixed)
+- **Sub-type:** Blackout fon (300×260 cm, fabric 160-400 TL/meter)
+- **Also available:** Ready-made fons at lower prices
+
+### Kartela System (Fabric Catalog)
+
+- **Kartela** = fabric sample catalog containing fabric codes and swatches
+- Contains latest seasonal fabrics and new arrivals
+- Each fabric has a unique kartela code
+- Customers browse kartela online to select fabrics
+- **"Havuz" (pool) system:** Discontinued/leftover fabrics sold at very low prices, NOT listed in kartela (in-store or special section)
+
+### Measurement & Order Process
+
+1. **Measurement:** Customer takes their own measurements OR İnanç Tekstil measures if customer commits to buying
+2. **Fabric selection:** Customer selects fabric from kartela (or havuz for budget options)
+3. **Cart:** Items added to cart with measurements and selected curtain type
+4. **Payment:** Upfront payment, supports installments (taksit), bank transfer (IBAN) also accepted
+5. **Fabric sourcing:** Fabric ordered from supplier OR cut from in-house stock rolls
+6. **Manufacturing:** Sewing/production done in-house by İnanç Tekstil
+7. **Delivery:** Home delivery or pickup from store
+8. **Installation:** Curtains hung on customer's windows
+
+### Customer Support (CRITICAL)
+
+- **Measurement changes:** Customers may need to change measurements after ordering
+- **Alterations:** May be needed after hanging curtains
+- **Return policy:** Similar to TAÇ (custom products = limited returns)
+- **Strong CRM needed:** Long-term relationship management is essential
+
 ## Product Configuration & Pricing
 
 ### Product Structure
 
 Each fabric is a WooCommerce product with:
-- Fabric name
+- Fabric name and kartela code
 - Photo (high-quality swatch + room mockup if available)
 - Description (material, texture, weight, care instructions)
-- Price per m²
+- Price per meter (varies by fabric)
+- Available for: Tül, Fon, or both (some fabrics only work for certain types)
 
 ### Order Form (on product page)
 
-Customer inputs:
-1. **Width** (cm) — number input with min/max validation
-2. **Height** (cm) — number input with min/max validation
+Customer selects:
+1. **Curtain type:** Tül, Saten, or Fon
+2. **Window dimensions:**
+   - Width (cm) — number input with validation
+   - Height (cm) — number input with validation
+3. **Pleat ratio** (if Tül or Fon):
+   - Tül: 1:2, 1:2.5, or 1:3
+   - Fon: Auto-determined (1:3 for 100cm, 1:2.5 for 80cm)
+4. **Pair quantity** (if Fon): Single pair or multiple pairs
 
-### Dynamic Pricing Formula
+### Dynamic Pricing Formulas
 
+**For Tül:**
 ```
-Total = (width × height) / 10000 × fabric_price_per_m²
+fabric_meters = (window_width_cm / 100) × pleat_ratio
+sewing_meters = fabric_meters
+total = (fabric_meters × fabric_price_per_meter) + (sewing_meters × 25)
 ```
 
-- Price updates live as the customer changes width/height — no page reload
-- No paid plugin needed — a lightweight custom code approach
+Example: 300cm window, 1:3 pleat, 150 TL/m fabric
+- Fabric needed: (300/100) × 3 = 9 meters
+- Fabric cost: 9 × 150 = 1,350 TL
+- Sewing cost: 9 × 25 = 225 TL
+- **Total: 1,575 TL**
+
+**For Saten:**
+```
+total = 150 TL (fixed price)
+```
+
+**For Fon (per pair):**
+```
+fabric_meters_per_panel = (panel_width_cm / 100) × pleat_ratio
+fabric_meters_total = fabric_meters_per_panel × 2 (pair)
+total = (fabric_meters_total × fabric_price_per_meter) + 500
+```
+
+Example: 100cm panels, 1:3 pleat, 400 TL/m fabric
+- Fabric per panel: (100/100) × 3 = 3 meters
+- Fabric total: 3 × 2 = 6 meters
+- Fabric cost: 6 × 400 = 2,400 TL
+- Sewing cost: 500 TL (fixed per pair)
+- **Total: 2,900 TL**
 
 **Technical Implementation:**
 - Code lives in a custom WordPress plugin (`inanc-curtain-calculator/`)
-- Frontend: JavaScript calculates and displays price in real-time on product page
-- Backend: PHP WooCommerce hook validates dimensions and sets correct price at add-to-cart and checkout (never trust client-side price)
-- Dimensions stored as order item meta (visible in WooCommerce dashboard and order emails)
-- Validation: min 30cm, max 600cm for both width and height
-- The fabric's per-m² price is stored as a custom field on each WooCommerce product
+- Frontend: JavaScript calculates and displays price in real-time on product page based on curtain type selection
+- Backend: PHP WooCommerce hooks validate dimensions and calculate correct price at add-to-cart and checkout (never trust client-side price)
+- Dimensions, curtain type, pleat ratio stored as order item meta (visible in WooCommerce dashboard and order emails)
+- Validation rules:
+  - Tül: min 30cm, max 600cm (width), min 100cm, max 300cm (height)
+  - Saten: fixed size (no input needed) or custom input if needed
+  - Fon: panel width options (80cm or 100cm), height min 200cm, max 300cm
+- The fabric's per-meter price is stored as a custom field on each WooCommerce product
+- Curtain type availability stored as product attribute (e.g., "suitable_for" = "tul,fon")
 
 ### Order Flow
 
-1. Customer browses fabric catalog
+1. Customer browses fabric catalog (kartela)
 2. Selects a fabric → product page
-3. Enters width and height → sees calculated price instantly
-4. Adds to cart → checkout
-5. Pays via PayTR
-6. İnanç Tekstil receives order notification (email + WooCommerce dashboard)
-7. Produces curtain → ships/delivers to customer
+3. Selects curtain type (Tül/Saten/Fon)
+4. Enters window dimensions and chooses pleat ratio → sees calculated price instantly
+5. Adds to cart → checkout
+6. Pays via PayTR (or bank transfer)
+7. İnanç Tekstil receives order notification (email + WooCommerce dashboard with full measurements and curtain specs)
+8. Sources fabric and produces curtain
+9. Delivers and installs at customer's location
 
 ## PayTR Integration
 
@@ -97,19 +196,23 @@ Total = (width × height) / 10000 × fabric_price_per_m²
 
 - **Delivery zone:** İskenderun and Hatay region only (initially)
 - **Method:** Flat-rate shipping or free delivery (since it's local, consider hand-delivery for nearby orders)
+- **Installation included:** İnanç Tekstil hangs curtains at customer's location (key differentiator)
 - **WooCommerce config:** Set up shipping zones — Hatay province = enabled, everywhere else = disabled with "Bölgenize teslimat henüz mevcut değil" message
 - **Production time:** Communicate clearly on product page (e.g., "5-7 iş günü içinde teslim")
+- **Alterations:** Post-installation adjustments available if needed
 
 ## Essential Pages
 
 | Page | Content |
-|---|---|
-| Ana Sayfa | Fabric gallery, value proposition, CTA |
-| Ürünler | Fabric catalog with filtering |
-| Hakkımızda | Store story, physical location, trust signals |
+|---|---|---|
+| Ana Sayfa | Fabric gallery, value proposition (30 years trust, custom-made, local installation), CTA |
+| Ürünler (Kartela) | Fabric catalog with filtering by type (Tül/Fon), price range, color |
+| Hakkımızda | 30-year history, Hatice & Hüseyin Özdemirden story, physical location, craftsmanship, trust signals |
+| Nasıl Sipariş Verilir | Step-by-step: measure window → select fabric → enter dimensions → receive & install |
+| Ölçü Alma Rehberi | How to measure windows correctly for Tül, Saten, Fon |
 | İletişim | Address, phone, WhatsApp link, Google Maps embed |
-| Kargo ve Teslimat | Delivery areas (İskenderun/Hatay initially), timeline, costs |
-| İade Politikası | Return/exchange policy for custom products |
+| Kargo ve Teslimat | Delivery areas (İskenderun/Hatay initially), timeline, installation service |
+| İade Politikası | Return/exchange policy for custom products (limited, similar to TAÇ) |
 | KVKK / Gizlilik Politikası | Turkish data protection compliance |
 | Mesafeli Satış Sözleşmesi | Required by Turkish e-commerce law |
 
@@ -143,11 +246,12 @@ Proper account setup from day one prevents spending limits, bans, and access iss
 - **Why first:** High-intent traffic. People searching "iskenderun perde" already want curtains.
 - **Campaign type:** Search campaigns (not Smart Campaigns — less control over optimization)
 - **Keywords:**
-  - Brand: "inanç tekstil"
+  - Brand: "inanç tekstil iskenderun"
   - Local + product: "iskenderun perde", "hatay perde", "iskenderun perde siparişi"
-  - Intent: "online perde yaptırma", "perde fiyatları iskenderun", "özel dikim perde"
-  - Fabric: "tül perde", "fon perde", "stor perde" (if applicable)
-- **Negative keywords:** "perde yıkama", "perde tamiri", "ikinci el perde" (filter out irrelevant searches)
+  - Intent: "online perde yaptırma", "özel dikim perde", "perde fiyatları iskenderun"
+  - Product types: "tül perde", "fon perde", "saten perde"
+  - Custom: "özel ölçü perde", "perde ölçü al", "perde kurulum"
+- **Negative keywords:** "perde yıkama", "perde tamiri", "ikinci el perde", "hazır perde" (filter out irrelevant searches)
 - **Geo-targeting:** İskenderun + 30km radius, expand to full Hatay after 2 weeks if results are good
 - **Budget:** 2,500 TL/month
 - **Bidding:** Start with Maximize Clicks, switch to Target CPA after 30+ conversions
@@ -155,14 +259,14 @@ Proper account setup from day one prevents spending limits, bans, and access iss
 **Phase 2 — Meta/Instagram Ads (Launch week 2)**
 - **Why second:** Needs visual content ready + pixel data collecting from website visitors first
 - **Campaign structure:**
-  - **Campaign 1 — Awareness/Traffic:** Fabric photos and finished curtain reels to cold audience
+  - **Campaign 1 — Awareness/Traffic:** Fabric photos, curtain-making process, finished installations to cold audience
   - **Campaign 2 — Retargeting:** Ads to people who visited the site but didn't order (needs pixel + 500+ visitors first)
 - **Targeting:**
   - Location: İskenderun/Hatay
   - Age: 25-55, skew female
   - Interests: home decoration, interior design, ev dekorasyonu, perde
   - Lookalike audiences: available after 100+ website visitors (pixel-based)
-- **Ad formats:** Reels (15-30 sec fabric showcase, before/after), Stories, Carousel (multiple fabrics)
+- **Ad formats:** Reels (15-30 sec fabric showcase, before/after installations), Stories, Carousel (multiple fabrics from kartela)
 - **Budget:** 1,500 TL/month
 - **Bidding:** Start with Traffic objective, move to Conversions once pixel has 50+ events
 
@@ -182,9 +286,10 @@ All shot on phone. Authentic, in-store content outperforms polished stock for lo
 
 | Content Type | Platform | Frequency |
 |---|---|---|
-| Fabric close-up photos | Meta Ads, Instagram organic | 2-3/week |
+| Fabric close-up photos (kartela showcase) | Meta Ads, Instagram organic | 2-3/week |
 | Before/after room reveals | Instagram Reels, TikTok (later) | 1-2/week |
-| Curtain-making process (short video) | Reels, TikTok (later) | 1/week |
+| Curtain-making process (sewing, pleating) | Reels, TikTok (later) | 1/week |
+| Installation videos | All platforms | 1-2/week |
 | Customer testimonials (with permission) | All platforms | As available |
 | Seasonal/promotional posts | Instagram, Facebook | As needed |
 
@@ -214,7 +319,7 @@ All shot on phone. Authentic, in-store content outperforms polished stock for lo
 ```
 Max cost per acquisition = Average order value × Profit margin %
 ```
-Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600 TL per order on ads.
+Example: If average order is 2,500 TL and margin is 40%, you can spend up to 1,000 TL per order on ads.
 
 **Key metrics to track weekly:**
 
@@ -229,9 +334,9 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 
 ### Free / Organic Channels
 
-- **Google Business Profile** — verify physical store, free local SEO boost
+- **Google Business Profile** — verify physical store, free local SEO boost, showcase 30-year reputation
 - **Instagram organic** — regular posts showcasing work, builds trust for paid campaigns
-- **WhatsApp Business** — link on website for customer questions, high conversion for Turkish market
+- **WhatsApp Business** — link on website for customer questions, measurement help, high conversion for Turkish market
 
 ## Security
 
@@ -250,7 +355,7 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 ## Analytics & Tracking
 
 - **Google Analytics 4:** Installed via Site Kit plugin (free, official Google plugin)
-- **WooCommerce GA4 Integration:** Track add-to-cart, checkout, and purchase events
+- **WooCommerce GA4 Integration:** Track add-to-cart, checkout, and purchase events by curtain type
 - **Google Ads Conversion Tracking:** Link GA4 to Google Ads for cost-per-order reporting
 - **Meta Pixel:** Install on site for Meta Ads conversion tracking and retargeting
 - **Cookie Consent:** Cookie banner required — use a free plugin (e.g., Complianz) for KVKK/GDPR compliance
@@ -277,9 +382,14 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 - Astra theme installation and customization
 - WooCommerce configuration: TL currency, Turkish locale, tax settings
 - PayTR plugin installation and test payment flow (sandbox mode)
-- Build custom pricing calculator plugin (JS frontend + PHP backend)
-- Photograph all fabrics, write product descriptions, set per-m² prices
-- Create all essential pages (Hakkımızda, İletişim, KVKK, etc.)
+- Build custom pricing calculator plugin with support for 3 curtain types (Tül, Saten, Fon)
+  - Implement per-meter pricing with pleat ratio multipliers
+  - Support different formulas for each curtain type
+  - Store curtain type, dimensions, pleat ratio in order meta
+- Photograph all kartela fabrics, write product descriptions, set per-meter prices
+- Create product categories: Tül Fabrics, Fon Fabrics, Saten
+- Mark which fabrics are suitable for which curtain types
+- Create all essential pages (Hakkımızda, Nasıl Sipariş Verilir, Ölçü Alma Rehberi, İletişim, KVKK, etc.)
 - Cookie consent banner (Complianz plugin)
 - Configure shipping zones (Hatay only)
 - Configure Redis object cache + image optimization
@@ -291,17 +401,20 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 - Meta Pixel installation
 - Google Ads conversion tracking (linked to GA4)
 - Verify Google Business Profile (if postcard arrived)
-- Set up first Google Ads search campaign (high-intent keywords)
-- Set up first Meta Ads traffic campaign
-- Add WhatsApp Business chat widget to site
-- Start content creation: photograph fabrics, shoot first before/after reel
+- Set up first Google Ads search campaign (high-intent keywords + "özel ölçü perde")
+- Set up first Meta Ads traffic campaign (showcase kartela fabrics, installation service)
+- Add WhatsApp Business chat widget to site (for measurement questions)
+- Start content creation: photograph fabrics, shoot first curtain-making/installation reel
 
 ### Phase 4 — Test & Launch (Day 17-21)
 - Switch PayTR from sandbox to production (once approved)
-- End-to-end order flow testing (browse → select → dimensions → pay → order received)
+- End-to-end order flow testing for all 3 curtain types:
+  - Tül: select fabric → enter dimensions → choose pleat → verify price calculation
+  - Saten: add to cart → verify fixed price
+  - Fon: select fabric → choose panel size → verify pair pricing
 - Mobile testing (majority of Turkish traffic is mobile)
 - Test PayTR payment flow with real transaction
-- Test transactional emails (order confirmation arrives in inbox, not spam)
+- Test transactional emails (order confirmation includes curtain type, dimensions, pleat ratio)
 - Test backup restore procedure
 - Soft launch — enable ads at low budget for 2 weeks, monitor results
 
@@ -309,8 +422,9 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 
 - **Cost per order** from each ad channel
 - **Conversion rate** (visitors → completed orders)
-- **Average order value**
+- **Average order value by curtain type** (Tül vs Fon — Fon will be higher)
 - **Customer acquisition cost vs. profit margin**
+- **Repeat customers** (measure alterations, second room orders)
 - **Decision point:** scale up ads, adjust targeting, or pause
 
 ## Monthly Cost Summary
@@ -341,8 +455,23 @@ Example: If average order is 2,000 TL and margin is 30%, you can spend up to 600
 
 ## Decisions & Trade-offs
 
+### Infrastructure & Platform
 - **WooCommerce over Shopify:** ~400 TL/month vs ~2,000+ TL/month. More setup work but owner is a software engineer.
-- **Custom pricing code over paid plugin:** Free, full control, simple formula doesn't warrant a paid solution.
-- **Resend over default PHP mail:** Ensures transactional emails reach inbox. Free tier is sufficient for launch.
-- **Local geo-targeting:** Keeps ad spend focused and testable. Expand nationwide only after validating local demand.
 - **Docker + Traefik over managed panels:** Full control, reproducible stack via Docker Compose, easy to maintain for a senior engineer.
+- **Resend over default PHP mail:** Ensures transactional emails reach inbox. Free tier is sufficient for launch.
+
+### Product & Pricing Model
+- **Per-meter pricing with pleat multipliers over per-m² pricing:** Reflects actual business model. Tül/Fon use more fabric due to pleating. Saten is flat-rate.
+- **3 distinct curtain types over generic "curtain":** Matches how customers think and shop. Different use cases, different pricing logic.
+- **Custom pricing calculator over paid plugin:** Free, full control, handles complex per-meter + pleat ratio logic that no existing plugin supports.
+- **Kartela system online:** Brings the in-store fabric catalog experience to e-commerce. Customers can browse by kartela code.
+
+### Customer Experience
+- **Measurement flexibility:** Customers can measure themselves (DIY) or request İnanç Tekstil to measure (commitment required). Reduces friction while maintaining quality.
+- **Installation included:** Key differentiator vs TAÇ/Trendyol (delivery only). Builds trust and ensures customer satisfaction.
+- **Alterations support:** Post-installation adjustments available. Critical for custom products where measurements may need tweaking.
+
+### Marketing & Growth
+- **Local geo-targeting first:** Keeps ad spend focused and testable. Validates demand in home market (İskenderun/Hatay) before expanding nationwide.
+- **Google Ads first, Meta second, TikTok third:** Prioritizes high-intent search traffic, then awareness/retargeting, then experimental channel only after first two are profitable.
+- **30-year trust emphasis:** Core brand differentiator. Hatice & Hüseyin Özdemirden's reputation is the moat vs online-only competitors.

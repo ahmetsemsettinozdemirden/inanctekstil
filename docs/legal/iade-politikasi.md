@@ -30,34 +30,49 @@ Cayma hakki istisnasi, saticininin diger yasal yukumluluklerini ortadan kaldirma
 
 ### Iadenin Kabul Edildigi Durumlar
 
-Ozel siparis urunlerde standart cayma hakki bulunmasa da, asagidaki durumlarda iade veya yeniden uretim kabul edilmelidir:
+Ozel siparis (ozel dikim) urunlerde standart cayma hakki bulunmasa da, asagidaki durumlarda iade veya yeniden uretim kabul edilmelidir:
 
 #### 1. Yanlis Kumas/Renk/Desen Gonderimi
 - Siparis edilen kumas cinsi ile gonderilen farkli ise
 - Siparis edilen renk veya desen ile gonderilen farkli ise
 - Fotograf/numune ile gercek urun arasinda kabul edilemez fark varsa
 
-#### 2. Uretim Hatasi / Defolu Urun
+#### 2. Imalat Hatasi / Kusurlu Urun
 - Dikis hatalari (cozulme, egrilik, atlama vb.)
 - Kumas defekti (yirtik, leke, desende kayma vb.)
 - Aksesuar eksikligi veya hatasi (kopca, bant, halka vb.)
-- Genel iscilik kalitesinde kabul edilemez kusurlar
+- Genel imalat kalitesinde kabul edilemez kusurlar
+- **Cozum:** Tam degisim veya para iadesi
 
 #### 3. Satici Kaynakli Olcu Hatasi
 - Musterinin belirttigi olculerden farkli uretim yapilmasi
 - **Not:** Musterinin kendisinin yanlis olcu vermesi durumu bu kapsama girmez
+- **Cozum:** Ucretsiz yeniden dikim
 
 #### 4. Kargo/Nakliye Hasari
-- Tasima sirasinda olusan yirtik, kiriklk, deformasyon
+- Tasima sirasinda olusan yirtik, kirilma, deformasyon
 - Islak veya kirli teslim edilen urunler
+
+#### 5. Olcu Degisikligi ve Duzeltme Ihtiyaci
+- Musteri siparis verdikten SONRA olcusunu degistirmek isteyebilir
+- Perde asildiktan sonra duzeltme/kucultme/buyutme gerekebilir
+- **Cozum:** Alterasyon/duzeltme hizmeti sunulur (sinirli ucretle veya ucretsiz)
+- Guclu musteri iliskisi yonetimi gereklidir
 
 ### Iadenin Kabul Edilmedigi Durumlar
 
 - Musterinin verdigi olculerin hatali olmasi (musterinin kendi olcu hatasi)
-- Musterinin kumas/renk/model secimini begenmemesi
+- Musterinin kumas/renk/model secimini begenmemesi ("fikrimi degistirdim")
+- Ozel dikim urunlerde standart iade: musteri olculeri verdigi icin ozel yapildi
 - Urunun kullanildiktan sonra iade edilmek istenmesi
 - Iade suresi gecmis talepler
 - Orijinal ambalajinda olmayan, hasar gormis iadeler (satici kaynakli hasar harici)
+
+### Havuz/Hazir Urunler
+
+Havuz olarak adlandirilan hazir/sabit olculerde urunler icin **standart iade politikasi** gecerlidir:
+- 14 gunluk iade hakki (kullanilmamis, orijinal ambalajinda)
+- TAC ve diger tedarikci politikalari uygulanir
 
 ---
 
@@ -91,7 +106,8 @@ Degerlendirme sonucunda asagidaki cozumlerden biri sunulur:
 ### Adim 5: Iade Odemesi
 - Iade karari verildikten ve urun teslim alindiktan sonra iade islemi baslatilir
 - **Kredi karti ile yapilan odemelerde:** PayTR uzerinden iade islemi baslatilir, bankanin iade sureci uygulanir (genellikle 5-10 is gunu)
-- **Havale/EFT ile yapilan odemelerde:** Musterinin belirttigi banka hesabina 10 is gunu icerisinde aktarilir
+  - Taksitli odemelerde: Banka taksit planina gore iade yapar
+- **Banka havalesi/IBAN ile yapilan odemelerde:** Musterinin belirttigi banka hesabina (orijinal IBAN) 10 is gunu icerisinde aktarilir
 
 ---
 
@@ -130,11 +146,13 @@ Inanc Tekstil olarak, size en kaliteli hizmeti sunmayi amaclamaktayiz. Asagida, 
 
 ---
 
-#### 1. Ozel Siparis Urunlerde Cayma Hakki
+#### 1. Ozel Dikim Urunlerde Cayma Hakki
 
-Inanc Tekstil'de satisa sunulan perdeler, sizin belirlediginiz olcu, kumas, renk ve model tercihlerine gore **ozel siparis uzerine uretilmektedir**. 6502 sayili Tuketicinin Korunmasi Hakkinda Kanun'un 15. maddesi uyarinca, tuketicinin istekleri veya kisisel ihtiyaclari dogrultusunda hazirlanan mallarda **cayma hakki kullanilamaz**.
+Inanc Tekstil'de satisa sunulan perdeler, sizin belirlediginiz olcu, kumas, renk ve model tercihlerine gore **ozel dikim (ozel siparis) uzerine uretilmektedir**. 6502 sayili Tuketicinin Korunmasi Hakkinda Kanun'un 15. maddesi uyarinca, tuketicinin istekleri veya kisisel ihtiyaclari dogrultusunda hazirlanan mallarda **cayma hakki kullanilamaz**.
 
-Bu nedenle, ozel siparis uzerine uretilen perde urunlerimizde "begenmeme", "fikrimi degistirdim" veya benzeri nedenlerle iade kabul edilememektedir.
+Bu nedenle, ozel dikim perde urunlerimizde "begenmeme", "fikrimi degistirdim" veya benzeri nedenlerle iade kabul edilememektedir.
+
+**Not:** Havuz/hazir urunler (sabit olculerde) icin 14 gunluk standart iade hakki gecerlidir (kullanilmamis ve orijinal ambalajinda olmasi sartiyla).
 
 #### 2. Iade ve Degisim Yapilabilen Durumlar
 
@@ -143,15 +161,18 @@ Asagidaki durumlarda iade veya ucretsiz yeniden uretim/degisim yapilmaktadir:
 **a) Yanlis Kumas veya Renk/Desen Gonderimi**
 Siparis ettiginiz kumas, renk veya desen ile gonderilen urun farkli ise, urun ucretsiz olarak degistirilir veya iade edilir.
 
-**b) Uretim Hatasi veya Kusur**
-Dikis hatasi, kumas defekti, aksesuar eksikligi veya iscilikten kaynaklanan bir kusur tespit edilmesi durumunda urun ucretsiz olarak degistirilir, onarilir veya iade edilir.
+**b) Imalat Hatasi veya Kusur**
+Dikis hatasi, kumas defekti, aksesuar eksikligi veya imalattan kaynaklanan bir kusur tespit edilmesi durumunda urun ucretsiz olarak degistirilir, onarilir veya tam para iadesi yapilir.
 
 **c) Satici Kaynakli Olcu Hatasi**
 Sizin belirttiginiz olculerden farkli olarak uretim yapilmasi durumunda urun ucretsiz olarak yeniden uretilir veya iade edilir.
 
-**Not:** Musterinin kendisinin olcu hatasi yapmasi durumunda bu madde gecerli degildir. Siparisinizi onaylamadan once olculerinizi dikkatli bir sekilde kontrol etmenizi oneririz.
+**Not:** Musterinin kendisinin olcu hatasi yapmasi durumunda bu madde gecerli degildir. Ancak olcu sonradan degistiyse (siparis sonrasi), alterasyon/duzeltme hizmeti sunuyoruz.
 
-**d) Kargo/Nakliye Hasari**
+**d) Olcu Degisikligi ve Duzeltme**
+Siparis verdikten sonra olcunuz degismis olabilir veya perde asildiktan sonra duzeltme ihtiyaci dogabilir. Boyle durumlarda alterasyon/duzeltme hizmetimizden faydalanabilirsiniz (sinirli ucretle veya ucretsiz).
+
+**e) Kargo/Nakliye Hasari**
 Kargo sirasinda zarar goren urunler icin ucretsiz degisim veya iade yapilir.
 
 #### 3. Iade Basvuru Sureci
@@ -176,17 +197,19 @@ Kargo sirasinda zarar goren urunler icin ucretsiz degisim veya iade yapilir.
 
 - Iade karari verildikten ve urun tarafimiza ulastiktan sonra odeme iadesi baslatilir.
 - **Kredi/banka karti ile yapilan odemelerde:** Iadeniz, odemeyi yaptiginiz karta PayTR uzerinden iade edilir. Bankanizin iade islem suresi genellikle 5-10 is gunu arasindadir.
-- **Havale/EFT ile yapilan odemelerde:** Belirteceginiz banka hesabina 10 is gunu icerisinde aktarilir.
-- Taksitli odemelerde iade, bankaniz tarafindan taksit planina gore gerceklestirilir.
+  - **Taksitli odemelerde:** Banka, taksit planina gore iade yapar.
+- **Banka havalesi/IBAN ile yapilan odemelerde:** Belirttiginiz banka hesabina (orijinal IBAN) 10 is gunu icerisinde aktarilir.
 
 #### 5. Iade Kabul Edilemeyen Durumlar
 
 Asagidaki durumlarda iade veya degisim yapilamamaktadir:
-- Musterinin kendisinin belirledigi olculerin hatali olmasi
-- Kumas, renk veya model seciminin begenilmemesi
-- Kullanilmis veya monte edilmis urunler
+- Musterinin kendisinin belirledigi olculerin hatali olmasi (ozel dikim oldugundan)
+- Kumas, renk veya model seciminin begenilmemesi ("fikrimi degistirdim")
+- Kullanilmis veya monte edilmis urunler (havuz/hazir urunler harici)
 - Iade bildirim suresinin (7 gun) gecmis olmasi
 - Orijinal ambalajinda gonderilmeyen veya musteri tarafindan hasar verilmis urunler
+
+**Not:** Havuz/hazir urunler icin 14 gunluk standart iade hakki gecerlidir (kullanilmamis ve orijinal ambalajinda olmasi sartiyla, TAC ve benzer tedarikci politikalari uygulanir).
 
 #### 6. Sikayet ve Uyusmazlik
 
