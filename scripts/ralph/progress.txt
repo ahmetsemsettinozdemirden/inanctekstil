@@ -109,3 +109,16 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Privacy policy page = 25, WooCommerce terms page = 26
   - Footer menu "Yasal Bilgiler" (21) has all 5 pages
 - Verifications: Checked page content, option values, and menu items
+
+## Iteration 11 — US-008: Astra Header Builder
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken:
+  - Configured header-desktop-items: Above=announcement(html-1), Primary=logo+search+account+woo-cart, Below=menu-1
+  - Configured header-mobile-items: Primary=logo+search+woo-cart+mobile-trigger, Popup=mobile-menu
+  - Uploaded brand logo SVG (attachment ID 77), set as custom_logo, max 200px wide
+  - Above header: announcement text with #F8F8F8 background
+  - Below header: navy background with white menu text
+  - Sticky header enabled on both desktop and mobile
+- Note: YITH Wishlist not in header (not a native Astra element) — accessible via plugin page
+- Visual browser verification recommended

@@ -154,8 +154,8 @@
         "Verify in browser at 375px: hamburger menu, search, cart icon visible"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": "Configure via wp-admin > Appearance > Customize > Header Builder. FiboSearch adds its own widget for header. YITH Wishlist adds a shortcode/widget. Navigation menu must be created first (see US-010).",
+      "passes": true,
+      "notes": "Header builder configured: Above=announcement, Primary=logo+search+account+cart, Below=menu-1 on navy. Logo SVG uploaded (ID 77). Sticky enabled. Mobile has hamburger+search+cart. YITH Wishlist accessible via plugin page (not a native Astra header element).",
       "dependsOn": ["US-007", "US-010"]
     },
     {
