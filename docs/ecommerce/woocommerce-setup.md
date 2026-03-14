@@ -136,16 +136,6 @@ Gorunum > Ozellestir > WooCommerce
   Tek urun sayfasi: Galeri + ozet + fiyat hesaplama alani
 ```
 
-### Astra Pro (Opsiyonel)
-
-Ucretsiz surum yeterli olmadigi durumlarda Astra Pro sunlari ekler:
-- Gelismis header/footer builder
-- WooCommerce icin ek duzen secenekleri
-- Mega menu destegi
-- Sayfa basina farkli header/footer
-
-Baslangiicta ucretsiz surum yeterli. Ihtiyac duydukca Pro'ya gecis yap.
-
 ---
 
 ## Zorunlu Eklentiler
@@ -173,16 +163,6 @@ Status: "Connected" oldugundan emin ol
 ```
 
 **WooCommerce uyumu:** Redis Object Cache, WooCommerce oturum verilerini ve gecici verileri (transients) hizlandirir. Sepet ve odeme sayfalari zaten dinamik oldugu icin nesne onbellegi guvenlidir.
-
-Ek olarak sayfa onbellegi icin:
-
-```
-Eklentiler > Yeni Ekle > "WP Super Cache" > Yukle > Etkinlestir
-
-WP Super Cache > Ayarlar
-  Onbellekleme: Acik
-  Bilinen kullanicilar icin sayfalari onbellekleme: Acik (WooCommerce uyumu)
-```
 
 ### 2. WP Mail SMTP
 
@@ -219,43 +199,9 @@ Complianz sihirbazini takip et:
   Gizlilik politikasi sayfasi: Otomatik olustur veya mevcut sayfayi sec
 ```
 
-WooCommerce odeme sayfasina KVKK onay kutucugu eklemeyi unutma. Complianz bunu otomatik yapabilir veya su snippet ile manuel ekle:
+**Not:** WooCommerce odeme sayfasina KVKK onay kutucugu eklenmesi gerekir. Complianz bunu otomatik olarak yapabilir.
 
-```php
-// functions.php veya ozel eklentiye ekle
-add_action('woocommerce_review_order_before_submit', function() {
-    woocommerce_form_field('kvkk_consent', [
-        'type'     => 'checkbox',
-        'class'    => ['form-row kvkk-consent'],
-        'label'    => 'Kisisel verilerimin islendigini ve <a href="/gizlilik-politikasi" target="_blank">KVKK Aydinlatma Metni</a>\'ni okudum, kabul ediyorum.',
-        'required' => true,
-    ]);
-});
-
-add_action('woocommerce_checkout_process', function() {
-    if (!isset($_POST['kvkk_consent'])) {
-        wc_add_notice('KVKK onayini kabul etmeniz gerekmektedir.', 'error');
-    }
-});
-```
-
-### 4. ShortPixel veya Smush (Gorsel Optimizasyonu)
-
-Kumas fotograflari buyuk dosyalar olabilir. Otomatik sikistirma zorunlu.
-
-```
-Eklentiler > Yeni Ekle > "ShortPixel" > Yukle > Etkinlestir
-
-ShortPixel > Ayarlar
-  API Anahtari: shortpixel.com'dan al (aylik 100 gorsel ucretsiz)
-  Sikistirma tipi: Lossy (en iyi boyut/kalite dengesi)
-  WebP olustur: Evet
-  Mevcut gorselleri toplu optimize et: Evet
-```
-
-Alternatif: Imagify veya EWWW Image Optimizer da kullanilabilir.
-
-### 5. Site Kit by Google
+### 4. Site Kit by Google
 
 Analytics, Search Console ve PageSpeed Insights'i tek yerden yonet.
 
@@ -282,18 +228,5 @@ Site Kit > Ayarlar > Analytics
 | Eklenti | Amac | Oncelik |
 |---|---|---|
 | Wordfence veya Sucuri | Guvenlik, WAF, brute-force korumasi | Yuksek |
-| UpdraftPlus | Otomatik yedekleme (gunluk) | Yuksek |
-| Rank Math SEO | SEO meta, sitemap, schema markup | Orta |
-| WooCommerce PDF Invoices | Fatura PDF olusturma (e-fatura degil) | Orta |
 
 ---
-
-## Performans Kontrol Listesi
-
-- [ ] Redis Object Cache aktif ve "Connected" durumda
-- [ ] Gorseller optimize edilmis (WebP formatinda sunuluyor)
-- [ ] Kullanilmayan eklentiler kaldirilmis
-- [ ] PHP surumu 8.1+ (sunucu ayari)
-- [ ] Veritabani duzenli optimize ediliyor (WP-Optimize ile)
-- [ ] CDN aktif (Cloudflare ucretsiz plan yeterli)
-- [ ] PageSpeed skoru mobilde 70+, masaustunde 90+

@@ -116,7 +116,6 @@ _icc_product_type       // 'tul', 'fon', 'blackout', 'saten'
 _icc_price_per_meter    // float, örn: 150.00
 _icc_available_pleats   // array, örn: ['2', '2.5', '3'] → 1:2, 1:2.5, 1:3
 _icc_kartela_code       // string, örn: "TUL-2024-A15"
-_icc_sewing_cost        // float, override için (varsayılan kullanılmazsa)
 ```
 
 ---
@@ -159,26 +158,6 @@ Her sipariş kalemi ile birlikte saklanır:
 
 ---
 
-## Çok Odalı Sipariş Desteği
-
-Müşteri tek bir siparişte farklı odalar için farklı perdeler sipariş edebilir:
-- Her oda kendi tülüne sahip olabilir
-- Her oda opsiyonel saten ekleyebilir
-- Her oda opsiyonel fon ekleyebilir
-
-Örnek sepet:
-```
-1. Salon - Tül (TUL-2024-A15, 300cm, 1:3) → 1.575 TL
-2. Salon - Saten (Krem) → 150 TL
-3. Salon - Fon (FON-2024-B08, 100cm, 1:3) → 2.900 TL
-4. Yatak Odası - Tül (TUL-2024-A20, 250cm, 1:2.5) → 980 TL
-5. Yatak Odası - Saten (Beyaz) → 150 TL
----
-Toplam: 5.755 TL
-```
-
----
-
 ## Frontend Kullanıcı Deneyimi (UX)
 
 ### Adım 1: Perde Tipi Seçimi
@@ -212,14 +191,8 @@ Dikiş Maliyeti: 225,00 TL
 Toplam Fiyat: 1.575,00 TL
 ```
 
-### Adım 5: Saten Ekleme (Opsiyonel)
-Checkbox: "Saten astar ekle (+150 TL)"
-
-### Adım 6: Sepete Ekleme
+### Adım 5: Sepete Ekleme
 Müşteri "Sepete Ekle" butonuna tıklar.
-
-### Adım 7: Diğer Odalar İçin Tekrar
-Müşteri başka bir oda için işlemi tekrar edebilir.
 
 ---
 
@@ -243,9 +216,6 @@ wp-content/plugins/inanc-curtain-calculator/
 |   |-- calculator-form-tul.php       # Tül hesaplama formu
 |   |-- calculator-form-fon.php       # Fon hesaplama formu
 |   |-- calculator-form-saten.php     # Saten ekleme formu
-|-- languages/
-|   |-- inanc-curtain-calculator-tr_TR.po
-|   |-- inanc-curtain-calculator-tr_TR.mo
 ```
 
 ---
@@ -259,8 +229,6 @@ wp-content/plugins/inanc-curtain-calculator/
  * Description: Yeni fiyatlandırma modeli - metre bazlı, pile çarpanlı hesaplama
  * Version: 2.0.0
  * Author: İnanç Tekstil
- * Text Domain: inanc-curtain-calculator
- * Domain Path: /languages
  * Requires Plugins: woocommerce
  */
 
@@ -1363,18 +1331,6 @@ class ICC_Order_Handler {
 | Senaryo | Beklenen |
 |---------|----------|
 | Herhangi | Sabit 150 TL |
-
-### Çok Odalı Test
-
-```
-Sepet:
-1. Salon - Tül (300cm, 1:3, 150 TL/m) → 1.575 TL
-2. Salon - Saten (Krem) → 150 TL
-3. Salon - Fon (100cm, 1:3, 400 TL/m) → 2.900 TL
-4. Yatak Odası - Tül (250cm, 1:2.5, 120 TL/m) → 875 TL
-──────────────────────────────────────────────
-Toplam: 5.500 TL
-```
 
 ---
 

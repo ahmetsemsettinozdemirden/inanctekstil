@@ -31,14 +31,25 @@ Bu dokumantasyon, Inanc Tekstil'in online perde satis platformunun teknik altyap
 
 ## Fiyatlandirma Formulu
 
+Perde tipleri icin farkli fiyatlandirma modelleri:
+
+**Tul:**
 ```
-fiyat = (en_cm x boy_cm) / 10000 x metrekare_fiyat_tl
+fiyat = (pencere_eni_cm / 100) × pile_orani × kumas_metre_fiyati + dikis_maliyeti
 ```
 
-- Minimum boyut: 30 cm (en veya boy)
-- Maksimum boyut: 600 cm (en veya boy)
+**Saten:**
+```
+fiyat = 150 TL (sabit fiyat, pencere basina)
+```
+
+**Fon:**
+```
+fiyat = (panel_eni_cm / 100) × pile_orani × 2 × kumas_metre_fiyati + 500 TL dikis
+```
+
 - Kumas secenegi: ~20 adet
-- Metrekare fiyati her urunde WooCommerce custom field olarak saklanir
+- Metre fiyati her urunde WooCommerce custom field olarak saklanir
 
 ## Hizli Baslangiic
 
