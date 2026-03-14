@@ -74,8 +74,8 @@
         "Reference: docs/ecommerce/shipping-delivery.md"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "Shipping zones are easiest to configure via wp-admin UI: WooCommerce > Settings > Shipping > Shipping zones. WP-CLI can also work but is more complex.",
+      "passes": true,
+      "notes": "All shipping settings were already configured. Hatay zone (ID 1) with flat rate 75 TL, free shipping 1000 TL min, local pickup 0 TL. Zone 0 has no methods.",
       "dependsOn": ["US-002"]
     },
     {

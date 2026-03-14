@@ -59,3 +59,14 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - MariaDB client binary is `mariadb` not `mysql` in the container
   - wp db query doesn't work (no mysql client in wordpress container)
 - Verifications: SELECT from inct_woocommerce_tax_rates shows TR 20.0000 KDV row
+
+## Iteration 6 — US-004: Shipping Zones — Hatay Only
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken: All settings were already configured (no changes needed)
+  - Hatay zone (ID 1) exists with postcodes 31000-31999
+  - Flat rate "Kargo ile Teslimat" 75 TL
+  - Free shipping "Ucretsiz Kargo" min 1000 TL
+  - Local pickup "Elden Teslim (Iskenderun)" 0 TL
+  - Zone 0 (fallback) has no methods — blocks non-Hatay orders
+- Verifications: wp wc shipping_zone_method list confirmed all 3 methods; zone 0 confirmed empty
