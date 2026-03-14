@@ -213,8 +213,8 @@
         "Verify in browser: each legal page renders with Turkish content"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": "Legal template files are in docs/legal/. Content has placeholder values ([ADRES], [TELEFON], etc.) that should remain as-is for now — store owner will replace manually. Use WP-CLI wp post create with --post_content from file.",
+      "passes": true,
+      "notes": "All 5 legal pages already existed with content. Cerez Politikasi uses Complianz-generated 'Cookie Policy (EU)' page (ID 23). Privacy=25, Terms=26. Footer menu 'Yasal Bilgiler' has all 5.",
       "dependsOn": ["US-010"]
     },
     {

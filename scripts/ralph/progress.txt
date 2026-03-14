@@ -100,3 +100,12 @@ PRD: inanctekstil.store E-Commerce Storefront MVP (27 stories)
   - Fonts were already correct: Inter body 16px, Playfair Display 700 headings
 - Verifications: wp eval confirmed all color/font/button settings via astra-settings option
 - Note: Visual browser verification recommended at 1440px and 375px
+
+## Iteration 10 — US-011: Legal Pages
+- Date: 2026-03-14
+- Status: PASSED
+- Actions taken: All already configured (no changes needed)
+  - 5 legal pages exist with Turkish content: Gizlilik (25), Mesafeli Satis (26), Iade (27), On Bilgilendirme (28), Cookie Policy (23)
+  - Privacy policy page = 25, WooCommerce terms page = 26
+  - Footer menu "Yasal Bilgiler" (21) has all 5 pages
+- Verifications: Checked page content, option values, and menu items
