@@ -74,8 +74,11 @@
 #colophon h4,
 #colophon .widget-title {
     color: #FFFFFF !important;
-    font-size: 18px !important;
+    font-family: Inter, sans-serif !important;
+    font-size: 16px !important;
     font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
     margin-bottom: 12px !important;
     opacity: 1 !important;
 }

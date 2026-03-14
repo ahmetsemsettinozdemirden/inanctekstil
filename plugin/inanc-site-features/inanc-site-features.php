@@ -28,20 +28,7 @@ add_action('wp_enqueue_scripts', function () {
     );
 });
 
-// Announcement bar
-add_action('astra_header_before', function () {
-    ?>
-    <div class="isf-announcement-bar">
-        <div class="isf-announcement-inner">
-            <span class="isf-announcement-item">✂️ Kendi Atölyemizde Özel Dikim</span>
-            <span class="isf-announcement-sep">|</span>
-            <span class="isf-announcement-item">🚚 Hatay İçi Ücretsiz Kargo (1.000 TL+)</span>
-            <span class="isf-announcement-sep">|</span>
-            <span class="isf-announcement-item">📞 WhatsApp: 0541 428 80 05</span>
-        </div>
-    </div>
-    <?php
-});
+// Announcement bar — disabled, content moved to Astra header-html-1
 
 // Floating WhatsApp button
 add_action('wp_footer', function () {
