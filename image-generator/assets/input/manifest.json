@@ -1,0 +1,61 @@
+{
+  "products": [
+    {
+      "sku": "TUL-001",
+      "swatch": "swatches/tul-beyaz-001.jpg",
+      "fabric": {
+        "curtain_type": "Tul",
+        "color": "white",
+        "pattern": null,
+        "material": "polyester",
+        "transparency": "sheer",
+        "texture": "woven mesh",
+        "weight": "light"
+      },
+      "rooms": ["room-01-dark-wall", "room-02-modern-salon"],
+      "flows": ["lifestyle", "texture"]
+    }
+  ],
+  "rooms": {
+    "room-01-dark-wall": {
+      "image": "rooms/room-01-dark-wall.jpg",
+      "room_type": "studio-style room",
+      "wall_color": "dark brown",
+      "floor_type": "light wood parquet",
+      "props": ["wooden side table with lattice drawer", "white ceramic vase", "red and pink roses"],
+      "lighting": "soft even lighting",
+      "window_type": "curtain hung against solid wall, no window frame"
+    },
+    "room-02-modern-salon": {
+      "image": "rooms/room-02-modern-salon.jpg",
+      "room_type": "modern living room",
+      "wall_color": "beige",
+      "floor_type": "light parquet",
+      "props": ["black side table", "vintage telephone", "stacked books", "potted palm plant", "gray floor cushion", "cream area rug"],
+      "lighting": "natural daylight from window",
+      "window_type": "large single window with white curtain rod and pelmet"
+    }
+  },
+  "banners": {
+    "spring-sale": {
+      "sku": "TUL-001",
+      "room": "room-02-modern-salon",
+      "headline": "BAHAR KOLEKSİYONU",
+      "sub_headline": "TÜM İNDİRİMLERE EK",
+      "discount": "%20 AZ ÖDE!",
+      "cta": "ALIŞVERİŞE BAŞLA",
+      "disclaimer": "Kampanya seçili İnanç Tekstil ürünlerinde geçerlidir. İndirim sepette uygulanacaktır. Stoklarla sınırlıdır.",
+      "bg_color": "#F5F0EB",
+      "text_color": "#5C4033",
+      "accent_color": "#C17F59"
+    }
+  },
+  "collections": {
+    "bahar": {
+      "name": "Bahar Koleksiyonu",
+      "mood": "indoor-warm",
+      "skus": ["TUL-001"],
+      "room": "room-02-modern-salon"
+    }
+  }
+}

@@ -116,7 +116,7 @@ Then add the tax rate via WP-CLI or wp-admin:
 
 ```bash
 # Tax rate must be added via wp-admin or direct DB insert:
-docker exec wordpress wp db query "INSERT INTO wp_woocommerce_tax_rates (tax_rate_country, tax_rate_state, tax_rate, tax_rate_name, tax_rate_priority, tax_rate_compound, tax_rate_shipping, tax_rate_order, tax_rate_class) VALUES ('TR', '', '20.0000', 'KDV', 1, 0, 1, 1, '');" --allow-root
+docker exec wordpress wp db query "INSERT INTO inct_woocommerce_tax_rates (tax_rate_country, tax_rate_state, tax_rate, tax_rate_name, tax_rate_priority, tax_rate_compound, tax_rate_shipping, tax_rate_order, tax_rate_class) VALUES ('TR', '', '20.0000', 'KDV', 1, 0, 1, 1, '');" --allow-root
 ```
 
 ### Task 3: WooCommerce Shipping Zones (Hatay Only)
@@ -323,7 +323,7 @@ docker exec wordpress wp plugin install wp-mail-smtp --activate --allow-root
 Navigate to wp-admin > WP Mail SMTP > Settings:
 
 ```
-From Email: info@inanctekstil.store
+From Email: bildirim@inanctekstil.store
 From Name: Inanc Tekstil
 Mailer: Other SMTP (or Resend if using Resend API)
 
@@ -470,7 +470,7 @@ add_action('woocommerce_review_order_before_payment', function () {
         font-size: 0.95em;
     ">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';
@@ -486,7 +486,7 @@ docker exec wordpress bash -c "cat > /var/www/html/wp-content/mu-plugins/icc-che
 add_action('woocommerce_review_order_before_payment', function () {
     echo '<div class=\"icc-delivery-notice\" style=\"background:#F8F8F8;border-left:4px solid #1B2A4A;padding:12px 16px;margin-bottom:20px;font-size:0.95em;\">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';

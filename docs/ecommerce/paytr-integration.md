@@ -178,13 +178,13 @@ PayTR, odeme sonucunu sunucuna bildirimde bulunarak (callback/webhook) iletir. B
 PayTR eklentisi callback URL'yi otomatik olarak ayarlar. Genellikle:
 
 ```
-https://www.inanctekstil.com/?wc-api=paytr_callback
+https://inanctekstil.store/?wc-api=paytr_callback
 ```
 
 veya
 
 ```
-https://www.inanctekstil.com/paytr-callback
+https://inanctekstil.store/paytr-callback
 ```
 
 (Eklenti surumune gore degisir.)
@@ -193,7 +193,7 @@ https://www.inanctekstil.com/paytr-callback
 
 ```
 PayTR Panel > Magaza Ayarlari > Bildirim URL
-  URL: https://www.inanctekstil.com/?wc-api=paytr_callback
+  URL: https://inanctekstil.store/?wc-api=paytr_callback
 ```
 
 ### Callback Dogrulama

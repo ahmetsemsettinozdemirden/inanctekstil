@@ -213,7 +213,7 @@ WordPress Admin > **WooCommerce > Settings > Emails**
 | "From" address | `bildirim@inanctekstil.store` |
 | Header image | Magaza logosunun URL'si |
 | Footer text | `Inanc Tekstil - Iskenderun, Hatay` |
-| Base color | Marka renginiz (ornegin `#2C3E50`) |
+| Base color | Marka renginiz (ornegin `#1B2A4A`) |
 
 ### 4.2 E-posta Sablonlari
 

@@ -114,6 +114,11 @@
     margin-bottom: 6px !important;
 }
 
+/* ===== HOMEPAGE SECTION HEADINGS ===== */
+.entry-content .inanc-hero + .wp-block-heading {
+    padding-top: 48px !important;
+}
+
 /* ===== HOMEPAGE CATEGORY CARDS ===== */
 .inanc-categories .wp-block-column {
     background: #FFFFFF !important;
@@ -302,6 +307,13 @@ a.wp-block-button__link:hover {
     width: auto !important;
     overflow: visible !important;
     max-width: none !important;
+}
+
+/* ===== ACTIVE NAV ITEM ===== */
+.isf-active-nav > a {
+    color: #FFFFFF !important;
+    border-bottom: 4px solid #FFFFFF !important;
+    padding-bottom: 4px !important;
 }
 
 /* ===== RESPONSIVE ===== */

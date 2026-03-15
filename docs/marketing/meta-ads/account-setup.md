@@ -36,7 +36,7 @@ Business Manager (Isletme Yoneticisi), tum Meta varliklarinizi (sayfalar, hesapl
 3. Asagidaki bilgileri gir:
    - Isletme adi: Inanc Tekstil
    - Adiniz ve soyadiniz (isletme sahibi)
-   - Isletme e-posta adresi (kisisel degil, ornegin info@inanctekstil.com)
+   - Isletme e-posta adresi (kisisel degil, ornegin info@inanctekstil.store)
 4. Isletme detaylarini doldur:
    - Adres: Iskenderun, Hatay adresi
    - Telefon numarasi

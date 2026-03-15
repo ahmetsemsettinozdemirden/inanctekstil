@@ -128,7 +128,7 @@ set -euo pipefail
 
 # Yapilandirma
 COMPOSE_DIR="/opt/inanctekstil"
-BACKUP_DIR="/root/backups/mysql"
+BACKUP_DIR="/opt/backups/mysql"
 KEEP_DAYS=14
 DATE=$(date '+%Y-%m-%d_%H%M')
 LOG_FILE="/var/log/mysql-backup.log"
@@ -184,7 +184,7 @@ log "MariaDB yedekleme tamamlandi."
 set -euo pipefail
 
 COMPOSE_DIR="/opt/inanctekstil"
-BACKUP_DIR="/root/backups/files"
+BACKUP_DIR="/opt/backups/files"
 KEEP_DAYS=14
 DATE=$(date '+%Y-%m-%d_%H%M')
 LOG_FILE="/var/log/files-backup.log"
@@ -227,7 +227,7 @@ log "wp-content volume yedekleme tamamlandi."
 set -euo pipefail
 
 TRAEFIK_DIR="/opt/inanctekstil/traefik"
-BACKUP_DIR="/root/backups/traefik"
+BACKUP_DIR="/opt/backups/traefik"
 KEEP_DAYS=14
 DATE=$(date '+%Y-%m-%d_%H%M')
 LOG_FILE="/var/log/traefik-backup.log"
@@ -322,9 +322,9 @@ signature_v2 = False
 set -euo pipefail
 
 BUCKET="s3://inanctekstil-backups"
-MYSQL_DIR="/root/backups/mysql"
-FILES_DIR="/root/backups/files"
-TRAEFIK_DIR="/root/backups/traefik"
+MYSQL_DIR="/opt/backups/mysql"
+FILES_DIR="/opt/backups/files"
+TRAEFIK_DIR="/opt/backups/traefik"
 LOG_FILE="/var/log/backup-sync.log"
 
 log() {
@@ -393,9 +393,9 @@ Adimlar:
 set -euo pipefail
 
 REMOTE="gdrive:inanctekstil-backups"
-MYSQL_DIR="/root/backups/mysql"
-FILES_DIR="/root/backups/files"
-TRAEFIK_DIR="/root/backups/traefik"
+MYSQL_DIR="/opt/backups/mysql"
+FILES_DIR="/opt/backups/files"
+TRAEFIK_DIR="/opt/backups/traefik"
 LOG_FILE="/var/log/backup-sync.log"
 
 log() {
@@ -485,13 +485,13 @@ docker compose exec -T mariadb mysqldump \
     --user="$MYSQL_USER" \
     --password="$MYSQL_PASSWORD" \
     --single-transaction \
-    "$MYSQL_DATABASE" | gzip > /root/backups/mysql/pre-restore-$(date +%Y%m%d_%H%M).sql.gz
+    "$MYSQL_DATABASE" | gzip > /opt/backups/mysql/pre-restore-$(date +%Y%m%d_%H%M).sql.gz
 
 # Mevcut yedekleri listele
-ls -lh /root/backups/mysql/
+ls -lh /opt/backups/mysql/
 
 # Yedegi geri yukle (ornek dosya adi ile)
-gunzip -c /root/backups/mysql/inanctekstil_db_2026-03-13_0200.sql.gz | \
+gunzip -c /opt/backups/mysql/inanctekstil_db_2026-03-13_0200.sql.gz | \
     docker compose exec -T mariadb mysql \
     --user="$MYSQL_USER" \
     --password="$MYSQL_PASSWORD" \
@@ -570,11 +570,11 @@ cd /opt/inanctekstil
 
 # Mevcut wp-content'in yedeginini al
 docker compose exec -T wordpress tar -czf - -C /var/www/html wp-content > \
-    /root/backups/files/wp-content-pre-restore-$(date +%Y%m%d_%H%M).tar.gz
+    /opt/backups/files/wp-content-pre-restore-$(date +%Y%m%d_%H%M).tar.gz
 
 # Yedegi ac
 mkdir -p /tmp/wp-restore
-tar -xzf /root/backups/files/wp-content_2026-03-13_0230.tar.gz -C /tmp/wp-restore
+tar -xzf /opt/backups/files/wp-content_2026-03-13_0230.tar.gz -C /tmp/wp-restore
 
 # Konteynera geri yukle
 docker compose cp /tmp/wp-restore/wp-content wordpress:/var/www/html/
@@ -598,7 +598,7 @@ Let's Encrypt sertifikalari kaybolursa:
 
 ```bash
 # Yedekten geri yukle
-cp /root/backups/traefik/acme_2026-03-13_0245.json /opt/inanctekstil/traefik/acme.json
+cp /opt/backups/traefik/acme_2026-03-13_0245.json /opt/inanctekstil/traefik/acme.json
 chmod 600 /opt/inanctekstil/traefik/acme.json
 
 # Traefik'i yeniden baslat
@@ -700,7 +700,7 @@ Her ay bir kez:
 1. Yerel MariaDB yedeginin acilabildigini kontrol et:
 
 ```bash
-gunzip -t /root/backups/mysql/$(ls -t /root/backups/mysql/ | head -1)
+gunzip -t /opt/backups/mysql/$(ls -t /opt/backups/mysql/ | head -1)
 echo $?  # 0 = basarili
 ```
 
@@ -715,7 +715,7 @@ docker compose exec -T mariadb mysql --user=root --password="${MYSQL_ROOT_PASSWO
     -e "CREATE DATABASE IF NOT EXISTS inanctekstil_test;"
 
 # Yedegi yukle
-gunzip -c /root/backups/mysql/$(ls -t /root/backups/mysql/ | head -1) | \
+gunzip -c /opt/backups/mysql/$(ls -t /opt/backups/mysql/ | head -1) | \
     docker compose exec -T mariadb mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" inanctekstil_test
 
 # Tablolari kontrol et
@@ -745,9 +745,9 @@ rclone ls gdrive:inanctekstil-backups/mysql/ | tail -5
 # Son yedeklemenin basariyla alindigini dogrular
 
 LOG_FILE="/var/log/backup-monitor.log"
-MYSQL_DIR="/root/backups/mysql"
-FILES_DIR="/root/backups/files"
-TRAEFIK_DIR="/root/backups/traefik"
+MYSQL_DIR="/opt/backups/mysql"
+FILES_DIR="/opt/backups/files"
+TRAEFIK_DIR="/opt/backups/traefik"
 ALERT_EMAIL="info@inanctekstil.store"
 TODAY=$(date '+%Y-%m-%d')
 
@@ -799,7 +799,7 @@ if [ "$RUNNING" -lt 4 ]; then
 fi
 
 # Disk alani kontrolu
-DISK_USAGE=$(df /root/backups --output=pcent | tail -1 | tr -d ' %')
+DISK_USAGE=$(df /opt/backups --output=pcent | tail -1 | tr -d ' %')
 if [ "$DISK_USAGE" -gt 80 ]; then
     ERRORS="${ERRORS}UYARI: Disk kullanimi %${DISK_USAGE} -- yedekleme alani azaliyor!\n"
     log "UYARI: Disk kullanimi %${DISK_USAGE}"

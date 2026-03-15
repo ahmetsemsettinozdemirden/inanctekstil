@@ -27,7 +27,7 @@ Ayarlar > Kalici Baglantilar > Yazi adi
 
 ```
 WooCommerce > Ayarlar > Genel
-  Magaza Adresi: Iskenderun, Hatay, Turkiye
+  Magaza Adresi: Iskenderun, Hatay, Turkiye (WooCommerce ulke/il kodu: TR:31, posta kodu: 31200)
   Satis Yapilan Konumlar: "Belirli ulkelere sat" > Turkiye
   Gonderim Yapilan Konumlar: "Belirli ulkelere gonder" > Turkiye
   Para Birimi: Turk Lirasi (TL)
@@ -124,7 +124,7 @@ Gorunum > Ozellestir > Genel > Tipografi
   Baslik fontu: Ayni veya bir serif font (Playfair Display ev tekstili icin iyi durur)
 
 Gorunum > Ozellestir > Genel > Renkler
-  Ana renk: Marka rengi (ornek: koyu lacivert #1a237e veya bordo #800020)
+  Ana renk: #1B2A4A (Derin Lacivert - marka rengi)
   Baglanti rengi: Ana renkle uyumlu
 
 Gorunum > Ozellestir > Ust Bilgi Olusturucu (Header Builder)
@@ -172,7 +172,7 @@ WordPress'in varsayilan `wp_mail()` fonksiyonu cogu sunucuda guvenilir degildir.
 Eklentiler > Yeni Ekle > "WP Mail SMTP" > Yukle > Etkinlestir
 
 WP Mail SMTP > Ayarlar
-  Gonderen E-posta: info@inanctekstil.com (veya domain e-postasi)
+  Gonderen E-posta: bildirim@inanctekstil.store
   Gonderen Ad: Inanc Tekstil
   E-posta Servisi: "Diger SMTP" veya "Google / Gmail"
 

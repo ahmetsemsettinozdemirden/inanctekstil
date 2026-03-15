@@ -3,9 +3,9 @@
 ## Genel Politika
 
 - **Hizmet Bolgesi:** Yalnizca Hatay ili (baslangiicta)
-- **Uretim Suresi:** 5-10 is gunu (siparis onayindan itibaren)
+- **Uretim Suresi:** 5-7 is gunu (siparis onayindan itibaren)
   - Kumas siparisi: 2-3 is gunu (stokta yoksa tedarikci siparis)
-  - Kesim ve dikim: 3-7 is gunu (atölyede imalat)
+  - Kesim ve dikim: 3-5 is gunu (atölyede imalat)
 - **Teslimat Yontemleri:**
   - Ev adresine teslimat (Iskenderun/Hatay bolgesi)
   - Magazadan teslim alma (musteri kendisi alir)
@@ -97,7 +97,7 @@ add_action('woocommerce_review_order_before_payment', function () {
         font-size: 0.95em;
     ">';
     echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-10 is gunu</strong> icerisinde ';
+    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
     echo 'dikilir ve teslimata hazir hale getirilir. ';
     echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
     echo '</div>';
@@ -112,7 +112,7 @@ WooCommerce e-posta sablonlarini ozellestir:
 WooCommerce > Ayarlar > E-postalar > Isleniyor (Processing) > Yonet
 
 Ek Icerik alanina ekle:
-  "Perdeniz dikime alindi. Tahmini hazirlik suresi 5-10 is gunudur.
+  "Perdeniz dikime alindi. Tahmini hazirlik suresi 5-7 is gunudur.
    Teslimat oncesinde sizinle iletisime gececegiz."
 ```
 
@@ -191,11 +191,12 @@ Siparis Ozeti:
 - Olculer: {en} x {boy} cm
 - Tutar: {toplam} TL
 
-Tahmini hazirlik suresi: 5-10 is gunu
+Tahmini hazirlik suresi: 5-7 is gunu
 (Kumas siparisi + kesim + dikim)
 
 Sorulariniz icin bize ulasabilirsiniz:
-Telefon: 0326 XXX XX XX
+WhatsApp: 0541 428 80 05
+E-posta: info@inanctekstil.store
 
 Inanc Tekstil
 ```

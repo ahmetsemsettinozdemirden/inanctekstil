@@ -78,6 +78,22 @@ add_action('wp_head', function () {
     }
 }, 1);
 
+// Highlight active nav menu item based on URL
+add_action('wp_footer', function () {
+    ?>
+    <script>
+    (function(){
+        var path = location.pathname.replace(/\?.*/, '');
+        document.querySelectorAll('#primary-site-navigation-desktop .menu-item a').forEach(function(a){
+            if(path.indexOf(new URL(a.href).pathname) === 0){
+                a.parentElement.classList.add('isf-active-nav');
+            }
+        });
+    })();
+    </script>
+    <?php
+});
+
 // Trust signals on product pages
 add_action('woocommerce_single_product_summary', function () {
     ?>
@@ -88,7 +104,7 @@ add_action('woocommerce_single_product_summary', function () {
         </div>
         <div class="isf-trust-item">
             <span class="isf-trust-icon">📦</span>
-            <span>5-10 İş Günü Teslimat</span>
+            <span>5-7 İş Günü Teslimat</span>
         </div>
         <div class="isf-trust-item">
             <span class="isf-trust-icon">🔄</span>

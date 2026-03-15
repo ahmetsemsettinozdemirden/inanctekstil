@@ -279,7 +279,7 @@ Inanc Tekstil'in urun sayfasi TAC'tan farklilasir cunku **ozel dikim + hesap mak
 
 2. **Guven Bilgileri** (urun sayfasinda):
    - "Kendi atolyemizde dikilir"
-   - "5-10 is gunu teslimat"
+   - "5-7 is gunu teslimat"
    - "Hatay icine ucretsiz kargo (1000 TL+)"
 
 3. **Taksit Bilgisi** (PayTR aktif olunca):

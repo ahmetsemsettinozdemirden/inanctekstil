@@ -12,7 +12,7 @@ MCC (My Client Center), birden fazla Google Ads hesabini tek bir panelden yonetm
 
 1. https://ads.google.com/home/tools/manager-accounts/ adresine git
 2. "Create a manager account" butonuna tikla
-3. Isletme e-posta adresini kullan (kisisel degil, ornegin info@inanctekstil.com)
+3. Isletme e-posta adresini kullan (kisisel degil, ornegin info@inanctekstil.store)
 4. Hesap adini "Inanc Tekstil MCC" olarak belirle
 5. Ulke: Turkiye, Saat Dilimi: Istanbul (UTC+3), Para Birimi: TRY
 6. Hesabi olustur
