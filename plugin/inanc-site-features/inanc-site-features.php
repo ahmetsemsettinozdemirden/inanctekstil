@@ -48,6 +48,204 @@ add_action('wp_footer', function () {
     <?php
 });
 
+// PostHog analytics — initialization
+add_action('wp_head', function () {
+    if (is_admin()) {
+        return;
+    }
+    ?>
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        posthog.init('phc_knhZGJSkRM7w0MmIssVXa7U6QzDiGipYDXu4xwyflQp', {
+            api_host: 'https://eu.i.posthog.com',
+            defaults: '2026-01-30',
+            capture_pageview: true,
+            capture_pageleave: true,
+            capture_performance: {
+                web_vitals: true,
+                web_vitals_allowed_metrics: ['CLS', 'FCP', 'INP', 'LCP']
+            },
+            session_recording: {
+                maskAllInputs: true,
+                maskTextSelector: '.sensitive'
+            },
+            persistence: 'localStorage+cookie',
+            autocapture: {
+                dom_event_allowlist: ['click', 'change', 'submit'],
+                element_allowlist: ['button', 'a', 'input']
+            },
+            enable_heatmaps: true
+        })
+    </script>
+    <?php
+}, 5);
+
+// PostHog — identify logged-in WooCommerce customers
+add_action('wp_footer', function () {
+    if (is_admin() || !is_user_logged_in()) {
+        return;
+    }
+    $user = wp_get_current_user();
+    $customer_id = 'customer_' . $user->ID;
+    $props = [
+        'email' => $user->user_email,
+        'name'  => $user->display_name,
+    ];
+    ?>
+    <script>
+    if(window.posthog){posthog.identify(<?php echo wp_json_encode($customer_id); ?>,<?php echo wp_json_encode($props); ?>)}
+    </script>
+    <?php
+}, 2);
+
+// PostHog — e-commerce events
+add_action('wp_footer', function () {
+    if (is_admin()) {
+        return;
+    }
+
+    // Product viewed
+    if (function_exists('is_product') && is_product()) {
+        global $product;
+        if ($product) {
+            $cats = wp_get_post_terms($product->get_id(), 'product_cat', ['fields' => 'names']);
+            $data = [
+                'product_id'   => $product->get_id(),
+                'product_name' => $product->get_name(),
+                'price'        => (float) $product->get_price(),
+                'currency'     => 'TRY',
+                'category'     => !empty($cats) ? $cats[0] : '',
+            ];
+            ?>
+            <script>if(window.posthog){posthog.capture('product_viewed',<?php echo wp_json_encode($data); ?>)}</script>
+            <?php
+        }
+    }
+
+    // Category viewed
+    if (function_exists('is_product_category') && is_product_category()) {
+        $term = get_queried_object();
+        if ($term) {
+            $data = [
+                'category_name' => $term->name,
+                'category_slug' => $term->slug,
+                'product_count' => $term->count,
+            ];
+            ?>
+            <script>if(window.posthog){posthog.capture('category_viewed',<?php echo wp_json_encode($data); ?>)}</script>
+            <?php
+        }
+    }
+
+    // Cart viewed (block-based cart renders async, wait for it)
+    if (function_exists('is_cart') && is_cart()) {
+        ?>
+        <script>
+        (function(){
+            if(!window.posthog) return;
+            function captureCart(){
+                var cartData={page:'cart'};
+                try{
+                    var totalEl=document.querySelector('.wc-block-components-totals-footer-item .wc-block-components-totals-item__value, .cart-subtotal .amount, .order-total .amount');
+                    if(totalEl) cartData.cart_total=totalEl.textContent.trim();
+                    var items=document.querySelectorAll('.wc-block-cart-items__row, .woocommerce-cart-form .cart_item');
+                    cartData.item_count=items.length;
+                }catch(e){}
+                posthog.capture('cart_viewed',cartData);
+            }
+            var obs=new MutationObserver(function(mutations,observer){
+                if(document.querySelector('.wc-block-cart-items__row, .woocommerce-cart-form .cart_item')){
+                    observer.disconnect();
+                    captureCart();
+                }
+            });
+            if(document.querySelector('.wc-block-cart-items__row, .woocommerce-cart-form .cart_item')){
+                captureCart();
+            } else {
+                obs.observe(document.body,{childList:true,subtree:true});
+                setTimeout(function(){obs.disconnect();captureCart();},5000);
+            }
+        })();
+        </script>
+        <?php
+    }
+
+    // Checkout started
+    if (function_exists('is_checkout') && is_checkout() && !is_wc_endpoint_url('order-received')) {
+        ?>
+        <script>if(window.posthog){posthog.capture('checkout_started')}</script>
+        <?php
+    }
+
+    // Order completed
+    if (function_exists('is_wc_endpoint_url') && is_wc_endpoint_url('order-received')) {
+        global $wp;
+        $order_id = isset($wp->query_vars['order-received']) ? absint($wp->query_vars['order-received']) : 0;
+        if ($order_id) {
+            $order = wc_get_order($order_id);
+            if ($order) {
+                $items = [];
+                foreach ($order->get_items() as $item) {
+                    $items[] = [
+                        'name'     => $item->get_name(),
+                        'quantity' => $item->get_quantity(),
+                        'price'    => (float) $item->get_total(),
+                    ];
+                }
+                $data = [
+                    'order_id'       => $order->get_id(),
+                    'order_total'    => (float) $order->get_total(),
+                    'currency'       => 'TRY',
+                    'payment_method' => $order->get_payment_method(),
+                    'item_count'     => count($items),
+                    'items'          => $items,
+                ];
+                ?>
+                <script>if(window.posthog){posthog.capture('order_completed',<?php echo wp_json_encode($data); ?>)}</script>
+                <?php
+            }
+        }
+    }
+
+    // WhatsApp click tracking (floating button)
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var waBtn=document.querySelector('.isf-whatsapp-btn');
+        if(waBtn && window.posthog){
+            waBtn.addEventListener('click',function(){
+                posthog.capture('whatsapp_click',{source:'floating_button',page:location.pathname});
+            });
+        }
+        var waTrust=document.querySelector('.isf-trust-signals a[href*="wa.me"]');
+        if(waTrust && window.posthog){
+            waTrust.addEventListener('click',function(){
+                posthog.capture('whatsapp_click',{source:'trust_signal',page:location.pathname});
+            });
+        }
+    });
+    </script>
+    <?php
+
+    // Add to cart tracking (WooCommerce AJAX)
+    ?>
+    <script>
+    if(window.jQuery && window.posthog){
+        jQuery(document.body).on('added_to_cart',function(e,fragments,hash,btn){
+            var card=btn.closest('.product, li');
+            var nameEl=card.find('.woocommerce-loop-product__title, .product_title').first();
+            var priceEl=card.find('.price .amount').first();
+            posthog.capture('add_to_cart',{
+                product_name:nameEl.length?nameEl.text().trim():'',
+                price:priceEl.length?priceEl.text().trim():'',
+                page:location.pathname
+            });
+        });
+    }
+    </script>
+    <?php
+}, 20);
+
 // Meta descriptions for SEO
 add_action('wp_head', function () {
     // Skip if an SEO plugin handles this

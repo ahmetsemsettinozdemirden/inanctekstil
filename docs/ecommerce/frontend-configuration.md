@@ -195,10 +195,11 @@ scp -i ~/.ssh/inanctekstil plugin/inanc-site-features/inanc-site-features.php ro
 ```
 
 ### Ozellikler
-1. WhatsApp floating butonu (wp_footer hook)
-2. Urun sayfasi trust sinyalleri (woocommerce_single_product_summary hook)
-3. SEO meta description'lari (wp_head hook)
-4. Aktif navigasyon vurgulama JS (wp_footer hook)
+1. PostHog analitik snippet (wp_head hook, priority 5) — detay: [posthog-analytics.md](posthog-analytics.md)
+2. WhatsApp floating butonu (wp_footer hook)
+3. Urun sayfasi trust sinyalleri (woocommerce_single_product_summary hook)
+4. SEO meta description'lari (wp_head hook)
+5. Aktif navigasyon vurgulama JS (wp_footer hook)
 
 ---
 
