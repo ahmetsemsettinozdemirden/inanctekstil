@@ -3,7 +3,7 @@
 Custom curtain configurator for inanctekstil.store (Shopify), inspired by TAC.com.tr's "Aninda Perde" feature.
 
 **Date:** 2026-03-16
-**Status:** Draft
+**Status:** Ready for Review
 **Competitor Analysis:** [docs/ecommerce/aninda-perde-feature-analysis.md](../../ecommerce/aninda-perde-feature-analysis.md)
 
 ---
@@ -307,7 +307,7 @@ Required checkbox before "Sepete Ekle" enables:
 
 ### 5.4 Processing
 
-1. **Validate inputs** -- width/height ranges, pleat ratio in [2, 2.5, 3], panels in [1, 2], lining is boolean
+1. **Validate inputs** -- width/height ranges (integers, min 50 cm), pleat ratio in [2, 2.5, 3], panels in [1, 2] (default 1 for TUL), lining is boolean (default false)
 2. **Look up product config** -- price per meter, product type, max height, sewing costs
 3. **Calculate price:**
    ```
