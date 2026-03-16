@@ -19,6 +19,16 @@ A "Perde Tasarla" (Design Your Curtain) feature that lets customers configure cu
 - **Backend pricing service** -- validates inputs, calculates price, creates Shopify Draft Orders
 - **Navigation & branding** -- "Perde Tasarla" in main nav with accent styling
 
+### Migration Note
+
+This is a **from-scratch build for Shopify**, not a port of the existing WooCommerce `inanc-curtain-calculator` plugin. The WooCommerce plugin serves as reference for pricing formulas and business logic, but the architecture, UI, and integration are entirely new.
+
+### Prerequisites
+
+- Shopify collections must exist: `/collections/tul-perdeler`, `/collections/fon-perdeler`, `/collections/blackout-perdeler`
+- Product metafields must be set (see Section 6.1)
+- Pleat style photos provided by the user
+
 ### Out of Scope
 
 - Shopify plan upgrade (stays on Basic)
@@ -130,6 +140,8 @@ A "Perde Tasarla" (Design Your Curtain) feature that lets customers configure cu
 | BLK-001 | BLACKOUT | Yes | Olcu, Pile Stili, Kanat (3 steps) |
 | STN-001 | STN | No | Standard Shopify buy box |
 
+STN-001 serves a **dual role**: it has its own product page with a standard buy box (for standalone saten fabric purchases), and it is also added as a separate 150 TL line item when a customer selects saten lining in the Fon configurator. The 150 TL lining price is a flat rate regardless of curtain dimensions.
+
 The configurator **replaces** the standard quantity + add-to-cart buy box. Product images stay on the left (Horizon default).
 
 ### 4.2 Configurator Layout
@@ -172,6 +184,8 @@ Steps expand **inline** when clicked (not slide-out drawers). Completed steps co
 **Inputs:**
 - `En (cm)` -- width, min 50 cm, no max
 - `Boy (cm)` -- height, min 50 cm, max from product metafield
+
+> **Note:** Height is collected for **validation** (must not exceed product's max height / fabric width) and **fulfillment display** on the order. It does not affect pricing. All pricing formulas are based on width and pleat ratio only, since fabric is sold in bolts of a fixed width (the `fabric_width` metafield) and height determines whether the curtain fits within the bolt width.
 
 **Visual aids:**
 - SVG measurement diagram showing window with "en" and "boy" labeled
@@ -222,11 +236,19 @@ Each card shows a photo of the pleat style with the name below.
 
 Price updates on the frontend after each step. Shown as a breakdown:
 
+**TUL example** (300cm width, 1:2.5 ratio):
 ```
-Toplam: 4,640.00 TL
-├─ Kumas: 12m x 299 TL/m = 3,588 TL
-├─ Dikim: 500 TL
-└─ Saten Astar: 150 TL
+Toplam: 1,605.00 TL
+├─ Kumas: 7.5m x 189 TL/m = 1,417.50 TL
+└─ Dikim: 7.5m x 25 TL/m = 187.50 TL
+```
+
+**FON example** (200cm width, 1:3 ratio, 2 panels, saten lining):
+```
+Toplam: 4,238.00 TL
+├─ Kumas: 12m x 299 TL/m = 3,588.00 TL
+├─ Dikim: 500.00 TL
+└─ Saten Astar: 150.00 TL
 ```
 
 Frontend calculation is for display only. Server-side calculation is authoritative.
@@ -259,7 +281,14 @@ Required checkbox before "Sepete Ekle" enables:
 
 `POST https://perde-api.inanctekstil.store/api/cart/add`
 
-### 5.2 Request
+### 5.2 Security & Configuration
+
+- **CORS:** Allow only `https://inanctekstil.store` origin
+- **Rate limiting:** 10 requests per minute per IP (prevents abuse of Draft Order creation)
+- **Shopify API scopes required:** `write_draft_orders`, `read_products`
+- **Environment variables:** `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_STORE_DOMAIN`
+
+### 5.3 Request
 
 ```json
 {
@@ -276,7 +305,7 @@ Required checkbox before "Sepete Ekle" enables:
 }
 ```
 
-### 5.3 Processing
+### 5.4 Processing
 
 1. **Validate inputs** -- width/height ranges, pleat ratio in [2, 2.5, 3], panels in [1, 2], lining is boolean
 2. **Look up product config** -- price per meter, product type, max height, sewing costs
@@ -300,34 +329,62 @@ Required checkbox before "Sepete Ekle" enables:
 5. **Complete Draft Order** → get invoice/checkout URL
 6. **Return checkout URL** to frontend
 
-### 5.4 Response
+### 5.5 Success Response
 
 ```json
 {
   "success": true,
   "checkout_url": "https://inanctekstil.myshopify.com/...",
   "price_summary": {
-    "fabric_meters": 5.0,
-    "fabric_cost": 945.00,
-    "sewing_cost": 125.00,
+    "fabric_meters": 7.5,
+    "fabric_cost": 1417.50,
+    "sewing_cost": 187.50,
     "lining_cost": 0,
-    "total": 1070.00
+    "total": 1605.00
   }
 }
 ```
 
-### 5.5 Line Item Properties (on Draft Order)
+### 5.6 Error Response
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "En degeri en az 50 cm olmalidir."
+  }
+}
+```
+
+Error codes: `VALIDATION_ERROR`, `PRODUCT_NOT_FOUND`, `SHOPIFY_API_ERROR`, `RATE_LIMITED`
+
+HTTP status codes: 400 (validation), 404 (product), 429 (rate limit), 502 (Shopify API failure)
+
+### 5.7 Line Item Properties (on Draft Order)
 
 Visible in Shopify admin for fulfillment:
 
+**TUL example** (no Kanat/Astar fields):
 ```
 En: 300 cm
 Boy: 250 cm
 Pile: Klasik Pile (1:2.5)
-Kanat: Tek Kanat
 Kumas Metraj: 7.5 m
 Kumas Tutari: 1,417.50 TL
 Dikim Tutari: 187.50 TL
+```
+
+**FON example** (with Kanat and Astar):
+```
+En: 200 cm
+Boy: 280 cm
+Pile: Sik Pile (1:3)
+Kanat: Cift Kanat
+Kumas Metraj: 12 m
+Kumas Tutari: 3,588.00 TL
+Dikim Tutari: 500.00 TL
+Astar: Saten Astar (+150 TL)
 ```
 
 ---
@@ -430,7 +487,7 @@ perde-api/
 4. Clicks TUL-001 → product page with configurator
 5. Step 1: Enters 300 x 250 cm → "Devam Et"
 6. Step 2: Selects "Klasik Pile (1:2.5)" → "Devam Et"
-7. Sees price: Toplam 1,606.25 TL (fabric 1,417.50 + sewing 187.50)
+7. Sees price: Toplam 1,605.00 TL (fabric 1,417.50 + sewing 187.50)
 8. Checks terms → clicks "Sepete Ekle"
 9. Backend creates Draft Order → redirects to checkout
 10. Completes payment → order with full specs visible in admin
@@ -442,7 +499,7 @@ perde-api/
 6. Step 2: Selects "Sik Pile (1:3)"
 7. Step 3: Selects "Cift Kanat"
 8. Step 4: Selects "Saten Astar (+150 TL)"
-9. Sees price: Toplam 4,478.00 TL
+9. Sees price: Toplam 4,238.00 TL
    - Kumas: 12m x 299 TL = 3,588 TL
    - Dikim: 500 TL
    - Saten Astar: 150 TL (separate line item)
