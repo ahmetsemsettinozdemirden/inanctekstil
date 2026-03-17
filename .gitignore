@@ -18,6 +18,12 @@ gitopsprod/docker/traefik/acme.json
 __pycache__/
 *.pyc
 
+# Archive
+archive/
+
+# Temp
+tmp/
+
 # OS
 .DS_Store
 

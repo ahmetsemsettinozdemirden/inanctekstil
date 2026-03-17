@@ -1,335 +1,261 @@
-# Ürün Kataloğu — Kartela Sistemi ve Kumaş Ürünleri Rehberi
+# Urun Katalogu -- Kartela Sistemi ve Kumas Urunleri Rehberi
 
-## Genel Yapı
+## Genel Yapi
 
-İnanç Tekstil'in e-ticaret sitesi, fiziksel kartela sistemini dijitale taşıyan bir yapıdadır. Her kumaş bir WooCommerce ürünü olarak listelenir ve kartela kodu ile tanımlanır.
+Inanc Tekstil'in e-ticaret sitesi, fiziksel kartela sistemini dijitale tasiyan bir yapidadir. Her kumas bir Shopify urunu olarak listelenir ve kartela kodu ile tanimlanir.
 
 ---
 
-## Ürün Kategorileri (WooCommerce Kategorileri)
+## Urun Kategorileri (Shopify Koleksiyonlari)
 
-Site şu ana kategorilere ayrılmıştır:
+Site su ana kategorilere ayrilmistir:
 
-### 1. **Tül Perdeler**
-- Gündüz kullanımı için yarı şeffaf perdeler
-- İnce, hafif dokulu kumaşlar
-- Işık geçirgenliği yüksek
-- Genellikle gün boyu takılı kalır
+### 1. Tul Perdeler
+- Gunduz kullanimi icin yari seffaf perdeler
+- Ince, hafif dokulu kumaslar
+- Isik gecirgenligi yuksek
+- Genellikle gun boyu takili kalir
 
-### 2. **Fon Perdeler**
+### 2. Fon Perdeler
 - Dekoratif yan paneller
-- Tül perdenin üzerine gelen kalın kumaşlar
-- Akşam kapatılır, gündüz yanlara toplanır
-- Çeşitli desen ve dokular
+- Tul perdenin uzerine gelen kalin kumaslar
+- Aksam kapatilir, gunduz yanlara toplanir
+- Cesitli desen ve dokular
 
-### 3. **Blackout Perdeler**
-- Işık geçirmeyen, karartma özellikli
-- Yatak odası ve özel mekanlar için ideal
-- Tam gizlilik ve karanlık sağlar
-- Yoğun dokulu, ağır kumaşlar
+### 3. Blackout Perdeler
+- Isik gecirmeyen, karartma ozellikli
+- Yatak odasi ve ozel mekanlar icin ideal
+- Tam gizlilik ve karanlik saglar
+- Yogun dokulu, agir kumaslar
 
-### 4. **Saten**
-- Basit, sabit fiyatlı astar kumaşı
+### 4. Saten
+- Basit, sabit fiyatli astar kumasi
 - **Fiyat:** 150 TL
 - **Renkler:** Krem (cream), Beyaz (white)
-- Hesaplama gerektirmez, direkt ürün
+- Hesaplama gerektirmez, direkt urun
 
-### 5. **Balkon Perdesi**
-- Balkon ve teras mekanları için özel tip
-- Dış mekan koşullarına dayanıklı
-- Farklı hesaplama sistemi olabilir
+### 5. Balkon Perdesi
+- Balkon ve teras mekanlari icin ozel tip
+- Dis mekan kosullarina dayanikli
+- Farkli hesaplama sistemi olabilir
 
 ---
 
 ## Kartela Sistemi
 
 **Kartela Nedir?**
-- Kartela, İnanç Tekstil'in müşterilere gösterdiği fiziksel kumaş numune kitabıdır
-- Her kumaşın küçük bir örneği kartela'da mevcuttur
-- Online sistemde: her kumaş fotoğraflanır ve kartela kodu ile listelenir
+- Kartela, Inanc Tekstil'in musterilere gosterdigi fiziksel kumas numune kitabidir
+- Her kumasin kucuk bir ornegi kartela'da mevcuttur
+- Online sistemde: her kumas fotograflanir ve kartela kodu ile listelenir
 
 **Kartela Kodu:**
-- Her kumaşın benzersiz bir kartela kodu vardır (SKU görevi görür)
-- Format örneği: `TUL-2024-A15`, `FON-2025-B23`, `BLK-2024-C07`
-- Bu kod WooCommerce'te SKU alanına yazılır
+- Her kumasin benzersiz bir kartela kodu vardir (SKU gorevi gorur)
+- Format ornegi: `TUL-2024-A15`, `FON-2025-B23`, `BLK-2024-C07`
+- Bu kod Shopify'da SKU alanina yazilir
 
-**Kartela İçeriği:**
-- En güncel sezon kumaşları
-- Yeni koleksiyonlar
-- Müşteri beğenisine göre sürekli güncellenir
-
-**Kumaş Rotasyonu:**
-- Sezon sonu: bazı kumaşlar üretimden kaldırılır
-- Kaldırılan kumaşlar "Havuz" kategorisine taşınır
-- Havuz'da indirimli fiyatlarla satılır
-- Bitince listeden çıkarılır
+**Kumas Rotasyonu:**
+- Sezon sonu: bazi kumaslar uretimden kaldirilir
+- Kaldirilan kumaslar "Havuz" koleksiyonuna tasinir
+- Havuz'da indirimli fiyatlarla satilir
+- Bitince listeden cikarilir
 
 ---
 
-## Tekil Kumaş Ürünü (WooCommerce Product)
+## Tekil Kumas Urunu (Shopify Product)
 
-Her kumaş ürünü aşağıdaki bilgileri içermelidir:
+Her kumas urunu asagidaki bilgileri icermelidir:
 
 ### Zorunlu Alanlar
 
-| Alan | Açıklama | Örnek |
-|------|----------|-------|
-| **Kartela Kodu (SKU)** | Benzersiz ürün tanımlayıcı | `TUL-2024-A15` |
-| **Ürün Adı** | Açıklayıcı kumaş ismi | "Krem Desenli Tül - A15" |
-| **Kategori** | Tül / Fon / Blackout / Havuz | "Tül Perdeler" |
-| **Fiyat (Metre Başı)** | Custom field: `fiyat_metre` | 280 TL/metre |
-| **Açıklama** | Materyal, doku, ağırlık, bakım | Aşağıda detay var |
-| **Fotoğraflar** | En az 3-5 fotoğraf | Aşağıda standart var |
-| **Mevcut Pile Oranları** | Tül için: 1:2, 1:2.5, 1:3 | Dropdown seçenek |
-| **Stok Durumu** | Stokta / Sınırlı / Havuz | Badge olarak göster |
+| Alan | Shopify Karsiligi | Ornek |
+|------|-------------------|-------|
+| **Kartela Kodu (SKU)** | SKU | `TUL-2024-A15` |
+| **Urun Adi** | Title | "Krem Desenli Tul - A15" |
+| **Koleksiyon** | Collections | "Tul Perdeler" |
+| **Fiyat (Metre Basi)** | Metafield: `custom.fiyat_metre` | 280 |
+| **Aciklama** | Description (HTML) | Materyal, doku, agirlik, bakim |
+| **Fotograflar** | Media | En az 3-5 fotograf |
+| **Pile Oranlari** | Metafield: `custom.pile_oranlari` | 1:2, 1:2.5, 1:3 |
+| **Stok Durumu** | Inventory tracking | Stokta / Sinirli / Havuz |
 
-### Pile (Kırışık) Oranları
+### Pile (Kirisik) Oranlari
 
-**Tül Perdeler:**
-- **1:2** — Pencere genişliği × 2 (ekonomik, hafif kırışık)
-- **1:2.5** — Pencere genişliği × 2.5 (orta yoğunlukta kırışık)
-- **1:3** — Pencere genişliği × 3 (yoğun kırışık, lüks görünüm)
+**Tul Perdeler:**
+- **1:2** -- Pencere genisligi x 2 (ekonomik, hafif kirisik)
+- **1:2.5** -- Pencere genisligi x 2.5 (orta yogunlukta kirisik)
+- **1:3** -- Pencere genisligi x 3 (yogun kirisik, luks gorunum)
 
 **Fon Perdeler:**
-- Panel genişliğine göre değişir
-- Genellikle daha az pile oranı kullanılır (çünkü yan panel olarak kullanılır)
+- Panel genisligine gore degisir
+- Genellikle daha az pile orani kullanilir
 
 ---
 
-## Ürün Sayfası Düzeni
+## Shopify Metafield Tanimlari
 
-### Sayfa Yapısı
+Fiyat hesaplama eklentisinin ihtiyac duydugu ozel alanlar Shopify metafield olarak tanimlanir:
+
+```
+Shopify Admin > Ayarlar > Ozel veriler > Urunler
+
+Metafield tanimlari:
+  custom.fiyat_metre     | Tip: Sayi (ondalikli) | Aciklama: Metre basi fiyat (TL)
+  custom.pile_oranlari   | Tip: Metin           | Aciklama: Virgullu pile oranlari (1:2,1:2.5,1:3)
+  custom.kumas_tipi      | Tip: Metin           | Aciklama: tul / fon / blackout
+  custom.dikis_maliyeti  | Tip: Sayi (ondalikli) | Aciklama: Dikis maliyeti (TL)
+```
+
+---
+
+## Urun Sayfasi Duzeni
+
+### Sayfa Yapisi
 
 ```
 +-------------------------------------------------------------+
-| [Breadcrumb: Ana Sayfa > Tül Perdeler > Krem Desenli Tül]   |
+| [Breadcrumb: Ana Sayfa > Tul Perdeler > Krem Desenli Tul]   |
 +-------------------------------------------------------------+
-| [Fotoğraf Galerisi]       |  Krem Desenli Tül - A15         |
+| [Fotograf Galerisi]       |  Krem Desenli Tul - A15         |
 | (sol, %50)                |  Kartela: TUL-2024-A15          |
-|                           |  [Tül Perdeler] badge           |
-| - Kartela fotoğrafı       |                                  |
-| - Asılı fotoğraf          |  280 TL/metre                   |
+|                           |  [Tul Perdeler] badge           |
+| - Kartela fotografi       |                                  |
+| - Asili fotograf          |  280 TL/metre                   |
 | - Mekan mockup            |                                  |
-|                           |  Kısa açıklama: 2-3 cümle kumaş |
-|                           |  hakkında özet bilgi.            |
+|                           |  Kisa aciklama: 2-3 cumle       |
 |                           |                                  |
-|                           |  +-- Hesaplama Bölümü --------+ |
-|                           |  | Pencere Genişliği (cm):     | |
+|                           |  +-- Hesaplama Bolumu --------+ |
+|                           |  | Pencere Genisligi (cm):     | |
 |                           |  | [______]                    | |
 |                           |  |                             | |
-|                           |  | Pile Oranı:                 | |
+|                           |  | Pile Orani:                 | |
 |                           |  | [Dropdown: 1:2/1:2.5/1:3]   | |
 |                           |  |                             | |
-|                           |  | □ Saten Ekle (+150 TL)      | |
+|                           |  | Saten Ekle (+150 TL)        | |
 |                           |  |                             | |
-|                           |  | Toplam Kumaş: 5.00 metre    | |
+|                           |  | Toplam Kumas: 5.00 metre    | |
 |                           |  | Fiyat: 1.400,00 TL          | |
 |                           |  +-----------------------------+ |
 |                           |                                  |
 |                           |  Oda Etiketi (opsiyonel):       |
-|                           |  [Örn: Salon, Yatak Odası]      |
+|                           |  [Orn: Salon, Yatak Odasi]      |
 |                           |                                  |
 |                           |  [Sepete Ekle]                  |
-|                           |                                  |
-|                           |  SKU: TUL-2024-A15              |
-|                           |  Kategori: Tül Perdeler         |
-|                           |  Stok: Mevcut / Sınırlı         |
 +-------------------------------------------------------------+
-| [Tab: Açıklama] [Tab: Özellikler] [Tab: Bakım Talimatları] |
-|   Kumaş özellikleri tablosu                                 |
-|   Detaylı açıklama                                          |
-|   Pile oranları bilgisi                                     |
-|   Dikim ve teslimat bilgisi                                 |
+| Benzer Kumaslar (4-6 urun grid)                            |
 +-------------------------------------------------------------+
-| Benzer Kumaşlar (4-6 ürün grid)                            |
-+-------------------------------------------------------------+
-```
-
-### Hesaplama Bölümü
-
-Ürün sayfasında dinamik fiyat hesaplama:
-
-**Girdiler:**
-- Pencere genişliği (cm)
-- Pile oranı (dropdown: 1:2, 1:2.5, 1:3)
-- Saten ekleme (checkbox, +150 TL)
-- Oda etiketi (text input, opsiyonel)
-
-**Çıktılar:**
-- Toplam kumaş miktarı (metre)
-- Hesaplanan fiyat (TL)
-- Canlı güncelleme (JavaScript ile)
-
-**Örnek Hesaplama:**
-```
-Pencere genişliği: 200 cm = 2 metre
-Pile oranı: 1:2.5
-Toplam kumaş: 2 × 2.5 = 5 metre
-Fiyat: 5 × 280 TL = 1.400 TL
-Saten ekle: +150 TL
-Toplam: 1.550 TL
 ```
 
 ---
 
-## Saten Ürünü
+## Yeni Kumas Ekleme -- Adim Adim Rehber
 
-Saten, ayrı bir basit ürün olarak eklenir:
-
-### Ürün Detayları
-
-- **Ürün Tipi:** Simple Product (hesaplama yok)
-- **Fiyat:** 150 TL (sabit)
-- **Renkler:** Ürün varyasyonları olarak
-  - Krem (Cream)
-  - Beyaz (White)
-- **SKU:** `SATEN-KREM`, `SATEN-BEYAZ`
-- **Kategori:** "Saten"
-
-### Ürün Sayfası
-
-Basit bir ürün sayfası:
-- Saten fotoğrafı
-- Renk seçimi (dropdown veya swatch)
-- Miktar seçimi (metre veya adet)
-- Direkt sepete ekle
-- Hesaplama formu yok
-
----
-
-## Yeni Kumaş Ekleme — Adım Adım Rehber
-
-İnanç Tekstil personeli için yeni kumaş ekleme:
-
-### Adım 1: WooCommerce Ürün Sayfası
+### Adim 1: Shopify Urun Sayfasi
 
 ```
-WordPress Admin > WooCommerce > Ürünler > Yeni Ekle
+Shopify Admin > Urunler > Urun ekle
 ```
 
-### Adım 2: Temel Bilgiler
+### Adim 2: Temel Bilgiler
 
-| Alan | Değer |
+| Alan | Deger |
 |------|-------|
-| **Ürün Adı** | Kumaşın açıklayıcı adı, örneğin: "Krem Desenli Tül - A15" |
-| **SKU** | Kartela kodu: `TUL-2024-A15` |
-| **Kategori** | Tül Perdeler / Fon Perdeler / Blackout / Havuz |
-| **Kısa Açıklama** | 2-3 cümle özet |
-| **Açıklama** | Yukarıdaki şablonu kullanarak detaylı açıklama |
+| **Urun Adi** | Kumasin aciklayici adi: "Krem Desenli Tul - A15" |
+| **Aciklama** | HTML formatinda detayli aciklama |
+| **Koleksiyonlar** | Tul Perdeler / Fon Perdeler / Blackout / Havuz |
 
-### Adım 3: Fiyatlandırma
+### Adim 3: Medya
 
 ```
-Ürün Verileri > Genel
-  Normal Fiyat: 0 (calculator fiyatı override eder)
-
-Custom Field Ekle:
-  Alan Adı: fiyat_metre
-  Değer: 280 (metre başı fiyat, TL cinsinden)
-```
-
-**Not:** Custom field eklenti tarafından okunur ve hesaplamada kullanılır.
-
-### Adım 4: Fotoğraf Yükleme
-
-```
-Sağ kolon > Ürün Görseli: Ana kartela fotoğrafı
-Sağ kolon > Ürün Galerisi:
-  - Yakın çekim (doku)
-  - Asılı/dökümlü fotoğraf
+Medya bolumune yukle:
+  - Ana kartela fotografi (ana gorsel)
+  - Yakin cekim (doku)
+  - Asili/dokumlu fotograf
   - Mekan mockup (varsa)
 ```
 
-**Fotoğraf Adlandırma:**
+**Fotograf Adlandirma:**
 ```
 tul-2024-a15-kartela.jpg
 tul-2024-a15-asili.jpg
 tul-2024-a15-mekan.jpg
 ```
 
-### Adım 5: Pile Oranları
-
-Custom field veya ürün özniteliği olarak:
+### Adim 4: Fiyatlandirma ve SKU
 
 ```
-Custom Field:
-  pile_oranlari: 1:2,1:2.5,1:3 (virgülle ayrılmış)
+Fiyatlandirma:
+  Fiyat: 0 (hesaplayici fiyati belirler)
+
+Envanter:
+  SKU: TUL-2024-A15
+  Stok takibi: Duruma gore
 ```
 
-Veya:
+### Adim 5: Metafield Degerleri
 
 ```
-Ürün Verileri > Öznitelikler
-  Öznitelik: Pile Oranı
-  Değerler: 1:2 | 1:2.5 | 1:3
+Sayfa altindaki "Metafieldlar" bolumunde:
+  custom.fiyat_metre: 280
+  custom.pile_oranlari: 1:2,1:2.5,1:3
+  custom.kumas_tipi: tul
+  custom.dikis_maliyeti: 25
 ```
 
-### Adım 6: Yayınla
+### Adim 6: Kaydet
 
 ```
-Sağ kolon > Yayınla butonu
+Sag ustteki "Kaydet" butonuna tikla
+Durumu: Aktif (yayinla)
 ```
 
 ---
 
-## SEO ve Arama Optimizasyonu
+## Saten Urunu
 
-### Ürün Başlığı SEO
+Saten, ayri bir basit urun olarak eklenir:
+
+- **Fiyat:** 150 TL (sabit)
+- **Varyantlar:** Krem, Beyaz
+- **SKU:** `SATEN-KREM`, `SATEN-BEYAZ`
+- **Koleksiyon:** "Saten"
+- Hesaplama formu yok, direkt sepete ekle
+
+---
+
+## SEO
+
+### Urun Basligi SEO
 
 ```
-Kötü: "A15"
-İyi: "Krem Desenli Tül - A15"
-Daha İyi: "Krem Desenli Tül Perde Kumaşı - A15 | İnanç Tekstil"
+Kotu: "A15"
+Iyi: "Krem Desenli Tul - A15"
+Daha Iyi: "Krem Desenli Tul Perde Kumasi - A15 | Inanc Tekstil"
 ```
 
-### Meta Açıklama
+### Meta Aciklama
+
+Shopify Admin > Urunler > [Urun] > Arama motoru listesi onizlemesi:
 
 ```
-Zarif krem desenli tül perde kumaşı. 280 cm genişlik, %100 polyester.
-Ölçüye özel dikim, İskenderun'dan ücretsiz kargo. Kartela kodu: TUL-2024-A15
+Sayfa basligi: Krem Desenli Tul Perde Kumasi - A15 | Inanc Tekstil
+Meta aciklama: Zarif krem desenli tul perde kumasi. 280 cm genislik, %100 polyester.
+Olcuye ozel dikim, Iskenderun'dan kargo. Kartela kodu: TUL-2024-A15
+URL: /products/krem-desenli-tul-a15
 ```
 
 ### Odak Anahtar Kelimeler
 
-- "tül perde kumaşı"
-- "fon perde kumaşı"
+- "tul perde kumasi"
+- "fon perde kumasi"
 - "blackout perde"
-- "perde kumaşı iskenderun"
-- "özel dikim perde"
+- "perde kumasi iskenderun"
+- "ozel dikim perde"
 
-### Alt Text (Görsel SEO)
+### Alt Text (Gorsel SEO)
 
-```html
-<img src="tul-2024-a15-kartela.jpg"
-     alt="Krem desenli tül perde kumaşı yakın çekim - TUL-2024-A15">
-
-<img src="tul-2024-a15-asili.jpg"
-     alt="Krem desenli tül perde asılı görünüm">
-```
-
----
-
-## Teknik Notlar
-
-### Custom Fields
-
-Eklenti tarafından kullanılan custom field'ler:
+Shopify Admin'de her gorsel icin alt text girilebilir:
 
 ```
-fiyat_metre: 280 (metre başı fiyat, TL)
-pile_oranlari: 1:2,1:2.5,1:3 (virgülle ayrılmış)
-kumas_tipi: tul / fon / blackout
-stok_durumu: mevcut / sinirli / havuz
+Kartela fotografi: "Krem desenli tul perde kumasi yakin cekim - TUL-2024-A15"
+Asili fotograf: "Krem desenli tul perde asili gorunum"
 ```
-
-### WooCommerce Hooks
-
-Fiyat görünümünü özelleştirmek için:
-
-```php
-add_filter('woocommerce_get_price_html', 'custom_price_display', 10, 2);
-```
-
-Detaylar `pricing-calculator.md` dosyasında.
-
----

@@ -1,6 +1,6 @@
 # Cerez Politikasi Rehberi
 
-Bu dokuman, Inanc Tekstil e-ticaret sitesi icin KVKK'ya uyumlu bir cerez politikasi olusturma rehberidir. Sitede Complianz eklentisi ile cerez onay yonetimi, Google Analytics 4 ile analitik ve Meta Pixel ile pazarlama izlemesi kullanilmaktadir.
+Bu dokuman, Inanc Tekstil e-ticaret sitesi icin KVKK'ya uyumlu bir cerez politikasi olusturma rehberidir. Sitede Shopify'in cerez yonetimi, Google Analytics 4 ile analitik ve Meta Pixel ile pazarlama izlemesi kullanilmaktadir.
 
 > **UYARI:** Bu dokumandaki taslak metin hukuki danismanlik yerine gecmez. Bir avukat tarafindan incelenmeli ve isletmenize ozel olarak uyarlanmalidir.
 
@@ -32,14 +32,13 @@ Bu cerezler web sitesinin temel islevlerinin calismasi icin zorunludur. Devre di
 
 | Cerez Adi | Saglayici | Amac | Sure |
 |---|---|---|---|
-| `woocommerce_cart_hash` | WooCommerce | Sepet iceriginin yonetimi | Oturum |
-| `woocommerce_items_in_cart` | WooCommerce | Sepette urun olup olmadigini kontrol | Oturum |
-| `wp_woocommerce_session_*` | WooCommerce | WooCommerce oturum bilgisi | 2 gun |
-| `wc_cart_created` | WooCommerce | Sepetin olusturulma zamani | Oturum |
-| `wordpress_logged_in_*` | WordPress | Kullanici giris durumu | Oturum |
-| `wordpress_sec_*` | WordPress | Guvenlik dogrulamasi | Oturum |
-| `wp-settings-*` | WordPress | Kullanici arayuzu tercihleri | 1 yil |
-| `cmplz_*` | Complianz | Cerez onay tercihleri | 1 yil |
+| `_shopify_s` | Shopify | Oturum yonetimi | Oturum |
+| `_shopify_y` | Shopify | Benzersiz ziyaretci kimligi | 1 yil |
+| `cart` | Shopify | Sepet iceriginin yonetimi | 2 hafta |
+| `cart_ts` | Shopify | Sepetin olusturulma zamani | 2 hafta |
+| `cart_sig` | Shopify | Sepet dogrulama | 2 hafta |
+| `secure_customer_sig` | Shopify | Musteri giris durumu | 20 yil |
+| `_tracking_consent` | Shopify | Cerez onay tercihleri | 1 yil |
 
 ### 2. Analitik Cerezler
 
@@ -64,11 +63,13 @@ Bu cerezler, kullaniciya kisisellestirilmis reklamlar gostermek ve reklam perfor
 
 ---
 
-## Complianz Eklentisi ile Cerez Onay Yonetimi
+## Cerez Onay Yonetimi
 
-### Complianz Ne Yapar?
+### Shopify Cerez Banneri
 
-Complianz, web sitesinde cerez onay bannerini ve cerez tercih yonetimini saglayan bir WordPress eklentisidir. Temel islevleri:
+Shopify, dahili cerez onay banneri ve musteri gizliligi API'si saglar. Alternatif olarak daha kapsamli bir Shopify uygulamasi kullanilabilir (ornek: Pandectes GDPR Compliance, Consentmo).
+
+Temel islevler:
 
 1. **Cerez Banneri:** Ziyaretcilere ilk girislerinde cerez onay banneri gosterir
 2. **Kategori Bazli Onay:** Cerezleri kategorilere ayirarak kullanicinin her kategori icin ayri ayri onay/red vermesini saglar
@@ -76,7 +77,7 @@ Complianz, web sitesinde cerez onay bannerini ve cerez tercih yonetimini saglaya
 4. **Onay Kaydi:** Kullanicilarin verdigi onaylari kayit altina alir (KVKK uyumlulugu icin onemli)
 5. **Tercih Degistirme:** Kullanicilarin daha sonra tercihlerini degistirmesine olanak tanir
 
-### Complianz Yapilandirma Onerileri
+### Yapilandirma Onerileri
 
 #### Genel Ayarlar
 - **Bolge:** Turkiye (ve AB, eger AB'den trafik aliniyorsa)
@@ -84,7 +85,7 @@ Complianz, web sitesinde cerez onay bannerini ve cerez tercih yonetimini saglaya
 - **Banner Dili:** Turkce
 
 #### Cerez Kategorileri
-Complianz'da asagidaki kategoriler tanimlanmalidir:
+Asagidaki kategoriler tanimlanmalidir:
 
 | Kategori | Varsayilan | Kullanici Secimi |
 |---|---|---|
@@ -93,7 +94,7 @@ Complianz'da asagidaki kategoriler tanimlanmalidir:
 | Pazarlama (Reklam) | Kapali | Kullanici onay verebilir |
 
 #### Script Engelleme
-Complianz, onay verilmeyen kategorilerdeki scriptleri otomatik engelleyebilir:
+Cerez onay uygulamasi, onay verilmeyen kategorilerdeki scriptleri otomatik engelleyebilir:
 
 - **Google Analytics 4:** "Analitik/Istatistik" kategorisine baglanmali
 - **Meta Pixel:** "Pazarlama/Reklam" kategorisine baglanmali
@@ -110,7 +111,7 @@ Banner metninde asagidaki bilgiler yer almalidir:
 
 ### Google Consent Mode v2
 
-Google Analytics 4 ile uyumlu calisma icin **Google Consent Mode v2** yapilandirilmalidir. Complianz bu entegrasyonu destekler.
+Google Analytics 4 ile uyumlu calisma icin **Google Consent Mode v2** yapilandirilmalidir. Shopify cerez banneri veya kullanilan uyumluluk uygulamasi bu entegrasyonu destekler.
 
 Consent Mode parametreleri:
 
@@ -162,9 +163,9 @@ Bu cerezler, web sitemizin temel islevlerinin calismasi icin teknik olarak zorun
 Bu cerezler, KVKK Madde 5/2-f (mesru menfaat) ve Madde 5/2-c (sozlesmenin ifasi) kapsaminda acik riza gerektirmeksizin kullanilmaktadir.
 
 Kullanilan zorunlu cerezler:
-- WooCommerce sepet ve oturum cerezleri (alisveris islemlerinin yurutulmesi)
-- WordPress guvenlik ve kimlik dogrulama cerezleri
-- Complianz cerez onay tercihi cerezleri (tercihlerinizin saklanmasi)
+- Shopify sepet ve oturum cerezleri (alisveris islemlerinin yurutulmesi)
+- Shopify guvenlik ve kimlik dogrulama cerezleri
+- Cerez onay tercihi cerezleri (tercihlerinizin saklanmasi)
 
 **b) Analitik (Istatistik) Cerezleri**
 

@@ -87,7 +87,7 @@ TikTok reklam altyapisi su sirada kurulur:
 3. Pixel adi: "Inanc Tekstil Pixel"
 4. Kurulum yontemi sec:
    - Manuel: Pixel kodunu web sitesinin `<head>` bolumune yerlestir
-   - Partner: Shopify, WordPress gibi platformlar icin otomatik
+   - Partner: Shopify icin TikTok kanal entegrasyonu ile otomatik
 5. Izlenecek olaylar: PageView, ViewContent, AddToCart, PlaceAnOrder, Contact
 
 ### Adim 4: TikTok Organik Hesap Olusturma

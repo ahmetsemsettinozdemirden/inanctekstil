@@ -64,9 +64,8 @@ GA4, web sitesi trafikini ve kullanici davranislarini izlemek icin gereklidir. G
    - Akis adi: "Inanc Tekstil Web"
 7. Olcum Kimligini (Measurement ID, G-XXXXXXX) al
 8. Bu kodu web sitesine ekle:
-   - Eger WordPress kullaniliyorsa: Google Site Kit eklentisi ile
+   - Shopify: Online Store > Preferences > Google Analytics bolumunden veya Custom Pixel ile
    - Eger ozel site ise: `<head>` bolumune gtag.js kodunu yerlestir
-   - Eger Shopify/Trendyol gibi bir platform kullaniliyorsa: ilgili entegrasyon ayarlarindan
 
 ### GA4'u Google Ads'e Baglama
 

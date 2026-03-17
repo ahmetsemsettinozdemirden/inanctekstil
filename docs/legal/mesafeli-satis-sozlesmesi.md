@@ -21,7 +21,7 @@ Turkiye'de internet uzerinden satis yapan tum isletmeler, tuketiciyle mesafeli s
 1. Tuketiciyi satin aldigi urun ve kosullar hakkinda bilgilendirir
 2. Saticiyi yasal yukumluluklere uyumlu kilar
 3. Olasi uyusmazliklarda delil niteliginde kullanilir
-4. WooCommerce checkout sayfasinda tuketici tarafindan onaylanmalidir
+4. Shopify checkout sayfasinda tuketici tarafindan onaylanmalidir
 
 ---
 
@@ -74,7 +74,7 @@ Standart olculerde, olcuye ozel uretilmeyen hazir urunler satiliyorsa, bunlar ic
 
 ---
 
-## WooCommerce Uygulama Yontemi
+## Shopify Uygulama Yontemi
 
 ### Sozlesme Gosterimi
 
@@ -82,13 +82,11 @@ Standart olculerde, olcuye ozel uretilmeyen hazir urunler satiliyorsa, bunlar ic
 2. Tuketici, sozlesmeyi okudugunu ve kabul ettigini belirten bir **onay kutusu** isaretlemelidir
 3. Onay kutusu isaretlenmeden siparis tamamlanamamalidir
 
-### Teknik Uygulama Secenekleri
+### Teknik Uygulama
 
-- **WooCommerce Varsayilan:** WooCommerce > Ayarlar > Gelismis > Sayfa Ayarlari > "Sartlar ve Kosullar" sayfasi olarak bir WordPress sayfasi secebilirsiniz
-- **Eklenti Secenekleri:**
-  - YITH WooCommerce Terms and Conditions Popup
-  - WooCommerce Terms and Conditions Popup (sozlesmeyi popup olarak gosterir)
-  - Germanized / WooCommerce EU Compliance (Avrupa/Turkiye uyumu icin)
+- **Shopify Politikalar:** Shopify Admin > Ayarlar > Politikalar > Hizmet sartlari bolumunden sozlesme metni girilir
+- **Checkout Onay Kutusu:** Shopify Admin > Ayarlar > Odeme > Odeme islemi bolumunden "Hizmet sartlari onay kutusu" etkinlestirilir
+- **Shopify Uygulamalari:** Ek uyumluluk icin Shopify App Store'dan yasal uyumluluk uygulamalari (ornek: Consentmo, Pandectes) kullanilabilir
 
 ### Dinamik Icerik
 
@@ -98,7 +96,7 @@ Sozlesme metninde siparis bazinda degisen bilgiler yer almalidir:
 - Toplam tutar
 - Siparis tarihi
 
-Bu bilgiler WooCommerce shortcode veya ozel sablonlarla dinamik olarak doldurulabilir.
+Bu bilgiler Shopify Liquid sablonlari ile dinamik olarak doldurulabilir.
 
 ---
 
@@ -117,7 +115,7 @@ Inanc Tekstil'in temel urun grubu ozel siparis uzerine uretilen perdelerdir. Bu 
 
 > **TASLAK -- Hukuki danismanlik alinarak ozellesitirilmelidir**
 
-Asagidaki metin, WooCommerce checkout sayfasinda ve/veya ayri bir sayfada yayinlanacak mesafeli satis sozlesmesinin taslak halidir.
+Asagidaki metin, Shopify checkout sayfasinda ve/veya ayri bir sayfada yayinlanacak mesafeli satis sozlesmesinin taslak halidir.
 
 ---
 

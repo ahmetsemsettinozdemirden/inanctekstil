@@ -272,7 +272,7 @@ TAC has dedicated pages for:
 | **Price range** | 1,312 - 3,315 TL | Varies by fabric meter + sewing |
 | **Catalog size** | Small, curated (14 curtain products) | Growing (fabric-based, many combinations) |
 | **Brand** | National brand (Zorluteks/Zorlu Group) | Local/regional brand (Iskenderun) |
-| **Platform** | Custom Next.js (Inveon) | WooCommerce |
+| **Platform** | Custom Next.js (Inveon) | Shopify |
 | **Scale** | Enterprise | Small business |
 
 ---

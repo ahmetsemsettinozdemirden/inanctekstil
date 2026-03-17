@@ -12,22 +12,25 @@ Bu dokumantasyon, Inanc Tekstil'in online perde satis platformunun teknik altyap
 
 | Katman | Teknoloji |
 |---|---|
-| CMS | WordPress (en guncel surum) |
-| E-Ticaret | WooCommerce |
-| Tema | Astra (hafif, hizli, WooCommerce uyumlu) |
+| Platform | Shopify |
+| Tema | Horizon |
 | Odeme | PayTR (kredi karti, banka karti, taksit) |
-| Fiyat Hesaplama | Ozel WordPress eklentisi (`inanc-curtain-calculator/`) |
-| Teslimat | Hatay ili -- duz ucret veya ucretsiz yerel teslimat |
+| Fiyat Hesaplama | Ozel Shopify entegrasyonu (gelistirme asamasinda) |
+| Teslimat | Hatay ili (mevcut), Turkiye geneli (planli) |
+| Analitik | PostHog (referans, henuz aktif degil) |
 
 ## Dokuman Indeksi
 
 | Dosya | Icerik |
 |---|---|
-| [woocommerce-setup.md](woocommerce-setup.md) | WooCommerce yapilandirmasi, tema, eklentiler, KDV ayarlari |
-| [paytr-integration.md](paytr-integration.md) | PayTR odeme entegrasyonu, sandbox, taksit, webhook |
-| [pricing-calculator.md](pricing-calculator.md) | Ozel perde fiyat hesaplama eklentisinin teknik spesifikasyonu |
-| [product-catalog.md](product-catalog.md) | Urun ekleme rehberi, kumas fotograf standartlari, sayfa duzeni |
+| [shopify-setup.md](shopify-setup.md) | Shopify magaza yapilandirmasi, Horizon tema, uygulamalar |
+| [paytr-integration.md](paytr-integration.md) | PayTR odeme entegrasyonu ve alternatif odeme yontemleri |
+| [pricing-calculator.md](pricing-calculator.md) | Perde fiyat hesaplama formulleri ve teknik spesifikasyon |
+| [product-catalog.md](product-catalog.md) | Urun ekleme rehberi, kartela sistemi, fotograf standartlari |
 | [shipping-delivery.md](shipping-delivery.md) | Kargo bolgeleri, teslimat sureci, siparis is akisi |
+| [frontend-configuration.md](frontend-configuration.md) | Horizon tema ozellestirmesi, header, footer, site ozellikleri |
+| [posthog-analytics.md](posthog-analytics.md) | PostHog analitik entegrasyonu (referans dokuman) |
+| [aninda-perde-feature-analysis.md](aninda-perde-feature-analysis.md) | TAC "Aninda Perde" ozellik analizi ve oneriler |
 
 ## Fiyatlandirma Formulu
 
@@ -35,8 +38,11 @@ Perde tipleri icin farkli fiyatlandirma modelleri:
 
 **Tul:**
 ```
-fiyat = (pencere_eni_cm / 100) × pile_orani × kumas_metre_fiyati + dikis_maliyeti
+gerekli_kumas_metre = (pencere_eni_cm / 100) x pile_orani
+toplam_fiyat = (gerekli_kumas_metre x kumas_metre_fiyati) + (gerekli_kumas_metre x dikis_maliyeti_metre)
 ```
+- Dikis maliyeti: 25 TL/metre
+- Standart boy: 260 cm (boy fiyati etkilemez)
 
 **Saten:**
 ```
@@ -45,17 +51,20 @@ fiyat = 150 TL (sabit fiyat, pencere basina)
 
 **Fon:**
 ```
-fiyat = (panel_eni_cm / 100) × pile_orani × 2 × kumas_metre_fiyati + 500 TL dikis
+kumas_panel_basina = (panel_eni_cm / 100) x pile_orani
+toplam_kumas = kumas_panel_basina x 2 (cift panel)
+toplam_fiyat = (toplam_kumas x kumas_metre_fiyati) + dikis_maliyeti_cift
 ```
+- Dikis maliyeti (cift panel): 500 TL
 
 - Kumas secenegi: ~20 adet
-- Metre fiyati her urunde WooCommerce custom field olarak saklanir
+- Metre fiyati her urunde Shopify metafield olarak saklanir
 
-## Hizli Baslangiic
+## Hizli Baslangic
 
-1. WordPress + WooCommerce kur -> [woocommerce-setup.md](woocommerce-setup.md)
-2. Astra temayi yukle ve yapilandir -> [woocommerce-setup.md](woocommerce-setup.md)
+1. Shopify magazayi yapilandir -> [shopify-setup.md](shopify-setup.md)
+2. Horizon temayi ozellestir -> [frontend-configuration.md](frontend-configuration.md)
 3. PayTR entegrasyonunu yap -> [paytr-integration.md](paytr-integration.md)
-4. Fiyat hesaplama eklentisini yukle -> [pricing-calculator.md](pricing-calculator.md)
+4. Fiyat hesaplama sistemini kur -> [pricing-calculator.md](pricing-calculator.md)
 5. Urunleri (kumaslari) ekle -> [product-catalog.md](product-catalog.md)
 6. Kargo bolgelerini ayarla -> [shipping-delivery.md](shipping-delivery.md)

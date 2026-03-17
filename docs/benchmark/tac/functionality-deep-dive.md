@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-14
 **Purpose:** Comprehensive e-commerce functionality audit to inform inanctekstil.store feature parity
-**Complements:** [analysis.md](analysis.md) (UX/design benchmark), [update-plan.md](../update-plan.md) (action plan)
+**Complements:** [analysis.md](analysis.md) (UX/design benchmark)
 
 ---
 

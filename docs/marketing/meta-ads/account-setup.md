@@ -148,7 +148,7 @@ Meta Pixel, web sitenize gelen ziyaretcilerin davranislarini izleyen bir kod par
 5. Web sitesi URL'sini gir
 6. Kurulum yontemi sec:
    - **Manuel Kurulum:** Pixel kodunu alip web sitesinin `<head>` bolumune yerlestir
-   - **Partner Entegrasyonu:** WordPress, Shopify gibi platformlar icin otomatik kurulum
+   - **Partner Entegrasyonu:** Shopify icin Facebook & Instagram kanal entegrasyonu ile otomatik kurulum
    - **Google Tag Manager:** GTM kullaniliyorsa tag olarak ekle
 
 ### Pixel Kodu Yerlestirme

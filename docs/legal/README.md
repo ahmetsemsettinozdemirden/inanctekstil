@@ -37,11 +37,10 @@ Bu bolum, yasal dokumanlardaki `[PLACEHOLDER]` alanlari icin otoriter kaynak ola
 
 ### Teknik Altyapi
 
-- **Satis Kanali:** WooCommerce uzerinden e-ticaret
+- **Satis Kanali:** Shopify uzerinden e-ticaret
 - **Odeme Altyapisi:** PayTR
-- **Cerez Yonetimi:** Complianz eklentisi
+- **Cerez Yonetimi:** Shopify cerez banneri veya uyumlu uygulama
 - **Analitik Araclari:** Google Analytics 4 (GA4), Meta Pixel
-- **E-posta Servisi:** Resend
 
 ---
 
@@ -106,7 +105,7 @@ Web sitesinde kullanilan cerezler hakkinda kullanicilarin bilgilendirilmesi ve g
 
 **Dayanak:** Mesafeli Sozlesmeler Yonetmeligi, Madde 5
 
-Tuketicinin siparisi onaylamadan once, urun ve satis kosullari hakkinda acik ve anlasilir sekilde bilgilendirilmesi zorunludur. Bu form, WooCommerce checkout sayfasinda odeme oncesi gosterilmelidir.
+Tuketicinin siparisi onaylamadan once, urun ve satis kosullari hakkinda acik ve anlasilir sekilde bilgilendirilmesi zorunludur. Bu form, Shopify checkout sayfasinda odeme oncesi gosterilmelidir.
 
 **Dokuman:** [On Bilgilendirme Formu Rehberi](./on-bilgilendirme-formu.md)
 
@@ -114,7 +113,7 @@ Tuketicinin siparisi onaylamadan once, urun ve satis kosullari hakkinda acik ve 
 
 ## Teknik Uygulama Kontrol Listesi
 
-Asagidaki maddeler WooCommerce sitesinde uygulanmalidir:
+Asagidaki maddeler Shopify sitesinde uygulanmalidir:
 
 | Gereksinim | Konum | Durum |
 |---|---|---|
@@ -123,7 +122,7 @@ Asagidaki maddeler WooCommerce sitesinde uygulanmalidir:
 | On Bilgilendirme Formu | Checkout sayfasinda odeme oncesi gorunum | [ ] |
 | Iade Politikasi sayfasi | Site altbilgisi (footer) + urun sayfalari | [ ] |
 | Cerez Politikasi sayfasi | Cerez banneri uzerinden erisim | [ ] |
-| Cerez onay banneri (Complianz) | Tum sayfalarda | [ ] |
+| Cerez onay banneri | Tum sayfalarda | [ ] |
 | KVKK acik riza onay kutusu | Kayit ve siparis formlari | [ ] |
 | Veri sorumlusu iletisim bilgileri | Gizlilik politikasi sayfasi | [ ] |
 | VERBIS kaydi | kvkk.gov.tr | [ ] |

@@ -2,175 +2,140 @@
 
 ## Genel Politika
 
-- **Hizmet Bolgesi:** Yalnizca Hatay ili (baslangiicta)
+- **Mevcut Hizmet Bolgesi:** Hatay ili
+- **Planli Genisleme:** Turkiye geneli kargo
 - **Uretim Suresi:** 5-7 is gunu (siparis onayindan itibaren)
   - Kumas siparisi: 2-3 is gunu (stokta yoksa tedarikci siparis)
-  - Kesim ve dikim: 3-5 is gunu (atölyede imalat)
+  - Kesim ve dikim: 3-5 is gunu (atolyede imalat)
 - **Teslimat Yontemleri:**
-  - Ev adresine teslimat (Iskenderun/Hatay bolgesi)
+  - Kargo ile teslimat
   - Magazadan teslim alma (musteri kendisi alir)
 - **Montaj Hizmeti:** Isteyen musteriler icin perde asma hizmeti sunulur (opsiyonel)
 
 ---
 
-## WooCommerce Kargo Bolgeleri
+## Shopify Kargo Bolgeleri
 
-### 1. Tum Diger Bolgeleri Devre Disi Birakma
-
-WooCommerce'te yalnizca tanimli bolgelere gonderim yapilir. Tanimli olmayan bolgeler icin kargo yontemi eklenmezse, o bolgelerden siparis verilemez.
+### Ayarlar
 
 ```
-WooCommerce > Ayarlar > Kargo > Kargo Bolgeleri
+Shopify Admin > Ayarlar > Kargo ve teslimat > Kargo
 ```
 
-### 2. Hatay Bolgesi Olusturma
+### Mevcut Yapilandirma: Hatay Bolgesi
+
+#### Genel kargo profili
 
 ```
-Bolge Ekle:
-  Bolge Adi: Hatay
-  Bolge Bolgesi: Turkiye > Hatay (il kodu: TR31)
+Kargo bolgeleri:
+  Bolge: Turkiye
+  Sartlar: Hatay ili (posta kodu: 31000-31999)
 ```
 
-WooCommerce, Turkiye illeri icin posta kodu veya il secimi sunar. "Turkiye" ulkesini sectikten sonra "Hatay" ilini ekle.
+#### Kargo Yontemleri
 
-Eger WooCommerce Turkiye illerini listelemiyorsa, posta kodu araligi ile tanimla:
-
+**a) Duz Ucret (Flat Rate)**
 ```
-Bolge Bolgesi: Turkiye
-Posta Kodu Kisitlamasi: 31000-31999 (Hatay ili posta kodlari)
-```
-
-### 3. Kargo Yontemlerini Ekleme
-
-Hatay bolgesi icine asagidaki yontemleri ekle:
-
-#### a) Duz Ucret (Flat Rate)
-
-```
-Kargo Yontemi Ekle > Duz Ucret
-  Baslik: "Kargo ile Teslimat"
-  Maliyet: 75 (veya guncel kargo maliyeti)
-  Vergi Durumu: Vergilenebilir
+Kargo ucreti adi: "Kargo ile Teslimat"
+Fiyat: 75 TL (veya guncel kargo maliyeti)
 ```
 
-Perde kargosunda sabit ucret kullanilir. Boyut degisken olsa da ambalaj standart.
-
-#### b) Ucretsiz Kargo
-
+**b) Ucretsiz Kargo**
 ```
-Kargo Yontemi Ekle > Ucretsiz Kargo
-  Baslik: "Ucretsiz Kargo"
-  Gereklilik: Minimum siparis tutari
-  Minimum Tutar: 1000 (veya istedigin esik)
+Kargo ucreti adi: "Ucretsiz Kargo"
+Kosul: Minimum siparis tutari 1000 TL+
 ```
 
-Bu ayar, 1000 TL ve uzeri siparislerde ucretsiz kargo secenegi sunar. Duz ucret secenegi de gorunur, musteri secer.
-
-#### c) Yerel Teslimat (Elden Teslim)
-
+**c) Magazadan Teslim Alma**
 ```
-Kargo Yontemi Ekle > Yerel Teslimat
-  Baslik: "Elden Teslim (Iskenderun)"
-  Maliyet: 0 (ucretsiz) veya kucuk bir ucret
+Shopify Admin > Ayarlar > Kargo ve teslimat > Magazadan teslim alma
+  Konum: Iskenderun, Hatay
+  Hazirlik suresi: 5-7 is gunu
+  Ucret: Ucretsiz
 ```
 
-### 4. Diger Bolgeler (Kargo Yok)
+### Gelecek: Turkiye Geneli Kargo
 
-"Kargo Bolgeleri" sayfasinin en altinda "Bu bolgelerin kapsaminda olmayan konumlar" ayari vardir. Buraya **hicbir kargo yontemi ekleme**. Boylece Hatay disindaki musteriler odeme sayfasinda "Bu bolgeye gonderim yapilmiyor" mesajini gorur.
+Turkiye geneline acildiginda:
+
+```
+Ek kargo bolgeleri:
+  Bolge: Turkiye (tum iller)
+  Kargo ucreti: Duz ucret veya agirliga gore hesaplama
+  Ucretsiz kargo esigi: Belirlenecek (ornek: 1500 TL+)
+```
+
+Hatay bolgesi icin ayri (daha dusuk) kargo ucreti veya ucretsiz kargo korunabilir.
 
 ---
 
-## Siparis Sayfasinda Bilgilendirme
-
-Musteriye uretim ve teslimat suresi hakkinda bilgi ver. Odeme sayfasinda ve siparis onay e-postasinda bu bilgi gorunmeli.
-
-### Odeme Sayfasinda Bilgi Notu
-
-```php
-// functions.php veya ozel eklentiye ekle
-add_action('woocommerce_review_order_before_payment', function () {
-    echo '<div class="icc-delivery-notice" style="
-        background: #fff3e0;
-        border-left: 4px solid #ff9800;
-        padding: 12px 16px;
-        margin-bottom: 20px;
-        font-size: 0.95em;
-    ">';
-    echo '<strong>Teslimat Bilgisi:</strong> ';
-    echo 'Perdeniz, siparis onayindan itibaren <strong>5-7 is gunu</strong> icerisinde ';
-    echo 'dikilir ve teslimata hazir hale getirilir. ';
-    echo 'Hatay ili icerisine kargo veya elden teslim yapilmaktadir.';
-    echo '</div>';
-});
-```
-
-### Siparis Onay E-postasinda
-
-WooCommerce e-posta sablonlarini ozellestir:
-
-```
-WooCommerce > Ayarlar > E-postalar > Isleniyor (Processing) > Yonet
-
-Ek Icerik alanina ekle:
-  "Perdeniz dikime alindi. Tahmini hazirlik suresi 5-7 is gunudur.
-   Teslimat oncesinde sizinle iletisime gececegiz."
-```
-
----
-
-## Siparis Is Akisi (Order Fulfillment Workflow)
+## Siparis Is Akisi
 
 ### Uretim Sureci
 
-1. **Musteri olcu alir** (kendi olcerse) veya Inanc Tekstil olcum hizmeti verir (musteri satin almaya karar verirse)
+1. **Musteri olcu alir** (kendi olcerse) veya Inanc Tekstil olcum hizmeti verir
 2. **Kartela'dan kumas secer** + olculeri girer
-3. **Odeme:** Pesin odeme (PayTR ile kredi karti + taksit) veya banka havalesi (IBAN)
-4. **Kumas siparisi:** Tedarikciden siparis edilir VEYA stok rulolardan kesilir
-5. **Atölyede dikim:** Evde/magazada imalat
-6. **Teslimat:** Ev adresine teslimat (Iskenderun/Hatay) veya magazadan teslim alma
-7. **Montaj (opsiyonel):** Perdelerin pencereye asılması hizmeti
+3. **Odeme:** PayTR ile kredi karti + taksit veya banka havalesi
+4. **Kumas siparisi:** Tedarikciden siparis edilir veya stok rulolardan kesilir
+5. **Atolyede dikim:** Evde/magazada imalat
+6. **Teslimat:** Kargo veya magazadan teslim alma
+7. **Montaj (opsiyonel):** Perdelerin pencereye asilmasi hizmeti
 
-### WooCommerce Siparis Durumlari
-
-MVP baslangiciniz icin varsayilan WooCommerce durumlari yeterlidir:
+### Shopify Siparis Durumlari
 
 ```
-1. Beklemede (wc-pending)       -> Odeme bekleniyor
-2. Isleniyor (wc-processing)    -> Odeme alindi, uretim basladi
-3. Tamamlandi (wc-completed)    -> Musteriye teslim edildi
-4. Iptal (wc-cancelled)         -> Siparis iptal
-5. Iade (wc-refunded)           -> Para iade edildi
+1. Odeme bekliyor (Payment pending)    -> Odeme bekleniyor
+2. Karsilanmamis (Unfulfilled)         -> Odeme alindi, uretim basladi
+3. Karsilandi (Fulfilled)              -> Musteriye teslim edildi
+4. Iptal (Cancelled)                   -> Siparis iptal
+5. Iade (Refunded)                     -> Para iade edildi
 ```
 
 Basit is akisi:
 
 ```
-Beklemede -> Isleniyor -> Tamamlandi
-                |              |
-                +-> Iptal      +-> Iade
+Odeme bekliyor -> Karsilanmamis -> Karsilandi
+                       |                |
+                       +-> Iptal        +-> Iade
 ```
 
 ### Gunluk Operasyon
 
-1. **Sabah:** Yeni siparisleri kontrol et (WooCommerce > Siparisler, durum: "Beklemede")
-2. **Odeme onayinda:** Durum -> "Isleniyor", kumas ve uretim planlama
-3. **Kumas ve dikim:** Tedarik, kesim ve dikim asamalari (admin notlariyla takip)
+1. **Sabah:** Yeni siparisleri kontrol et (Shopify Admin > Siparisler)
+2. **Odeme onayinda:** Kumas ve uretim planlama
+3. **Kumas ve dikim:** Tedarik, kesim ve dikim asamalari (siparis notlariyla takip)
 4. **Dikim tamamlandi:** Musteriye telefon/e-posta ile teslimat planlama
-5. **Teslimat planlama:** Ev adresine mi, magaza teslim mi? Montaj isteniyor mu?
-6. **Teslimattan sonra:** Durum -> "Tamamlandi"
+5. **Teslimat planlama:** Kargo mi, magaza teslim mi? Montaj isteniyor mu?
+6. **Teslimattan sonra:** Durum -> "Karsilandi" olarak isaretle
 
-### Admin Siparis Notlari
+### Siparis Notlari
+
+Shopify Admin > Siparisler > [Siparis No] > Zaman cizelgesi
 
 Her asamada siparis notu ekle:
-
-```
-WooCommerce > Siparisler > [Siparis No] > Siparis Notlari
-
-"Musteri notu" secenegini kullanarak musteriye otomatik e-posta gonder:
-- "Siparisiniz alindi. Kumas siparisi verildi."
+- "Siparis alindi. Kumas siparisi verildi."
 - "Kumasiniz geldi, dikime aliniyor."
 - "Perdeniz hazir. Teslimat icin iletisime gececegiz."
-- "Perdeniz teslim edildi. Iyi gunlerde kullanin!"
+- "Perdeniz teslim edildi."
+
+---
+
+## Siparis Sayfasinda Bilgilendirme
+
+Musteriye uretim ve teslimat suresi hakkinda bilgi ver.
+
+### Odeme Sayfasinda
+
+Shopify checkout sayfasina bilgi notu ekle:
+
+```
+Shopify Admin > Ayarlar > Odeme > Odeme islemi ozellestirmesi
+  veya
+Shopify Admin > Online Magaza > Temalar > Ozellestir > Odeme
+
+Teslimat Bilgisi notu:
+  "Perdeniz, siparis onayindan itibaren 5-7 is gunu icerisinde
+   dikilir ve teslimata hazir hale getirilir."
 ```
 
 ---
@@ -178,6 +143,8 @@ WooCommerce > Siparisler > [Siparis No] > Siparis Notlari
 ## Musteri Iletisim Sablonlari
 
 ### Siparis Onay (Otomatik E-posta)
+
+Shopify bildirim sablonlarini Turkce olarak duzenle:
 
 ```
 Konu: Siparisiniz Alindi - Inanc Tekstil #{siparis_no}
@@ -201,16 +168,14 @@ E-posta: info@inanctekstil.store
 Inanc Tekstil
 ```
 
-
 ---
 
 ## Kontrol Listesi
 
-- [ ] Hatay kargo bolgesi olusturuldu (TR31 veya 31000-31999)
-- [ ] Duz ucret kargo yontemi eklendi (75 TL sabit)
-- [ ] Ucretsiz kargo esigi belirlendi (ornek: 1000 TL)
-- [ ] Yerel teslimat (Iskenderun) eklendi
-- [ ] Diger bolgeler icin kargo yontemi YOK (satis engellendi)
+- [ ] Hatay kargo bolgesi olusturuldu (31000-31999)
+- [ ] Duz ucret kargo yontemi eklendi
+- [ ] Ucretsiz kargo esigi belirlendi (1000 TL)
+- [ ] Magazadan teslim alma ayarlandi
 - [ ] Odeme sayfasinda uretim suresi bildirimi var
-- [ ] Siparis onay e-postasinda teslimat bilgisi var
-- [ ] Varsayilan WooCommerce siparis durumlari kullaniliyor (Beklemede/Isleniyor/Tamamlandi)
+- [ ] Siparis onay e-postasi Turkce'ye cevirildi
+- [ ] Turkiye geneli kargo planlandiginda yeni bolge eklendi

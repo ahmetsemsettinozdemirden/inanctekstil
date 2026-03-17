@@ -121,9 +121,9 @@ Iade talebi reddedilen veya cozumden memnun olmayan musteriler, ikamet ettikleri
 - Musteri bildirimleri, fotograflar ve degerlendirme sonuclari saklanmali
 - E-posta/mesaj ile yapilan tum iletisimler arsivlenmeli
 
-### WooCommerce Uygulama
-- WooCommerce siparis yonetim panelinden iade/degisim islemleri takip edilebilir
-- Siparis notlarina iade sureci ile ilgili detaylar eklenebilir
+### Shopify Uygulama
+- Shopify Admin > Siparisler bolumunden iade/degisim islemleri takip edilebilir
+- Siparis zaman cizelgesine iade sureci ile ilgili notlar eklenebilir
 - PayTR uzerinden online iade islemi baslatilabilir
 
 ---

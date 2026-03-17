@@ -1,6 +1,6 @@
 # On Bilgilendirme Formu Rehberi
 
-Bu dokuman, Inanc Tekstil e-ticaret sitesi icin Mesafeli Sozlesmeler Yonetmeligi kapsaminda zorunlu olan On Bilgilendirme Formu'nun hazirlanmasina ve WooCommerce'te uygulanmasina iliskin rehberdir.
+Bu dokuman, Inanc Tekstil e-ticaret sitesi icin Mesafeli Sozlesmeler Yonetmeligi kapsaminda zorunlu olan On Bilgilendirme Formu'nun hazirlanmasina ve Shopify'da uygulanmasina iliskin rehberdir.
 
 > **UYARI:** Bu dokumandaki taslak metin hukuki danismanlik yerine gecmez. Bir avukat tarafindan incelenmeli ve isletmenize ozel olarak uyarlanmalidir.
 
@@ -78,37 +78,30 @@ Mesafeli Sozlesmeler Yonetmeligi Madde 5 uyarinca asagidaki bilgiler yer almalid
 
 ---
 
-## WooCommerce Uygulama Yontemi
+## Shopify Uygulama Yontemi
 
-### Yontem 1: WooCommerce Varsayilan Ozellik
+### Yontem 1: Shopify Politikalar Sayfasi
 
-WooCommerce'in dahili "Terms and Conditions" ozelligi kullanilabilir:
+Shopify'in dahili politika ozelligi kullanilabilir:
 
-1. **WordPress > Sayfalar** bolumunden "On Bilgilendirme Formu" basligi ile yeni bir sayfa olusturun
-2. **WooCommerce > Ayarlar > Gelismis > Sayfa Ayarlari** bolumunden "Sartlar ve Kosullar sayfasi" olarak bu sayfayi secin
-3. Checkout sayfasinda otomatik olarak "Sartlar ve Kosullari okudum ve kabul ediyorum" onay kutusu gorunecektir
+1. **Shopify Admin > Ayarlar > Politikalar** bolumunden on bilgilendirme metnini girin
+2. **Shopify Admin > Ayarlar > Odeme** bolumunden checkout sayfasinda hizmet sartlari onay kutusunu etkinlestirin
+3. Checkout sayfasinda otomatik olarak onay kutusu gorunecektir
 
-**Eksiklik:** Bu yontem statik bir sayfa gosterir; siparis bazinda degisen bilgileri (urun detaylari, toplam tutar vb.) otomatik dolduramaz.
+**Eksiklik:** Bu yontem statik bir metin gosterir; siparis bazinda degisen bilgileri (urun detaylari, toplam tutar vb.) otomatik dolduramaz.
 
 ### Yontem 2: Dinamik On Bilgilendirme Formu (Onerilen)
 
-Siparis bazinda degisen bilgilerin otomatik doldurulmasi icin asagidaki yaklasimlardan biri kullanilabilir:
+Siparis bazinda degisen bilgilerin otomatik doldurulmasi icin:
 
-#### a) WooCommerce Hooks ile Ozel Sablon
+#### a) Shopify Liquid Sablonlari
 
-WooCommerce checkout sayfasina `woocommerce_review_order_before_submit` hook'u ile ozel bir sablon eklenebilir. Bu sablon:
-- Sepetteki urun bilgilerini
-- Toplam tutari
-- Musteri bilgilerini
-- Sabit satici bilgilerini ve yasal metinleri
+Shopify checkout sayfasi Liquid sablonlari ile ozellestirilip siparis bazinda degisen bilgiler (urun detaylari, toplam tutar, musteri bilgileri) otomatik olarak doldurulabilir.
 
-otomatik olarak birlestirir.
+#### b) Shopify Uygulamalari
 
-#### b) Eklenti Secenekleri
-
-- **YITH WooCommerce Terms and Conditions Popup** -- Sozlesme ve on bilgilendirmeyi popup olarak gosterir
-- **WP AutoTerms** -- Yasal sayfa sablonlari olusturur
-- **Germanized for WooCommerce** -- AB/Turkiye uyumlulugu icin kapsamli cozum (on bilgilendirme formunu checkout sayfasina entegre eder)
+- **Consentmo** -- GDPR/KVKK uyumlu cerez banneri ve yasal sayfalar
+- **Pandectes GDPR Compliance** -- AB/Turkiye uyumlulugu icin kapsamli cozum
 
 ### Yontem 3: Siparis Onay E-postasinda
 
@@ -138,7 +131,7 @@ Inanc Tekstil'in perdeler gibi ozel siparis urunleri icin on bilgilendirme formu
 
 > **TASLAK -- Hukuki danismanlik alinarak ozellesitirilmelidir**
 
-Asagidaki metin, WooCommerce checkout sayfasinda siparis onayindan once gosterilecek on bilgilendirme formunun taslak halidir. Koseli parantez `[...]` icindeki dinamik alanlar siparis bilgileriyle doldurulmalidir.
+Asagidaki metin, Shopify checkout sayfasinda siparis onayindan once gosterilecek on bilgilendirme formunun taslak halidir. Koseli parantez `[...]` icindeki dinamik alanlar siparis bilgileriyle doldurulmalidir.
 
 ---
 

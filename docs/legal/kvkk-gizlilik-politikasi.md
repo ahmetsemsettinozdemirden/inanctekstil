@@ -115,12 +115,12 @@ KVKK Madde 11 uyarinca her musteri asagidaki haklara sahiptir:
 
 ---
 
-## WooCommerce Uygulama Notlari
+## Shopify Uygulama Notlari
 
-1. **Gizlilik Politikasi Sayfasi:** WordPress'in dahili gizlilik politikasi sayfasi ozelligini kullanin (Ayarlar > Gizlilik).
-2. **Onay Kutusu:** Siparis ve kayit formlarinda "Gizlilik Politikasini okudum ve kabul ediyorum" onay kutusu bulunmalidir.
-3. **Cerez Onay Banneri:** Complianz eklentisi bu islevi saglar.
-4. **Veri Silme Talepleri:** WooCommerce'in dahili "Kisisel Verileri Sil" ve "Kisisel Verileri Disa Aktar" araclarini kullanin (Araclar > Kisisel Verileri Sil/Disa Aktar).
+1. **Gizlilik Politikasi Sayfasi:** Shopify Admin > Ayarlar > Politikalar > Gizlilik politikasi bolumunden olusturulur. Footer'a otomatik olarak eklenir.
+2. **Onay Kutusu:** Shopify checkout sayfasinda "Gizlilik Politikasini okudum ve kabul ediyorum" onay kutusu eklenmelidir.
+3. **Cerez Onay Banneri:** Shopify cerez banneri veya uyumlu bir Shopify uygulamasi (ornek: Pandectes GDPR Compliance) kullanilabilir.
+4. **Veri Silme Talepleri:** Shopify Admin > Musteriler bolumunden musteri verileri silinebilir. Shopify ayrica GDPR uyumlu veri silme talep API'si saglar.
 5. **PayTR Entegrasyonu:** Kart bilgileri dogrudan Inanc Tekstil sunucularina ulasmaz; PayTR'nin odeme sayfasinda islenir. Bu durum gizlilik politikasinda belirtilmelidir.
 
 ---
