@@ -1,0 +1,62 @@
+{
+  "rooms": {
+    "room-01-terracotta-wall": {
+      "image": "rooms/room-01-terracotta-wall.jpg",
+      "room_type": "warm living room",
+      "wall_color": "terracotta orange",
+      "floor_type": "herringbone wood parquet",
+      "props": ["gold metal side table", "vase with dried pampas and eucalyptus"],
+      "lighting": "warm soft lighting",
+      "window_type": "corner windows with gold curtain rod, sheer cream curtains"
+    },
+    "room-02-wine-wall": {
+      "image": "rooms/room-02-wine-wall.jpg",
+      "room_type": "studio-style room",
+      "wall_color": "dark wine burgundy",
+      "floor_type": "light wood parquet",
+      "props": ["wooden side table with lattice drawer", "white ceramic vase", "red and pink roses"],
+      "lighting": "soft even lighting",
+      "window_type": "curtain hung against solid wall, black curtain rod, no window frame"
+    },
+    "room-03-blue-wall": {
+      "image": "rooms/room-03-blue-wall.jpg",
+      "room_type": "modern minimalist room",
+      "wall_color": "blue gray",
+      "floor_type": "light white wood floor",
+      "props": ["walnut sideboard cabinet", "black ceramic vase", "white orchid", "stacked towels"],
+      "lighting": "natural daylight",
+      "window_type": "large window with black curtain rod, sheer and opaque panel combination"
+    },
+    "room-04-dark-green": {
+      "image": "rooms/room-04-dark-green.jpg",
+      "room_type": "moody elegant room",
+      "wall_color": "dark olive green",
+      "floor_type": "warm wood parquet",
+      "props": ["antique gold side table", "ceramic pot with dried wildflowers"],
+      "lighting": "warm dim ambient lighting",
+      "window_type": "full-height curtains with black ornate rod, heavy velvet panels"
+    }
+  },
+  "banners": {
+    "spring-sale": {
+      "sku": "TUL-001",
+      "room": "room-01-terracotta-wall",
+      "headline": "BAHAR KOLEKSİYONU",
+      "sub_headline": "TÜM İNDİRİMLERE EK",
+      "discount": "%20 AZ ÖDE!",
+      "cta": "ALIŞVERİŞE BAŞLA",
+      "disclaimer": "Kampanya seçili İnanç Tekstil ürünlerinde geçerlidir. İndirim sepette uygulanacaktır. Stoklarla sınırlıdır.",
+      "bg_color": "#F5F0EB",
+      "text_color": "#5C4033",
+      "accent_color": "#C17F59"
+    }
+  },
+  "collections": {
+    "bahar": {
+      "name": "Bahar Koleksiyonu",
+      "mood": "indoor-warm",
+      "skus": ["TUL-001", "FON-001", "BLK-001", "STN-001", "STN-002"],
+      "room": "room-01-terracotta-wall"
+    }
+  }
+}

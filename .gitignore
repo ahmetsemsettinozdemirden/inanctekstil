@@ -13,6 +13,11 @@ gitopsprod/*.tfvars
 gitopsprod/docker/.env
 gitopsprod/docker/traefik/acme.json
 
+# Python
+.venv/
+__pycache__/
+*.pyc
+
 # OS
 .DS_Store
 
@@ -21,3 +26,6 @@ gitopsprod/docker/traefik/acme.json
 
 # PHPUnit cache
 .phpunit.result.cache
+
+# MCP config (contains secrets)
+.mcp.json

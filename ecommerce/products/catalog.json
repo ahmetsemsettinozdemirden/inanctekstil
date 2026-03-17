@@ -1,0 +1,3892 @@
+{
+  "designs": [
+    {
+      "id": "stn-saten",
+      "curtain_type": "STN",
+      "design": "SATEN",
+      "width_cm": 320,
+      "price": 150,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "opaque",
+        "texture": "smooth satin",
+        "weight": "medium",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "stn-saten",
+        "product_type": "STN",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "STN-001",
+          "colour": "BEYAZ",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/STN/STN-001.jpeg",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "STN-002",
+          "colour": "KREM",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/STN/STN-002.jpeg",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tul-bornova",
+      "curtain_type": "TUL",
+      "design": "BORNOVA",
+      "width_cm": 320,
+      "price": 230,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "sheer",
+        "texture": null,
+        "weight": "light",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "tul-bornova",
+        "product_type": "TUL",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "TUL-001",
+          "colour": "BEYAZ",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-001.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-002",
+          "colour": "NATUREL",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-002.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-003",
+          "colour": "KREM",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-003.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-004",
+          "colour": "VİZON",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-004.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-005",
+          "colour": "A.GRİ",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-005.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tul-palu",
+      "curtain_type": "TUL",
+      "design": "PALU",
+      "width_cm": 300,
+      "price": 250,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "sheer",
+        "texture": null,
+        "weight": "light",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "tul-palu",
+        "product_type": "TUL",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "TUL-006",
+          "colour": "800 BEYAZ",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-006.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-007",
+          "colour": "A-21",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-007.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-008",
+          "colour": "75 KREM",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-008.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-009",
+          "colour": "1013",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-009.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-010",
+          "colour": "GRİ",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-010.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tul-desa",
+      "curtain_type": "TUL",
+      "design": "DESA",
+      "width_cm": 305,
+      "price": 310,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "sheer",
+        "texture": null,
+        "weight": "light",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "tul-desa",
+        "product_type": "TUL",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "TUL-011",
+          "colour": "101",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-011.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-012",
+          "colour": "102",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-012.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-013",
+          "colour": "103",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-013.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-014",
+          "colour": "104",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-014.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "TUL-015",
+          "colour": "105",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/TUL/TUL-015.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fon-hurrem",
+      "curtain_type": "FON",
+      "design": "HÜRREM",
+      "width_cm": 310,
+      "price": 350,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "opaque",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "fon-hurrem",
+        "product_type": "FON",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "FON-001",
+          "colour": "427",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-001.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-002",
+          "colour": "426",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-002.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-003",
+          "colour": "429",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-003.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-004",
+          "colour": "425",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-004.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-005",
+          "colour": "350",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-005.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-006",
+          "colour": "421",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-006.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-007",
+          "colour": "415",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-007.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-008",
+          "colour": "418",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-008.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-009",
+          "colour": "420",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-009.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-010",
+          "colour": "409",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-010.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-011",
+          "colour": "389",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-011.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-012",
+          "colour": "381",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-012.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-013",
+          "colour": "411",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-013.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-014",
+          "colour": "379",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-014.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-015",
+          "colour": "375",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-015.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-016",
+          "colour": "398",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-016.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-017",
+          "colour": "405",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-017.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-018",
+          "colour": "408",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-018.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-019",
+          "colour": "352",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-019.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-020",
+          "colour": "399",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-020.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-021",
+          "colour": "400",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-021.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-022",
+          "colour": "376",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-022.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-023",
+          "colour": "384",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-023.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-024",
+          "colour": "378",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-024.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-025",
+          "colour": "374",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-025.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-026",
+          "colour": "385",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-026.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-027",
+          "colour": "395",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-027.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-028",
+          "colour": "397",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-028.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-029",
+          "colour": "388",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-029.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-030",
+          "colour": "407",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-030.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-031",
+          "colour": "419",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-031.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-032",
+          "colour": "414",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-032.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fon-sultan-22260",
+      "curtain_type": "FON",
+      "design": "SULTAN 22260",
+      "width_cm": 310,
+      "price": 430,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "opaque",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "fon-sultan-22260",
+        "product_type": "FON",
+        "status": "ACTIVE",
+        "options": [
+          "Renk",
+          "Görünüm"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "FON-033",
+          "colour": "601",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-033.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-034",
+          "colour": "601",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-034.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-035",
+          "colour": "602",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-035.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-036",
+          "colour": "602",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-036.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-037",
+          "colour": "604",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-037.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-038",
+          "colour": "604",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-038.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-039",
+          "colour": "605",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-039.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-040",
+          "colour": "605",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-040.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-041",
+          "colour": "606",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-041.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-042",
+          "colour": "606",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-042.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-043",
+          "colour": "607",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-043.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-044",
+          "colour": "607",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-044.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-045",
+          "colour": "608",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-045.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-046",
+          "colour": "608",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-046.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-047",
+          "colour": "609",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-047.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-048",
+          "colour": "609",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-048.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-049",
+          "colour": "610",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-049.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-050",
+          "colour": "610",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-050.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-051",
+          "colour": "611",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-051.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-052",
+          "colour": "611",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-052.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-053",
+          "colour": "612",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-053.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-054",
+          "colour": "612",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-054.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-055",
+          "colour": "613",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-055.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-056",
+          "colour": "613",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-056.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-057",
+          "colour": "614",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-057.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-058",
+          "colour": "614",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-058.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-059",
+          "colour": "615",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-059.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-060",
+          "colour": "615",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-060.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-061",
+          "colour": "617",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-061.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-062",
+          "colour": "617",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-062.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-063",
+          "colour": "618",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-063.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-064",
+          "colour": "618",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-064.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-065",
+          "colour": "619",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-065.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-066",
+          "colour": "619",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-066.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-067",
+          "colour": "620",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-067.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-068",
+          "colour": "620",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-068.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-069",
+          "colour": "622",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-069.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-070",
+          "colour": "622",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-070.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-071",
+          "colour": "623",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-071.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-072",
+          "colour": "623",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-072.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-073",
+          "colour": "625",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-073.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-074",
+          "colour": "625",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-074.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-075",
+          "colour": "626",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-075.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-076",
+          "colour": "626",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-076.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-077",
+          "colour": "627",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-077.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-078",
+          "colour": "627",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-078.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-079",
+          "colour": "628",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-079.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-080",
+          "colour": "628",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-080.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-081",
+          "colour": "629",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-081.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-082",
+          "colour": "629",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-082.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-083",
+          "colour": "630",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-083.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-084",
+          "colour": "630",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-084.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-085",
+          "colour": "631",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-085.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-086",
+          "colour": "631",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-086.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-087",
+          "colour": "632",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-087.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-088",
+          "colour": "632",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-088.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-089",
+          "colour": "633",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-089.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-090",
+          "colour": "633",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-090.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-091",
+          "colour": "634",
+          "finish": "KOYU",
+          "swatch": "01-cropped-katalog-images/FON/FON-091.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-092",
+          "colour": "634",
+          "finish": "AÇIK",
+          "swatch": "01-cropped-katalog-images/FON/FON-092.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fon-hera",
+      "curtain_type": "FON",
+      "design": "HERA",
+      "width_cm": 300,
+      "price": 430,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "opaque",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "fon-hera",
+        "product_type": "FON",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "FON-093",
+          "colour": "101",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-093.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-094",
+          "colour": "102",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-094.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-095",
+          "colour": "103",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-095.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-096",
+          "colour": "105",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-096.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-097",
+          "colour": "106",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-097.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-098",
+          "colour": "107",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-098.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-099",
+          "colour": "108",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-099.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-100",
+          "colour": "109",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-100.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-101",
+          "colour": "111",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-101.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-102",
+          "colour": "112",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-102.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-103",
+          "colour": "113",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-103.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-104",
+          "colour": "114",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-104.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-105",
+          "colour": "115",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-105.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-106",
+          "colour": "116",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-106.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-107",
+          "colour": "117",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-107.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-108",
+          "colour": "118",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-108.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-109",
+          "colour": "119",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-109.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-110",
+          "colour": "120",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-110.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-111",
+          "colour": "121",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-111.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-112",
+          "colour": "122",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-112.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-113",
+          "colour": "123",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-113.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fon-yagmur",
+      "curtain_type": "FON",
+      "design": "YAĞMUR",
+      "width_cm": 310,
+      "price": 500,
+      "composition": "%80 PES-%20 CO",
+      "fabric": {
+        "material": "polyester",
+        "transparency": "opaque",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "fon-yagmur",
+        "product_type": "FON",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "FON-114",
+          "colour": "7001",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-114.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-115",
+          "colour": "7002",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-115.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-116",
+          "colour": "7003",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-116.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-117",
+          "colour": "7004",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-117.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-118",
+          "colour": "7005",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-118.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-119",
+          "colour": "7006",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-119.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-120",
+          "colour": "7007",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-120.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-121",
+          "colour": "7008",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-121.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-122",
+          "colour": "7009",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-122.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-123",
+          "colour": "7010",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-123.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "FON-124",
+          "colour": "7011",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/FON/FON-124.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-sonil-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "ŞÖNİL BLACKOUT",
+      "width_cm": 310,
+      "price": 750,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-sonil-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk",
+          "Görünüm"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-001",
+          "colour": "400",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-001.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-002",
+          "colour": "400",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-002.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-003",
+          "colour": "401",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-003.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-004",
+          "colour": "401",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-004.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-005",
+          "colour": "402",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-005.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-006",
+          "colour": "402",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-006.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-007",
+          "colour": "403",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-007.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-008",
+          "colour": "403",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-008.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-009",
+          "colour": "404",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-009.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-010",
+          "colour": "404",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-010.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-011",
+          "colour": "405",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-011.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-012",
+          "colour": "405",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-012.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-013",
+          "colour": "406",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-013.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-014",
+          "colour": "406",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-014.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-015",
+          "colour": "407",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-015.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-016",
+          "colour": "407",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-016.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-017",
+          "colour": "408",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-017.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-018",
+          "colour": "408",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-018.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-019",
+          "colour": "409",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-019.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-020",
+          "colour": "409",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-020.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-021",
+          "colour": "917",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-021.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-022",
+          "colour": "917",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-022.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-023",
+          "colour": "410",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-023.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-024",
+          "colour": "410",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-024.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-025",
+          "colour": "411",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-025.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-026",
+          "colour": "411",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-026.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-027",
+          "colour": "412",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-027.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-028",
+          "colour": "412",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-028.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-029",
+          "colour": "413",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-029.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-030",
+          "colour": "413",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-030.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-031",
+          "colour": "414",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-031.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-032",
+          "colour": "414",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-032.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-033",
+          "colour": "415",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-033.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-034",
+          "colour": "415",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-034.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-035",
+          "colour": "416",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-035.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-036",
+          "colour": "416",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-036.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-037",
+          "colour": "916",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-037.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-038",
+          "colour": "916",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-038.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-lux-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "LÜX BLACKOUT",
+      "width_cm": 320,
+      "price": 590,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-lux-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk",
+          "Görünüm"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-039",
+          "colour": "21-0369",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-039.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-040",
+          "colour": "21-0369",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-040.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-041",
+          "colour": "21-0366",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-041.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-042",
+          "colour": "21-0366",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-042.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-043",
+          "colour": "21-0341",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-043.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-044",
+          "colour": "21-0341",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-044.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-045",
+          "colour": "21-0381",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-045.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-046",
+          "colour": "21-0381",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-046.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-047",
+          "colour": "21-0364",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-047.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-048",
+          "colour": "21-0364",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-048.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-049",
+          "colour": "21-0422",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-049.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-050",
+          "colour": "21-0422",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-050.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-051",
+          "colour": "21-0335",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-051.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-052",
+          "colour": "21-0335",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-052.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-053",
+          "colour": "21-0334",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-053.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-054",
+          "colour": "21-0334",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-054.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-055",
+          "colour": "21-0393",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-055.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-056",
+          "colour": "21-0393",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-056.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-057",
+          "colour": "21-0395",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-057.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-058",
+          "colour": "21-0395",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-058.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-059",
+          "colour": "21-0342",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-059.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-060",
+          "colour": "21-0342",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-060.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-061",
+          "colour": "21-0389",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-061.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-062",
+          "colour": "21-0389",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-062.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-063",
+          "colour": "21-0426",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-063.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-064",
+          "colour": "21-0426",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-064.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-065",
+          "colour": "21-0338",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-065.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-066",
+          "colour": "21-0338",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-066.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-067",
+          "colour": "21-0361",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-067.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-068",
+          "colour": "21-0361",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-068.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-069",
+          "colour": "21-0332",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-069.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-070",
+          "colour": "21-0332",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-070.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-071",
+          "colour": "21-0414",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-071.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-072",
+          "colour": "21-0414",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-072.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-073",
+          "colour": "21-0379",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-073.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-074",
+          "colour": "21-0379",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-074.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-075",
+          "colour": "21-0376",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-075.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-076",
+          "colour": "21-0376",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-076.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-077",
+          "colour": "21-0413",
+          "finish": "MAT",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-077.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-078",
+          "colour": "21-0413",
+          "finish": "PARLAK",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-078.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-dark-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "DARK BLACKOUT",
+      "width_cm": 320,
+      "price": 520,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-dark-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-079",
+          "colour": "8103",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-079.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-080",
+          "colour": "8104",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-080.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-081",
+          "colour": "8108",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-081.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-082",
+          "colour": "8107",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-082.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-083",
+          "colour": "8115",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-083.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-084",
+          "colour": "8116",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-084.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-085",
+          "colour": "8110",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-085.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-086",
+          "colour": "8101",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-086.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-087",
+          "colour": "8111",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-087.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-088",
+          "colour": "8113",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-088.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-089",
+          "colour": "8114",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-089.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-090",
+          "colour": "8128",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-090.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-091",
+          "colour": "8140",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-091.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-092",
+          "colour": "8117",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-092.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-093",
+          "colour": "8131",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-093.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-094",
+          "colour": "8132",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-094.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-095",
+          "colour": "8138",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-095.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-096",
+          "colour": "8142",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-096.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-097",
+          "colour": "8141",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-097.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-098",
+          "colour": "8129",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-098.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-099",
+          "colour": "8127",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-099.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-100",
+          "colour": "8139",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-100.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-101",
+          "colour": "8112",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-101.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-102",
+          "colour": "8124",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-102.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-103",
+          "colour": "8118",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-103.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-104",
+          "colour": "8119",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-104.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-105",
+          "colour": "8120",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-105.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-106",
+          "colour": "8136",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-106.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-100-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "%100 BLACKOUT",
+      "width_cm": 310,
+      "price": 590,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-100-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-107",
+          "colour": "8001",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-107.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-108",
+          "colour": "8003",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-108.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-109",
+          "colour": "8005",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-109.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-110",
+          "colour": "8006",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-110.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-111",
+          "colour": "8008",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-111.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-112",
+          "colour": "8010",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-112.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-113",
+          "colour": "8011",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-113.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-114",
+          "colour": "8014",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-114.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-115",
+          "colour": "8015",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-115.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-116",
+          "colour": "8040",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-116.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-117",
+          "colour": "8020",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-117.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-118",
+          "colour": "8021",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-118.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-119",
+          "colour": "8022",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-119.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-120",
+          "colour": "8023",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-120.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-121",
+          "colour": "8024",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-121.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-122",
+          "colour": "8027",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-122.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-123",
+          "colour": "8029",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-123.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-124",
+          "colour": "8030",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-124.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-125",
+          "colour": "8031",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-125.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-126",
+          "colour": "8032",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-126.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-127",
+          "colour": "8033",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-127.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-128",
+          "colour": "8034",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-128.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-129",
+          "colour": "8035",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-129.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-130",
+          "colour": "8038",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-130.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-131",
+          "colour": "8039",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-131.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-hermes-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "HERMES BLACKOUT",
+      "width_cm": 310,
+      "price": 750,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-hermes-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk",
+          "Görünüm"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-132",
+          "colour": "5001",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-132.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-133",
+          "colour": "5001",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-133.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-134",
+          "colour": "5002",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-134.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-135",
+          "colour": "5002",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-135.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-136",
+          "colour": "5003",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-136.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-137",
+          "colour": "5003",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-137.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-138",
+          "colour": "5004",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-138.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-139",
+          "colour": "5004",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-139.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-140",
+          "colour": "5005",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-140.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-141",
+          "colour": "5005",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-141.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-142",
+          "colour": "5006",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-142.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-143",
+          "colour": "5006",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-143.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-144",
+          "colour": "5007",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-144.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-145",
+          "colour": "5007",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-145.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-146",
+          "colour": "5008",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-146.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-147",
+          "colour": "5008",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-147.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-148",
+          "colour": "5009",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-148.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-149",
+          "colour": "5009",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-149.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-150",
+          "colour": "5010",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-150.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-151",
+          "colour": "5010",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-151.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-152",
+          "colour": "5011",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-152.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-153",
+          "colour": "5011",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-153.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-154",
+          "colour": "5013",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-154.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-155",
+          "colour": "5013",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-155.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-156",
+          "colour": "5014",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-156.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-157",
+          "colour": "5014",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-157.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-158",
+          "colour": "5022",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-158.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-159",
+          "colour": "5022",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-159.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-160",
+          "colour": "5015",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-160.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-161",
+          "colour": "5015",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-161.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-162",
+          "colour": "5016",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-162.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-163",
+          "colour": "5016",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-163.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-164",
+          "colour": "5023",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-164.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-165",
+          "colour": "5023",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-165.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-166",
+          "colour": "5012",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-166.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-167",
+          "colour": "5012",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-167.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-168",
+          "colour": "5017",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-168.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-169",
+          "colour": "5017",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-169.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-170",
+          "colour": "5018",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-170.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-171",
+          "colour": "5018",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-171.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-172",
+          "colour": "5019",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-172.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-173",
+          "colour": "5019",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-173.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-174",
+          "colour": "5020",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-174.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-175",
+          "colour": "5020",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-175.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-176",
+          "colour": "5021",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-176.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-177",
+          "colour": "5021",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-177.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-178",
+          "colour": "5024",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-178.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-179",
+          "colour": "5024",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-179.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-180",
+          "colour": "5025",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-180.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-181",
+          "colour": "5025",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-181.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-182",
+          "colour": "5026",
+          "finish": "DESENLİ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-182.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-183",
+          "colour": "5026",
+          "finish": "DÜZ",
+          "swatch": "01-cropped-katalog-images/BLK/BLK-183.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blk-havuz-blackout",
+      "curtain_type": "BLACKOUT",
+      "design": "HAVUZ BLACKOUT",
+      "width_cm": 295,
+      "price": 230,
+      "composition": null,
+      "fabric": {
+        "material": "polyester",
+        "transparency": "blackout",
+        "texture": null,
+        "weight": "heavy",
+        "pattern": null
+      },
+      "shopify": {
+        "product_id": null,
+        "handle": "blk-havuz-blackout",
+        "product_type": "BLK",
+        "status": "ACTIVE",
+        "options": [
+          "Renk"
+        ]
+      },
+      "variants": [
+        {
+          "sku": "BLK-184",
+          "colour": "901",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-184.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-185",
+          "colour": "902",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-185.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-186",
+          "colour": "903",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-186.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-187",
+          "colour": "916",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-187.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-188",
+          "colour": "918",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-188.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-189",
+          "colour": "917",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-189.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-190",
+          "colour": "920",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-190.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-191",
+          "colour": "933",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-191.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-192",
+          "colour": "922",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-192.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-193",
+          "colour": "909",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-193.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-194",
+          "colour": "910",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-194.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-195",
+          "colour": "925",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-195.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-196",
+          "colour": "924",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-196.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-197",
+          "colour": "912",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-197.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-198",
+          "colour": "927",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-198.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-199",
+          "colour": "928",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-199.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-200",
+          "colour": "929",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-200.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-201",
+          "colour": "936",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-201.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-202",
+          "colour": "937",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-202.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-203",
+          "colour": "913",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-203.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-204",
+          "colour": "904",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-204.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-205",
+          "colour": "139",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-205.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-206",
+          "colour": "940",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-206.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-207",
+          "colour": "943",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-207.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-208",
+          "colour": "128",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-208.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-209",
+          "colour": "907",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-209.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-210",
+          "colour": "908",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-210.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        },
+        {
+          "sku": "BLK-211",
+          "colour": "939",
+          "finish": null,
+          "swatch": "01-cropped-katalog-images/BLK/BLK-211.JPG",
+          "shopify": {
+            "variant_id": null,
+            "status": "ACTIVE"
+          }
+        }
+      ]
+    }
+  ]
+}
