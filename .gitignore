@@ -18,6 +18,9 @@ gitopsprod/docker/traefik/acme.json
 __pycache__/
 *.pyc
 
+# Raw source images (large, not for git)
+ecommerce/products/00-raw-katalog-images/
+
 # Archive
 archive/
 
