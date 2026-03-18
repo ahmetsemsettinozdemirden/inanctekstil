@@ -66,3 +66,25 @@
 - Devam Et disabled until a card is selected
 - Verified via Playwright: all three cards visible, selecting Kanun Pile highlights it and enables Devam Et ✅
 
+---
+
+## 2026-03-18 — US-005: Step 3 — Kanat Seçimi ✅
+
+**What was done:**
+- Added CSS for `.perde-conf__kanat-options` grid and `.perde-conf__kanat-option` cards
+- Added collapsed summary row `#perde-summary-3` (shows "Kanat: ...")
+- Added Step 3 HTML with two options:
+  - Tek Kanat (count=1): SVG of single panel, description "Tek parça perde, tek tarafa açılır."
+  - Çift Kanat (count=2): SVG of two panels, description "İki parça perde, ortadan her iki yana açılır."
+- Updated step2Btn click handler to reveal Step 3 (`step3El.classList.add('is-active')`)
+- Added Step 3 JS: clicking an option sets `is-selected`/`aria-pressed`, stores `perdeConfig.kanat` and `perdeConfig.kanat_count`, enables Devam Et
+- step3Btn click collapses Step 3 and shows summary (Step 4 to be added in US-006)
+- Pushed to unpublished theme #193719566417 — success
+
+**Verified via Playwright:**
+- Step 1: entered 200x250, Devam Et enabled, clicked ✅
+- Step 2: selected Kanun Pile, Devam Et enabled, clicked ✅
+- Step 3 revealed with "3. Kanat Seçimi" heading and both options visible ✅
+- Devam Et disabled until an option selected ✅
+- Clicked Tek Kanat: card highlighted ([pressed]), Devam Et enabled ✅
+

@@ -171,6 +171,52 @@
       font-weight: 400;
     }
 
+    /* ---- Step 3: kanat options ---- */
+    .perde-conf__kanat-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .perde-conf__kanat-option {
+      border: 2px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 16px 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: #F8F8F8;
+      text-align: center;
+    }
+
+    .perde-conf__kanat-option:hover {
+      border-color: #1B2A4A;
+    }
+
+    .perde-conf__kanat-option.is-selected {
+      border-color: #1B2A4A;
+      box-shadow: 0 0 0 2px #1B2A4A22;
+    }
+
+    .perde-conf__kanat-option__img {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .perde-conf__kanat-option__label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1B2A4A;
+      margin-bottom: 4px;
+    }
+
+    .perde-conf__kanat-option__desc {
+      font-size: 0.78rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
     /* ---- Shared button ---- */
     .perde-conf__btn {
       width: 100%;
@@ -297,7 +343,55 @@
         <button class="perde-conf__btn" id="perde-step2-btn" disabled>Devam Et</button>
       </div>
 
-      <!-- Steps 3–4 will be added in subsequent stories -->
+      <!-- Collapsed summary: Step 3 -->
+      <div id="perde-summary-3" class="perde-conf__summary">
+        <span><span class="perde-conf__summary-label">Kanat:</span><span id="perde-summary-3-text"></span></span>
+      </div>
+
+      <!-- Step 3: Kanat Seçimi -->
+      <div id="perde-step-3" class="perde-conf__step">
+        <p class="perde-conf__step-title">3. Kanat Seçimi</p>
+
+        <div class="perde-conf__kanat-options">
+          <!-- Tek Kanat -->
+          <div class="perde-conf__kanat-option" data-kanat="Tek Kanat" data-count="1" role="button" tabindex="0" aria-pressed="false">
+            <div class="perde-conf__kanat-option__img">
+              <svg width="64" height="72" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="16" y="4" width="32" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
+                <line x1="22" y1="4" x2="22" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="30" y1="4" x2="30" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="38" y1="4" x2="38" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="46" y1="4" x2="46" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="16" y1="4" x2="48" y2="4" stroke="#1B2A4A" stroke-width="2.5"/>
+              </svg>
+            </div>
+            <div class="perde-conf__kanat-option__label">Tek Kanat</div>
+            <div class="perde-conf__kanat-option__desc">Tek parça perde, tek tarafa açılır.</div>
+          </div>
+          <!-- Çift Kanat -->
+          <div class="perde-conf__kanat-option" data-kanat="Çift Kanat" data-count="2" role="button" tabindex="0" aria-pressed="false">
+            <div class="perde-conf__kanat-option__img">
+              <svg width="64" height="72" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="4" width="27" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
+                <line x1="8"  y1="4" x2="8"  y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="15" y1="4" x2="15" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="22" y1="4" x2="22" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <rect x="35" y="4" width="27" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
+                <line x1="41" y1="4" x2="41" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="48" y1="4" x2="48" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="55" y1="4" x2="55" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="2"  y1="4" x2="62" y2="4" stroke="#1B2A4A" stroke-width="2.5"/>
+              </svg>
+            </div>
+            <div class="perde-conf__kanat-option__label">Çift Kanat</div>
+            <div class="perde-conf__kanat-option__desc">İki parça perde, ortadan her iki yana açılır.</div>
+          </div>
+        </div>
+
+        <button class="perde-conf__btn" id="perde-step3-btn" disabled>Devam Et</button>
+      </div>
+
+      <!-- Step 4 will be added in US-006 -->
 
     </div>
   </div>
@@ -377,12 +471,46 @@
         });
       });
 
+      var step3El  = document.getElementById('perde-step-3');
+      var summary3 = document.getElementById('perde-summary-3');
+
       step2Btn.addEventListener('click', function() {
         if (step2Btn.disabled) return;
-        // Collapse step 2, show summary — step 3 will be added in US-005
         step2El.classList.remove('is-active');
         summary2Text.textContent = window.perdeConfig.pile_stili;
         summary2.classList.add('is-visible');
+        step3El.classList.add('is-active');
+      });
+
+      /* ---------- Step 3 ---------- */
+      var step3Btn      = document.getElementById('perde-step3-btn');
+      var summary3Text  = document.getElementById('perde-summary-3-text');
+      var kanatOptions  = document.querySelectorAll('.perde-conf__kanat-option');
+
+      kanatOptions.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+          kanatOptions.forEach(function(o) {
+            o.classList.remove('is-selected');
+            o.setAttribute('aria-pressed', 'false');
+          });
+          opt.classList.add('is-selected');
+          opt.setAttribute('aria-pressed', 'true');
+          window.perdeConfig.kanat       = opt.dataset.kanat;
+          window.perdeConfig.kanat_count = parseInt(opt.dataset.count, 10);
+          step3Btn.disabled = false;
+        });
+
+        opt.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); }
+        });
+      });
+
+      step3Btn.addEventListener('click', function() {
+        if (step3Btn.disabled) return;
+        // Collapse step 3, show summary — step 4 will be added in US-006
+        step3El.classList.remove('is-active');
+        summary3Text.textContent = window.perdeConfig.kanat;
+        summary3.classList.add('is-visible');
       });
 
     })();

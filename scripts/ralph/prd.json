@@ -86,8 +86,8 @@
         "Verified in browser via Playwright MCP: both options visible, selecting one enables Devam Et"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Step 3 renders after Step 2; collapsed summary 'Pile: Kanun Pile' shown. Tek Kanat and Çift Kanat options with SVG illustrations and Turkish descriptions. Selecting one highlights and enables Devam Et. kanat and kanat_count stored in window.perdeConfig. Verified via Playwright.",
       "dependsOn": ["US-004"]
     },
     {
