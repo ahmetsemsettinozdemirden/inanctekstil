@@ -1,6 +1,172 @@
 {
   "project": "inanc-tekstil",
-  "branchName": "main",
-  "description": "",
-  "userStories": []
+  "branchName": "ralph/perde-tasarla-configurator",
+  "description": "Multi-step curtain configurator (Perde Tasarla) for inanctekstil.store. Customers configure Tul curtains (width, pleat style, panel count), see a live price, and add to cart. A private Shopify App with a Cart Transform function sets the correct line item price server-side.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Define product metafield for max height",
+      "description": "As a store admin, I want each curtain product to have a max_boy_cm metafield so the configurator can enforce per-product height limits.",
+      "acceptanceCriteria": [
+        "Metafield definition created in Shopify admin: namespace 'custom', key 'max_boy_cm', type 'number_integer'",
+        "A test Tul product exists tagged 'perde-tasarla' with custom.max_boy_cm set to 270",
+        "The metafield value is readable in Liquid via product.metafields.custom.max_boy_cm",
+        "Verified in browser via Playwright MCP: navigate to the test product page and confirm metafield is accessible"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
+    },
+    {
+      "id": "US-002",
+      "title": "Curtain configurator section scaffold",
+      "description": "As a developer, I want a Liquid section that conditionally renders on curtain products so the configurator UI can be placed in the product page without creating a new template.",
+      "acceptanceCriteria": [
+        "New file technical/theme/sections/curtain-configurator.liquid created",
+        "Section renders only when product.tags contains 'perde-tasarla'; otherwise outputs nothing",
+        "When active, injects CSS that hides the standard variant-picker and buy-buttons blocks from the product-information section",
+        "Section added to technical/theme/templates/product.json above the product_recommendations section",
+        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
+        "Verified in browser via Playwright MCP: test product shows empty configurator container; non-tagged product shows normal buy button"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-003",
+      "title": "Step 1 — Olcu Secimi (size inputs with validation)",
+      "description": "As a customer, I want to enter curtain width and height with clear constraints so I don't submit invalid measurements.",
+      "acceptanceCriteria": [
+        "Step 1 renders inside the configurator section with two number inputs: En (cm) and Boy (cm)",
+        "En: minimum 50cm enforced; Turkish error shown if below: 'En en az 50 cm olmalidir'",
+        "Boy: maximum read from product.metafields.custom.max_boy_cm; Turkish error shown if exceeded: 'Boy en fazla [X] cm olabilir'",
+        "Devam Et button disabled until both inputs are valid",
+        "A simple measurement diagram (SVG or inline illustration) shows En and Boy labels on a curtain outline",
+        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
+        "Verified in browser via Playwright MCP: enter 30cm width -> error shown; enter 200x250 -> Devam Et button enabled"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-002"]
+    },
+    {
+      "id": "US-004",
+      "title": "Step 2 — Pile Stili visual picker",
+      "description": "As a customer, I want to choose a pleat style by seeing a photo of each option so I understand what I'm selecting.",
+      "acceptanceCriteria": [
+        "Step 2 renders after Step 1 is completed; Step 1 summary shown as collapsed row: 'Olcu: 200 x 250 cm'",
+        "Three options displayed as photo cards: Duz Dikis (ratio 2.0), Kanun Pile (ratio 2.5), Boru Pile (ratio 3.0)",
+        "Placeholder images used (grey boxes with text label) — real photos to be swapped in later",
+        "Clicking a card selects it with a visual highlight; one must be selected to proceed",
+        "Selected pleat ratio stored in JS state for price calculation",
+        "Devam Et button disabled until a style is selected",
+        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
+        "Verified in browser via Playwright MCP: all three cards visible, clicking one highlights it, Devam Et enables"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-003"]
+    },
+    {
+      "id": "US-005",
+      "title": "Step 3 — Kanat Secimi (panel selection)",
+      "description": "As a customer, I want to select single or double panel so the correct fabric amount is calculated.",
+      "acceptanceCriteria": [
+        "Step 3 renders after Step 2 is completed; Step 2 summary shown: 'Pile: Kanun Pile'",
+        "Two radio options with illustrations: Tek Kanat (1 panel) and Cift Kanat (2 panels)",
+        "Each option includes a brief Turkish description (1 sentence)",
+        "Panel count (1 or 2) stored in JS state",
+        "Devam Et button disabled until one option is selected",
+        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
+        "Verified in browser via Playwright MCP: both options visible, selecting one enables Devam Et"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-004"]
+    },
+    {
+      "id": "US-006",
+      "title": "Step 4 — Onay, live price, and add to cart",
+      "description": "As a customer, I want to review my configuration with an accurate price estimate and accept the custom-product disclaimer before adding to cart.",
+      "acceptanceCriteria": [
+        "Step 4 renders after Step 3 is completed; Step 3 summary shown: 'Kanat: Tek Kanat'",
+        "Configuration summary displayed: En, Boy, Pile Stili, Kanat",
+        "Live calculated price displayed using formula: (en_cm / 100) * pleat_ratio * panel_count * base_price_per_meter, formatted as Turkish currency (e.g. '1.695,00 TL')",
+        "Note below price: 'Tahmini fiyat. Sepette kesinlesir.'",
+        "Required disclaimer checkbox: 'Bu perde ozel olarak dikilecegi icin iade edilemez. Olculerimi kontrol ettigimi onayliyorum.'",
+        "Sepete Ekle button disabled until checkbox is checked",
+        "On click: POST to Shopify /cart/add.js with quantity 1, variant id, and properties: _en, _boy, _pile_stili, _pile_orani, _kanat",
+        "On success: Horizon cart drawer opens",
+        "On error: Turkish error message shown inline",
+        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
+        "Verified in browser via Playwright MCP: complete full configurator flow, cart drawer opens with correct item"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-005"]
+    },
+    {
+      "id": "US-007",
+      "title": "Initialize Shopify App project",
+      "description": "As a developer, I want the Shopify App scaffolded at technical/design-your-curtain-shopify-app/ so the Cart Transform function can be developed and deployed.",
+      "acceptanceCriteria": [
+        "Shopify CLI used to create app at technical/design-your-curtain-shopify-app/",
+        "App type: custom app (not published to App Store)",
+        "shopify.app.toml configured for store 1z7hb1-2d.myshopify.com",
+        "Cart Transform extension scaffolded inside extensions/cart-transform/",
+        "bun run typecheck passes",
+        "bun run lint passes",
+        "README.md added with setup instructions (Partners account requirement noted, deploy command)"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Requires a free Shopify Partners account. Must be set up manually before this story can be completed.",
+      "dependsOn": []
+    },
+    {
+      "id": "US-008",
+      "title": "Implement Cart Transform price calculation",
+      "description": "As a developer, I want the Cart Transform function to read line item properties and set the correct price so customers are charged the right amount.",
+      "acceptanceCriteria": [
+        "Function reads _en, _pile_orani, _kanat from line item properties",
+        "Skips items without these properties so non-curtain products are unaffected",
+        "Price formula: (en_cm / 100) * pile_orani * kanat * base_price_per_meter",
+        "Base price per meter read from lineItem.cost.amountPerQuantity.amount",
+        "Returns expand operation with corrected price",
+        "Missing or invalid properties return original price unchanged",
+        "Pure calculation logic extracted into a function with at least 3 test cases: valid config, missing properties, zero dimensions",
+        "bun run typecheck passes",
+        "bun run lint passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-007"]
+    },
+    {
+      "id": "US-009",
+      "title": "Deploy Cart Transform and verify end-to-end",
+      "description": "As a developer, I want the Cart Transform deployed and installed on the store so the configurator charges the correct price at checkout.",
+      "acceptanceCriteria": [
+        "shopify app deploy runs successfully from technical/design-your-curtain-shopify-app/",
+        "App installed on 1z7hb1-2d.myshopify.com",
+        "Cart Transform function active (visible in Shopify admin -> Settings -> Custom data -> Functions)",
+        "bun run typecheck passes",
+        "bun run lint passes",
+        "Verified via Playwright MCP: complete full configurator flow on test product -> cart drawer opens -> line item price matches the formula, not the base per-meter price",
+        "Verified via Playwright MCP: a non-curtain product added to cart has unaffected price"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-006", "US-008"]
+    }
+  ]
 }
