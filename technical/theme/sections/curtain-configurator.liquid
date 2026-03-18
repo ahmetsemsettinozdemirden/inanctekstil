@@ -235,9 +235,110 @@
       opacity: 0.4;
       cursor: not-allowed;
     }
+
+    /* ---- Step 4: config summary table ---- */
+    .perde-conf__review-table {
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .perde-conf__review-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      color: #333;
+      border-bottom: 1px solid #E5E5E5;
+    }
+
+    .perde-conf__review-row:last-child {
+      border-bottom: none;
+    }
+
+    .perde-conf__review-row-label {
+      font-weight: 600;
+      color: #1B2A4A;
+    }
+
+    /* ---- Price block ---- */
+    .perde-conf__price-block {
+      background: #F8F8F8;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .perde-conf__price-label {
+      font-size: 0.78rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .perde-conf__price-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1B2A4A;
+      font-family: var(--font-primary--family, 'Playfair Display', serif);
+      margin-bottom: 4px;
+    }
+
+    .perde-conf__price-note {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    /* ---- Disclaimer checkbox ---- */
+    .perde-conf__disclaimer {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: #FFFBF0;
+      border: 1px solid #EDD98A;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      color: #555;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .perde-conf__disclaimer input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: #1B2A4A;
+      cursor: pointer;
+    }
+
+    /* ---- Cart error ---- */
+    .perde-conf__cart-error {
+      display: none;
+      color: #c0392b;
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      background: #FDF0EF;
+      border: 1px solid #F5C6C3;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .perde-conf__cart-error.is-visible {
+      display: block;
+    }
   </style>
 
-  <div id="curtain-configurator" class="curtain-configurator page-width" data-max-boy="{{ max_boy }}">
+  <div id="curtain-configurator" class="curtain-configurator page-width"
+    data-max-boy="{{ max_boy }}"
+    data-base-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}"
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}">
     <div class="perde-conf">
 
       <!-- Collapsed summary: Step 1 -->
@@ -391,7 +492,44 @@
         <button class="perde-conf__btn" id="perde-step3-btn" disabled>Devam Et</button>
       </div>
 
-      <!-- Step 4 will be added in US-006 -->
+      <!-- Step 4: Onay -->
+      <div id="perde-step-4" class="perde-conf__step">
+        <p class="perde-conf__step-title">4. Onay</p>
+
+        <div class="perde-conf__review-table">
+          <div class="perde-conf__review-row">
+            <span class="perde-conf__review-row-label">En</span>
+            <span id="perde-review-en">—</span>
+          </div>
+          <div class="perde-conf__review-row">
+            <span class="perde-conf__review-row-label">Boy</span>
+            <span id="perde-review-boy">—</span>
+          </div>
+          <div class="perde-conf__review-row">
+            <span class="perde-conf__review-row-label">Pile Stili</span>
+            <span id="perde-review-pile">—</span>
+          </div>
+          <div class="perde-conf__review-row">
+            <span class="perde-conf__review-row-label">Kanat</span>
+            <span id="perde-review-kanat">—</span>
+          </div>
+        </div>
+
+        <div class="perde-conf__price-block">
+          <div class="perde-conf__price-label">Tahmini Fiyat</div>
+          <div class="perde-conf__price-value" id="perde-price-display">—</div>
+          <div class="perde-conf__price-note">Tahmini fiyat. Sepette kesinleşir.</div>
+        </div>
+
+        <label class="perde-conf__disclaimer">
+          <input type="checkbox" id="perde-disclaimer-check">
+          <span>Bu perde özel olarak dikileceği için iade edilemez. Ölçülerimi kontrol ettiğimi onaylıyorum.</span>
+        </label>
+
+        <div class="perde-conf__cart-error" id="perde-cart-error"></div>
+
+        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Sepete Ekle</button>
+      </div>
 
     </div>
   </div>
@@ -507,10 +645,98 @@
 
       step3Btn.addEventListener('click', function() {
         if (step3Btn.disabled) return;
-        // Collapse step 3, show summary — step 4 will be added in US-006
         step3El.classList.remove('is-active');
         summary3Text.textContent = window.perdeConfig.kanat;
         summary3.classList.add('is-visible');
+        showStep4();
+      });
+
+      /* ---------- Step 4 ---------- */
+      var step4El         = document.getElementById('perde-step-4');
+      var priceDisplay    = document.getElementById('perde-price-display');
+      var reviewEn        = document.getElementById('perde-review-en');
+      var reviewBoy       = document.getElementById('perde-review-boy');
+      var reviewPile      = document.getElementById('perde-review-pile');
+      var reviewKanat     = document.getElementById('perde-review-kanat');
+      var disclaimerCheck = document.getElementById('perde-disclaimer-check');
+      var cartError       = document.getElementById('perde-cart-error');
+      var addToCartBtn    = document.getElementById('perde-add-to-cart-btn');
+      var confEl          = document.getElementById('curtain-configurator');
+      var BASE_PRICE      = parseFloat(confEl.dataset.basePrice) || 0;
+      var VARIANT_ID      = parseInt(confEl.dataset.variantId, 10);
+
+      function formatTL(amount) {
+        return amount.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' TL';
+      }
+
+      function calcPrice() {
+        var en    = window.perdeConfig.en || 0;
+        var ratio = window.perdeConfig.pile_orani || 1;
+        var count = window.perdeConfig.kanat_count || 1;
+        return (en / 100) * ratio * count * BASE_PRICE;
+      }
+
+      function showStep4() {
+        reviewEn.textContent    = (window.perdeConfig.en || '—') + ' cm';
+        reviewBoy.textContent   = (window.perdeConfig.boy || '—') + ' cm';
+        reviewPile.textContent  = window.perdeConfig.pile_stili || '—';
+        reviewKanat.textContent = window.perdeConfig.kanat || '—';
+        priceDisplay.textContent = formatTL(calcPrice());
+        step4El.classList.add('is-active');
+      }
+
+      disclaimerCheck.addEventListener('change', function() {
+        addToCartBtn.disabled = !disclaimerCheck.checked;
+      });
+
+      addToCartBtn.addEventListener('click', function() {
+        if (addToCartBtn.disabled) return;
+        addToCartBtn.disabled = true;
+        addToCartBtn.textContent = 'Ekleniyor…';
+        cartError.classList.remove('is-visible');
+        cartError.textContent = '';
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            quantity: 1,
+            id: VARIANT_ID,
+            properties: {
+              _en:         window.perdeConfig.en,
+              _boy:        window.perdeConfig.boy,
+              _pile_stili: window.perdeConfig.pile_stili,
+              _pile_orani: window.perdeConfig.pile_orani,
+              _kanat:      window.perdeConfig.kanat
+            }
+          })
+        })
+        .then(function(res) {
+          if (!res.ok) {
+            return res.json().then(function(data) {
+              throw new Error(data.description || 'Bir hata oluştu.');
+            });
+          }
+          return res.json();
+        })
+        .then(function() {
+          addToCartBtn.textContent = 'Sepete Eklendi ✓';
+          // Refresh cart count and open Horizon cart drawer
+          document.dispatchEvent(new CustomEvent('cart:refresh'));
+          var drawer = document.querySelector('cart-drawer-component');
+          if (drawer && typeof drawer.open === 'function') {
+            drawer.open();
+          } else {
+            var cartLink = document.querySelector('a[href="/cart"]');
+            if (cartLink) cartLink.click();
+          }
+        })
+        .catch(function(err) {
+          cartError.textContent = err.message || 'Ürün sepete eklenemedi. Lütfen tekrar deneyin.';
+          cartError.classList.add('is-visible');
+          addToCartBtn.disabled = false;
+          addToCartBtn.textContent = 'Sepete Ekle';
+        });
       });
 
     })();

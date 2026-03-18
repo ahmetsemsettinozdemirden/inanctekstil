@@ -108,8 +108,8 @@
         "Verified in browser via Playwright MCP: complete full configurator flow, cart drawer opens with correct item"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Step 4 Onay renders after Step 3; summary row 'Kanat: Tek Kanat' shown. Review table with En/Boy/Pile/Kanat. Live price formatted as Turkish currency (e.g. 862,50 TL). Disclaimer checkbox gates Sepete Ekle. POST to /cart/add.js with properties. Horizon cart-drawer-component opens on success. Verified via Playwright full flow.",
       "dependsOn": ["US-005"]
     },
     {

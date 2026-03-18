@@ -88,3 +88,30 @@
 - Devam Et disabled until an option selected ✅
 - Clicked Tek Kanat: card highlighted ([pressed]), Devam Et enabled ✅
 
+---
+
+## 2026-03-18 — US-006: Step 4 — Onay, live price, and add to cart ✅
+
+**What was done:**
+- Added `data-base-price` and `data-variant-id` attributes to `#curtain-configurator` div (from Liquid)
+- Added CSS for Step 4: review table, price block, disclaimer, cart error
+- Added Step 4 HTML (`#perde-step-4`):
+  - Review table: En, Boy, Pile Stili, Kanat
+  - Price block: "Tahmini Fiyat" + formatted TL value + "Tahmini fiyat. Sepette kesinleşir."
+  - Disclaimer checkbox (yellow tinted bg)
+  - `#perde-cart-error` error block (hidden by default)
+  - "Sepete Ekle" button (disabled until checkbox checked)
+- Updated step3Btn click handler to call `showStep4()`
+- Added Step 4 JS: `showStep4()` populates review + calculates price; checkbox toggles button; fetch POST to `/cart/add.js` with `_en`, `_boy`, `_pile_stili`, `_pile_orani`, `_kanat` properties; on success dispatches `cart:refresh` and calls `cart-drawer-component.open()`; on error shows Turkish error inline
+- Fixed cart drawer selector: Horizon uses `cart-drawer-component` (not `cart-drawer`)
+- Pushed to unpublished theme #193719566417 — success
+
+**Verified via Playwright:**
+- Full flow: 200x250 cm → Kanun Pile → Tek Kanat → Step 4 shows ✅
+- Review table populated correctly ✅
+- Price: 1.150,00 TL for 200 cm × 2.5 × 1 × 230 TL = 1150 ✅
+- Price: 862,50 TL for 150 cm × 2.5 × 1 × 230 TL = 862.50 ✅
+- Sepete Ekle disabled until disclaimer checked ✅
+- After checking disclaimer and clicking Sepete Ekle: button shows "Sepete Eklendi ✓" ✅
+- Horizon cart drawer (`cart-drawer-component`) opened with item in cart ✅
+
