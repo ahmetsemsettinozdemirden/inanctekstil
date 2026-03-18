@@ -14,9 +14,8 @@ Iskenderun, Hatay merkezli ozel dikim perde e-ticaret projesi.
 
 ```
 docs/
-├── superpowers/
-│   ├── specs/               # Tasarim spesifikasyonlari (arsiv)
-│   └── plans/               # Uygulama planlari (arsiv)
+├── archive/
+│   └── woocommerce/         # WooCommerce donemi planlama dokumanlari (arsiv)
 ├── benchmark/               # Rakip analizi (TAC)
 ├── infrastructure/          # DNS, e-posta (Shopify yonetimli altyapi)
 ├── ecommerce/               # Shopify, PayTR, fiyat hesaplama, urunler
@@ -31,15 +30,18 @@ docs/
 
 ---
 
-## Arsiv: Tasarim Spesifikasyonlari (superpowers/)
+## Arsiv: WooCommerce Donemi (archive/woocommerce/)
 
-WooCommerce donemi planlama dokumanlari. Arsiv olarak saklanmaktadir.
+Shopify'a gecis oncesi WooCommerce + Hetzner doneminden kalan planlama dokumanlari. Referans amacli saklanmaktadir.
 
 | Dosya | Icerik |
 |-------|--------|
-| [E-Ticaret Tasarimi](superpowers/specs/2026-03-14-inanc-tekstil-ecommerce-design.md) | Projenin ilk mimari tasarimi (WooCommerce donemi) |
-| [Marka Kimligi Yenileme](superpowers/specs/2026-03-14-brand-identity-redesign-design.md) | Beyaz/navy minimal marka kimligi tasarimi |
-| [Perde Hesaplayici Test Suiti](superpowers/specs/2026-03-14-curtain-calculator-test-suite-design.md) | Hesap makinesi test altyapisi tasarimi |
+| [E-Ticaret Tasarimi](archive/woocommerce/2026-03-14-inanc-tekstil-ecommerce-design.md) | Projenin ilk mimari tasarimi (WooCommerce + Astra) |
+| [Hetzner Altyapisi](archive/woocommerce/2026-03-14-hetzner-terraform-iac-design.md) | Hetzner Docker stack Terraform tasarimi |
+| [MVP Baslangic Plani](archive/woocommerce/2026-03-14-mvp-launch-plan.md) | WooCommerce kurulum ve baslangic plani |
+| [Perde Hesaplayici Plugin](archive/woocommerce/2026-03-14-curtain-calculator-plugin.md) | WooCommerce PHP plugin uygulama plani |
+| [Hesaplayici Test Suiti](archive/woocommerce/2026-03-14-curtain-calculator-test-suite.md) | PHPUnit test suiti uygulama plani |
+| [Hesaplayici Test Tasarimi](archive/woocommerce/2026-03-14-curtain-calculator-test-suite-design.md) | Test altyapisi tasarim spesifikasyonu |
 
 ## Benchmark Analizi (benchmark/)
 
