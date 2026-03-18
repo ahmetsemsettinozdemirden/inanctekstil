@@ -1,0 +1,15 @@
+# Learn more about configuring your app:
+# https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "design-your-curtain"
+client_id = "" # TODO: Add client_id after creating app in Shopify Partners dashboard
+application_url = "https://inanctekstil.store"
+embedded = false
+
+[auth]
+redirect_urls = [
+  "https://inanctekstil.store/auth/callback"
+]
+
+[webhooks]
+api_version = "2025-01"

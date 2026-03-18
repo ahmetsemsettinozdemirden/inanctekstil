@@ -1,0 +1,14 @@
+api_version = "2025-01"
+
+[[extensions]]
+type = "function"
+name = "Perde Tasarla - Cart Transform"
+handle = "perde-cart-transform"
+
+[extensions.build]
+command = "bun run build"
+path = "dist/function.wasm"
+watch = ["src/**/*.ts"]
+
+[[extensions.targeting]]
+target = "purchase.cart-transform.run"

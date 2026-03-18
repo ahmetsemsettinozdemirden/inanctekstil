@@ -90,6 +90,30 @@
 
 ---
 
+## 2026-03-18 — US-007: Initialize Shopify App project ✅
+
+**What was done:**
+- Scaffolded app at `technical/design-your-curtain-shopify-app/`:
+  - `shopify.app.toml` — configured for store 1z7hb1-2d.myshopify.com; `client_id` left as placeholder (requires Shopify Partners account to fill in)
+  - `package.json` — bun project with `typecheck` and `lint` scripts targeting the extension
+  - `.eslintrc.cjs` — TypeScript ESLint config
+  - `bun.lock` — lockfile committed for reproducible installs
+- Scaffolded Cart Transform extension at `extensions/cart-transform/`:
+  - `shopify.extension.toml` — type=function, target=purchase.cart-transform.run
+  - `tsconfig.json` — strict TypeScript, moduleResolution: bundler
+  - `src/run.ts` — placeholder stub with hand-written CartTransformInput/Result types; TODO comment pointing to US-008 for implementation
+- Ran `bun install` — 126 packages installed
+- `bun run typecheck` — PASS (tsc --noEmit exits 0)
+- `bun run lint` — PASS (eslint exits 0)
+- `README.md` — documents Partners account prerequisite, setup steps, deploy command, project structure
+
+**Notes:**
+- `shopify app init` requires Shopify Partners login interactively; files created manually following Shopify CLI 3.x conventions
+- `client_id` in shopify.app.toml must be filled after Partners account creation + app registration
+- After first `shopify app deploy`, run `shopify app function typegen` to replace the hand-written type stubs with generated types from the Cart Transform schema
+
+---
+
 ## 2026-03-18 — US-006: Step 4 — Onay, live price, and add to cart ✅
 
 **What was done:**

@@ -1,0 +1,17 @@
+{
+  "name": "design-your-curtain-shopify-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc -p extensions/cart-transform/tsconfig.json --noEmit",
+    "lint": "eslint extensions/cart-transform/src/",
+    "build": "shopify app build",
+    "deploy": "shopify app deploy"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.5.4"
+  }
+}
