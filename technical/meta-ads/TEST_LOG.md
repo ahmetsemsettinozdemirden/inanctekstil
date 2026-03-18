@@ -165,8 +165,11 @@
 | BUG-1 | `upload_ad_image_asset` | Local file path: read bytes → base64 encode (was pre-existing) | Pre-existing fix |
 | BUG-2 | `clone_ad_creative` | `/copies` edge doesn't exist for creatives; replaced with read-then-create | Committed, needs restart |
 | BUG-3 | `create_ad_creative` | `asset_feed_spec` path sent `object_story_spec` simultaneously → error 1443048; fix: `page_ids` inside feed, no `object_story_spec` | `bb8e7b1`, needs restart |
+| BUG-3b | `create_ad_creative` | Text variants without image produced `images:[]` in feed → silent API error; fix: early validation + skip empty images array | `9282b8c`, needs restart |
 | BUG-4 | `create_custom_audience` | `subtype` rejected by API v25 for WEBSITE/ENGAGEMENT/LOOKALIKE/APP | Committed, needs restart |
 | BUG-5 | `search_ads_archive` | Raw 400 passthrough; fix: detect permission error, return structured guidance | Committed, needs restart |
+| BUG-6 | `create_ad_rule` | Persistent 500 on new accounts returned as raw error; fix: detect pattern, surface eligibility guidance | `6eb3807`, needs restart |
+| BUG-7 | `create_campaign_budget_schedule` | CBO requirement error returned as raw error; fix: detect "daily budget" message, return actionable guidance | `9709ae5`, needs restart |
 
 ---
 
