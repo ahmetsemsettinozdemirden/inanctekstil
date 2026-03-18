@@ -1,0 +1,20 @@
+{% if product.tags contains 'perde-tasarla' %}
+  <style>
+    variant-picker,
+    .buy-buttons-block,
+    sticky-add-to-cart {
+      display: none !important;
+    }
+  </style>
+
+  <div id="curtain-configurator" class="curtain-configurator page-width" data-max-boy="{{ product.metafields.custom.max_boy_cm }}">
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Perde Tasarla",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

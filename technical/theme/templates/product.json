@@ -264,6 +264,10 @@
         "padding-block-end": 0
       }
     },
+    "curtain_configurator": {
+      "type": "curtain-configurator",
+      "settings": {}
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -408,6 +412,7 @@
   },
   "order": [
     "main",
+    "curtain_configurator",
     "product_recommendations_qggXJq"
   ]
 }

@@ -31,8 +31,8 @@
         "Verified in browser via Playwright MCP: test product shows empty configurator container; non-tagged product shows normal buy button"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Section created at technical/theme/sections/curtain-configurator.liquid. CSS hides variant-picker, .buy-buttons-block, sticky-add-to-cart on perde-tasarla products. Added to product.json above product_recommendations. Verified on unpublished theme #193719566417.",
       "dependsOn": ["US-001"]
     },
     {

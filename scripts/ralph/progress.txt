@@ -18,3 +18,24 @@
 - Shopify CLI does not store Admin API tokens on disk; used `shopify-mcp`'s client credentials flow to obtain `shpat_*` token for raw GraphQL mutations
 - Playwright MCP required clearing `/Users/semsettin/Library/Caches/ms-playwright/mcp-chrome-770bf8f` because Chrome was already running
 
+---
+
+## 2026-03-18 — US-002: Curtain configurator section scaffold ✅
+
+**What was done:**
+- Created `technical/theme/sections/curtain-configurator.liquid`
+  - Renders only when `product.tags contains 'perde-tasarla'`
+  - CSS hides `variant-picker`, `.buy-buttons-block`, `sticky-add-to-cart` on tagged products
+  - Empty `#curtain-configurator` container rendered with `data-max-boy` attribute
+- Updated `technical/theme/templates/product.json`:
+  - Added `curtain_configurator` section above `product_recommendations_qggXJq`
+- Pushed to unpublished theme #193719566417 — push succeeded
+- Verified via Playwright on preview URL:
+  - BORNOVA Tül Perde (tagged): no variant-picker, no buy buttons, no sticky bar ✅
+  - HÜRREM Fon Perde (untagged): full buy button UI visible ✅
+
+**CSS selectors discovered:**
+- `variant-picker` — custom element for variant selection
+- `.buy-buttons-block` — class on buy buttons wrapper
+- `sticky-add-to-cart` — custom element for sticky bar
+
