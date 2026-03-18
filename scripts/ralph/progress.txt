@@ -139,3 +139,32 @@
 - After checking disclaimer and clicking Sepete Ekle: button shows "Sepete Eklendi ✓" ✅
 - Horizon cart drawer (`cart-drawer-component`) opened with item in cart ✅
 
+---
+
+## 2026-03-18 — US-008: Implement Cart Transform price calculation ✅
+
+**What was done:**
+- Rewrote `extensions/cart-transform/src/run.ts` with full price calculation logic:
+  - `PriceConfig` interface + `calculateCurtainPrice(config)` pure function
+    - Returns `null` for zero/negative inputs (invalid config)
+    - Formula: `(enCm / 100) × pileOrani × kanat × basePricePerMeter`
+  - `run(input)` entry point iterates cart lines:
+    - Reads `_en`, `_pile_orani`, `_kanat` from line properties
+    - Skips lines missing any property (non-curtain products)
+    - Skips lines with invalid/zero dimensions
+    - Returns `expand` operation with `fixedPricePerUnit` set to calculated price
+  - `merchandise.id` passed through in expand operation for correct variant reference
+- Created `extensions/cart-transform/src/run.test.ts` (bun test):
+  - 6 unit tests for `calculateCurtainPrice`: valid configs (×2.5×1, ×2.5×1 150cm, ×3.0×2), zero enCm, negative basePrice, zero kanat
+  - 5 integration tests for `run`: valid curtain line, missing properties, zero dimensions, mixed cart, ID passthrough
+  - 11 tests, 0 failures
+- Updated `tsconfig.json` to exclude test files from typecheck
+- Updated `.eslintrc.cjs` to ignore test files
+- Added `test` script to `package.json`: `bun test extensions/cart-transform/src/`
+
+**Quality gates:**
+- `bun run typecheck` — PASS
+- `bun run lint` — PASS
+- `bun run test` — 11 pass, 0 fail
+
+

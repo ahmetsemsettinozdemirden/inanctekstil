@@ -5,6 +5,7 @@
   "scripts": {
     "typecheck": "tsc -p extensions/cart-transform/tsconfig.json --noEmit",
     "lint": "eslint extensions/cart-transform/src/",
+    "test": "bun test extensions/cart-transform/src/",
     "build": "shopify app build",
     "deploy": "shopify app deploy"
   },

@@ -146,8 +146,8 @@
         "bun run lint passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Cart Transform function implemented in run.ts. calculateCurtainPrice extracted as pure function. Reads _en, _pile_orani, _kanat from line properties; skips non-curtain items. Returns expand operation with fixedPricePerUnit. 11 tests across 6 unit + 5 integration cases. bun run typecheck && bun run lint both pass.",
       "dependsOn": ["US-007"]
     },
     {
