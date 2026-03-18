@@ -762,7 +762,10 @@ async function main() {
   }
 
   const flows = flowFilter ? [flowFilter] : ["lifestyle", "texture"];
-  const rooms = roomFilter ? [roomFilter] : Object.keys(manifest.rooms);
+  const allRooms = Object.keys(manifest.rooms);
+  const rooms = roomFilter
+    ? [roomFilter]
+    : [allRooms[Math.floor(Math.random() * allRooms.length)]];
 
   for (const flow of flows) {
     if (flow === "lifestyle") {

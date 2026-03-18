@@ -3,7 +3,9 @@
 Iskenderun, Hatay merkezli ozel dikim perde e-ticaret projesi.
 
 **Web Sitesi:** inanctekstil.store
+**Myshopify:** 1z7hb1-2d.myshopify.com
 **Teknoloji:** Shopify (Horizon tema) + PayTR + Google Workspace
+**Tema Dosyalari:** `technical/theme/` dizini (Shopify CLI ile push/pull)
 **Pazarlama:** Google Ads + Meta Ads + TikTok (gelecek)
 
 ---

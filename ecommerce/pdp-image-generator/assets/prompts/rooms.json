@@ -1,7 +1,8 @@
 [
   {
     "room": "living room with white ceiling and corner visible, deep terracotta orange-brown accent wall on the right 30% of frame, warm honey herringbone parquet wood floor",
-    "curtain": "large floor-to-ceiling cream off-white linen curtain covering 70% of frame, pencil pleat gathered header, soft loose natural folds, fabric glowing semi-transparent from strong backlight, hung on thick brass round rod with brass rings near ceiling",
+    "curtain": "large floor-to-ceiling cream off-white linen curtain covering 70% of frame, standard gathered tape header with 2:1 fullness ratio evenly spaced soft pleats, soft loose natural folds, fabric glowing semi-transparent from strong backlight, hung on slim standard white silver ceiling-mounted curtain track no rod no rings no cornice box",
+    "length": "hem touches floor exactly, no puddling, no dragging, no pooling on floor",
     "furniture": "slim marble top side table with thin gold brass legs, positioned against terracotta wall bottom right, tall clear glass vase with dried pampas grass and eucalyptus stems on top",
     "lighting": "strong bright cool natural daylight 5500K coming from directly behind curtain creating clean white backlit glow through fabric, soft minimal shadows on floor, no warm tint, no golden hour",
     "camera": "slightly right of center angled 10 degrees left, eye level 1.3m height, 35mm lens, deep focus sharp throughout, ceiling corner visible top right",
@@ -9,23 +10,26 @@
   },
   {
     "room": "living room with white ceiling and corner visible, deep dark burgundy brown accent wall on the right 30% of frame, light honey oak laminate wood floor",
-    "curtain": "large floor-to-ceiling sheer white voile curtain covering 70% of frame, pencil pleat gathered header, loose natural folds, fabric glowing semi-transparent from strong backlight, hung on slim matte black round rod with black metal rings near ceiling",
+    "curtain": "large floor-to-ceiling sheer white voile curtain covering 70% of frame, standard gathered tape header with 2:1 fullness ratio evenly spaced soft pleats, loose natural folds, fabric glowing semi-transparent from strong backlight, hung on slim standard white silver ceiling-mounted curtain track no rod no rings no cornice box",
+    "length": "hem touches floor exactly, no puddling, no dragging, no pooling on floor",
     "furniture": "rustic mid-century wooden side table with woven rattan cane drawer fronts and splayed tapered legs, positioned against burgundy wall bottom right, white ceramic vase with red and pink rose bouquet on top",
     "lighting": "strong bright cool natural daylight 5500K coming from directly behind curtain creating clean white backlit glow through fabric, soft minimal shadows on floor, no warm tint, no golden hour",
     "camera": "slightly right of center angled 10 degrees left, eye level 1.3m height, 35mm lens, deep focus sharp throughout, ceiling corner visible top right",
     "style": "photorealistic DSLR interior product photography, bright airy high key, not symmetric, not AI looking, no cornice box, no pelmet"
   },
   {
-    "room": "living room with white ceiling and corner visible, muted dusty blue gray accent wall on the right 30% of frame, light cool gray wide plank laminate floor",
-    "curtain": "large floor-to-ceiling layered double curtain covering 70% of frame, front layer sheer white voile with soft folds, back layer dusty blue blackout panel visible on left edge, both hung on slim matte black flat track rail near ceiling",
-    "furniture": "dark walnut low sideboard with two doors and brushed steel handles, positioned against dusty blue wall bottom right, matte black ceramic vase with single white orchid stem on top, small stack of white books beside it",
+    "room": "living room with white ceiling and corner visible, deep dark burgundy brown accent wall on the right 30% of frame, light honey oak laminate wood floor",
+    "curtain": "large floor-to-ceiling sheer white voile curtain covering 70% of frame, standard gathered tape header with 2:1 fullness ratio evenly spaced soft pleats, loose natural folds, fabric glowing semi-transparent from strong backlight, hung on slim standard white silver ceiling-mounted curtain track no rod no rings no cornice box",
+    "length": "hem touches floor exactly, no puddling, no dragging, no pooling on floor",
+    "furniture": "rustic mid-century wooden side table with woven rattan cane drawer fronts and splayed tapered legs, positioned against burgundy wall bottom right, white ceramic vase with red and pink rose bouquet on top",
     "lighting": "strong bright cool natural daylight 5500K coming from directly behind curtain creating clean white backlit glow through fabric, soft minimal shadows on floor, no warm tint, no golden hour",
-    "camera": "slightly right of center angled 12 degrees left, eye level 1.1m height, 35mm lens, deep focus sharp throughout, ceiling corner visible top right",
+    "camera": "slightly right of center angled 10 degrees left, eye level 1.3m height, 35mm lens, deep focus sharp throughout, ceiling corner visible top right",
     "style": "photorealistic DSLR interior product photography, bright airy high key, not symmetric, not AI looking, no cornice box, no pelmet"
   },
   {
     "room": "living room with white ceiling and corner visible, deep olive green matte accent wall on the right 30% of frame, warm medium oak solid wood floor",
-    "curtain": "large floor-to-ceiling rich rust burnt orange velvet curtain covering 70% of frame, triple pinch pleat header, deep dramatic heavy folds with subtle sheen on fabric peaks, opaque, hung on thick matte black round rod with large black eyelet rings near ceiling",
+    "curtain": "large floor-to-ceiling rich rust burnt orange velvet curtain covering 70% of frame, standard gathered tape header with 2:1 fullness ratio evenly spaced soft pleats, deep dramatic heavy folds with subtle sheen on fabric peaks, opaque, hung on slim standard white silver ceiling-mounted curtain track no rod no rings no cornice box",
+    "length": "hem touches floor exactly, no puddling, no dragging, no pooling on floor",
     "furniture": "round antique brass pedestal side table with ornate base, positioned against olive wall bottom right, cream stoneware vase with wild dried flower arrangement in rust and yellow tones on top",
     "lighting": "strong bright cool natural daylight 5500K coming from directly behind curtain creating clean white backlit glow through fabric, soft minimal shadows on floor, no warm tint, no golden hour",
     "camera": "slightly right of center angled 10 degrees left, eye level 1.2m height, 35mm lens, deep focus sharp throughout, ceiling corner visible top right",

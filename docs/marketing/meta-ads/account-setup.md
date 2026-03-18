@@ -4,6 +4,25 @@ Bu dokuman, Inanc Tekstil icin Meta (Facebook + Instagram) reklam altyapisinin s
 
 ---
 
+## Mevcut Durum (2026-03-17) — TUM ADIMLAR TAMAMLANDI
+
+| Varlik | ID | Durum |
+|--------|----|-------|
+| Business Portfolio | `928098610079416` | Aktif |
+| Ad Account | `act_1460297365542314` | Aktif, TRY |
+| Facebook Page | `1064624423394553` | Aktif |
+| Instagram Hesabi | `1074486572406385` (@inanc_tekstil) | Baglanmis |
+| Meta Pixel / Dataset | `1754778638989489` | Aktif (Conversions API + Meta Pixel) |
+| Shopify Urun Katalogu | `25593862530291556` | Baglanmis |
+| Meta App (MCP icin) | `1475535244215512` | Live moda alindi |
+
+**Notlar:**
+- Meta App Live moda alinirken Privacy Policy ve Terms of Service URL eklendi
+- Pixel: Shopify uzerinden hem Conversions API hem de Meta Pixel aktif
+- Instagram actor ID, Meta Ads API'de farkli bir formatta gerekiyor — MCP ile `instagram_actor_id` parametresi calismiyor, Meta kendi eslestiriyor
+
+---
+
 ## Kurulum Sirasi ve Neden Onemli
 
 Asagidaki sira kesinlikle takip edilmelidir:

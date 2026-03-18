@@ -38,3 +38,9 @@ tmp/
 
 # MCP config (contains secrets)
 .mcp.json
+
+# Marketing content (large media files)
+docs/marketing/content/
+
+# Google Ads OAuth secrets
+technical/google-ads/client_secret_*.json

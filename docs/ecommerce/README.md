@@ -15,6 +15,7 @@ Bu dokumantasyon, Inanc Tekstil'in online perde satis platformunun teknik altyap
 | Platform | Shopify |
 | Tema | Horizon |
 | Odeme | PayTR (kredi karti, banka karti, taksit) |
+| Tema Gelistirme | Shopify CLI (`technical/theme/` dizini, JSON tabanli yapilandirma) |
 | Fiyat Hesaplama | Ozel Shopify entegrasyonu (gelistirme asamasinda) |
 | Teslimat | Hatay ili (mevcut), Turkiye geneli (planli) |
 | Analitik | PostHog (referans, henuz aktif degil) |
@@ -28,7 +29,7 @@ Bu dokumantasyon, Inanc Tekstil'in online perde satis platformunun teknik altyap
 | [pricing-calculator.md](pricing-calculator.md) | Perde fiyat hesaplama formulleri ve teknik spesifikasyon |
 | [product-catalog.md](product-catalog.md) | Urun ekleme rehberi, kartela sistemi, fotograf standartlari |
 | [shipping-delivery.md](shipping-delivery.md) | Kargo bolgeleri, teslimat sureci, siparis is akisi |
-| [frontend-configuration.md](frontend-configuration.md) | Horizon tema ozellestirmesi, header, footer, site ozellikleri |
+| [frontend-configuration.md](frontend-configuration.md) | Horizon tema ozellestirmesi, tema gelistirme is akisi, ana sayfa bolumleri |
 | [posthog-analytics.md](posthog-analytics.md) | PostHog analitik entegrasyonu (referans dokuman) |
 | [aninda-perde-feature-analysis.md](aninda-perde-feature-analysis.md) | TAC "Aninda Perde" ozellik analizi ve oneriler |
 

@@ -24,9 +24,12 @@ Bu dokumantasyon, **inanctekstil.store** e-ticaret sitesinin altyapi yapilandirm
 
 ## Hizli Referans
 
-- **Shopify Admin:** `https://inanctekstil.store/admin`
+- **Shopify Admin:** `https://1z7hb1-2d.myshopify.com/admin`
+- **Myshopify Domain:** `1z7hb1-2d.myshopify.com`
+- **Ozel Domain:** `inanctekstil.store`
 - **Google Workspace Admin:** `https://admin.google.com`
 - **Hetzner DNS:** `https://dns.hetzner.com`
+- **Shopify CLI Store Flag:** `--store 1z7hb1-2d.myshopify.com`
 
 ## Shopify Altyapi Avantajlari
 

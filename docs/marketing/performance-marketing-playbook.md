@@ -589,6 +589,286 @@ Altyazı: "Siz de deneyin → inanctekstil.store"
 
 ---
 
+---
+
+#### REEL TİPİ 6: "4 Oda, 4 His" (Ürün Showcase — Statik Fotoğraftan Video)
+
+**Hedef:** Ürün çeşitliliğini gösterme, estetik bağlantı kurma, engagement ("hangisi senin tarziın?" yorumları)
+**Süre:** ~18–20 saniye
+**Format:** 4 fotoğraf klip × 3–4 saniye + CTA slaydı 4–5 saniye
+**Kaynak görseller:** `ecommerce/pdp-image-generator/assets/input/rooms/`
+
+**Görsellerin içeriği (hazır ürün fotoğrafları):**
+
+| Dosya | Duvar | Perde tipi | Atmosfer |
+|-------|-------|------------|----------|
+| `room-01-terracotta-wall.jpg` | Terracotta tuğla turuncu | Krem tül perde, kanun pile, altın metal korniş | Sıcak, Bohem, Samimi |
+| `room-02-wine-wall.jpg` | Bordo/şarap koyu | Beyaz tül perde, wave pile, siyah metal korniş | Romantik, Zarif, Dramatik |
+| `room-03-blue-wall.jpg` | Çelik mavi / slate | Fon+Tül katmanlı: mavi fon sol + beyaz tül merkez | Modern, Sakin, Minimalist |
+| `room-04-dark-green.jpg` | Koyu zeytun yeşil | Pas kırmızısı kadife fon perde, pinch pile, siyah korniş | Zengin, Güçlü, Sofistike |
+
+> **Not:** Görsel kompozisyonun her birinde perde solda, dekor aksesuarı (vazo/çiçek) sağda yer alıyor.
+> Kamera yalnızca pan (yatay döndürme) yapar — zoom veya dolly yoktur.
+> Klip 2 sağdan sola (dekordan perdeye) pan yaparak diğerlerinden ritim kırar.
+
+---
+
+**SCRIPT:**
+
+```
+════════════════════════════════════════════
+KLİP 1 — room-01-terracotta-wall.jpg
+Süre: 3 saniye
+════════════════════════════════════════════
+
+GÖRSEL YÖNERGE:
+  • Kare (1:1) → 9:16 dönüşüm: Sol-orta bölgeyi koru (perde tam çerçevede)
+  • Pan: Yavaş soldan sağa — korniş ve perde sol kenarından başlar,
+    terracotta duvar ve pampas vazosu sağda çerçeveye girer.
+  • Renk grading: Sıcak ton korunur, kontrast +5
+
+ALTYAZI (beyaz, orta-alt, büyük harf, Inter font):
+  "BİR PERDE BU KADAR FARK YARATIR MI?"
+
+ALT KÜÇÜK METİN (küçük, soluk beyaz):
+  Sıcak & Samimi
+
+SES: Müzik giriyor (ambient, yavaş tempo)
+
+════════════════════════════════════════════
+KLİP 2 — room-02-wine-wall.jpg
+Süre: 3 saniye
+════════════════════════════════════════════
+
+GÖRSEL YÖNERGE:
+  • 9:16 dönüşüm: Merkezi koru (tüm perde+vazo kompozisyon çerçevede)
+  • Pan: Yavaş sağdan sola — vazo+gül detayından tül kumaşına doğru
+  • Renk grading: Derin tonlar korunur, exposure -5 (dramatik his)
+
+ALTYAZI (beyaz, orta-alt):
+  "Zarif & Romantik"
+
+SES: Müzik devam (crescendo değil, sakin)
+
+════════════════════════════════════════════
+KLİP 3 — room-03-blue-wall.jpg
+Süre: 3 saniye
+════════════════════════════════════════════
+
+GÖRSEL YÖNERGE:
+  • 9:16 dönüşüm: Sol-merkez bölge (fon+tül katmanı görünür, korniş de dahil)
+  • Pan: Yavaş soldan sağa — fon perdenin kalın dokusundan tül'ün
+    şeffaflığına, ardından sağdaki konsol ve orkide detayına
+  • Bu klipte fon+tül KOMBİNASYONU görünür olmalı — ürün farkını gösterir
+
+ALTYAZI (beyaz, orta-alt):
+  "Modern & Sakin"
+
+ALT EK METİN (küçük, soluk):
+  Fon + Tül kombinasyonu
+
+SES: Müzik devam
+
+════════════════════════════════════════════
+KLİP 4 — room-04-dark-green.jpg
+Süre: 4 saniye
+════════════════════════════════════════════
+
+GÖRSEL YÖNERGE:
+  • 9:16 dönüşüm: Sol-orta bölge (kadife fon tam çerçeve, korniş görünür)
+  • Pan: Yavaş soldan sağa — kadife perdenin pinch pile detayından başlar,
+    koyu yeşil duvar boyunca antik altın sehpa ve kuru çiçek aranjmanına
+    ulaşır. Climax hissi, en etkileyici kare burada.
+  • Renk grading: Yeşil ton biraz soğutulur, kırmızı perdeler pop eder
+
+ALTYAZI (beyaz, orta-alt, büyük harf):
+  "Güçlü & Sofistike"
+
+SES: Müzik hafif yükseliş
+
+════════════════════════════════════════════
+CTA — SONUÇ SLAYDII
+Süre: 4–5 saniye
+════════════════════════════════════════════
+
+GÖRSEL YÖNERGE:
+  • Siyah veya koyu lacivert (#1B2A4A) sade arka plan
+  • Logo yukarıda ortalı (beyaz versiyon)
+  • Metin katmanları aşağıda ortalı
+
+KATMAN 1 (büyük, beyaz, Playfair Display):
+  "Eviniz hangisi?"
+
+KATMAN 2 (orta, soluk beyaz, Inter):
+  "Ölçünüze özel dikiyor, kapınıza getiriyoruz."
+
+KATMAN 3 (küçük, sarı-beyaz vurgu):
+  inanctekstil.store
+
+KATMAN 4 (en küçük, soluk):
+  İskenderun'da 30 yıldır buradayız
+
+CTA BUTON/SWIPE UP: "Şimdi İncele →"
+
+SES: Müzik fade-out son 2 saniyede
+```
+
+---
+
+---
+
+**Seedance v1.5 Pro Image-to-Video API Promptları:**
+
+Her oda için `fal-ai/bytedance/seedance/v1.5/pro/image-to-video` API parametreleri.
+Ortak parametreler tüm klipler için geçerlidir, oda bazında sadece
+`image_url` ve `prompt` değişir.
+
+```ts
+// Ortak parametreler
+{
+  duration: "5",        // 5 saniyelik çıktı, editörde 3-4 sn'ye kırpılır
+  resolution: "1080p",
+  aspect_ratio: "9:16", // Reels için dikey format
+}
+```
+
+---
+
+**KLİP 1 — `room-01-terracotta-wall.jpg`**
+
+```json
+{
+  "image_url": "<fal.storage URL of room-01-terracotta-wall.jpg>",
+  "prompt": "Camera slowly pans to the left, curtain filling the frame and in focus. Scene completely still, no wind, no movement. Warm natural light."
+}
+```
+
+---
+
+**KLİP 2 — `room-02-wine-wall.jpg`**
+
+```json
+{
+  "image_url": "<fal.storage URL of room-02-wine-wall.jpg>",
+  "prompt": "Camera slowly pans to the left, curtain filling the frame and in focus. Scene completely still, no wind, no movement. Soft diffused window light."
+}
+```
+
+---
+
+**KLİP 3 — `room-03-blue-wall.jpg`**
+
+```json
+{
+  "image_url": "<fal.storage URL of room-03-blue-wall.jpg>",
+  "prompt": "Camera slowly pans to the left, curtain filling the frame and in focus. Scene completely still, no wind, no movement. Clean natural light."
+}
+```
+
+---
+
+**KLİP 4 — `room-04-dark-green.jpg`**
+
+```json
+{
+  "image_url": "<fal.storage URL of room-04-dark-green.jpg>",
+  "prompt": "Camera slowly pans to the left, curtain filling the frame and in focus. Scene completely still, no wind, no movement. Warm side light on velvet."
+}
+```
+
+---
+
+**Kullanım — fal.ai TypeScript istemcisi ile:**
+
+```ts
+import { fal } from "@fal-ai/client";
+
+fal.config({ credentials: process.env.FAL_KEY! });
+
+const SEEDANCE_ENDPOINT = "fal-ai/bytedance/seedance/v1.5/pro/image-to-video";
+
+async function generateReelsClip(imageUrl: string, prompt: string) {
+  const result = await fal.subscribe(SEEDANCE_ENDPOINT, {
+    input: {
+      image_url: imageUrl,
+      prompt,
+      duration: "5",
+      resolution: "1080p",
+      aspect_ratio: "9:16",
+    },
+    logs: true,
+  });
+  return (result.data as any).video.url as string;
+}
+
+// Örnek çağrı:
+// const clipUrl = await generateReelsClip(uploadedRoomUrl, prompt);
+```
+
+> **Not:** `image_url` fal.ai storage'a yüklenmiş URL olmalıdır. Mevcut
+> `uploadImage()` fonksiyonu `fal-client.ts`'de bu işlemi yapıyor.
+
+---
+
+**Üretim Notları — CapCut ile Yapım:**
+
+```
+1. HAZIRLIK
+   • Her fotoğrafı projeye import et (JPEG, 2048×2048)
+   • Proje boyutu: 1080×1920 (9:16)
+   • Her fotoğraf için "Fit to Height" (yüksekliğe göre sığdır) uygula
+     → Sol ve sağda boşluk kalır. Bu boşluğa orijinal görselin
+        blur/gaussian versiyonunu arka plana yerleştir (CapCut:
+        "Blur Background" özelliği otomatik yapar)
+
+2. PAN HAREKETİ (yalnızca yatay kaydırma — zoom yok)
+   • Her klibin başında ve sonunda "keyframe" ekle
+   • Ölçek sabit kalır (1.0x) — sadece X pozisyonu değişir
+   • Yön: Klip 1 soldan sağa, Klip 2 sağdan sola, Klip 3 soldan sağa, Klip 4 soldan sağa
+   • Hareket miktarı: görsel genişliğinin %8–12'si (çok az — hissedilir ama rahatsız etmez)
+   • Hareket hızı: Linear veya Ease-in-out easing
+
+3. GEÇİŞLER
+   • Klip 1→2: Siyah fade (0.3 sn) — dramatik etki
+   • Klip 2→3: Cross dissolve (0.3 sn)
+   • Klip 3→4: Siyah fade (0.3 sn)
+   • Klip 4→CTA: Siyah fade (0.5 sn — CTA'ya ağırlık ver)
+
+4. ALTYAZILER
+   • Font: Kalın, büyük harf, beyaz, hafif text shadow (okunabilirlik için)
+   • Konum: Alt-orta (%15 üstten dipten)
+   • Animasyon: Fade in 0.3 sn, sabit, fade out 0.2 sn
+   • Her klip için altyazı klibin tam süresini kapsar
+
+5. MÜZİK
+   • CapCut önerisi: "Dreamy aesthetic" veya "Soft cinematic" kategorisi
+   • Tempo: 60–80 BPM (çok hızlı olmasın)
+   • Loop noktası CTA ile örtüşmeli
+   • Ses seviyesi: %60 (konuşma yok, müzik öne çıkabilir)
+
+6. EXPORT
+   • Çözünürlük: 1080×1920
+   • Format: MP4, H.264
+   • Kalite: Yüksek (Instagram'a yükleme için 30fps yeterli)
+```
+
+---
+
+**Varyasyon Önerisi — Farklı Hook Testleri:**
+
+Aynı videoyu 3 farklı hook ile kesip A/B test yap:
+
+| Versiyon | Hook Metni (Klip 1 altyazısı) | Hedef |
+|----------|-------------------------------|-------|
+| A | "Bir perde bu kadar fark yaratır mı?" | Merak/sürpriz |
+| B | "Eviniz hangisi?" | Engagement (yorum çekme) |
+| C | "İskenderun'da ölçüye özel dikim" | Doğrudan satış |
+
+Aynı video gövdesi, sadece ilk 2 saniyedeki altyazı değişir. Meta Ads'de
+her versiyon ayrı reklam olarak yükle → en düşük CPM kazananı öne al.
+
+---
+
 ### 5.6 Kampanya Yapısı — Reels Ads
 
 ```

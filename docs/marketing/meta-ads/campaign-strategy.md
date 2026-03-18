@@ -4,34 +4,51 @@ Bu dokuman, Inanc Tekstil icin Meta (Facebook + Instagram) reklam kampanyalarini
 
 ---
 
+## Aktif Kampanya Durumu (2026-03-17)
+
+| Kampanya | ID | Durum | Butce |
+|----------|----|-------|-------|
+| Reels — Farkindalik (Soguk Kitle) | `6933660244056` | ACTIVE | 45 TL/gun |
+| Retargeting | — | Henuz baslatilmadi | — |
+
+**Ad Set:** Kadinlar 25-50 \| Iskenderun +30km \| Ev Dekorasyonu (`6933660347256`)
+**Aktif Ad:** Tul Perde — Terracotta Oda (UTM) (`6933661911256`)
+**UTM:** `utm_source=instagram&utm_medium=reels&utm_campaign=farkindalik_soguk_kitle`
+
+---
+
 ## Kampanya Yapisi
 
-Iki ayri kampanya yonetilecektir:
+Uc ayri kampanya planlanmistir:
 
 ```
-Kampanya 1: Trafik / Farkindalik (Soguk Kitle)
+Kampanya 1: Reels / Farkindalik (Soguk Kitle) — AKTIF
   ├── Reklam Seti 1: Kumas Fotograflari
   ├── Reklam Seti 2: Tamamlanmis Perde Reels
   └── Reklam Seti 3: Oncesi-Sonrasi Carousel
 
-Kampanya 2: Retargeting (Sicak Kitle) — 500+ ziyaretci sonrasi
+Kampanya 2: Katalog Satislari (Urun bazli) — PLANLI
+  └── Reklam Seti 1: Shopify katalog urunleri (dinamik)
+
+Kampanya 3: Retargeting (Sicak Kitle) — 500+ ziyaretci sonrasi
   ├── Reklam Seti 1: Site Ziyaretcileri (son 30 gun)
   └── Reklam Seti 2: Lookalike Audience (100+ ziyaretci sonrasi)
 ```
 
 ---
 
-## Kampanya 1: Trafik / Farkindalik
+## Kampanya 1: Reels / Farkindalik
 
 ### Amac
 
-Henuz Inanc Tekstil'i tanimayan, ancak perde veya ev dekorasyonu ile ilgilenen yerel kitleye ulasmak. Web sitesine trafik cekemk ve pixel verisi biriktirmek.
+Henuz Inanc Tekstil'i tanimayan, ancak perde veya ev dekorasyonu ile ilgilenen yerel kitleye ulasmak. Farkindalik olusturmak ve pixel verisi biriktirmek.
 
 ### Kampanya Ayarlari
 
-- **Kampanya Hedefi:** Traffic (Trafik)
-- **Optimizasyon:** Link Clicks (Baglanti Tiklamasi)
-- **Butce:** 1.200 TL/ay (gunluk ~40 TL)
+- **Kampanya Hedefi:** OUTCOME_AWARENESS (Farkindalik)
+- **Optimizasyon:** REACH
+- **Teklif Stratejisi:** LOWEST_COST_WITHOUT_CAP
+- **Butce:** 45 TL/gun (ad set seviyesinde)
 - **Sure:** Surekli (performansa gore ayarlanir)
 
 ### Hedef Kitle Tanimi
@@ -47,7 +64,7 @@ Henuz Inanc Tekstil'i tanimayan, ancak perde veya ev dekorasyonu ile ilgilenen y
 #### Demografi
 
 - **Cinsiyet:** Kadinlar (birincil hedef kitle - ev dekorasyonu kararlari genellikle kadinlar tarafindan alinir)
-- **Yas Araligi:** 25-55
+- **Yas Araligi:** 25-50
 - **Dil:** Turkce
 
 #### Ilgi Alanlari

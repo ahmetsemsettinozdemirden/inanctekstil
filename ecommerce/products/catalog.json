@@ -15,7 +15,7 @@
         "pattern": null
       },
       "shopify": {
-        "product_id": null,
+        "product_id": "gid://shopify/Product/15726200782929",
         "handle": "stn-saten",
         "product_type": "STN",
         "status": "ACTIVE",
@@ -30,7 +30,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/STN/STN-001.jpeg",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59200390824017",
             "status": "ACTIVE"
           }
         },
@@ -40,7 +40,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/STN/STN-002.jpeg",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59207084671057",
             "status": "ACTIVE"
           }
         }
@@ -61,7 +61,7 @@
         "pattern": null
       },
       "shopify": {
-        "product_id": null,
+        "product_id": "gid://shopify/Product/15726200684625",
         "handle": "tul-bornova",
         "product_type": "TUL",
         "status": "ACTIVE",
@@ -76,7 +76,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/TUL/TUL-001.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59200390725713",
             "status": "ACTIVE"
           }
         },
@@ -86,7 +86,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/TUL/TUL-002.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59208719532113",
             "status": "ACTIVE"
           }
         },
@@ -289,7 +289,7 @@
         "pattern": null
       },
       "shopify": {
-        "product_id": null,
+        "product_id": "gid://shopify/Product/15726200717393",
         "handle": "fon-hurrem",
         "product_type": "FON",
         "status": "ACTIVE",
@@ -304,7 +304,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/FON/FON-001.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59200390758481",
             "status": "ACTIVE"
           }
         },
@@ -314,7 +314,7 @@
           "finish": null,
           "swatch": "01-cropped-katalog-images/FON/FON-002.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59208721858641",
             "status": "ACTIVE"
           }
         },
@@ -1634,7 +1634,7 @@
         "pattern": null
       },
       "shopify": {
-        "product_id": null,
+        "product_id": "gid://shopify/Product/15726200750161",
         "handle": "blk-sonil-blackout",
         "product_type": "BLK",
         "status": "ACTIVE",
@@ -1650,7 +1650,7 @@
           "finish": "DESENLİ",
           "swatch": "01-cropped-katalog-images/BLK/BLK-001.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59200390791249",
             "status": "ACTIVE"
           }
         },
@@ -1660,7 +1660,7 @@
           "finish": "DÜZ",
           "swatch": "01-cropped-katalog-images/BLK/BLK-002.JPG",
           "shopify": {
-            "variant_id": null,
+            "variant_id": "gid://shopify/ProductVariant/59208723005521",
             "status": "ACTIVE"
           }
         },

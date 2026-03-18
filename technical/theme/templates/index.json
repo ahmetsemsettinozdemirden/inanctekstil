@@ -1,0 +1,650 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_perde": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"position:relative;min-height:520px;display:flex;align-items:flex-end;overflow:hidden\">\n  <img src=\"{{ 'hero-tul-room.webp' | asset_url }}\" alt=\"Tül perde - oda görünümü\" loading=\"eager\" fetchpriority=\"high\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover\">\n  <div style=\"position:absolute;inset:0;background:linear-gradient(to top,rgba(18,18,18,0.55),rgba(18,18,18,0.1))\"></div>\n  <div style=\"position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 24px 72px;color:#fff\">\n    <h1 style=\"font-family:var(--font-heading--family);font-size:clamp(1.75rem,4vw,2.5rem);margin:0 0 12px;font-weight:700\">30 Yıldır İskenderun'un Perde Atölyesi</h1>\n    <p style=\"font-size:clamp(0.875rem,2vw,1.125rem);margin:0 0 24px;max-width:540px;line-height:1.6;opacity:0.9\">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>\n    <a href=\"/collections/all\" style=\"display:inline-block;padding:12px 28px;border:1.5px solid #fff;color:#fff;text-decoration:none;font-size:0.9rem;letter-spacing:0.02em;transition:all 0.2s\">Tüm Perdeleri Gör</a>\n  </div>\n</div>",
+        "color_scheme": "",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "categories": {
+      "type": "collection-links",
+      "settings": {
+        "collection_list": [
+          "tul-perdeler",
+          "fon-perdeler",
+          "blackout-perdeler"
+        ],
+        "layout": "spotlight",
+        "section_width": "page-width",
+        "alignment": "center",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "products_tul": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "header_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "header_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "Tümünü Gör",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "header_text",
+            "header_button"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "gallery",
+            "title",
+            "price"
+          ]
+        }
+      },
+      "name": "Tül Perdeler",
+      "settings": {
+        "collection": "tul-perdeler",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "products_fon": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "header_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "header_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "Tümünü Gör",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "header_text",
+            "header_button"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "gallery",
+            "title",
+            "price"
+          ]
+        }
+      },
+      "name": "Fon Perdeler",
+      "settings": {
+        "collection": "fon-perdeler",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "products_blk": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "header_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "header_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "Tümünü Gör",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "header_text",
+            "header_button"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "gallery",
+            "title",
+            "price"
+          ]
+        }
+      },
+      "name": "Blackout Perdeler",
+      "settings": {
+        "collection": "blackout-perdeler",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "measurement_videos": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"max-width:1200px;margin:0 auto;text-align:center\">\n  <h2 style=\"font-family:var(--font-heading--family);font-size:2rem;margin:0 0 12px;color:var(--color-foreground-heading)\">Perde Ölçüsü Nasıl Alınır?</h2>\n  <p style=\"color:var(--color-foreground);margin:0 0 40px;font-size:1rem\">Doğru ölçü, mükemmel perdenin ilk adımıdır. Aşağıdaki videolardan ölçü alma yöntemlerini öğrenin.</p>\n  <div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:24px\">\n    <div>\n      <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:12px;background:#ddd\">\n        <iframe src=\"https://www.youtube-nocookie.com/embed/k8r_DUzKrlI\" title=\"Kalorifer Üstü Ölçü Alma\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\" allowfullscreen loading=\"lazy\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;border:0\"></iframe>\n      </div>\n      <strong style=\"display:block;margin-bottom:4px;color:var(--color-foreground-heading)\">Kalorifer Üstü Ölçü Alma</strong>\n      <span style=\"font-size:0.875rem;color:var(--color-foreground)\">Kalorifer üstüne monte edilecek perdeler için doğru ölçü alma yöntemi.</span>\n    </div>\n    <div>\n      <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:12px;background:#ddd\">\n        <iframe src=\"https://www.youtube-nocookie.com/embed/1BR3onEeMxk\" title=\"Cam Hizasında Ölçü Alma\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\" allowfullscreen loading=\"lazy\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;border:0\"></iframe>\n      </div>\n      <strong style=\"display:block;margin-bottom:4px;color:var(--color-foreground-heading)\">Cam Hizasında Ölçü Alma</strong>\n      <span style=\"font-size:0.875rem;color:var(--color-foreground)\">Cam hizasında asılan perdeler için en ve boy ölçülerinin nasıl alınacağı.</span>\n    </div>\n    <div>\n      <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:12px;background:#ddd\">\n        <iframe src=\"https://www.youtube-nocookie.com/embed/2yQDL8eXHc8\" title=\"Yere Kadar Uzanan Ölçü Alma\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\" allowfullscreen loading=\"lazy\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;border:0\"></iframe>\n      </div>\n      <strong style=\"display:block;margin-bottom:4px;color:var(--color-foreground-heading)\">Yere Kadar Uzanan Ölçü Alma</strong>\n      <span style=\"font-size:0.875rem;color:var(--color-foreground)\">Yere kadar uzanan perdeler için doğru ölçü alma teknikleri.</span>\n    </div>\n  </div>\n</div>\n<style>\n  @media(max-width:768px){\n    .section [style*=\"grid-template-columns:repeat(3\"] { grid-template-columns:1fr !important; }\n  }\n</style>",
+        "color_scheme": "scheme-2",
+        "section_width": "page-width",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "faq": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div>\n  <h2 style=\"font-family:var(--font-heading--family);font-size:2rem;text-align:center;margin:0 0 32px;color:var(--color-foreground-heading)\">Sıkça Sorulan Sorular</h2>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Ölçüleri nasıl almam gerekiyor?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">Yukarıdaki ölçü alma videolarımızı izleyerek doğru ölçüleri alabilirsiniz. En (genişlik) ve boy (yükseklik) ölçülerinizi santimetre cinsinden girin. Emin değilseniz WhatsApp üzerinden bize ulaşabilirsiniz.</p>\n  </details>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Özel dikilen perdeler iade edilebilir mi?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">Özel ölçülerinize göre dikilen perdeler iade edilemez. Bu nedenle sipariş vermeden önce ölçülerinizi dikkatlice kontrol etmenizi öneririz.</p>\n  </details>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Siparişim ne kadar sürede hazırlanıyor?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">Siparişleriniz 5-7 iş günü içerisinde dikilip kargoya verilir.</p>\n  </details>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Kargo ücreti ne kadar?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">1.000 TL ve üzeri siparişlerde kargo ücretsizdir. Altı siparişlerde kargo ücreti ödeme sırasında hesaplanır.</p>\n  </details>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Yıkama ve bakım talimatlarınız nelerdir?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">Tül perdeler 30 derecede hassas yıkama programında yıkanabilir. Fon ve blackout perdeler için kuru temizlik önerilir. Detaylı bilgi ürün sayfalarında yer almaktadır.</p>\n  </details>\n  <details style=\"border-bottom:1px solid var(--color-border)\">\n    <summary style=\"padding:20px 0;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--color-foreground-heading)\">Taksit seçenekleriniz nelerdir?</summary>\n    <p style=\"padding:0 0 20px;line-height:1.6;color:var(--color-foreground)\">PayTR altyapısı ile kredi kartına taksit seçenekleri sunulmaktadır. Taksit seçenekleri ödeme sayfasında görüntülenir.</p>\n  </details>\n</div>",
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "hero_perde",
+    "categories",
+    "products_tul",
+    "products_fon",
+    "products_blk",
+    "measurement_videos",
+    "faq"
+  ]
+}
