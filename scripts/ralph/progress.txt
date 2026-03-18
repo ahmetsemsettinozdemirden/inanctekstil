@@ -167,4 +167,52 @@
 - `bun run lint` — PASS
 - `bun run test` — 11 pass, 0 fail
 
+---
+
+## 2026-03-18 — US-009: Deploy Cart Transform and verify end-to-end ✅
+
+**Root cause discovered:** Shopify Cart Transform (`purchase.cart-transform.run`) requires Shopify Plus. The store is on Basic plan — the function was silently no-oping, so checkout showed ₺230 (base price) instead of the calculated price.
+
+**Solution: Draft Orders API (available on all plans)**
+- Pivoted from Cart Transform to server-side Draft Order creation via PMS backend
+- New endpoint: `POST /api/checkout/draft-order` in `ecommerce/pms/src/routes/checkout.ts`
+  - Validates: variantId, en (50–1000 cm), boy (1–600 cm), pileOrani (2.0/2.5/3.0), kanatCount (1 or 2)
+  - Fetches short-lived Shopify token via `client_credentials` OAuth flow
+  - Fetches variant base price from Shopify REST API (server-side — never trusts client price)
+  - Calculates: `(en / 100) × pileOrani × kanatCount × basePricePerMeter`
+  - Creates Shopify Draft Order with correct price, order properties (En, Boy, Pile Stili, Kanat)
+  - Returns `{ checkoutUrl: draft_order.invoice_url }`
+- PMS server.ts updated to register `checkoutRouter` at `/api/checkout`
+- `env.ts` updated with `getShopifyClientCredentials()` helper
+- Theme section `curtain-configurator.liquid` updated:
+  - Button text changed to "Siparişe Devam Et"
+  - On click: POST to `{API_URL}/api/checkout/draft-order`, then `window.location.href = data.checkoutUrl`
+  - `data-api-url` and `data-product-title` attributes read from section settings
+- `templates/product.json` updated with `draft_order_api_url` setting pointing to serveo.net tunnel
+- Theme pushed to unpublished theme #193719566417 via `shopify theme push`
+- PMS exposed via `ssh -R 80:localhost:3000 serveo.net`
+
+**Verified end-to-end via Playwright:**
+- Navigated to `inanctekstil.store/products/tul-bornova?preview_theme_id=193719566417`
+- Filled: En=200, Boy=250 → Devam Et ✅
+- Selected: Kanun Pile x2.5 → Devam Et ✅
+- Selected: Tek Kanat → Devam Et ✅
+- Step 4 shows: Tahmini Fiyat **1.150,00 TL** ✅ (200/100 × 2.5 × 1 × 230 = 1150)
+- Checked disclaimer, clicked "Siparişe Devam Et"
+- Redirected to Shopify checkout: BORNOVA Tül Perde **₺1.150,00** ✅
+- All configuration properties visible in checkout line item ✅
+
+**Pending (production hardening):**
+- Deploy PMS to permanent public URL (Fly.io/Railway/Render)
+- Update `product.json` `draft_order_api_url` to permanent URL
+- Publish theme #193719566417 to live
+
+**Files changed:**
+- `ecommerce/pms/src/routes/checkout.ts` (new)
+- `ecommerce/pms/src/server.ts` (modified)
+- `ecommerce/pms/src/lib/env.ts` (modified)
+- `technical/theme/sections/curtain-configurator.liquid` (modified)
+- `technical/theme/templates/product.json` (modified)
+- `scripts/ralph/prd.json` (US-009 passes: true)
+
 

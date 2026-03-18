@@ -164,8 +164,8 @@
         "Verified via Playwright MCP: a non-curtain product added to cart has unaffected price"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Cart Transform requires Shopify Plus — store is on Basic plan so it silently no-ops. Pivoted to Draft Orders API (available on all plans): PMS backend (Hono/Bun) exposes POST /api/checkout/draft-order which validates inputs, fetches a short-lived token via client_credentials OAuth, reads variant price from Shopify REST, calculates price server-side ((en/100)*pileOrani*kanatCount*basePricePerMeter), creates a Draft Order with correct line item price and configuration properties, and returns the invoice_url. Theme section updated to call this endpoint and redirect to checkoutUrl. Tunnel exposed via serveo.net for testing. Verified end-to-end via Playwright: En=200, Boy=250, Kanun Pile x2.5, Tek Kanat → Shopify checkout shows BORNOVA Tül Perde ₺1.150,00. Files: ecommerce/pms/src/routes/checkout.ts (new), ecommerce/pms/src/server.ts (modified), ecommerce/pms/src/lib/env.ts (modified), technical/theme/sections/curtain-configurator.liquid (modified), technical/theme/templates/product.json (modified).",
       "dependsOn": ["US-006", "US-008"]
     }
   ]

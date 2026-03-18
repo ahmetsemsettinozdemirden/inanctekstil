@@ -338,7 +338,9 @@
   <div id="curtain-configurator" class="curtain-configurator page-width"
     data-max-boy="{{ max_boy }}"
     data-base-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}"
-    data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    data-product-title="{{ product.title | escape }}"
+    data-api-url="{{ section.settings.draft_order_api_url | escape }}">
     <div class="perde-conf">
 
       <!-- Collapsed summary: Step 1 -->
@@ -664,6 +666,8 @@
       var confEl          = document.getElementById('curtain-configurator');
       var BASE_PRICE      = parseFloat(confEl.dataset.basePrice) || 0;
       var VARIANT_ID      = parseInt(confEl.dataset.variantId, 10);
+      var PRODUCT_TITLE   = confEl.dataset.productTitle || 'Özel Ölçü Perde';
+      var API_URL         = confEl.dataset.apiUrl || '';
 
       function formatTL(amount) {
         return amount.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' TL';
@@ -689,55 +693,115 @@
         addToCartBtn.disabled = !disclaimerCheck.checked;
       });
 
+      // Clear any stale draft order URL when configurator loads
+      try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e) {}
+
       addToCartBtn.addEventListener('click', function() {
         if (addToCartBtn.disabled) return;
+        if (!API_URL) {
+          cartError.textContent = 'Sipariş API adresi yapılandırılmamış. Lütfen yöneticiyle iletişime geçin.';
+          cartError.classList.add('is-visible');
+          return;
+        }
+
         addToCartBtn.disabled = true;
-        addToCartBtn.textContent = 'Ekleniyor…';
+        addToCartBtn.textContent = 'Hazırlanıyor…';
         cartError.classList.remove('is-visible');
         cartError.textContent = '';
 
-        fetch('/cart/add.js', {
+        var cfg = window.perdeConfig;
+        var calculatedPrice = calcPrice();
+
+        // Step 1: create draft order server-side to lock in the correct price
+        fetch(API_URL + '/api/checkout/draft-order', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            quantity: 1,
-            id: VARIANT_ID,
-            properties: {
-              _en:         window.perdeConfig.en,
-              _boy:        window.perdeConfig.boy,
-              _pile_stili: window.perdeConfig.pile_stili,
-              _pile_orani: window.perdeConfig.pile_orani,
-              _kanat:      window.perdeConfig.kanat
-            }
+            variantId:    VARIANT_ID,
+            productTitle: PRODUCT_TITLE,
+            en:           cfg.en,
+            boy:          cfg.boy,
+            pileStili:    cfg.pile_stili,
+            pileOrani:    cfg.pile_orani,
+            kanat:        cfg.kanat,
+            kanatCount:   cfg.kanat_count
           })
         })
         .then(function(res) {
-          if (!res.ok) {
-            return res.json().then(function(data) {
-              throw new Error(data.description || 'Bir hata oluştu.');
-            });
-          }
-          return res.json();
+          return res.json().then(function(data) {
+            if (!res.ok) throw new Error(data.message || 'Sipariş oluşturulamadı.');
+            return data;
+          });
         })
-        .then(function() {
+        .then(function(data) {
+          if (!data.checkoutUrl) throw new Error('Ödeme sayfası alınamadı.');
+
+          // Step 2: store checkout URL — the global listener below will use it
+          try { sessionStorage.setItem('perdeCheckoutUrl', data.checkoutUrl); } catch(e) {}
+
+          // Step 3: add item to Shopify cart.
+          // Pass the cart-items section ID so Shopify returns pre-rendered HTML
+          // that Horizon can morph in synchronously (no extra round-trip needed).
+          var cartItemsEl = document.querySelector('cart-items-component[data-section-id]');
+          var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
+
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id:       VARIANT_ID,
+              quantity: 1,
+              sections: cartSectionId,
+              properties: {
+                'En':              cfg.en + ' cm',
+                'Boy':             cfg.boy + ' cm',
+                'Pile Stili':      cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
+                'Kanat':           cfg.kanat,
+                'Hesaplanan Fiyat': formatTL(calculatedPrice)
+              }
+            })
+          });
+        })
+        .then(function(res) {
+          return res.json().then(function(data) {
+            if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
+            return data;
+          });
+        })
+        .then(function(cartData) {
+          // Step 4: dispatch cart:update with the pre-rendered sections HTML so
+          // Horizon's cart-items-component morphs its DOM synchronously, then open drawer.
           addToCartBtn.textContent = 'Sepete Eklendi ✓';
-          // Refresh cart count and open Horizon cart drawer
-          document.dispatchEvent(new CustomEvent('cart:refresh'));
-          var drawer = document.querySelector('cart-drawer-component');
-          if (drawer && typeof drawer.open === 'function') {
-            drawer.open();
-          } else {
-            var cartLink = document.querySelector('a[href="/cart"]');
-            if (cartLink) cartLink.click();
-          }
+
+          var evt = new Event('cart:update', { bubbles: true });
+          evt.detail = { data: { sections: cartData.sections || {} } };
+          document.dispatchEvent(evt);
+
+          var cartDrawer = document.querySelector('cart-drawer-component');
+          if (cartDrawer) cartDrawer.open();
         })
         .catch(function(err) {
-          cartError.textContent = err.message || 'Ürün sepete eklenemedi. Lütfen tekrar deneyin.';
+          cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
           cartError.classList.add('is-visible');
           addToCartBtn.disabled = false;
           addToCartBtn.textContent = 'Sepete Ekle';
         });
       });
+
+      // Intercept any checkout button on the page and redirect to the draft order URL
+      document.addEventListener('click', function(e) {
+        var checkoutUrl;
+        try { checkoutUrl = sessionStorage.getItem('perdeCheckoutUrl'); } catch(e2) {}
+        if (!checkoutUrl) return;
+
+        var target = e.target.closest('a[href*="/checkout"], button[name="checkout"], [data-checkout-btn]');
+        if (target) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e2) {}
+          window.location.href = checkoutUrl;
+        }
+      }, true);
 
     })();
   </script>
@@ -747,6 +811,13 @@
 {
   "name": "Perde Tasarla",
   "tag": "section",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "draft_order_api_url",
+      "label": "Draft Order API URL",
+      "info": "PMS sunucu adresi. Örn: https://pms.inanctekstil.store"
+    }
+  ]
 }
 {% endschema %}

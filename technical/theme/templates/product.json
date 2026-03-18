@@ -266,7 +266,9 @@
     },
     "curtain_configurator": {
       "type": "curtain-configurator",
-      "settings": {}
+      "settings": {
+        "draft_order_api_url": "https://4710f5aa8764c82c-109-228-221-168.serveousercontent.com"
+      }
     },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
