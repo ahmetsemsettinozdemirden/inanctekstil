@@ -538,26 +538,50 @@
 
   <script>
     (function() {
+      // ─── Logger ─────────────────────────────────────────────────────────────
+      function log(event, data) {
+        if (data !== undefined) {
+          console.log('[PerdeTasarla] ' + event, data);
+        } else {
+          console.log('[PerdeTasarla] ' + event);
+        }
+      }
+
       var MIN_EN  = 50;
-      var MAX_BOY = parseInt(document.getElementById('curtain-configurator').dataset.maxBoy, 10) || 300;
+      var confEl  = document.getElementById('curtain-configurator');
+      var MAX_BOY = parseInt(confEl.dataset.maxBoy, 10) || 300;
       window.perdeConfig = window.perdeConfig || {};
 
+      var BASE_PRICE    = parseFloat(confEl.dataset.basePrice) || 0;
+      var VARIANT_ID    = parseInt(confEl.dataset.variantId, 10);
+      var PRODUCT_TITLE = confEl.dataset.productTitle || 'Özel Ölçü Perde';
+      var API_URL       = confEl.dataset.apiUrl || '';
+
+      log('init', {
+        basePrice: BASE_PRICE,
+        variantId: VARIANT_ID,
+        maxBoy: MAX_BOY,
+        apiUrl: API_URL ? 'configured' : 'MISSING',
+        productTitle: PRODUCT_TITLE
+      });
+
       /* ---------- Step 1 ---------- */
-      var enInput  = document.getElementById('perde-en');
-      var boyInput = document.getElementById('perde-boy');
-      var enError  = document.getElementById('perde-en-error');
-      var boyError = document.getElementById('perde-boy-error');
-      var step1Btn = document.getElementById('perde-step1-btn');
-      var step1El  = document.getElementById('perde-step-1');
-      var summary1 = document.getElementById('perde-summary-1');
+      var enInput      = document.getElementById('perde-en');
+      var boyInput     = document.getElementById('perde-boy');
+      var enError      = document.getElementById('perde-en-error');
+      var boyError     = document.getElementById('perde-boy-error');
+      var step1Btn     = document.getElementById('perde-step1-btn');
+      var step1El      = document.getElementById('perde-step-1');
+      var summary1     = document.getElementById('perde-summary-1');
       var summary1Text = document.getElementById('perde-summary-1-text');
-      var step2El  = document.getElementById('perde-step-2');
+      var step2El      = document.getElementById('perde-step-2');
 
       function validateEn() {
         var v = parseInt(enInput.value, 10);
         var ok = !isNaN(v) && v >= MIN_EN;
         enInput.classList.toggle('is-invalid', !ok && enInput.value !== '');
         enError.classList.toggle('is-visible', !ok && enInput.value !== '');
+        if (!ok && enInput.value !== '') log('validate:en:fail', { value: enInput.value, min: MIN_EN });
         return ok;
       }
 
@@ -566,6 +590,7 @@
         var ok = !isNaN(v) && v >= 1 && v <= MAX_BOY;
         boyInput.classList.toggle('is-invalid', !ok && boyInput.value !== '');
         boyError.classList.toggle('is-visible', !ok && boyInput.value !== '');
+        if (!ok && boyInput.value !== '') log('validate:boy:fail', { value: boyInput.value, max: MAX_BOY });
         return ok;
       }
 
@@ -580,7 +605,7 @@
         if (step1Btn.disabled) return;
         window.perdeConfig.en  = parseInt(enInput.value, 10);
         window.perdeConfig.boy = parseInt(boyInput.value, 10);
-        // Collapse step 1, show summary, reveal step 2
+        log('step1:complete', { en: window.perdeConfig.en, boy: window.perdeConfig.boy });
         step1El.classList.remove('is-active');
         summary1Text.textContent = window.perdeConfig.en + ' x ' + window.perdeConfig.boy + ' cm';
         summary1.classList.add('is-visible');
@@ -588,10 +613,12 @@
       });
 
       /* ---------- Step 2 ---------- */
-      var step2Btn  = document.getElementById('perde-step2-btn');
-      var summary2  = document.getElementById('perde-summary-2');
+      var step2Btn     = document.getElementById('perde-step2-btn');
+      var summary2     = document.getElementById('perde-summary-2');
       var summary2Text = document.getElementById('perde-summary-2-text');
-      var pileCards = document.querySelectorAll('.perde-conf__pile-card');
+      var pileCards    = document.querySelectorAll('.perde-conf__pile-card');
+      var step3El      = document.getElementById('perde-step-3');
+      var summary3     = document.getElementById('perde-summary-3');
 
       pileCards.forEach(function(card) {
         card.addEventListener('click', function() {
@@ -604,18 +631,16 @@
           window.perdeConfig.pile_stili = card.dataset.pile;
           window.perdeConfig.pile_orani = parseFloat(card.dataset.ratio);
           step2Btn.disabled = false;
+          log('step2:select', { pile: card.dataset.pile, ratio: card.dataset.ratio });
         });
-
         card.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
         });
       });
 
-      var step3El  = document.getElementById('perde-step-3');
-      var summary3 = document.getElementById('perde-summary-3');
-
       step2Btn.addEventListener('click', function() {
         if (step2Btn.disabled) return;
+        log('step2:complete', { pile: window.perdeConfig.pile_stili, ratio: window.perdeConfig.pile_orani });
         step2El.classList.remove('is-active');
         summary2Text.textContent = window.perdeConfig.pile_stili;
         summary2.classList.add('is-visible');
@@ -623,9 +648,9 @@
       });
 
       /* ---------- Step 3 ---------- */
-      var step3Btn      = document.getElementById('perde-step3-btn');
-      var summary3Text  = document.getElementById('perde-summary-3-text');
-      var kanatOptions  = document.querySelectorAll('.perde-conf__kanat-option');
+      var step3Btn     = document.getElementById('perde-step3-btn');
+      var summary3Text = document.getElementById('perde-summary-3-text');
+      var kanatOptions = document.querySelectorAll('.perde-conf__kanat-option');
 
       kanatOptions.forEach(function(opt) {
         opt.addEventListener('click', function() {
@@ -638,8 +663,8 @@
           window.perdeConfig.kanat       = opt.dataset.kanat;
           window.perdeConfig.kanat_count = parseInt(opt.dataset.count, 10);
           step3Btn.disabled = false;
+          log('step3:select', { kanat: opt.dataset.kanat, count: opt.dataset.count });
         });
-
         opt.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); }
         });
@@ -647,6 +672,7 @@
 
       step3Btn.addEventListener('click', function() {
         if (step3Btn.disabled) return;
+        log('step3:complete', { kanat: window.perdeConfig.kanat, count: window.perdeConfig.kanat_count });
         step3El.classList.remove('is-active');
         summary3Text.textContent = window.perdeConfig.kanat;
         summary3.classList.add('is-visible');
@@ -663,11 +689,6 @@
       var disclaimerCheck = document.getElementById('perde-disclaimer-check');
       var cartError       = document.getElementById('perde-cart-error');
       var addToCartBtn    = document.getElementById('perde-add-to-cart-btn');
-      var confEl          = document.getElementById('curtain-configurator');
-      var BASE_PRICE      = parseFloat(confEl.dataset.basePrice) || 0;
-      var VARIANT_ID      = parseInt(confEl.dataset.variantId, 10);
-      var PRODUCT_TITLE   = confEl.dataset.productTitle || 'Özel Ölçü Perde';
-      var API_URL         = confEl.dataset.apiUrl || '';
 
       function formatTL(amount) {
         return amount.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' TL';
@@ -677,20 +698,36 @@
         var en    = window.perdeConfig.en || 0;
         var ratio = window.perdeConfig.pile_orani || 1;
         var count = window.perdeConfig.kanat_count || 1;
-        return (en / 100) * ratio * count * BASE_PRICE;
+        var price = (en / 100) * ratio * count * BASE_PRICE;
+        log('price:formula', {
+          formula: '(' + en + '/100) × ' + ratio + ' × ' + count + ' × ' + BASE_PRICE,
+          result: price,
+          resultFormatted: formatTL(price)
+        });
+        return price;
       }
 
       function showStep4() {
-        reviewEn.textContent    = (window.perdeConfig.en || '—') + ' cm';
-        reviewBoy.textContent   = (window.perdeConfig.boy || '—') + ' cm';
-        reviewPile.textContent  = window.perdeConfig.pile_stili || '—';
-        reviewKanat.textContent = window.perdeConfig.kanat || '—';
-        priceDisplay.textContent = formatTL(calcPrice());
+        var price = calcPrice();
+        reviewEn.textContent     = (window.perdeConfig.en || '—') + ' cm';
+        reviewBoy.textContent    = (window.perdeConfig.boy || '—') + ' cm';
+        reviewPile.textContent   = window.perdeConfig.pile_stili || '—';
+        reviewKanat.textContent  = window.perdeConfig.kanat || '—';
+        priceDisplay.textContent = formatTL(price);
         step4El.classList.add('is-active');
+        log('step4:show', {
+          config: {
+            en: window.perdeConfig.en, boy: window.perdeConfig.boy,
+            pile: window.perdeConfig.pile_stili, ratio: window.perdeConfig.pile_orani,
+            kanat: window.perdeConfig.kanat, count: window.perdeConfig.kanat_count
+          },
+          price: formatTL(price)
+        });
       }
 
       disclaimerCheck.addEventListener('change', function() {
         addToCartBtn.disabled = !disclaimerCheck.checked;
+        log('disclaimer:' + (disclaimerCheck.checked ? 'accepted' : 'unaccepted'));
       });
 
       // Clear any stale draft order URL when configurator loads
@@ -701,6 +738,7 @@
         if (!API_URL) {
           cartError.textContent = 'Sipariş API adresi yapılandırılmamış. Lütfen yöneticiyle iletişime geçin.';
           cartError.classList.add('is-visible');
+          log('error:no-api-url');
           return;
         }
 
@@ -711,21 +749,24 @@
 
         var cfg = window.perdeConfig;
         var calculatedPrice = calcPrice();
+        var calculatedCents = Math.round(calculatedPrice * 100);
 
-        // Step 1: create draft order server-side to lock in the correct price
+        var draftPayload = {
+          variantId:    VARIANT_ID,
+          productTitle: PRODUCT_TITLE,
+          en:           cfg.en,
+          boy:          cfg.boy,
+          pileStili:    cfg.pile_stili,
+          pileOrani:    cfg.pile_orani,
+          kanat:        cfg.kanat,
+          kanatCount:   cfg.kanat_count
+        };
+        log('cart:draft-order:request', draftPayload);
+
         fetch(API_URL + '/api/checkout/draft-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            variantId:    VARIANT_ID,
-            productTitle: PRODUCT_TITLE,
-            en:           cfg.en,
-            boy:          cfg.boy,
-            pileStili:    cfg.pile_stili,
-            pileOrani:    cfg.pile_orani,
-            kanat:        cfg.kanat,
-            kanatCount:   cfg.kanat_count
-          })
+          body: JSON.stringify(draftPayload)
         })
         .then(function(res) {
           return res.json().then(function(data) {
@@ -735,32 +776,35 @@
         })
         .then(function(data) {
           if (!data.checkoutUrl) throw new Error('Ödeme sayfası alınamadı.');
-
-          // Step 2: store checkout URL — the global listener below will use it
+          log('cart:draft-order:response', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
           try { sessionStorage.setItem('perdeCheckoutUrl', data.checkoutUrl); } catch(e) {}
 
-          // Step 3: add item to Shopify cart.
-          // Pass the cart-items section ID so Shopify returns pre-rendered HTML
-          // that Horizon can morph in synchronously (no extra round-trip needed).
-          var cartItemsEl = document.querySelector('cart-items-component[data-section-id]');
+          var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
           var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
+
+          var cartPayload = {
+            id:       VARIANT_ID,
+            quantity: 1,
+            sections: cartSectionId,
+            properties: {
+              'En':                cfg.en + ' cm',
+              'Boy':               cfg.boy + ' cm',
+              'Pile Stili':        cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
+              'Kanat':             cfg.kanat,
+              'Hesaplanan Fiyat':  formatTL(calculatedPrice),
+              '_hesaplanan_cents': calculatedCents
+            }
+          };
+          log('cart:add:request', {
+            variantId: cartPayload.id,
+            sectionId: cartSectionId,
+            properties: cartPayload.properties
+          });
 
           return fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id:       VARIANT_ID,
-              quantity: 1,
-              sections: cartSectionId,
-              properties: {
-                'En':                   cfg.en + ' cm',
-                'Boy':                  cfg.boy + ' cm',
-                'Pile Stili':           cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
-                'Kanat':                cfg.kanat,
-                'Hesaplanan Fiyat':     formatTL(calculatedPrice),
-                '_hesaplanan_cents':    Math.round(calculatedPrice * 100)
-              }
-            })
+            body: JSON.stringify(cartPayload)
           });
         })
         .then(function(res) {
@@ -770,18 +814,27 @@
           });
         })
         .then(function(cartData) {
-          // Step 4: dispatch cart:update with the pre-rendered sections HTML so
-          // Horizon's cart-items-component morphs its DOM synchronously, then open drawer.
+          var sectionsKeys = Object.keys(cartData.sections || {});
+          log('cart:add:response', { itemCount: cartData.item_count, sectionsRendered: sectionsKeys });
+
           addToCartBtn.textContent = 'Sepete Eklendi ✓';
+          log('cart:add:complete', { price: formatTL(calculatedPrice), cents: calculatedCents });
 
           var evt = new Event('cart:update', { bubbles: true });
           evt.detail = { data: { sections: cartData.sections || {} } };
           document.dispatchEvent(evt);
+          log('cart:update:dispatched', { sections: sectionsKeys.length });
 
           var cartDrawer = document.querySelector('cart-drawer-component');
-          if (cartDrawer) cartDrawer.open();
+          if (cartDrawer) {
+            cartDrawer.open();
+            log('cart:drawer:opened');
+          } else {
+            log('cart:drawer:not-found');
+          }
         })
         .catch(function(err) {
+          log('error', { message: err.message });
           cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
           cartError.classList.add('is-visible');
           addToCartBtn.disabled = false;
@@ -799,6 +852,7 @@
         if (target) {
           e.preventDefault();
           e.stopImmediatePropagation();
+          log('checkout:intercepted', { url: checkoutUrl.substring(0, 60) + '…' });
           try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e2) {}
           window.location.href = checkoutUrl;
         }
