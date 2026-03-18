@@ -269,6 +269,7 @@
                       {%- if hc_unit -%}
                         <span class="visually-hidden">{{ 'content.price' | t }}</span>
                         <span>{{ hc_unit | divided_by: item.quantity | money }}</span>
+                        <span class="cart-items__per-meter-price">{{ item.original_price | money }}/m</span>
                       {%- elsif item.original_price != item.final_price -%}
                         <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
                         <span>{{ item.final_price | money }}</span>
@@ -857,6 +858,13 @@
     100% {
       transform: translate(0, 0);
     }
+  }
+
+  .cart-items__per-meter-price {
+    display: block;
+    font-size: var(--font-size--xs);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-50));
+    margin-block-start: var(--margin-3xs);
   }
 
   .cart-items__properties {
