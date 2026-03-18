@@ -216,10 +216,21 @@
   {% endif %}
 
   {%- liquid
+    assign adjusted_cart_total = 0
+    for item in cart.items
+      assign hc = item.properties['_hesaplanan_cents']
+      if hc
+        assign item_line = hc | times: item.quantity
+      else
+        assign item_line = item.final_line_price
+      endif
+      assign adjusted_cart_total = adjusted_cart_total | plus: item_line
+    endfor
+
     if settings.currency_code_enabled_cart_total
-      assign total_price = cart.total_price | money_with_currency
+      assign total_price = adjusted_cart_total | money_with_currency
     else
-      assign total_price = cart.total_price | money
+      assign total_price = adjusted_cart_total | money
     endif
   -%}
 

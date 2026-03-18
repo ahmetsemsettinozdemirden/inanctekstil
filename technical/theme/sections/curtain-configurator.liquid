@@ -753,11 +753,12 @@
               quantity: 1,
               sections: cartSectionId,
               properties: {
-                'En':              cfg.en + ' cm',
-                'Boy':             cfg.boy + ' cm',
-                'Pile Stili':      cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
-                'Kanat':           cfg.kanat,
-                'Hesaplanan Fiyat': formatTL(calculatedPrice)
+                'En':                   cfg.en + ' cm',
+                'Boy':                  cfg.boy + ' cm',
+                'Pile Stili':           cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
+                'Kanat':                cfg.kanat,
+                'Hesaplanan Fiyat':     formatTL(calculatedPrice),
+                '_hesaplanan_cents':    Math.round(calculatedPrice * 100)
               }
             })
           });

@@ -230,7 +230,7 @@
                         <dl class="cart-items__properties">
                           {%- for property in item.properties -%}
                             {%- assign property_first_char = property.first | slice: 0 -%}
-                            {%- if property.last != blank and property_first_char != '_' -%}
+                            {%- if property.last != blank and property_first_char != '_' and property.first != 'Hesaplanan Fiyat' -%}
                               <div class="cart-items__property">
                                 <dt>{{ property.first }}:</dt>
                                 <dd>
@@ -265,7 +265,11 @@
 
                   <div class="cart-items__unit-price-wrapper">
                     <div>
-                      {% if item.original_price != item.final_price %}
+                      {%- assign hc_unit = item.properties['_hesaplanan_cents'] -%}
+                      {%- if hc_unit -%}
+                        <span class="visually-hidden">{{ 'content.price' | t }}</span>
+                        <span>{{ hc_unit | divided_by: item.quantity | money }}</span>
+                      {%- elsif item.original_price != item.final_price -%}
                         <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
                         <span>{{ item.final_price | money }}</span>
                         <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
@@ -276,7 +280,7 @@
                             {{ item.original_price | money }}
                           {% endif %}
                         </s>
-                      {% else %}
+                      {%- else -%}
                         {% if item.variant.compare_at_price > item.original_price %}
                           <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
                         {% else %}
@@ -289,7 +293,7 @@
                           <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
                           <s class="compare-at-price">{{ item.variant.compare_at_price | money }}</s>
                         {% endif %}
-                      {% endif %}
+                      {%- endif -%}
                     </div>
                   </div>
                 </td>
@@ -353,7 +357,15 @@
                   </div>
                 </td>
                 {%- liquid
-                  if settings.currency_code_enabled_cart_items
+                  assign hc = item.properties['_hesaplanan_cents']
+                  if hc
+                    assign hesaplanan_line = hc | times: item.quantity
+                    if settings.currency_code_enabled_cart_items
+                      assign price = hesaplanan_line | money_with_currency
+                    else
+                      assign price = hesaplanan_line | money
+                    endif
+                  elsif settings.currency_code_enabled_cart_items
                     assign price = item.final_line_price | money_with_currency
                     assign unit_price = item.unit_price | money_with_currency
                   else
