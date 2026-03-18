@@ -39,3 +39,17 @@
 - `.buy-buttons-block` — class on buy buttons wrapper
 - `sticky-add-to-cart` — custom element for sticky bar
 
+---
+
+## 2026-03-18 — US-003: Step 1 — Ölçü Seçimi ✅
+
+**What was done:**
+- Updated `curtain-configurator.liquid` with full Step 1 UI:
+  - SVG curtain diagram with EN and BOY dimension arrows
+  - En (cm) input: min 50, error "En en az 50 cm olmalıdır"
+  - Boy (cm) input: max from `product.metafields.custom.max_boy_cm`, error "Boy en fazla X cm olabilir"
+  - Devam Et button disabled until both inputs valid
+  - JS stores values in `window.perdeConfig` on click
+- Pushed to unpublished theme #193719566417
+- Verified via Playwright: entering 30cm shows error + button disabled; 200x250 enables button ✅
+

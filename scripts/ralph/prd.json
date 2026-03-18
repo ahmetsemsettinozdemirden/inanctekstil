@@ -49,8 +49,8 @@
         "Verified in browser via Playwright MCP: enter 30cm width -> error shown; enter 200x250 -> Devam Et button enabled"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Step 1 rendered with SVG diagram, En/Boy inputs, Turkish validation, Devam Et disabled until valid. Verified: 30cm shows error, 200x250 enables button.",
       "dependsOn": ["US-002"]
     },
     {
