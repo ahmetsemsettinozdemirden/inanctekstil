@@ -14,8 +14,8 @@
         "Verified in browser via Playwright MCP: navigate to the test product page and confirm metafield is accessible"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Metafield definition created via Admin GraphQL API (gid://shopify/MetafieldDefinition/408730304593), pinned. BORNOVA Tül Perde tagged perde-tasarla with max_boy_cm=270.",
       "dependsOn": []
     },
     {

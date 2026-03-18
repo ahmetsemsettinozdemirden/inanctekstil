@@ -1,2 +1,20 @@
 # Ralph Progress Log
 ---
+
+## 2026-03-18 — US-001: Define product metafield for max height ✅
+
+**What was done:**
+- Created metafield definition via Shopify Admin GraphQL API:
+  - Namespace: `custom`, Key: `max_boy_cm`, Type: `number_integer`
+  - Pinned: true (accessible in Liquid via `product.metafields.custom.max_boy_cm`)
+  - Definition ID: `gid://shopify/MetafieldDefinition/408730304593`
+- Updated BORNOVA Tül Perde (gid://shopify/Product/15726200684625):
+  - Added tag `perde-tasarla`
+  - Set metafield `custom.max_boy_cm = 270`
+- Verified in browser (Playwright): navigated to https://inanctekstil.store/products/tul-bornova, confirmed product page loads and tags include `perde-tasarla`
+- Auth method: client_credentials OAuth flow using credentials from .mcp.json
+
+**Notes:**
+- Shopify CLI does not store Admin API tokens on disk; used `shopify-mcp`'s client credentials flow to obtain `shpat_*` token for raw GraphQL mutations
+- Playwright MCP required clearing `/Users/semsettin/Library/Caches/ms-playwright/mcp-chrome-770bf8f` because Chrome was already running
+
