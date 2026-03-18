@@ -267,8 +267,6 @@
                     <div>
                       {%- assign hc_unit = item.properties['_hesaplanan_cents'] -%}
                       {%- if hc_unit -%}
-                        <span class="visually-hidden">{{ 'content.price' | t }}</span>
-                        <span>{{ hc_unit | divided_by: item.quantity | money }}</span>
                         <span class="cart-items__per-meter-price">{{ item.original_price | money }}/m</span>
                       {%- elsif item.original_price != item.final_price -%}
                         <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
