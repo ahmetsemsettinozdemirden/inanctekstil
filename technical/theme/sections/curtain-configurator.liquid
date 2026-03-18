@@ -15,11 +15,17 @@
       margin: 32px 0;
     }
 
+    /* ---- Active step card ---- */
     .perde-conf__step {
       border: 1px solid #E5E5E5;
       border-radius: 8px;
       padding: 24px;
       background: #FFFFFF;
+      display: none;
+    }
+
+    .perde-conf__step.is-active {
+      display: block;
     }
 
     .perde-conf__step-title {
@@ -30,6 +36,31 @@
       margin: 0 0 20px 0;
     }
 
+    /* ---- Collapsed summary rows ---- */
+    .perde-conf__summary {
+      display: none;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 14px 20px;
+      background: #F8F8F8;
+      font-size: 0.9rem;
+      color: #333333;
+      margin-bottom: 12px;
+    }
+
+    .perde-conf__summary.is-visible {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .perde-conf__summary-label {
+      font-weight: 600;
+      color: #1B2A4A;
+      margin-right: 8px;
+    }
+
+    /* ---- Step 1: measurement inputs ---- */
     .perde-conf__diagram {
       display: flex;
       justify-content: center;
@@ -82,6 +113,65 @@
       display: block;
     }
 
+    /* ---- Step 2: pile card picker ---- */
+    .perde-conf__pile-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .perde-conf__pile-card {
+      border: 2px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 0;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: #F8F8F8;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .perde-conf__pile-card:hover {
+      border-color: #1B2A4A;
+    }
+
+    .perde-conf__pile-card.is-selected {
+      border-color: #1B2A4A;
+      box-shadow: 0 0 0 2px #1B2A4A22;
+    }
+
+    .perde-conf__pile-card__img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #E5E5E5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #999;
+      position: relative;
+    }
+
+    .perde-conf__pile-card__img svg {
+      opacity: 0.4;
+    }
+
+    .perde-conf__pile-card__label {
+      padding: 10px 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1B2A4A;
+      line-height: 1.3;
+    }
+
+    .perde-conf__pile-card__ratio {
+      font-size: 0.72rem;
+      color: #888;
+      font-weight: 400;
+    }
+
+    /* ---- Shared button ---- */
     .perde-conf__btn {
       width: 100%;
       padding: 14px;
@@ -99,62 +189,31 @@
       opacity: 0.4;
       cursor: not-allowed;
     }
-
-    /* Collapsed summary rows for completed steps */
-    .perde-conf__summary {
-      display: none;
-      border: 1px solid #E5E5E5;
-      border-radius: 8px;
-      padding: 14px 20px;
-      background: #F8F8F8;
-      font-size: 0.9rem;
-      color: #333333;
-      margin-bottom: 12px;
-      cursor: pointer;
-    }
-
-    .perde-conf__summary.is-visible {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .perde-conf__summary-label {
-      font-weight: 600;
-      color: #1B2A4A;
-      margin-right: 8px;
-    }
-
-    .perde-conf__summary-edit {
-      font-size: 0.78rem;
-      color: #1B2A4A;
-      text-decoration: underline;
-    }
   </style>
 
   <div id="curtain-configurator" class="curtain-configurator page-width" data-max-boy="{{ max_boy }}">
     <div class="perde-conf">
 
+      <!-- Collapsed summary: Step 1 -->
+      <div id="perde-summary-1" class="perde-conf__summary">
+        <span><span class="perde-conf__summary-label">Ölçü:</span><span id="perde-summary-1-text"></span></span>
+      </div>
+
       <!-- Step 1: Ölçü Seçimi -->
-      <div id="perde-step-1" class="perde-conf__step">
+      <div id="perde-step-1" class="perde-conf__step is-active">
         <p class="perde-conf__step-title">1. Ölçü Seçimi</p>
 
-        <!-- Measurement diagram -->
         <div class="perde-conf__diagram">
           <svg width="160" height="140" viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Curtain rectangle -->
             <rect x="30" y="10" width="100" height="110" fill="#F8F8F8" stroke="#1B2A4A" stroke-width="2"/>
-            <!-- Curtain folds (vertical lines) -->
             <line x1="50" y1="10" x2="50" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
             <line x1="70" y1="10" x2="70" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
             <line x1="90" y1="10" x2="90" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
             <line x1="110" y1="10" x2="110" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
-            <!-- EN arrow (horizontal, below curtain) -->
             <line x1="30" y1="132" x2="130" y2="132" stroke="#1B2A4A" stroke-width="1.5"/>
             <polygon points="30,128 30,136 22,132" fill="#1B2A4A"/>
             <polygon points="130,128 130,136 138,132" fill="#1B2A4A"/>
             <text x="80" y="128" text-anchor="middle" font-size="11" fill="#1B2A4A" font-weight="600">EN</text>
-            <!-- BOY arrow (vertical, right of curtain) -->
             <line x1="144" y1="10" x2="144" y2="120" stroke="#1B2A4A" stroke-width="1.5"/>
             <polygon points="140,10 148,10 144,2" fill="#1B2A4A"/>
             <polygon points="140,120 148,120 144,128" fill="#1B2A4A"/>
@@ -162,7 +221,6 @@
           </svg>
         </div>
 
-        <!-- Inputs -->
         <div class="perde-conf__fields">
           <div class="perde-conf__field">
             <label for="perde-en">En (cm)</label>
@@ -179,21 +237,87 @@
         <button class="perde-conf__btn" id="perde-step1-btn" disabled>Devam Et</button>
       </div>
 
-      <!-- Steps 2–4 will be rendered here in subsequent stories -->
+      <!-- Collapsed summary: Step 2 -->
+      <div id="perde-summary-2" class="perde-conf__summary">
+        <span><span class="perde-conf__summary-label">Pile:</span><span id="perde-summary-2-text"></span></span>
+      </div>
+
+      <!-- Step 2: Pile Stili -->
+      <div id="perde-step-2" class="perde-conf__step">
+        <p class="perde-conf__step-title">2. Pile Stili</p>
+
+        <div class="perde-conf__pile-cards">
+          <!-- Düz Dikiş -->
+          <div class="perde-conf__pile-card" data-pile="Düz Dikiş" data-ratio="2.0" role="button" tabindex="0" aria-pressed="false">
+            <div class="perde-conf__pile-card__img">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
+                <line x1="5" y1="15" x2="55" y2="15" stroke="#bbb" stroke-width="1"/>
+                <line x1="5" y1="25" x2="55" y2="25" stroke="#bbb" stroke-width="1"/>
+                <line x1="5" y1="35" x2="55" y2="35" stroke="#bbb" stroke-width="1"/>
+                <line x1="5" y1="45" x2="55" y2="45" stroke="#bbb" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="perde-conf__pile-card__label">
+              Düz Dikiş<br>
+              <span class="perde-conf__pile-card__ratio">x2.0</span>
+            </div>
+          </div>
+          <!-- Kanun Pile -->
+          <div class="perde-conf__pile-card" data-pile="Kanun Pile" data-ratio="2.5" role="button" tabindex="0" aria-pressed="false">
+            <div class="perde-conf__pile-card__img">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
+                <path d="M10 55 Q15 30 20 55 Q25 30 30 55 Q35 30 40 55 Q45 30 50 55" stroke="#aaa" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <div class="perde-conf__pile-card__label">
+              Kanun Pile<br>
+              <span class="perde-conf__pile-card__ratio">x2.5</span>
+            </div>
+          </div>
+          <!-- Boru Pile -->
+          <div class="perde-conf__pile-card" data-pile="Boru Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
+            <div class="perde-conf__pile-card__img">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
+                <line x1="15" y1="5" x2="15" y2="55" stroke="#aaa" stroke-width="2"/>
+                <line x1="25" y1="5" x2="25" y2="55" stroke="#aaa" stroke-width="2"/>
+                <line x1="35" y1="5" x2="35" y2="55" stroke="#aaa" stroke-width="2"/>
+                <line x1="45" y1="5" x2="45" y2="55" stroke="#aaa" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="perde-conf__pile-card__label">
+              Boru Pile<br>
+              <span class="perde-conf__pile-card__ratio">x3.0</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="perde-conf__btn" id="perde-step2-btn" disabled>Devam Et</button>
+      </div>
+
+      <!-- Steps 3–4 will be added in subsequent stories -->
 
     </div>
   </div>
 
   <script>
     (function() {
-      var MIN_EN = 50;
+      var MIN_EN  = 50;
       var MAX_BOY = parseInt(document.getElementById('curtain-configurator').dataset.maxBoy, 10) || 300;
+      window.perdeConfig = window.perdeConfig || {};
 
+      /* ---------- Step 1 ---------- */
       var enInput  = document.getElementById('perde-en');
       var boyInput = document.getElementById('perde-boy');
       var enError  = document.getElementById('perde-en-error');
       var boyError = document.getElementById('perde-boy-error');
       var step1Btn = document.getElementById('perde-step1-btn');
+      var step1El  = document.getElementById('perde-step-1');
+      var summary1 = document.getElementById('perde-summary-1');
+      var summary1Text = document.getElementById('perde-summary-1-text');
+      var step2El  = document.getElementById('perde-step-2');
 
       function validateEn() {
         var v = parseInt(enInput.value, 10);
@@ -211,23 +335,56 @@
         return ok;
       }
 
-      function updateBtn() {
+      function updateStep1Btn() {
         step1Btn.disabled = !(validateEn() && validateBoy());
       }
 
-      enInput.addEventListener('input', updateBtn);
-      boyInput.addEventListener('input', updateBtn);
+      enInput.addEventListener('input', updateStep1Btn);
+      boyInput.addEventListener('input', updateStep1Btn);
 
       step1Btn.addEventListener('click', function() {
-        if (!step1Btn.disabled) {
-          // Store values in state (to be used by subsequent steps)
-          window.perdeConfig = window.perdeConfig || {};
-          window.perdeConfig.en = parseInt(enInput.value, 10);
-          window.perdeConfig.boy = parseInt(boyInput.value, 10);
-          // Signal step complete (subsequent stories will show step 2)
-          document.getElementById('perde-step-1').dataset.completed = 'true';
-        }
+        if (step1Btn.disabled) return;
+        window.perdeConfig.en  = parseInt(enInput.value, 10);
+        window.perdeConfig.boy = parseInt(boyInput.value, 10);
+        // Collapse step 1, show summary, reveal step 2
+        step1El.classList.remove('is-active');
+        summary1Text.textContent = window.perdeConfig.en + ' x ' + window.perdeConfig.boy + ' cm';
+        summary1.classList.add('is-visible');
+        step2El.classList.add('is-active');
       });
+
+      /* ---------- Step 2 ---------- */
+      var step2Btn  = document.getElementById('perde-step2-btn');
+      var summary2  = document.getElementById('perde-summary-2');
+      var summary2Text = document.getElementById('perde-summary-2-text');
+      var pileCards = document.querySelectorAll('.perde-conf__pile-card');
+
+      pileCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          pileCards.forEach(function(c) {
+            c.classList.remove('is-selected');
+            c.setAttribute('aria-pressed', 'false');
+          });
+          card.classList.add('is-selected');
+          card.setAttribute('aria-pressed', 'true');
+          window.perdeConfig.pile_stili = card.dataset.pile;
+          window.perdeConfig.pile_orani = parseFloat(card.dataset.ratio);
+          step2Btn.disabled = false;
+        });
+
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+        });
+      });
+
+      step2Btn.addEventListener('click', function() {
+        if (step2Btn.disabled) return;
+        // Collapse step 2, show summary — step 3 will be added in US-005
+        step2El.classList.remove('is-active');
+        summary2Text.textContent = window.perdeConfig.pile_stili;
+        summary2.classList.add('is-visible');
+      });
+
     })();
   </script>
 {% endif %}

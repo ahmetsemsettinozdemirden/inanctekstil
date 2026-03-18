@@ -68,8 +68,8 @@
         "Verified in browser via Playwright MCP: all three cards visible, clicking one highlights it, Devam Et enables"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Step 2 shows after Step 1; collapsed summary 'Ölçü: 200 x 250 cm' visible. Three pile cards with placeholder SVGs. Selecting Kanun Pile highlights card and enables Devam Et. Ratio stored in window.perdeConfig.",
       "dependsOn": ["US-003"]
     },
     {

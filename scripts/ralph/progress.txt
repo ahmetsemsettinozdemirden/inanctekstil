@@ -53,3 +53,16 @@
 - Pushed to unpublished theme #193719566417
 - Verified via Playwright: entering 30cm shows error + button disabled; 200x250 enables button ✅
 
+---
+
+## 2026-03-18 — US-004: Step 2 — Pile Stili visual picker ✅
+
+**What was done:**
+- Steps now use `is-active` CSS class to show/hide (hidden by default via `display:none`)
+- Step 1 completion collapses to summary "Ölçü: X x Y cm", reveals Step 2
+- Three pile cards with placeholder SVG illustrations: Düz Dikiş (x2.0), Kanun Pile (x2.5), Boru Pile (x3.0)
+- Clicking a card: adds `is-selected` + `aria-pressed=true`, stores pile_stili and pile_orani in `window.perdeConfig`
+- Keyboard accessible (Enter/Space triggers click)
+- Devam Et disabled until a card is selected
+- Verified via Playwright: all three cards visible, selecting Kanun Pile highlights it and enables Devam Et ✅
+
