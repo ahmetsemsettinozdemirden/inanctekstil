@@ -54,7 +54,7 @@ Use this document to track what needs to be done before activating campaigns.
   - `AddPaymentInfo` — 2 events, 7.4/10 match quality (CAPI only)
   - `Purchase` — 1 event, 8.0/10 match quality (CAPI only)
 
-**Note:** AddToCart and InitiateCheckout match quality is 4.5–4.7/10. This is because browser pixel sends limited customer data. To improve: enable Automatic Advanced Matching in Events Manager → Settings → Turn on automatic advanced matching.
+- [x] **Automatic Advanced Matching enabled** (2026-03-19) — all 8 parameters on: email, phone, name, gender, city/region/postcode, country, DOB, external ID. Match quality on browser-side events (AddToCart, InitiateCheckout) expected to improve within 24–48h.
 
 ---
 
