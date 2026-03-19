@@ -54,15 +54,14 @@ Neutral name — PostHog docs say to avoid: `analytics`, `tracking`, `telemetry`
 
 **Terraform DNS record:**
 
-DNS is managed by Hetzner DNS (`hetznerdns` provider), not Hetzner Cloud (`hcloud`). Use `hetznerdns_record`:
+DNS uses `hcloud_zone_record` (existing pattern in `technical/gitopsprod/dns.tf`):
 
 ```hcl
-resource "hetznerdns_record" "posthog_proxy" {
-  zone_id = var.dns_zone_id
-  name    = "svc"
-  type    = "CNAME"
-  value   = "xxxxxxxx.proxy-eu.posthog.com."  # fill in after PostHog generates it
-  ttl     = 300
+resource "hcloud_zone_record" "posthog_proxy" {
+  zone  = hcloud_zone.main.id
+  name  = "svc"
+  type  = "CNAME"
+  value = "xxxxxxxx.proxy-eu.posthog.com."  # fill in after PostHog generates it
 }
 ```
 
@@ -244,12 +243,11 @@ technical/analytics-forwarder/
 
 **DNS (Terraform):**
 ```hcl
-resource "hetznerdns_record" "hooks" {
-  zone_id = var.dns_zone_id
-  name    = "hooks"
-  type    = "A"
-  value   = "5.75.165.158"
-  ttl     = 300
+resource "hcloud_zone_record" "hooks" {
+  zone  = hcloud_zone.main.id
+  name  = "hooks"
+  type  = "A"
+  value = "5.75.165.158"
 }
 ```
 
