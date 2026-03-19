@@ -2,7 +2,6 @@
   {% assign max_boy = product.metafields.custom.max_boy_cm | default: 300 %}
 
   <style>
-    variant-picker,
     .buy-buttons-block,
     sticky-add-to-cart {
       display: none !important;
@@ -58,6 +57,23 @@
       font-weight: 600;
       color: #1B2A4A;
       margin-right: 8px;
+    }
+
+    /* ---- Step 1: measure hint link ---- */
+    .perde-conf__measure-hint {
+      font-size: 0.82rem;
+      color: #888;
+      margin: -8px 0 20px 0;
+    }
+
+    .perde-conf__measure-link {
+      color: #1B2A4A;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .perde-conf__measure-link:hover {
+      opacity: 0.75;
     }
 
     /* ---- Step 1: measurement inputs ---- */
@@ -144,7 +160,7 @@
     .perde-conf__pile-card__img {
       width: 100%;
       aspect-ratio: 1;
-      background: #E5E5E5;
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -383,6 +399,11 @@
           </div>
         </div>
 
+        <p class="perde-conf__measure-hint">
+          Ölçü almayı bilmiyor musunuz?
+          <a id="perde-measure-link" href="#" class="perde-conf__measure-link">Perde Ölçüsü Nasıl Alınır? →</a>
+        </p>
+
         <button class="perde-conf__btn" id="perde-step1-btn" disabled>Devam Et</button>
       </div>
 
@@ -520,7 +541,7 @@
         <div class="perde-conf__price-block">
           <div class="perde-conf__price-label">Tahmini Fiyat</div>
           <div class="perde-conf__price-value" id="perde-price-display">—</div>
-          <div class="perde-conf__price-note">Tahmini fiyat. Sepette kesinleşir.</div>
+          <div class="perde-conf__price-note">Sepette kesinleşir.</div>
         </div>
 
         <label class="perde-conf__disclaimer">
@@ -859,6 +880,25 @@
       }, true);
 
     })();
+
+    // Move configurator into the product details column, below the description
+    document.addEventListener('DOMContentLoaded', function() {
+      var conf = document.getElementById('curtain-configurator');
+      var target = document.querySelector('.product-details .group-block-content');
+      if (conf && target) {
+        conf.classList.remove('page-width');
+        target.appendChild(conf);
+      }
+
+      // Resolve measurement section anchor dynamically
+      var measureLink = document.getElementById('perde-measure-link');
+      if (measureLink) {
+        var measureSection = document.querySelector('[id*="measurement_videos_pdp"]');
+        if (measureSection) {
+          measureLink.href = '#' + measureSection.id;
+        }
+      }
+    });
   </script>
 {% endif %}
 
