@@ -10,9 +10,8 @@ import type { JobRow } from "../db/schema.ts";
 import type { JobExecutor } from "../lib/job-queue.ts";
 
 const __filename = fileURLToPath(import.meta.url);
-// ecommerce/pdp-image-generator relative to this file (pms/src/jobs/)
-// pms/src/jobs/ → up 3 = ecommerce/ → pdp-image-generator
-const PDG_ROOT = path.resolve(path.dirname(__filename), "../../..", "pdp-image-generator");
+// pms/src/jobs/ → up 2 = pms/
+const PMS_ROOT = path.resolve(path.dirname(__filename), "../..");
 
 /** Build the output directory for generated images: products/02-final-katalog-images/{TYPE}/{SKU} */
 function outputDir(curtainType: string, sku: string): string {
@@ -40,7 +39,7 @@ export const generateLifestyleExecutor: JobExecutor = async (job: JobRow, log) =
   const { design } = designRows[0];
 
   // Load manifest for room definition
-  const manifestPath = path.join(PDG_ROOT, "assets", "input", "manifest.json");
+  const manifestPath = path.join(PMS_ROOT, "assets", "input", "manifest.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {
     rooms: Record<string, { image: string; room_type: string; wall_color: string; floor_type: string; props: string[]; lighting: string; window_type: string }>;
   };

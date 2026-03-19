@@ -83,9 +83,9 @@ imagesRouter.get("/rooms/list", async (c) => {
   const { default: path } = await import("path");
   const { fileURLToPath } = await import("url");
   const __filename = fileURLToPath(import.meta.url);
-  // pms/src/routes/ → up 3 = ecommerce/ → pdp-image-generator
-  const PDG_ROOT = path.resolve(path.dirname(__filename), "../../..", "pdp-image-generator");
-  const manifestPath = path.join(PDG_ROOT, "assets", "input", "manifest.json");
+  // pms/src/routes/ → up 2 = pms/
+  const PMS_ROOT = path.resolve(path.dirname(__filename), "../..");
+  const manifestPath = path.join(PMS_ROOT, "assets", "input", "manifest.json");
 
   try {
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {

@@ -15,7 +15,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h1>Page not found</h1>",
+            "text": "<h1>Sayfa Bulunamadı</h1>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",

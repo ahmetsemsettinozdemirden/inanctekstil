@@ -10,8 +10,8 @@ import type { JobRow } from "../db/schema.ts";
 import type { JobExecutor } from "../lib/job-queue.ts";
 
 const __filename = fileURLToPath(import.meta.url);
-// pms/src/jobs/ → up 3 = ecommerce/ → pdp-image-generator
-const PDG_ROOT = path.resolve(path.dirname(__filename), "../../..", "pdp-image-generator");
+// pms/src/jobs/ → up 2 = pms/
+const PMS_ROOT = path.resolve(path.dirname(__filename), "../..");
 
 export const bulkGenerateExecutor: JobExecutor = async (job: JobRow, log) => {
   const params = job.params as { designId: string };
@@ -28,7 +28,7 @@ export const bulkGenerateExecutor: JobExecutor = async (job: JobRow, log) => {
   if (variantRows.length === 0) throw new Error(`No variants found for design: ${designId}`);
 
   // Load manifest rooms
-  const manifestPath = path.join(PDG_ROOT, "assets", "input", "manifest.json");
+  const manifestPath = path.join(PMS_ROOT, "assets", "input", "manifest.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {
     rooms: Record<string, unknown>;
   };

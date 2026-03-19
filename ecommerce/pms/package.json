@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "baml:generate": "baml-cli generate --from src/image-engine/baml_src",
     "dev": "bun --watch src/server.ts",
     "dev:ui": "bun --cwd=frontend run dev",
     "start": "bun src/server.ts",
@@ -19,12 +20,18 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@boundaryml/baml": "^0.220.0",
+    "@fal-ai/client": "^1.9.4",
+    "@resvg/resvg-js": "^2.6.2",
+    "dotenv": "^17.3.1",
     "drizzle-orm": "^0.44.0",
     "hono": "^4.7.0",
     "nanoid": "^5.1.0",
     "pino": "^9.7.0",
     "pino-pretty": "^13.0.0",
-    "postgres": "^3.4.5"
+    "postgres": "^3.4.5",
+    "satori": "^0.25.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

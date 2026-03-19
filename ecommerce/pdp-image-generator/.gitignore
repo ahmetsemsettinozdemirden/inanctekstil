@@ -1,8 +1,0 @@
-node_modules/
-dist/
-assets/output/
-.env
-baml_client/
-# Intermediate Kontext attempt files (keep only final v2 images)
-assets/input/rooms/*-attempt-*.jpg
-assets/input/rooms/*-v3*.jpg

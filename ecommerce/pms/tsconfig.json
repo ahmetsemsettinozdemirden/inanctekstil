@@ -15,6 +15,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "tests/**/*", "drizzle.config.ts", "vitest.config.ts"],
-  "exclude": ["src/image-engine/**"]
+  "include": ["src/**/*", "tests/**/*", "drizzle.config.ts", "vitest.config.ts"]
 }
