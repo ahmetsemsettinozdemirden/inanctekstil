@@ -655,6 +655,242 @@ button { cursor: pointer; font: inherit; }
 .detail-edit-input:focus { outline: none; border-color: var(--navy); }
 
 /* ============================================================
+   Variant Browser Strip
+   ============================================================ */
+.vbrowser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.vbrowser-nav {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+.vbrowser-nav:hover:not(:disabled) { border-color: var(--navy); color: var(--navy); background: #f0f4ff; }
+.vbrowser-nav:disabled { opacity: .35; cursor: not-allowed; }
+
+.vbrowser-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
+}
+
+.vbrowser-chip {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: all .15s;
+  position: relative;
+  min-width: 60px;
+}
+.vbrowser-chip:hover { border-color: var(--navy); background: #f0f4ff; }
+.vbrowser-chip.active { border-color: var(--navy); background: var(--navy); }
+
+.vbrowser-chip-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+.vbrowser-chip-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vbrowser-chip-swatch-empty { width: 100%; height: 100%; }
+
+.vbrowser-chip-sku {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.vbrowser-chip.active .vbrowser-chip-sku { color: rgba(255,255,255,.7); }
+
+.vbrowser-chip-count {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vbrowser-chip.active .vbrowser-chip-count { background: rgba(255,255,255,.3); }
+
+/* ============================================================
+   Variant View
+   ============================================================ */
+.variant-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.variant-view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  gap: 10px;
+}
+.variant-view-sku    { font-size: 12px; font-family: monospace; color: var(--text-muted); margin-right: 8px; }
+.variant-view-colour { font-size: 15px; font-weight: 600; color: var(--navy); margin-right: 6px; }
+.variant-view-finish { font-size: 12px; color: var(--text-muted); }
+
+/* Swatch vs Texture comparison */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.compare-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compare-panel-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+}
+
+.compare-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.compare-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.compare-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Lifestyle images */
+.lifestyle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lifestyle-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media (max-width: 700px) { .lifestyle-row { grid-template-columns: repeat(2, 1fr); } }
+
+.lifestyle-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lifestyle-img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: #f0f0f0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.lifestyle-img-wrap .gallery-img { transition: transform .3s; }
+.lifestyle-img-wrap:hover .gallery-img { transform: scale(1.03); }
+
+.lifestyle-score {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.lifestyle-item-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Inline actions */
+.variant-inline-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-ghost-action {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn-ghost-action:hover:not(:disabled) { border-color: var(--navy); color: var(--navy); background: #f0f4ff; }
+.btn-ghost-action:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ============================================================
    Jobs Page
    ============================================================ */
 .jobs-connected   { color: #16a34a; font-weight: 500; }
