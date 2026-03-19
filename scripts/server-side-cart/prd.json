@@ -140,8 +140,8 @@
         "Verified in browser via Playwright: checkout from /cart page now redirects to draft order URL (not base price checkout)"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "Production theme ID: 193714913361. Read technical/theme/layout/theme.liquid before editing.",
+      "passes": true,
+      "notes": "perde-checkout.js created. theme.liquid updated with PERDE_API_URL global and deferred script tag. Pushed to production theme. Verified: [PerdeCheckout] loaded on /cart page.",
       "dependsOn": ["US-006"]
     },
     {

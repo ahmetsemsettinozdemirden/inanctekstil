@@ -134,5 +134,7 @@
     {% endif %}
 
     {{ 'perde-cart-total.js' | asset_url | script_tag }}
+    <script>window.PERDE_API_URL = 'https://app.inanctekstil.store';</script>
+    <script src="{{ 'perde-checkout.js' | asset_url }}" defer></script>
   </body>
 </html>

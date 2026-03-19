@@ -56,3 +56,12 @@ Changes:
 - technical/theme/sections/curtain-configurator.liquid: Replaced POST /api/checkout/draft-order flow with GET /cart.js → POST /api/checkout/item. Removed all sessionStorage.getItem/setItem calls. Removed checkout interceptor block (document.addEventListener capture-phase handler). Uses server-confirmed calculatedPrice for cart properties.
 - shopify theme push --allow-live: SUCCESS (theme Horizon #193714913361)
 - Browser verified (Playwright): sessionStorage.getItem('perdeCheckoutUrl') = null after page load ✓
+
+## US-007 — Add global checkout interceptor to theme layout ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/theme/assets/perde-checkout.js: Global capture-phase interceptor for checkout clicks (a[href*='/checkout'], button[name='checkout'], input[name='checkout'], a[href*='checkouts']). GET /cart.js → if empty fall through. POST /api/checkout/complete → if 404 NO_ITEMS fall through. On success redirect to checkoutUrl. Shows 'Hazırlanıyor…' during request. Falls through on any error.
+- technical/theme/layout/theme.liquid: Added window.PERDE_API_URL = 'https://app.inanctekstil.store' inline script and perde-checkout.js deferred script before </body>.
+- shopify theme push --allow-live: SUCCESS (both files, theme Horizon #193714913361)
+- Browser verified (Playwright on /cart): console log '[PerdeCheckout] loaded {apiUrl: https://app.inanctekstil.store}' ✓
