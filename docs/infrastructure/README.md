@@ -11,9 +11,10 @@ Bu dokumantasyon, **inanctekstil.store** e-ticaret sitesinin altyapi yapilandirm
 | Alan Adi | inanctekstil.store |
 | Kurumsal E-posta | Google Workspace Starter ($7/ay) |
 | DNS | Hetzner DNS (nameserver'lar) |
-| SSL | Shopify (otomatik) |
+| SSL | Shopify (otomatik) + Traefik / Let's Encrypt (Hetzner sunucu) |
 | CDN | Shopify (otomatik) |
 | Yedekleme | Shopify (otomatik) |
+| Backend Sunucu | Hetzner CX23 — PMS + curtain-checkout-api (5.75.165.158) |
 
 ## Dokuman Dizini
 

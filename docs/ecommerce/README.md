@@ -16,7 +16,8 @@ Bu dokumantasyon, Inanc Tekstil'in online perde satis platformunun teknik altyap
 | Tema | Horizon |
 | Odeme | PayTR (kredi karti, banka karti, taksit) |
 | Tema Gelistirme | Shopify CLI (`technical/theme/` dizini, JSON tabanli yapilandirma) |
-| Fiyat Hesaplama | Ozel Shopify entegrasyonu (gelistirme asamasinda) |
+| Fiyat Hesaplama | curtain-checkout-api (Bun) + Shopify Cart Transform Function — `app.inanctekstil.store` |
+| Urun Yonetimi | PMS (Bun + React) — `pms.inanctekstil.store` |
 | Teslimat | Hatay ili (mevcut), Turkiye geneli (planli) |
 | Analitik | PostHog (referans, henuz aktif degil) |
 
