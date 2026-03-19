@@ -15,3 +15,12 @@ Server deployment notes (manual step — do before US-008 deploy):
     CURTAIN_DB_PASSWORD=<generated_password>
     CURTAIN_DATABASE_URL=postgres://curtain:<generated_password>@curtain-db:5432/curtain
 - Then: docker compose up -d curtain-db
+
+## US-002 — Add Postgres client, schema migration, and cleanup ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/curtain-checkout-api/package.json: Added `postgres` dependency, `typescript` + `@types/bun` devDependencies, `typecheck` script.
+- technical/curtain-checkout-api/tsconfig.json: Created with strict mode, bundler module resolution, allowImportingTsExtensions.
+- technical/curtain-checkout-api/src/db.ts: Postgres client using CURTAIN_DATABASE_URL (fail-fast if missing), CREATE TABLE IF NOT EXISTS cart_items, UNIQUE INDEX on (cart_token, variant_id), cleanup job (startup + every 24h).
+- bun run typecheck: PASS, bun test src/: PASS (39 tests, existing tests unaffected — db.ts not imported by app.ts yet)

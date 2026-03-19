@@ -36,8 +36,8 @@
         "bun test src/ passes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "postgres package added, src/db.ts created with schema migration + 7-day cleanup job. tsconfig.json + typecheck script added.",
       "dependsOn": ["US-001"]
     },
     {
