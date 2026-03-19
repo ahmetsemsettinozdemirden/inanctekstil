@@ -54,7 +54,7 @@ services:
       NODE_ENV: production
       LOG_LEVEL: info
     volumes:
-      - /opt/products:/app/products:ro
+      - /opt/products:/app/products
     networks:
       - web
       - backend

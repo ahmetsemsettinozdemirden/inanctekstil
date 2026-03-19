@@ -2,19 +2,31 @@ import path from "path";
 import fs from "fs";
 import { PRODUCTS_DIR } from "./env.ts";
 
+// Maps DB curtain_type values to filesystem directory codes
+const TYPE_DIR: Record<string, string> = {
+  BLACKOUT: "BLK",
+  FON: "FON",
+  STN: "STN",
+  TUL: "TUL",
+};
+function typeDir(curtainType: string): string {
+  return TYPE_DIR[curtainType] ?? curtainType;
+}
+
 export function swatchAbsPath(sku: string, curtainType: string): string {
-  // STN swatches use .jpeg, all others use .JPG
-  const ext = curtainType === "STN" ? "jpeg" : "JPG";
-  return path.join(PRODUCTS_DIR, "01-cropped-katalog-images", curtainType, `${sku}.${ext}`);
+  const dir = typeDir(curtainType);
+  const ext = dir === "STN" ? "jpeg" : "JPG";
+  return path.join(PRODUCTS_DIR, "01-cropped-katalog-images", dir, `${sku}.${ext}`);
 }
 
 export function swatchRelPath(sku: string, curtainType: string): string {
-  const ext = curtainType === "STN" ? "jpeg" : "JPG";
-  return `01-cropped-katalog-images/${curtainType}/${sku}.${ext}`;
+  const dir = typeDir(curtainType);
+  const ext = dir === "STN" ? "jpeg" : "JPG";
+  return `01-cropped-katalog-images/${dir}/${sku}.${ext}`;
 }
 
 export function generatedImagesDir(sku: string, curtainType: string): string {
-  return path.join(PRODUCTS_DIR, "02-final-katalog-images", curtainType, sku);
+  return path.join(PRODUCTS_DIR, "02-final-katalog-images", typeDir(curtainType), sku);
 }
 
 export interface GeneratedImageInfo {
