@@ -20,7 +20,7 @@ technical/theme/          -- Shopify Horizon theme files (always use --path tech
   assets/                 -- CSS, JS, SVGs
   snippets/               -- Liquid snippets
 
-technical/design-your-curtain-shopify-app/  -- Private Shopify App (Cart Transform function)
+technical/curtain-shopify-app/  -- Private Shopify App (Cart Transform function)
   extensions/cart-transform/                -- Shopify Function (Cart Transform)
   shopify.app.toml
 
@@ -58,7 +58,7 @@ shopify theme pull --theme <THEME_ID> --store 1z7hb1-2d.myshopify.com --only "te
 shopify theme list --store 1z7hb1-2d.myshopify.com
 
 # Deploy Shopify app (from app directory)
-cd technical/design-your-curtain-shopify-app && shopify app deploy
+cd technical/curtain-shopify-app && shopify app deploy
 ```
 
 ## Quality Gates
@@ -67,7 +67,7 @@ cd technical/design-your-curtain-shopify-app && shopify app deploy
 - `shopify theme push` completes without errors
 - Manual browser verification via Playwright MCP
 
-**App stories (bun project at technical/design-your-curtain-shopify-app/):**
+**App stories (bun project at technical/curtain-shopify-app/):**
 - `bun run typecheck && bun run lint`
 - Manual browser verification via Playwright MCP (where applicable)
 

@@ -93,7 +93,7 @@
 ## 2026-03-18 — US-007: Initialize Shopify App project ✅
 
 **What was done:**
-- Scaffolded app at `technical/design-your-curtain-shopify-app/`:
+- Scaffolded app at `technical/curtain-shopify-app/`:
   - `shopify.app.toml` — configured for store 1z7hb1-2d.myshopify.com; `client_id` left as placeholder (requires Shopify Partners account to fill in)
   - `package.json` — bun project with `typecheck` and `lint` scripts targeting the extension
   - `.eslintrc.cjs` — TypeScript ESLint config

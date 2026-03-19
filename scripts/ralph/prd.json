@@ -115,9 +115,9 @@
     {
       "id": "US-007",
       "title": "Initialize Shopify App project",
-      "description": "As a developer, I want the Shopify App scaffolded at technical/design-your-curtain-shopify-app/ so the Cart Transform function can be developed and deployed.",
+      "description": "As a developer, I want the Shopify App scaffolded at technical/curtain-shopify-app/ so the Cart Transform function can be developed and deployed.",
       "acceptanceCriteria": [
-        "Shopify CLI used to create app at technical/design-your-curtain-shopify-app/",
+        "Shopify CLI used to create app at technical/curtain-shopify-app/",
         "App type: custom app (not published to App Store)",
         "shopify.app.toml configured for store 1z7hb1-2d.myshopify.com",
         "Cart Transform extension scaffolded inside extensions/cart-transform/",
@@ -127,7 +127,7 @@
       ],
       "priority": 2,
       "passes": true,
-      "notes": "App scaffolded manually at technical/design-your-curtain-shopify-app/. shopify.app.toml configured for 1z7hb1-2d.myshopify.com (client_id placeholder — requires Partners account to fill in). Cart Transform extension at extensions/cart-transform/ with TypeScript stub. bun run typecheck && bun run lint both pass. README.md documents Partners setup and deploy steps.",
+      "notes": "App scaffolded manually at technical/curtain-shopify-app/. shopify.app.toml configured for 1z7hb1-2d.myshopify.com (client_id placeholder — requires Partners account to fill in). Cart Transform extension at extensions/cart-transform/ with TypeScript stub. bun run typecheck && bun run lint both pass. README.md documents Partners setup and deploy steps.",
       "dependsOn": []
     },
     {
@@ -155,7 +155,7 @@
       "title": "Deploy Cart Transform and verify end-to-end",
       "description": "As a developer, I want the Cart Transform deployed and installed on the store so the configurator charges the correct price at checkout.",
       "acceptanceCriteria": [
-        "shopify app deploy runs successfully from technical/design-your-curtain-shopify-app/",
+        "shopify app deploy runs successfully from technical/curtain-shopify-app/",
         "App installed on 1z7hb1-2d.myshopify.com",
         "Cart Transform function active (visible in Shopify admin -> Settings -> Custom data -> Functions)",
         "bun run typecheck passes",

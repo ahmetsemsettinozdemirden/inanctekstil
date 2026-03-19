@@ -43,7 +43,7 @@ bun run deploy
 ## Deploy
 
 ```bash
-cd technical/design-your-curtain-shopify-app
+cd technical/curtain-shopify-app
 shopify app deploy
 ```
 
