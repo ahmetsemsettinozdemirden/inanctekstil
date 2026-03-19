@@ -215,6 +215,43 @@ export function ProductDetail() {
         </div>
       )}
 
+      {/* Generated images gallery */}
+      {allImages.length > 0 && (
+        <div className="detail-gallery">
+          <h2 className="detail-section-title">
+            Üretilen Görseller ({allImages.length})
+          </h2>
+          <div className="gallery-grid">
+            {allImages.map(({ sku, img }) => {
+              const filename = img.filePath.split("/").pop()!;
+              const typeDir = img.filePath.split("/")[1];
+              return (
+                <div key={img.id} className="gallery-item">
+                  <div className="gallery-img-wrap">
+                    <img
+                      src={generatedImageUrl(typeDir, sku, filename)}
+                      alt={filename}
+                      className="gallery-img"
+                      loading="lazy"
+                    />
+                    {img.shopifyMediaId && (
+                      <span className="gallery-uploaded-badge">✓ Yüklendi</span>
+                    )}
+                  </div>
+                  <div className="gallery-item-meta">
+                    <span className="gallery-sku">{sku}</span>
+                    <span className="gallery-type">{img.imageType}{img.roomId ? ` · ${img.roomId.replace("room-", "").replace(/-/g, " ")}` : ""}</span>
+                    {img.evaluationScore && (
+                      <span className="gallery-score">★ {img.evaluationScore}/10</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       <div className="detail-layout">
         {/* Left column */}
         <div>
@@ -277,42 +314,6 @@ export function ProductDetail() {
             </div>
           </div>
 
-          {/* Generated images gallery */}
-          {allImages.length > 0 && (
-            <div className="detail-gallery">
-              <h2 className="detail-section-title" style={{ marginTop: "20px" }}>
-                Üretilen Görseller ({allImages.length})
-              </h2>
-              <div className="gallery-grid">
-                {allImages.map(({ sku, img }) => {
-                  const filename = img.filePath.split("/").pop()!;
-                  const curtainType = design.curtain_type;
-                  return (
-                    <div key={img.id} className="gallery-item">
-                      <div className="gallery-img-wrap">
-                        <img
-                          src={generatedImageUrl(curtainType, sku, filename)}
-                          alt={filename}
-                          className="gallery-img"
-                          loading="lazy"
-                        />
-                        {img.shopifyMediaId && (
-                          <span className="gallery-uploaded-badge">✓ Yüklendi</span>
-                        )}
-                      </div>
-                      <div className="gallery-item-meta">
-                        <span className="gallery-sku">{sku}</span>
-                        <span className="gallery-type">{img.imageType}{img.roomId ? ` · ${img.roomId.replace("room-", "").replace(/-/g, " ")}` : ""}</span>
-                        {img.evaluationScore && (
-                          <span className="gallery-score">★ {img.evaluationScore}/10</span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Right: actions panel */}
