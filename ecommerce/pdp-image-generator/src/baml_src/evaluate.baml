@@ -37,13 +37,14 @@ function EvaluateLifestyleImage(
 
     Score each dimension 1-10:
 
-    1. FABRIC FIDELITY: Does the generated curtain match the swatch's color,
-       texture, and pattern? Is the transparency level correct (sheer tul
-       should be see-through, blackout should block light)?
+    1. FABRIC FIDELITY: Does the generated curtain EXACTLY match the swatch's color,
+       texture, and pattern? Is the color precisely right (BEYAZ must be pure white,
+       not grey or cream)? Is the transparency level correct (TUL must be nearly
+       see-through; blackout must block all light completely)?
 
     2. ROOM COHERENCE: Are all room elements preserved? Check: wall color,
-       floor, furniture, plants, side tables, cushions, curtain rod/pelmet.
-       Are there any added or missing objects?
+       floor, furniture, plants, side tables, cushions.
+       Are there two curtain panels (left AND right)? Are there any added or missing objects?
 
     3. REALISM: Does this look like a real photograph? Check for:
        - AI artifacts (distorted edges, impossible geometry, floating objects)
@@ -52,17 +53,36 @@ function EvaluateLifestyleImage(
        - Believable color grading
 
     4. LIGHTING: Is the lighting consistent between the curtain and the room?
-       Does light interact correctly with the fabric (tul should glow with
-       backlight, fon should cast shadows)?
+       Does light interact correctly with the fabric (TUL should glow and be
+       backlit by window light; FON should cast shadow; BLACKOUT blocks all light)?
 
     5. CURTAIN DRAPE: Do the pleats and folds look physically correct for
        this fabric weight? Does gravity affect the fabric naturally?
 
-    6. OVERALL: Would this image be convincing on an e-commerce product page?
-       Would a customer believe this is a real photo?
+    6. ROD HIDDEN: Is the curtain rod and ALL hardware COMPLETELY hidden? There must be ZERO
+       visible metal rod, rings, O-rings, hooks, brackets, or any hardware.
+       The curtain top must disappear cleanly behind the smooth plaster cornice (kartonpiyer) —
+       no curtain heading tape, pleat hooks, or fabric visible above the cornice line.
+       ALSO check: is there any colored rectangle, valance, roman blind, or window panel
+       visible between the curtain top and the cornice? If yes, score 1 — the area above
+       the curtain must be ONLY smooth white plaster cornice, nothing else.
+       Score 10 if perfectly hidden with clean white cornice and no colored element above.
 
-    If ANY individual score is below 5, or overall is below 7, set pass=false
-    and describe the specific issues and suggest how to adjust the prompt.
+    7. HEM CLEARANCE: Is there a clearly visible gap of bare floor between the
+       curtain hem and the baseboard? The curtain must NOT touch, brush, or pool
+       on the floor. The gap should be approximately 10–15 cm of visible floor.
+       Score 10 if perfect clearance, 1 if curtain touches or pools on the floor.
+
+    8. OVERALL: Would this image be convincing on an e-commerce product page?
+       Would a customer believe this is a real interior design photo?
+
+    PASS CONDITION: pass=true only if:
+    - overall >= 7
+    - rod_hidden >= 7 (rod must be hidden)
+    - hem_clearance >= 7 (curtain must not touch floor)
+    - no other individual score < 5
+
+    If pass=false, describe the specific issues and suggest exactly how to adjust the prompt.
 
     {{ ctx.output_format }}
   "#

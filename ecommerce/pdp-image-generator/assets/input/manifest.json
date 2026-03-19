@@ -1,13 +1,13 @@
 {
   "rooms": {
     "room-01-terracotta-wall": {
-      "image": "rooms/room-01-terracotta-wall.jpg",
+      "image": "rooms/room-01-terracotta-wall-v2.jpg",
       "room_type": "warm living room",
       "wall_color": "terracotta orange",
       "floor_type": "herringbone wood parquet",
       "props": ["gold metal side table", "vase with dried pampas and eucalyptus"],
       "lighting": "warm soft lighting",
-      "window_type": "corner windows with gold curtain rod, sheer cream curtains"
+      "window_type": "corner windows with smooth plaster cornice (kartonpiyer) at ceiling, curtains with floor clearance"
     },
     "room-02-wine-wall": {
       "image": "rooms/room-02-wine-wall.jpg",

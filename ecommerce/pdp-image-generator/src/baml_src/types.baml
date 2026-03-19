@@ -52,7 +52,9 @@ class QualityScore {
   realism         int          @description("Photorealism level: 1-10")
   lighting        int          @description("Lighting consistency and quality: 1-10")
   curtain_drape   int          @description("Realistic fabric draping and pleats: 1-10")
-  pass            bool         @description("True if overall >= 7 and no individual score < 5")
+  rod_hidden      int          @description("Is the curtain rod fully hidden behind the cornice? No metal hardware, rings, or brackets visible: 1-10")
+  hem_clearance   int          @description("Is there a visible gap of bare floor between the curtain hem and the baseboard? Curtain must NOT touch floor: 1-10")
+  pass            bool         @description("True if overall >= 7 AND rod_hidden >= 7 AND hem_clearance >= 7 AND no other individual score < 5")
   issues          string[]     @description("Specific issues found, empty if pass is true")
   improvement     string?      @description("Suggested prompt adjustment if pass is false")
 }

@@ -1,6 +1,6 @@
 // CraftLifestylePrompt
 // Takes structured fabric + room descriptions and produces an optimized
-// image editing prompt for nano-banana-2/edit that maximizes photorealism.
+// image editing prompt for nano-banana-pro/edit that maximizes photorealism.
 //
 // The model sees the actual swatch and room images too — this function
 // crafts the TEXT prompt that accompanies them.
@@ -17,7 +17,7 @@ function CraftLifestylePrompt(
 
     You are an expert prompt engineer for AI image generation, specializing in
     photorealistic interior design photography. Your task is to write a prompt
-    for the "nano-banana-2/edit" model (Google Gemini 3.1 Flash Image).
+    for the "nano-banana-pro/edit" model (Google Gemini Flash Image Pro).
 
     This model takes multiple input images and a text prompt. It performs
     semantic image editing — it understands "replace X with Y" instructions
@@ -55,14 +55,39 @@ function CraftLifestylePrompt(
     WRITE A PROMPT that:
     1. Clearly instructs the model to replace ONLY the curtain fabric
     2. Preserves all room elements (walls, floor, furniture, plants, lighting)
-    3. Describes how the curtain should drape based on fabric type:
-       - tul: light, airy, semi-transparent, soft pencil pleats, light filters through
-       - fon: heavy, rich folds, pinch pleats, pulled to one side, floor-length
-       - blackout: thick, opaque, blocks all light, deep uniform folds
-       - saten: smooth, subtle sheen, clean lines
-    4. Specifies realistic fabric physics (gravity, weight, fold depth)
-    5. Emphasizes photorealism: natural lighting, no AI artifacts, professional interior photography
-    6. Is concise (under 200 words) — the model works better with focused instructions
+    3. Describes the EXACT color from the swatch — be explicit:
+       - BEYAZ = pure bright white, not grey, not cream, not off-white
+       - KREM = warm ivory cream
+       - Use the swatch image as the absolute color reference
+    4. Specifies the correct hanging style per fabric type:
+       - TUL: ONE continuous full-width panel hanging straight, covering the entire window
+         width from left edge to right edge — do NOT pull to sides, do NOT split into two
+         separate pulled-back panels; the fabric hangs centered and flat across the window
+       - FON: TWO panels, one pulled to the left and one to the right, tied back or stacked
+       - BLACKOUT: TWO panels hanging closed, fully covering the window
+       - STN: TWO panels hanging straight, one on each side, partially overlapping center
+    5. Describes how the curtain should drape based on fabric type:
+       - TUL: near see-through fine mesh, pure white, very airy and light — light floods through
+         from behind, creating a bright glowing effect; soft vertical flow, barely any folds,
+         covers full window width; the window should be visible THROUGH the fabric, not around it
+       - FON: fully opaque, heavy rich folds, pinch pleats, pulled to one or both sides
+       - BLACKOUT: zero light transmission, thick uniform folds, blocks all light completely
+       - STN: smooth satin sheen, subtle reflective highlight, clean minimal folds
+    6. MANDATORY ARCHITECTURAL CONSTRAINTS — these MUST be in every prompt:
+       - The smooth white plaster cornice (kartonpiyer) at the ceiling-wall junction must
+         remain fully intact — NO metal rod, rings, or hardware of any kind
+       - The curtain top must disappear completely behind the cornice — NO visible curtain
+         heading, tape, hooks, or pleat rings above the cornice line
+       - There must be NO window valance, roman blind, roller blind, or any colored panel
+         between the curtains and the cornice — the area above the curtain top is ONLY
+         the smooth white cornice and white ceiling; if you see a gap there, fill it with
+         smooth white plaster, not terracotta or any wall color
+       - The curtain hem MUST end at least 15 cm above the floor on BOTH panels equally —
+         the gap must be consistent across the full width, left edge to right edge;
+         the curtain must NOT touch, brush, or pool on the floor at ANY point
+    7. Specifies realistic fabric physics (gravity, weight, fold depth)
+    8. Emphasizes photorealism: natural lighting, no AI artifacts, professional interior photography
+    9. Is concise (under 250 words) — be direct and specific
 
     CRITICAL RULES:
     - Never ask the model to add text to the image

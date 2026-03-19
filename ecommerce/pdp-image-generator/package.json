@@ -12,6 +12,7 @@
     "generate": "tsx src/generate.ts",
     "lifestyle": "tsx src/generate.ts lifestyle",
     "texture": "tsx src/generate.ts texture",
+    "fix-templates": "tsx src/fix-templates.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -30,6 +30,7 @@
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import { Image } from "@boundaryml/baml";
 import { b } from "./baml_client";
 import { CurtainType } from "./baml_client/types";
@@ -45,7 +46,8 @@ import {
 // Paths
 // ---------------------------------------------------------------------------
 
-const ROOT = path.resolve(__dirname, "..");
+const __filename = fileURLToPath(import.meta.url);
+const ROOT = path.resolve(path.dirname(__filename), "..");
 const ASSETS_DIR = path.join(ROOT, "assets");
 const INPUT_DIR = path.join(ASSETS_DIR, "input");
 const OUTPUT_DIR = path.join(ASSETS_DIR, "output");
@@ -229,14 +231,15 @@ function productOutDir(sku: string): string {
 
 const MAX_RETRIES = 3;
 
-async function runLifestyle(
+export async function runLifestyle(
   design: CatalogDesign,
   variant: CatalogVariant,
   roomId: string,
   roomDef: ManifestRoom,
+  outputDir?: string,
 ) {
   const sku = variant.sku;
-  const outDir = productOutDir(sku);
+  const outDir = outputDir ?? productOutDir(sku);
   const intDir = path.join(outDir, "intermediate");
   fs.mkdirSync(intDir, { recursive: true });
 
@@ -291,6 +294,7 @@ async function runLifestyle(
       aspectRatio,
       resolution: "2K" as Resolution,
       outputFormat: "webp",
+      usePro: true,
       thinkingLevel: attempt > 1 ? "high" : undefined,
     });
 
@@ -319,7 +323,7 @@ async function runLifestyle(
       const evalPath = path.join(intDir, `${roomId}-attempt-${attempt}-eval-${i + 1}.json`);
       saveJson(evalPath, score);
 
-      logger.log(`  Image ${i + 1}: overall=${score.overall} fabric=${score.fabric_fidelity} room=${score.room_coherence} realism=${score.realism} lighting=${score.lighting} drape=${score.curtain_drape} pass=${score.pass}`);
+      logger.log(`  Image ${i + 1}: overall=${score.overall} fabric=${score.fabric_fidelity} room=${score.room_coherence} realism=${score.realism} lighting=${score.lighting} drape=${score.curtain_drape} rod=${score.rod_hidden} hem=${score.hem_clearance} pass=${score.pass}`);
       if (score.issues.length > 0) {
         logger.log(`  Issues: ${score.issues.join("; ")}`);
       }
@@ -365,9 +369,13 @@ async function runLifestyle(
 // Texture flow
 // ---------------------------------------------------------------------------
 
-async function runTexture(design: CatalogDesign, variant: CatalogVariant) {
+export async function runTexture(
+  design: CatalogDesign,
+  variant: CatalogVariant,
+  outputDir?: string,
+) {
   const sku = variant.sku;
-  const outDir = productOutDir(sku);
+  const outDir = outputDir ?? productOutDir(sku);
   const intDir = path.join(outDir, "intermediate");
   fs.mkdirSync(intDir, { recursive: true });
 
@@ -401,6 +409,7 @@ async function runTexture(design: CatalogDesign, variant: CatalogVariant) {
   });
 
   // Save + evaluate
+  let bestResult: { rawPath: string; score: any } | null = null;
   for (let i = 0; i < result.images.length; i++) {
     const img = result.images[i];
     const rawPath = path.join(intDir, `texture-raw-${i + 1}.webp`);
@@ -415,14 +424,18 @@ async function runTexture(design: CatalogDesign, variant: CatalogVariant) {
 
     logger.log(`  Image ${i + 1}: overall=${score.overall} pass=${score.pass}`);
 
-    if (score.pass || i === result.images.length - 1) {
-      const finalPath = path.join(outDir, `${sku}-texture.webp`);
-      fs.copyFileSync(rawPath, finalPath);
-      logger.log(`  Final: ${finalPath}`);
+    if (!bestResult || score.overall > bestResult.score.overall) {
+      bestResult = { rawPath, score };
     }
+    if (score.pass) break;
   }
 
+  const best = bestResult!;
+  const finalPath = path.join(outDir, `${sku}-texture.webp`);
+  fs.copyFileSync(best.rawPath, finalPath);
+  logger.log(`  Final: ${finalPath}`);
   logger.flush();
+  return { finalPath, score: best.score };
 }
 
 // ---------------------------------------------------------------------------
@@ -785,7 +798,35 @@ async function main() {
   console.log("\nDone. Output in:", productOutDir(sku!));
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Analyze swatch (exported for PMS)
+// ---------------------------------------------------------------------------
+
+export async function analyzeSwatch(swatchAbsPath: string): Promise<{
+  material:     string;
+  transparency: string;
+  texture:      string | null;
+  weight:       string;
+  pattern:      string | null;
+}> {
+  const swatchUrl = await uploadImage(swatchAbsPath);
+  const result = await b.AnalyzeSwatch(Image.fromUrl(swatchUrl));
+  return {
+    material:     result.material,
+    transparency: result.transparency,
+    texture:      result.texture ?? null,
+    weight:       result.weight,
+    pattern:      result.pattern ?? null,
+  };
+}
+
+// Only run CLI when this file is the entry point (not when imported as a module)
+if (process.argv[1] === __filename) {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
+
+// Re-export manifest room type for consumers
+export type { ManifestRoom } from "./lib/helpers";

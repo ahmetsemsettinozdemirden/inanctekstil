@@ -5,7 +5,9 @@ import path from "path";
 // Initialize fal.ai with API key from environment
 fal.config({ credentials: process.env.FAL_KEY! });
 
-const ENDPOINT = "fal-ai/nano-banana-2/edit" as const;
+const ENDPOINT         = "fal-ai/nano-banana-2/edit"  as const;
+const ENDPOINT_PRO     = "fal-ai/nano-banana-pro/edit" as const;
+const ENDPOINT_KONTEXT = "fal-ai/flux-pro/kontext"     as const;
 
 export type AspectRatio =
   | "auto" | "1:1" | "3:4" | "4:3" | "3:2" | "2:3"
@@ -22,6 +24,17 @@ export interface GenerateOptions {
   outputFormat?: "png" | "jpeg" | "webp";
   seed?: number;
   thinkingLevel?: "minimal" | "high";
+  /** Use nano-banana-pro/edit instead of nano-banana-2/edit */
+  usePro?: boolean;
+}
+
+export interface KontextOptions {
+  prompt: string;
+  imageUrl: string;
+  numImages?: number;
+  outputFormat?: "jpeg" | "png";
+  guidanceScale?: number;
+  seed?: number;
 }
 
 export interface GeneratedImage {
@@ -53,10 +66,11 @@ export async function uploadImage(filePath: string): Promise<string> {
 }
 
 /**
- * Generate images using Nano Banana 2 Edit.
+ * Generate images using Nano Banana 2 Edit (or Pro variant).
  */
 export async function generate(options: GenerateOptions): Promise<GenerateResult> {
-  const result = await fal.subscribe(ENDPOINT, {
+  const endpoint = options.usePro ? ENDPOINT_PRO : ENDPOINT;
+  const result = await fal.subscribe(endpoint, {
     input: {
       prompt: options.prompt,
       image_urls: options.imageUrls,
@@ -79,6 +93,36 @@ export async function generate(options: GenerateOptions): Promise<GenerateResult
       fileSize: img.file_size,
     })),
     description: data.description ?? "",
+  };
+}
+
+/**
+ * Edit an image using FLUX Kontext [pro] — single-image structural editing.
+ * Ideal for one-time template modifications (remove rod, add cornice, adjust hem).
+ */
+export async function editWithKontext(options: KontextOptions): Promise<GenerateResult> {
+  const result = await fal.subscribe(ENDPOINT_KONTEXT, {
+    input: {
+      prompt:          options.prompt,
+      image_url:       options.imageUrl,
+      num_images:      options.numImages ?? 1,
+      output_format:   options.outputFormat ?? "jpeg",
+      guidance_scale:  options.guidanceScale ?? 3.5,
+      ...(options.seed !== undefined && { seed: options.seed }),
+    },
+  });
+
+  const data = result.data as Record<string, unknown>;
+  const images = data.images as Array<Record<string, unknown>>;
+  return {
+    images: images.map((img) => ({
+      url:         img.url         as string,
+      contentType: img.content_type as string,
+      width:       img.width        as number,
+      height:      img.height       as number,
+      fileSize:    img.file_size    as number,
+    })),
+    description: (data.description as string) ?? "",
   };
 }
 
