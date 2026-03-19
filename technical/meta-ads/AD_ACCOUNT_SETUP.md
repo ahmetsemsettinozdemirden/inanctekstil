@@ -108,13 +108,13 @@ Use this document to track what needs to be done before activating campaigns.
 | C1-6 | Only Blackout + Saten ads — no Tül, no Fon | [ ] Add after more products synced to Shopify |
 | C1-7 | Switch to `OFFSITE_CONVERSIONS` once more Purchases fire | [ ] Switch when Purchase volume > 10/week |
 
-### Campaign 2: Reels — Farkındalık (Soğuk Kitle) ~~`6933660244056`~~
+### Campaign 2: Reels — Farkındalık (Soğuk Kitle) `6934664141256`
 
-**DELETED by mistake** (2026-03-19). Was confused with the "New Awareness campaign" draft (`6932536178856`) which was the intended target and has since been deleted correctly via Ads Manager.
-
-Video and creative assets still exist in the account and can be reused:
-- Video: `4525340454399489` (inanc-tekstil-mvp.mp4)
-- Creative: `966088742674546` (video, LEARN_MORE → inanctekstil.store)
+| # | Issue | Status |
+|---|-------|--------|
+| C2-1 | Video creative for Reels | ✅ Video `4525340454399489`; creative `966088742674546`; ad `6934664468856` PAUSED |
+| C2-2 | Frequency cap | ✅ Ad set `6934664327456` — max 3 per 7 days |
+| C2-3 | Instagram Reels only, interior design interests | ✅ |
 
 ---
 
@@ -146,4 +146,8 @@ These metrics will stop working in `list_insights` / `create_report` after May 1
 | Campaign — Awareness | `6933660244056` |
 | Ad set — Sales (old, PAUSED — destination_type UNDEFINED) | `6933663283856` |
 | Ad set — Sales v2 (PAUSED — destination_type WEBSITE, ₺150/day) | `6934642328656` |
+| Campaign — Awareness | `6934664141256` |
+| Ad set — Awareness (freq cap, PAUSED) | `6934664327456` |
+| Ad — Awareness video Reels (PAUSED) | `6934664468856` |
+| Creative — Awareness video Reels | `966088742674546` |
 | Video — İnanç Tekstil MVP | `4525340454399489` |
