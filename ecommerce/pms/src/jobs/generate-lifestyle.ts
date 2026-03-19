@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { db } from "../db/client.ts";
 import { variants, designs, shopifyProducts, generatedImages } from "../db/schema.ts";
 import { eq } from "drizzle-orm";
+import { generatedImagesDir } from "../lib/image-paths.ts";
 import { PRODUCTS_DIR } from "../lib/env.ts";
 import { logger } from "../lib/logger.ts";
 import type { JobRow } from "../db/schema.ts";
@@ -13,10 +14,6 @@ const __filename = fileURLToPath(import.meta.url);
 // pms/src/jobs/ → up 2 = pms/
 const PMS_ROOT = path.resolve(path.dirname(__filename), "../..");
 
-/** Build the output directory for generated images: products/02-final-katalog-images/{TYPE}/{SKU} */
-function outputDir(curtainType: string, sku: string): string {
-  return path.join(PRODUCTS_DIR, "02-final-katalog-images", curtainType, sku);
-}
 
 export const generateLifestyleExecutor: JobExecutor = async (job: JobRow, log) => {
   const params = job.params as { sku: string; roomId: string };
@@ -77,7 +74,7 @@ export const generateLifestyleExecutor: JobExecutor = async (job: JobRow, log) =
   };
 
   // Ensure output directory exists
-  const outDir = outputDir(design.curtainType, sku);
+  const outDir = generatedImagesDir(sku, design.curtainType);
   fs.mkdirSync(outDir, { recursive: true });
 
   await log(`Output directory: ${outDir}`);

@@ -52,7 +52,7 @@ const ASSETS_DIR = path.join(ROOT, "assets");
 const INPUT_DIR = path.join(ASSETS_DIR, "input");
 const OUTPUT_DIR = path.join(ASSETS_DIR, "output");
 const MANIFEST_PATH = path.join(INPUT_DIR, "manifest.json");
-const PRODUCTS_DIR = path.resolve(ROOT, "..", "products");
+const PRODUCTS_DIR = process.env.PRODUCTS_DIR ?? path.resolve(ROOT, "..", "products");
 const CATALOG_PATH = path.join(PRODUCTS_DIR, "catalog.json");
 
 // ---------------------------------------------------------------------------
