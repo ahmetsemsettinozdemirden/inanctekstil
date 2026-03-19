@@ -1,11 +1,8 @@
 import postgres from "postgres";
 
-const url = process.env.CURTAIN_DATABASE_URL;
-if (!url) {
-  throw new Error("CURTAIN_DATABASE_URL is required");
-}
-
-export const sql = postgres(url);
+// sql is initialized lazily in initDb(). Handlers must only be called after initDb() runs.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export let sql: postgres.Sql = null as any;
 
 const CREATE_TABLE = `
   CREATE TABLE IF NOT EXISTS cart_items (
@@ -35,6 +32,11 @@ async function cleanup() {
 }
 
 export async function initDb(): Promise<void> {
+  const url = process.env.CURTAIN_DATABASE_URL;
+  if (!url) {
+    throw new Error("CURTAIN_DATABASE_URL is required");
+  }
+  sql = postgres(url);
   await sql.unsafe(CREATE_TABLE);
   await sql.unsafe(CREATE_INDEX);
   await cleanup();

@@ -60,8 +60,8 @@
         "bun test src/ passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "Spec: docs/superpowers/specs/2026-03-19-server-side-cart-design.md — API endpoints section",
+      "passes": true,
+      "notes": "POST /api/checkout/item implemented. CORS restricted to inanctekstil.store. draft-order endpoint removed. Tests use mock.module + dynamic import pattern.",
       "dependsOn": ["US-002"]
     },
     {

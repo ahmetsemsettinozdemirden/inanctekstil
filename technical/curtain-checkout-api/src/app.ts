@@ -1,8 +1,10 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { sql } from "./db.ts";
 
 const VALID_PILE_ORANI = new Set([2.0, 2.5, 3.0]);
 const ADMIN_API_VERSION = "2025-01";
+const CART_TOKEN_RE = /^[a-zA-Z0-9-]{1,64}$/;
 
 function getEnv() {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
@@ -25,7 +27,7 @@ function log(level: "DEBUG" | "INFO" | "WARN" | "ERROR", msg: string, data?: Rec
 
 export const app = new Hono();
 
-app.use("*", cors({ origin: "*" }));
+app.use("*", cors({ origin: "https://inanctekstil.store" }));
 
 // Request logger
 app.use("*", async (c, next) => {
@@ -43,7 +45,8 @@ app.get("/health", (c) =>
   c.json({ status: "ok", uptime: Math.floor(process.uptime()) }),
 );
 
-interface DraftOrderBody {
+interface CartItemBody {
+  cartToken: string;
   variantId: number;
   en: number;
   boy: number;
@@ -53,17 +56,25 @@ interface DraftOrderBody {
   kanatCount: number;
 }
 
-app.post("/api/checkout/draft-order", async (c) => {
-  let body: DraftOrderBody;
+app.post("/api/checkout/item", async (c) => {
+  let body: CartItemBody;
   try {
-    body = await c.req.json<DraftOrderBody>();
+    body = await c.req.json<CartItemBody>();
   } catch {
     return c.json({ error: "INVALID_INPUT", message: "Geçersiz istek gövdesi" }, 400);
   }
 
-  const { variantId, en, boy, pileStili, pileOrani, kanat, kanatCount } = body;
+  const { cartToken, variantId, en, boy, pileStili, pileOrani, kanat, kanatCount } = body;
 
-  log("INFO", "Draft order request received", { variantId, en, boy, pileStili, pileOrani, kanat, kanatCount });
+  // Validate cartToken
+  if (!cartToken || cartToken === "") {
+    return c.json({ error: "MISSING_CART_TOKEN", message: "Sepet tokeni gereklidir" }, 400);
+  }
+  if (!CART_TOKEN_RE.test(cartToken)) {
+    return c.json({ error: "INVALID_INPUT", message: "Geçersiz sepet tokeni" }, 400);
+  }
+
+  log("INFO", "Cart item request received", { cartToken, variantId, en, boy, pileStili, pileOrani, kanat, kanatCount });
 
   if (!variantId || typeof variantId !== "number") {
     return c.json({ error: "INVALID_INPUT", message: "Geçersiz ürün" }, 400);
@@ -83,8 +94,6 @@ app.post("/api/checkout/draft-order", async (c) => {
 
   const { domain, clientId, clientSecret } = getEnv();
 
-  log("INFO", "Fetching Shopify access token", { domain });
-
   // Obtain short-lived access token via client_credentials flow
   const tokenRes = await fetch(`https://${domain}/admin/oauth/access_token`, {
     method: "POST",
@@ -101,10 +110,8 @@ app.post("/api/checkout/draft-order", async (c) => {
   }
   const { access_token: token } = await tokenRes.json() as { access_token: string };
   const headers = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
-  log("INFO", "Shopify access token obtained");
 
   // Fetch variant price server-side (never trust client-sent price)
-  log("INFO", "Fetching variant price and product title", { variantId });
   const variantRes = await fetch(
     `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json?fields=price,product`,
     { headers },
@@ -120,68 +127,37 @@ app.post("/api/checkout/draft-order", async (c) => {
     return c.json({ error: "INVALID_PRICE", message: "Ürün fiyatı alınamadı" }, 500);
   }
   const productTitle = variant.product?.title ?? "Özel Ölçü Perde";
-  log("INFO", "Variant price fetched", { variantId, basePricePerMeter, productTitle });
 
+  // Price formula: (en / 100) × pileOrani × kanatCount × basePricePerMeter
+  // boy_cm is stored for cutting reference only — not part of price
   const calculatedPrice = ((en / 100) * pileOrani * kanatCount * basePricePerMeter).toFixed(2);
 
-  log("INFO", "Creating draft order", {
-    variantId,
-    en,
-    boy,
-    pileStili,
-    pileOrani,
-    kanat,
-    kanatCount,
-    basePricePerMeter,
-    calculatedPrice,
-    formula: `(${en}/100) × ${pileOrani} × ${kanatCount} × ${basePricePerMeter}`,
-  });
+  log("INFO", "Upserting cart item", { cartToken, variantId, calculatedPrice });
 
-  // Custom line item (no variant_id): Shopify ignores `price` overrides on variant-based
-  // line items — it always uses the variant's catalogue price instead. Custom made-to-order
-  // curtains need a calculated price, so we use a title-based custom line item and store
-  // the variant_id in properties for staff reference.
-  const draftOrderPayload = {
-    draft_order: {
-      line_items: [
-        {
-          title: productTitle,
-          quantity: 1,
-          price: calculatedPrice,
-          requires_shipping: true,
-          taxable: true,
-          properties: [
-            { name: "En", value: `${en} cm` },
-            { name: "Boy", value: `${boy} cm` },
-            { name: "Pile Stili", value: `${pileStili} (x${pileOrani})` },
-            { name: "Kanat", value: kanat },
-            { name: "_variant_id", value: String(variantId) },
-          ],
-        },
-      ],
-      note: `Özel ölçü perde — En: ${en}cm, Boy: ${boy}cm, ${pileStili} x${pileOrani}, ${kanat}`,
-    },
-  };
-
-  log("DEBUG", "Draft order payload", { payload: JSON.stringify(draftOrderPayload) });
-
-  const draftRes = await fetch(
-    `https://${domain}/admin/api/${ADMIN_API_VERSION}/draft_orders.json`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify(draftOrderPayload),
-    },
-  );
-
-  if (!draftRes.ok) {
-    const errBody = await draftRes.text();
-    log("ERROR", "Draft order creation failed", { status: draftRes.status, variantId, body: errBody });
-    return c.json({ error: "DRAFT_ORDER_FAILED", message: "Sipariş oluşturulamadı. Lütfen tekrar deneyin." }, 500);
+  try {
+    await sql`
+      INSERT INTO cart_items
+        (cart_token, variant_id, product_title, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, base_price_per_meter, calculated_price)
+      VALUES
+        (${cartToken}, ${variantId}, ${productTitle}, ${en}, ${boy}, ${pileStili}, ${pileOrani}, ${kanat}, ${kanatCount}, ${basePricePerMeter}, ${calculatedPrice})
+      ON CONFLICT (cart_token, variant_id)
+      DO UPDATE SET
+        product_title = EXCLUDED.product_title,
+        en_cm = EXCLUDED.en_cm,
+        boy_cm = EXCLUDED.boy_cm,
+        pile_stili = EXCLUDED.pile_stili,
+        pile_orani = EXCLUDED.pile_orani,
+        kanat = EXCLUDED.kanat,
+        kanat_count = EXCLUDED.kanat_count,
+        base_price_per_meter = EXCLUDED.base_price_per_meter,
+        calculated_price = EXCLUDED.calculated_price,
+        created_at = NOW()
+    `;
+  } catch (err) {
+    log("ERROR", "DB upsert failed", { cartToken, variantId, err: String(err) });
+    return c.json({ error: "DB_ERROR", message: "Veritabanı hatası" }, 500);
   }
 
-  const { draft_order } = await draftRes.json() as { draft_order: { id: number; invoice_url: string } };
-  log("INFO", "Draft order created", { draftOrderId: draft_order.id, variantId, calculatedPrice, checkoutUrl: draft_order.invoice_url });
-
-  return c.json({ checkoutUrl: draft_order.invoice_url });
+  log("INFO", "Cart item saved", { cartToken, variantId, calculatedPrice });
+  return c.json({ ok: true, calculatedPrice });
 });

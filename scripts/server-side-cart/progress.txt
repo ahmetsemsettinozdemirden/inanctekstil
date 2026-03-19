@@ -24,3 +24,12 @@ Changes:
 - technical/curtain-checkout-api/tsconfig.json: Created with strict mode, bundler module resolution, allowImportingTsExtensions.
 - technical/curtain-checkout-api/src/db.ts: Postgres client using CURTAIN_DATABASE_URL (fail-fast if missing), CREATE TABLE IF NOT EXISTS cart_items, UNIQUE INDEX on (cart_token, variant_id), cleanup job (startup + every 24h).
 - bun run typecheck: PASS, bun test src/: PASS (39 tests, existing tests unaffected — db.ts not imported by app.ts yet)
+
+## US-003 — Implement POST /api/checkout/item endpoint ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/curtain-checkout-api/src/app.ts: Replaced POST /api/checkout/draft-order with POST /api/checkout/item. Validates cartToken (MISSING_CART_TOKEN/INVALID_INPUT). Upserts into cart_items. Returns {ok, calculatedPrice}. CORS restricted to https://inanctekstil.store.
+- technical/curtain-checkout-api/src/db.ts: Restructured so module-level export (sql=null) doesn't throw; fail-fast moved into initDb(). This allows test isolation via mock.module.
+- technical/curtain-checkout-api/src/app.test.ts: Rewrote using mock.module + dynamic import pattern. 27 tests covering cartToken validation, field validation, Shopify errors, DB errors, happy path, and price formula.
+- bun run typecheck: PASS, bun test src/: PASS (27 tests)
