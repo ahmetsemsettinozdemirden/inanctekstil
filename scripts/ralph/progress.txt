@@ -215,4 +215,30 @@
 - `technical/theme/templates/product.json` (modified)
 - `scripts/ralph/prd.json` (US-009 passes: true)
 
+---
 
+## Final Summary — All 9 Stories Complete
+
+All user stories for the Perde Tasarla curtain configurator have been implemented and verified.
+
+**What was built:**
+- US-001: `custom.max_boy_cm` metafield on curtain products
+- US-002: `curtain-configurator.liquid` section scaffold (hides native Shopify buy UI on tagged products)
+- US-003: Step 1 — Width/height inputs with Turkish validation and SVG diagram
+- US-004: Step 2 — Pleat style visual picker (Duz Dikis / Kanun Pile / Boru Pile)
+- US-005: Step 3 — Panel selection (Tek Kanat / Cift Kanat) with illustrations
+- US-006: Step 4 — Order review, live price, disclaimer, add-to-cart
+- US-007: Shopify App scaffold with Cart Transform extension (TypeScript, bun)
+- US-008: Cart Transform price logic with 11 passing tests
+- US-009: Draft Orders API backend (Hono/Bun) for server-side pricing (Cart Transform requires Shopify Plus; Draft Orders available on all plans)
+
+**Additional work completed post-US-009:**
+- Configurator form repositioned into product details column (below description) via DOM move
+- "Perde Olcusu Nasil Alinir?" measurement videos section added to product detail page
+- "Sikca Sorulan Sorular" FAQ section added to product detail page
+- All changes pushed to production theme #193714913361 (Horizon, live)
+- Cart quantity scaling verified: qty=2 → 2,300 TL, qty=3 → 3,450 TL
+
+**Remaining production hardening (manual steps):**
+- Deploy PMS backend to permanent public URL (Fly.io/Railway/Render)
+- Update `product.json` `draft_order_api_url` to permanent URL
