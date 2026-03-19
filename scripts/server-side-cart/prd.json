@@ -118,8 +118,8 @@
         "Verified in browser: adding TUL product does NOT store anything in sessionStorage (DevTools Application tab)"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "Production theme ID: 193714913361. API URL: https://app.inanctekstil.store. Read technical/theme/sections/curtain-configurator.liquid before editing.",
+      "passes": true,
+      "notes": "curtain-configurator.liquid updated: GET /cart.js + POST /api/checkout/item flow. All sessionStorage removed. Checkout interceptor block removed. Verified: perdeCheckoutUrl=null after page load.",
       "dependsOn": ["US-003"]
     },
     {

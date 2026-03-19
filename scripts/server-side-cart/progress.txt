@@ -48,3 +48,11 @@ Changes:
 - technical/curtain-checkout-api/src/app.test.ts: Added comprehensive test suite for /api/checkout/complete. Updated mock to use sqlQueue pattern (array of results/errors, one per DB call) allowing independent SELECT/DELETE mocking. 36 tests total (0 fail).
 - Tests cover: valid 2-item draft order, empty cart→NO_ITEMS, rows deleted after success, AUTH_FAILED, DRAFT_ORDER_FAILED, DB_ERROR, line item properties, invoice_url vs checkout_url.
 - bun run typecheck: PASS, bun test src/: PASS (36 tests)
+
+## US-006 — Update curtain-configurator.liquid to use /api/checkout/item ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/theme/sections/curtain-configurator.liquid: Replaced POST /api/checkout/draft-order flow with GET /cart.js → POST /api/checkout/item. Removed all sessionStorage.getItem/setItem calls. Removed checkout interceptor block (document.addEventListener capture-phase handler). Uses server-confirmed calculatedPrice for cart properties.
+- shopify theme push --allow-live: SUCCESS (theme Horizon #193714913361)
+- Browser verified (Playwright): sessionStorage.getItem('perdeCheckoutUrl') = null after page load ✓

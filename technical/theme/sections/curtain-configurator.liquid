@@ -750,9 +750,6 @@
         log('disclaimer:' + (disclaimerCheck.checked ? 'accepted' : 'unaccepted'));
       });
 
-      // Clear any stale draft order URL when configurator loads
-      try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e) {}
-
       addToCartBtn.addEventListener('click', function() {
         if (addToCartBtn.disabled) return;
         if (!API_URL) {
@@ -768,37 +765,48 @@
         cartError.textContent = '';
 
         var cfg = window.perdeConfig;
-        var calculatedPrice = calcPrice();
-        var calculatedCents = Math.round(calculatedPrice * 100);
+        var confirmedPrice = calcPrice();
+        var confirmedCents = Math.round(confirmedPrice * 100);
 
-        var draftPayload = {
-          variantId:  VARIANT_ID,
-          en:         cfg.en,
-          boy:        cfg.boy,
-          pileStili:  cfg.pile_stili,
-          pileOrani:  cfg.pile_orani,
-          kanat:      cfg.kanat,
-          kanatCount: cfg.kanat_count
-        };
-        log('cart:draft-order:request', draftPayload);
+        log('cart:item:start', { variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy });
 
-        // Step 1: create draft order to get a checkout URL with the correct calculated price
-        fetch(API_URL + '/api/checkout/draft-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(draftPayload)
+        // Step 1: get Shopify cart token (stable across page refreshes)
+        fetch('/cart.js')
+        .then(function(res) { return res.json(); })
+        .then(function(cart) {
+          var cartToken = cart.token;
+          if (!cartToken) throw new Error('Sepet tokeni alınamadı.');
+
+          var itemPayload = {
+            cartToken:  cartToken,
+            variantId:  VARIANT_ID,
+            en:         cfg.en,
+            boy:        cfg.boy,
+            pileStili:  cfg.pile_stili,
+            pileOrani:  cfg.pile_orani,
+            kanat:      cfg.kanat,
+            kanatCount: cfg.kanat_count
+          };
+          log('cart:item:request', itemPayload);
+
+          // Step 2: register item server-side (price calculated and stored in Postgres)
+          return fetch(API_URL + '/api/checkout/item', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(itemPayload)
+          });
         })
         .then(function(res) {
           return res.json().then(function(data) {
-            if (!res.ok) throw new Error(data.message || 'Sipariş oluşturulamadı.');
+            if (!res.ok) throw new Error(data.message || 'Ürün yapılandırılamadı.');
             return data;
           });
         })
         .then(function(data) {
-          if (!data.checkoutUrl) throw new Error('Ödeme sayfası alınamadı.');
-          log('cart:draft-order:response', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
-          // Store the draft order checkout URL — the checkout interception listener will use it
-          try { sessionStorage.setItem('perdeCheckoutUrl', data.checkoutUrl); } catch(e) {}
+          log('cart:item:response', { calculatedPrice: data.calculatedPrice });
+          // Use server-confirmed price for cart properties
+          confirmedPrice = parseFloat(data.calculatedPrice) || confirmedPrice;
+          confirmedCents = Math.round(confirmedPrice * 100);
 
           var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
           var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
@@ -812,13 +820,13 @@
               'Boy':               cfg.boy + ' cm',
               'Pile Stili':        cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
               'Kanat':             cfg.kanat,
-              'Hesaplanan Fiyat':  formatTL(calculatedPrice),
-              '_hesaplanan_cents': calculatedCents
+              'Hesaplanan Fiyat':  formatTL(confirmedPrice),
+              '_hesaplanan_cents': confirmedCents
             }
           };
           log('cart:add:request', { variantId: cartPayload.id, properties: cartPayload.properties });
 
-          // Step 2: add to cart so the item appears in the cart drawer
+          // Step 3: add to cart so the item appears in the cart drawer
           return fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -835,7 +843,7 @@
           var sectionsData = cartData.sections || {};
           log('cart:add:response', { itemCount: cartData.item_count, sectionsRendered: Object.keys(sectionsData).length });
           addToCartBtn.textContent = 'Sepete Eklendi ✓';
-          log('cart:add:complete', { price: formatTL(calculatedPrice) });
+          log('cart:add:complete', { price: formatTL(confirmedPrice) });
 
           var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
           document.dispatchEvent(evt);
@@ -856,22 +864,6 @@
           addToCartBtn.textContent = 'Sepete Ekle';
         });
       });
-
-      // Intercept checkout button clicks and redirect to the draft order URL (correct price)
-      document.addEventListener('click', function(e) {
-        var checkoutUrl;
-        try { checkoutUrl = sessionStorage.getItem('perdeCheckoutUrl'); } catch(e2) {}
-        if (!checkoutUrl) return;
-
-        var target = e.target.closest('a[href*="/checkout"], button[name="checkout"], [data-checkout-btn]');
-        if (target) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          log('checkout:intercepted', { url: checkoutUrl.substring(0, 60) + '…' });
-          try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e2) {}
-          window.location.href = checkoutUrl;
-        }
-      }, true);
 
     })();
 
