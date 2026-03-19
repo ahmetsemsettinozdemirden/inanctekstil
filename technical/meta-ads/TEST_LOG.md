@@ -76,9 +76,9 @@
 | `create_ad_creative` (single image) | PASS | `ad_image_hash` + `object_story_spec` path works |
 | `create_ad_creative` (video) | PASS | Auto-fetches thumbnail |
 | `create_ad_creative` (carousel) | PASS | Created `1589674722112639` with `carousel_cards` |
-| `create_ad_creative` (multi-image) | FAIL-FIXED | BUG-3: `asset_feed_spec` path sent `object_story_spec` alongside it — error 1443048. Fix: use `feed["page_ids"]`, drop `object_story_spec`. Committed `bb8e7b1`, needs restart. |
-| `create_ad_creative` (text variants) | FAIL-FIXED | Same BUG-3 — same fix, same commit |
-| `clone_ad_creative` | FAIL-FIXED | BUG-2: Meta has no `/copies` edge for creatives. Fix: read-then-create flow. Committed, needs restart. |
+| `create_ad_creative` (multi-image) | PASS | BUG-3 verified 2026-03-19 — creative `938699545190851` |
+| `create_ad_creative` (text variants) | PASS | BUG-3b verified 2026-03-19 — creative `2772447859756676` with 2 body + 2 headline variants |
+| `clone_ad_creative` | PASS | BUG-2 verified 2026-03-19 — also fixed BUG-2b (`act_` prefix) + BUG-2c (asset_feed_spec needs page_id companion); creative `948493427692382` |
 | `list_ad_previews` | PASS | Returns preview HTML/URLs for feeds and stories |
 | `export_ad_image_file` | PASS | Downloads creative thumbnail to local file |
 
@@ -104,7 +104,7 @@
 | `list_custom_audiences` | PASS | |
 | `read_custom_audience` | PASS | |
 | `create_custom_audience` (CUSTOM) | FAIL-KNOWN | Requires ToS acceptance at `business.facebook.com/ads/manage/customaudiences/tos/?act=1460297365542314` |
-| `create_custom_audience` (WEBSITE) | FAIL-FIXED | BUG-4: `subtype` field rejected in v25 for WEBSITE/ENGAGEMENT/LOOKALIKE/APP. Fix: omit `subtype` for these types, keep only for CUSTOM. Committed, needs restart. |
+| `create_custom_audience` (WEBSITE) | PASS | BUG-4 verified 2026-03-19 — audience `6934541085056` (deleted after test) |
 | `create_custom_audience` (LOOKALIKE) | UNTESTED | Needs a source audience first |
 | `delete_custom_audience` | PASS | |
 | `add_users_to_audience` | UNTESTED | Blocked by ToS gate on audience creation |
@@ -158,18 +158,20 @@
 
 ---
 
-## Bugs Fixed in This Session
+## Bugs Fixed
 
-| ID | Tool | Description | Commit |
+| ID | Tool | Description | Status |
 |----|------|-------------|--------|
-| BUG-1 | `upload_ad_image_asset` | Local file path: read bytes → base64 encode (was pre-existing) | Pre-existing fix |
-| BUG-2 | `clone_ad_creative` | `/copies` edge doesn't exist for creatives; replaced with read-then-create | Committed, needs restart |
-| BUG-3 | `create_ad_creative` | `asset_feed_spec` path sent `object_story_spec` simultaneously → error 1443048; fix: `page_ids` inside feed, no `object_story_spec` | `bb8e7b1`, needs restart |
-| BUG-3b | `create_ad_creative` | Text variants without image produced `images:[]` in feed → silent API error; fix: early validation + skip empty images array | `9282b8c`, needs restart |
-| BUG-4 | `create_custom_audience` | `subtype` rejected by API v25 for WEBSITE/ENGAGEMENT/LOOKALIKE/APP | Committed, needs restart |
-| BUG-5 | `search_ads_archive` | Raw 400 passthrough; fix: detect permission error, return structured guidance | Committed, needs restart |
-| BUG-6 | `create_ad_rule` | Persistent 500 on new accounts returned as raw error; fix: detect pattern, surface eligibility guidance | `6eb3807`, needs restart |
-| BUG-7 | `create_campaign_budget_schedule` | CBO requirement error returned as raw error; fix: detect "daily budget" message, return actionable guidance | `9709ae5`, needs restart |
+| BUG-1 | `upload_ad_image_asset` | Local file path: read bytes → base64 encode (was pre-existing) | VERIFIED |
+| BUG-2 | `clone_ad_creative` | Meta has no `/copies` edge; replaced with read-then-create flow | VERIFIED 2026-03-19 |
+| BUG-2b | `clone_ad_creative` | `account_id` returned without `act_` prefix; fixed in `_build_creative_clone_payload` | VERIFIED 2026-03-19 |
+| BUG-2c | `clone_ad_creative` | `asset_feed_spec` clones require `object_story_spec: {page_id}` companion; missing in original fix | VERIFIED 2026-03-19 |
+| BUG-3 | `create_ad_creative` | `asset_feed_spec` path erroneously sent full `object_story_spec` → error 1443048 | VERIFIED 2026-03-19 |
+| BUG-3b | `create_ad_creative` | Text variants without image produced `images:[]` in feed → silent API error | VERIFIED 2026-03-19 |
+| BUG-4 | `create_custom_audience` | `subtype` rejected by API v25 for WEBSITE/ENGAGEMENT/LOOKALIKE/APP | VERIFIED 2026-03-19 |
+| BUG-5 | `search_ads_archive` | Raw 400 passthrough; detect subcode 2332002, return structured guidance | VERIFIED |
+| BUG-6 | `create_ad_rule` | Persistent 500 on new accounts surfaced as raw error; now returns eligibility guidance | VERIFIED |
+| BUG-7 | `create_campaign_budget_schedule` | CBO requirement error surfaced as raw error; now returns actionable guidance | VERIFIED |
 
 ---
 
@@ -182,15 +184,20 @@
 
 ## Pending / Next Steps
 
-- Restart MCP session to activate all 4 committed fixes (BUG-2 through BUG-5)
-- Verify `create_ad_creative` multi-image and text variants after restart
-- Verify `clone_ad_creative` after restart
-- Verify `create_custom_audience` WEBSITE after restart
-- Test `create_ad_rule` after account accumulates spend history
-- Test `create_campaign_budget_schedule` with a proper CBO campaign
-- Test LOOKALIKE audience creation (needs source audience)
-- Clean up test campaign `6934184002856` and ad set `6934184136656` when no longer needed
-- Plan for v26.0 metric deprecations (May 19 2026): `unique_clicks`, `unique_ctr`, `unique_link_clicks_ctr`, `unique_outbound_clicks_ctr`, `cost_per_unique_click`, `cost_per_unique_outbound_click`
+### Account-gated (not code bugs — need real account activity)
+- `create_ad_rule` — test after account accumulates spend history (currently 500 with eligibility guidance)
+- `create_campaign_budget_schedule` — test with a proper CBO campaign (requires campaign-level `daily_budget`)
+- `create_custom_audience` (LOOKALIKE) — needs an existing source audience first
+- `create_custom_audience` (CUSTOM) — blocked by ToS; accept at required URL below
+
+### v26.0 metric deprecations (deadline: May 19, 2026)
+Metrics that will break `list_insights` / `create_report` if used:
+`unique_clicks`, `unique_ctr`, `unique_link_clicks_ctr`, `unique_outbound_clicks_ctr`, `cost_per_unique_click`, `cost_per_unique_outbound_click`
+
+### Optional enhancements
+- ENH-4: Auto-inject pixel tracking specs on SALES/TRAFFIC `create_ad` (currently caller must pass `tracking_specs` manually)
+- ENH-7: Bulk pause/activate all ads in a campaign
+- ENH-8: True DPA catalog creative support (`product_catalog_id` in `create_ad_creative`)
 
 ---
 
@@ -202,8 +209,6 @@
 | Facebook page | `1064624423394553` |
 | Pixel | `1446692113800169` |
 | Instagram actor | `17841474071069454` |
-| Test campaign | `6934184002856` (PAUSED) |
-| Test ad set | `6934184136656` (PAUSED) |
 | Room image 1 (wine wall) | hash `1c972bb0deb1a5067ab2d0e2d7726bd8` |
 | Room image 2 (blue wall) | hash `48e1532ed23858129788189a456250fa` |
 | Carousel creative | `1589674722112639` |

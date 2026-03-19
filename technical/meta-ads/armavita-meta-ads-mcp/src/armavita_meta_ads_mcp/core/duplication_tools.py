@@ -419,6 +419,51 @@ async def clone_ad(
     )
 
 
+def _build_creative_clone_payload(
+    source: Dict[str, Any],
+    name_suffix: str,
+    overrides: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Build the POST payload for cloning an ad creative.
+
+    Meta returns asset_feed_spec creatives with a minimal object_story_spec
+    containing only page_id.  When asset_feed_spec is present we use the feed
+    path and send the minimal object_story_spec alongside it (required by the
+    API).  For simple story-spec creatives we apply the caller's text/CTA
+    overrides directly into link_data.
+    """
+    payload: Dict[str, Any] = {"name": (source.get("name") or "") + name_suffix}
+
+    asset_feed = source.get("asset_feed_spec")
+    story_spec = source.get("object_story_spec")
+
+    if asset_feed:
+        # asset_feed_spec path: send feed + minimal page_id anchor
+        payload["asset_feed_spec"] = json.dumps(asset_feed)
+        page_id = (story_spec or {}).get("page_id")
+        if page_id:
+            payload["object_story_spec"] = json.dumps({"page_id": page_id})
+        return payload
+
+    if isinstance(story_spec, dict):
+        # story_spec path: apply text/CTA overrides into link_data
+        link_data: Dict[str, Any] = dict(story_spec.get("link_data") or {})
+        if overrides.get("new_primary_text") is not None:
+            link_data["message"] = overrides["new_primary_text"]
+        if overrides.get("new_headline") is not None:
+            link_data["name"] = overrides["new_headline"]
+        if overrides.get("new_description") is not None:
+            link_data["description"] = overrides["new_description"]
+        if overrides.get("new_destination_url") is not None:
+            link_data["link"] = overrides["new_destination_url"]
+        if overrides.get("new_cta_type") is not None and isinstance(link_data.get("call_to_action"), dict):
+            link_data["call_to_action"]["type"] = overrides["new_cta_type"]
+        payload["object_story_spec"] = json.dumps({**story_spec, "link_data": link_data})
+        return payload
+
+    return {}
+
+
 @mcp_server.tool()
 @meta_api_tool
 async def clone_ad_creative(
@@ -445,7 +490,6 @@ async def clone_ad_creative(
         if not facebook_token:
             return json.dumps({"success": False, "error": "authentication_required"}, indent=2)
 
-        # Read the source creative
         source = await make_api_request(
             ad_creative_id,
             facebook_token,
@@ -457,35 +501,25 @@ async def clone_ad_creative(
                 indent=2,
             )
 
+        # Graph API returns account_id without the act_ prefix
         account_id = source.get("account_id", "")
+        if account_id and not account_id.startswith("act_"):
+            account_id = f"act_{account_id}"
         if not account_id:
             return json.dumps(
                 {"success": False, "error": "Could not determine ad account from creative"}, indent=2
             )
 
-        suffix = name_suffix or ""
-        payload: Dict[str, Any] = {"name": (source.get("name") or "") + suffix}
+        overrides = {
+            "new_primary_text": new_primary_text,
+            "new_headline": new_headline,
+            "new_description": new_description,
+            "new_destination_url": new_destination_url,
+            "new_cta_type": new_cta_type,
+        }
+        payload = _build_creative_clone_payload(source, name_suffix or "", overrides)
 
-        # Copy object_story_spec with overrides
-        spec = source.get("object_story_spec")
-        if isinstance(spec, dict):
-            link_data = spec.get("link_data") or {}
-            if isinstance(link_data, dict):
-                if new_primary_text is not None:
-                    link_data["message"] = new_primary_text
-                if new_headline is not None:
-                    link_data["name"] = new_headline
-                if new_description is not None:
-                    link_data["description"] = new_description
-                if new_destination_url is not None:
-                    link_data["link"] = new_destination_url
-                if new_cta_type is not None and isinstance(link_data.get("call_to_action"), dict):
-                    link_data["call_to_action"]["type"] = new_cta_type
-                spec["link_data"] = link_data
-            payload["object_story_spec"] = json.dumps(spec)
-        elif source.get("asset_feed_spec"):
-            payload["asset_feed_spec"] = json.dumps(source["asset_feed_spec"])
-        else:
+        if not payload or len(payload) <= 1:  # name only = no spec found
             return json.dumps(
                 {
                     "success": False,
@@ -500,6 +534,7 @@ async def clone_ad_creative(
         )
 
         if isinstance(result, dict) and result.get("id"):
+            logger.info("Cloned creative %s → %s", ad_creative_id, result["id"])
             return json.dumps(
                 {
                     "success": True,
@@ -514,6 +549,7 @@ async def clone_ad_creative(
         )
 
     except Exception as exc:  # noqa: BLE001
+        logger.exception("Unexpected error cloning creative %s", ad_creative_id)
         return json.dumps({"success": False, "error": str(exc)}, indent=2)
 
 

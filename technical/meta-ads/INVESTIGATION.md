@@ -290,18 +290,25 @@ Note: default is US. Always pass explicit targeting for Turkish campaigns.
 
 ---
 
-## 9. Recommended Fixes Priority
+## 9. Fix Status (updated 2026-03-19)
 
-| Priority | Item | Effort |
-|---|---|---|
-| P0 | BUG-1: Fix local file upload in `upload_ad_image_asset` | Small (5 lines) |
-| P1 | ENH-2: Instagram actor ID resolution helper | Small |
-| P1 | BUG-3: Carousel creative support | Medium |
-| P1 | BUG-4: `promoted_object` on `update_ad_set` | Tiny (3 lines) |
-| P2 | ENH-4: Pixel auto-injection on `create_ad` | Medium |
-| P2 | ENH-6: Custom audience tools | Large |
-| P3 | ENH-5: Bulk status toggle | Small |
-| P3 | ENH-1: Video upload | Small |
+| Item | Status |
+|------|--------|
+| BUG-1: Local file upload | ✅ Fixed |
+| BUG-2: `clone_ad_creative` read-then-create | ✅ Fixed + verified |
+| BUG-2b: `clone_ad_creative` missing `act_` prefix | ✅ Fixed + verified |
+| BUG-2c: `clone_ad_creative` asset_feed missing page_id companion | ✅ Fixed + verified |
+| BUG-3: Carousel creative support | ✅ Fixed + verified |
+| BUG-4: `update_ad_set` missing `promoted_object` | ✅ Fixed |
+| BUG-5: `create_ad_set` missing `frequency_control_specs` | ✅ Fixed |
+| ENH-1: Video upload (`upload_ad_video`) | ✅ Implemented |
+| ENH-2: `get_instagram_actor_id` tool | ✅ Implemented |
+| ENH-3: Carousel creative (`carousel_cards`) | ✅ Implemented |
+| ENH-5: `promoted_object` on `update_ad_set` | ✅ Implemented |
+| ENH-6: Custom audience tools | ✅ Implemented |
+| ENH-4: Pixel auto-injection on `create_ad` | ⏳ Open — caller must pass `tracking_specs` manually |
+| ENH-7: Bulk status toggle | ⏳ Open |
+| ENH-8: True DPA catalog creative | ⏳ Open (complex) |
 
 ---
 

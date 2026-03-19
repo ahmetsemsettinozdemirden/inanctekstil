@@ -93,16 +93,30 @@ armavita-meta-ads-mcp --login
 
 ## Tool Coverage
 
-- Accounts: `list_ad_accounts`, `read_ad_account`
-- Campaigns: `list_campaigns`, `read_campaign`, `create_campaign`, `update_campaign`
-- Budget schedules: `create_campaign_budget_schedule`
-- Ad sets: `list_ad_sets`, `read_ad_set`, `create_ad_set`, `update_ad_set`
-- Ads/creatives/media: `list_ads`, `read_ad`, `list_ad_previews`, `create_ad`, `update_ad`, `list_ad_creatives`, `read_ad_creative`, `create_ad_creative`, `update_ad_creative`, `upload_ad_image_asset`, `read_ad_image`, `export_ad_image_file`, `search_pages`, `list_account_pages`
+- Accounts: `list_ad_accounts`, `read_ad_account`, `list_account_pages`, `get_instagram_actor_id`
+- Campaigns: `list_campaigns`, `read_campaign`, `create_campaign`, `update_campaign`, `delete_campaign`, `create_campaign_budget_schedule`
+- Ad sets: `list_ad_sets`, `read_ad_set`, `create_ad_set`, `update_ad_set`, `delete_ad_set`
+- Ads: `list_ads`, `read_ad`, `create_ad`, `update_ad`, `delete_ad`
+- Creatives: `list_ad_creatives`, `read_ad_creative`, `create_ad_creative`, `update_ad_creative`, `list_ad_previews`
+- Media: `upload_ad_image_asset`, `read_ad_image`, `export_ad_image_file`, `upload_ad_video`, `list_ad_videos`, `read_ad_video`
+- Pixels: `list_pixels`, `read_pixel`
+- Custom audiences: `list_custom_audiences`, `read_custom_audience`, `create_custom_audience`, `delete_custom_audience`, `add_users_to_audience`, `remove_users_from_audience`, `estimate_audience_size`
 - Insights/reporting: `list_insights`, `create_report`
-- Targeting: `search_interests`, `suggest_interests`, `estimate_audience_size`, `search_behaviors`, `search_demographics`, `search_geo_locations`
+- Targeting: `search_interests`, `suggest_interests`, `search_behaviors`, `search_demographics`, `search_geo_locations`, `search_pages`
+- Ad rules: `create_ad_rule`, `list_ad_rules`, `read_ad_rule`, `update_ad_rule`, `delete_ad_rule`, `execute_ad_rule`
 - Duplication: `clone_campaign`, `clone_ad_set`, `clone_ad`, `clone_ad_creative`
 - Ads Library: `search_ads_archive`
 - Research helpers: `search_web_content`, `read_web_content`
+
+### `create_ad_creative` format support
+
+| Format | How |
+|--------|-----|
+| Single image | `ad_image_hash` |
+| Multi-image (asset feed) | `ad_image_hashes` |
+| Text/headline variants | `primary_text_variants`, `headline_variants`, `description_variants` |
+| Single video | `ad_video_id` |
+| Carousel | `carousel_cards: [{image_hash, link, name, description, call_to_action}]` |
 
 ## Pagination
 
