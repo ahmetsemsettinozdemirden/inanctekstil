@@ -1,0 +1,13 @@
+{
+  "name": "design-your-curtain-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "bun src/server.ts",
+    "dev": "bun --hot src/server.ts",
+    "test": "bun test src/"
+  },
+  "dependencies": {
+    "hono": "^4.6.0"
+  }
+}

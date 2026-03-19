@@ -1,0 +1,97 @@
+services:
+  traefik:
+    image: traefik:v3
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/acme.json:/acme.json
+      - traefik-logs:/var/log/traefik
+    networks:
+      - web
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pms
+      POSTGRES_USER: pms
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "pms"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pms:
+    build:
+      context: /opt/pms
+      dockerfile: Dockerfile
+    container_name: pms
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://pms:${POSTGRES_PASSWORD}@postgres:5432/pms
+      SHOPIFY_STORE_DOMAIN: ${SHOPIFY_STORE_DOMAIN}
+      SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN}
+      SHOPIFY_CLIENT_ID: ${SHOPIFY_CLIENT_ID}
+      SHOPIFY_CLIENT_SECRET: ${SHOPIFY_CLIENT_SECRET}
+      FAL_KEY: ${FAL_KEY}
+      PRODUCTS_DIR: /app/products
+      NODE_ENV: production
+      LOG_LEVEL: info
+    volumes:
+      - /opt/products:/app/products:ro
+    networks:
+      - web
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pms.rule=Host(`pms.inanctekstil.store`)"
+      - "traefik.http.routers.pms.entrypoints=websecure"
+      - "traefik.http.routers.pms.tls.certresolver=letsencrypt"
+      - "traefik.http.services.pms.loadbalancer.server.port=3000"
+
+  curtain-app:
+    build:
+      context: /opt/curtain-checkout-api
+      dockerfile: Dockerfile
+    container_name: curtain-app
+    restart: unless-stopped
+    environment:
+      SHOPIFY_STORE_DOMAIN: ${SHOPIFY_STORE_DOMAIN}
+      SHOPIFY_CLIENT_ID: ${SHOPIFY_CLIENT_ID}
+      SHOPIFY_CLIENT_SECRET: ${SHOPIFY_CLIENT_SECRET}
+      PORT: "3001"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.curtain-app.rule=Host(`app.inanctekstil.store`)"
+      - "traefik.http.routers.curtain-app.entrypoints=websecure"
+      - "traefik.http.routers.curtain-app.tls.certresolver=letsencrypt"
+      - "traefik.http.services.curtain-app.loadbalancer.server.port=3001"
+
+networks:
+  web:
+    name: web
+  backend:
+    name: backend
+    internal: true
+
+volumes:
+  postgres-data:
+  traefik-logs:
