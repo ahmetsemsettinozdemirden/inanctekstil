@@ -210,46 +210,56 @@ Tested on production store `inanctekstil.store`. Run this after any deployment.
 
 ---
 
-### Step 2 — Add STN product via normal add-to-cart
+### Step 2 — Add STN product via configurator
+
+All products are tagged `perde-tasarla` and show the curtain configurator.
 
 1. Navigate to `https://inanctekstil.store/products/stn-saten`
-2. **Verify**: Standard buy button is visible (no configurator — product is not tagged `perde-tasarla`)
+2. **Verify**: Configurator is visible; standard buy button is hidden
 3. **Verify**: Cart badge shows **1** item from the TUL step
-4. Click "Sepete ekle"
-5. **Verify**: Status shows "Eklendi"; cart badge increments to **2**
+4. Complete configurator: En=150, Boy=200 → Boru Pile x3.0 → Çift Kanat
+5. Check disclaimer, click "Sepete Ekle"
+6. **Verify**: Cart drawer opens with STN line at **1,350.00TL**
+   - Formula: (150/100) × 3.0 × 2 × 150 = ₺1,350 ✓
+7. **Verify**: Cart badge shows **2**
 
 ---
 
-### Step 3 — Verify cart contents
+### Step 3 — Verify cart drawer contents
 
-1. Navigate to `https://inanctekstil.store/cart`
-2. **Verify 2 line items**:
+From the cart drawer (while still on `stn-saten` product page):
 
-   | Item | Properties | Displayed line price | Shopify stored price |
-   |------|-----------|---------------------|----------------------|
-   | BORNOVA Tül Perde | En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat | 1,150.00TL | 230.00TL (base/m) |
-   | Saten Perde | Renk: BEYAZ | 150.00TL | 150.00TL |
+| Item | Properties | Displayed line price |
+|------|-----------|---------------------|
+| BORNOVA Tül Perde | En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat | 1,150.00TL |
+| Saten Perde | En: 150 cm, Boy: 200 cm, Pile Stili: Boru Pile (x3), Kanat: Çift Kanat | 1,350.00TL |
 
-3. **Verify**: Cart total shows **380.00 TRY** — this is Shopify's stored total (230+150), not the displayed total. This is expected on Basic plan (see Known limitations below).
+**Verify**: Tahmini toplam shows **2.500,00 TL** (patched by `perde-cart-total.js`) ✓
 
 ---
 
-### Step 4 — Checkout from cart drawer (correct path)
+### Step 4 — Checkout from cart drawer (correct path for single-product)
 
-> ⚠️ **Important**: The checkout interceptor only works if you click checkout **while on the TUL product page**. Clicking checkout from the `/cart` page bypasses the interceptor (see Known limitations).
+> ⚠️ **Important**: The checkout interceptor only works if you click checkout **while on the last configured product's page**. It only redirects to **that product's draft order** — other items are NOT included (see Known limitations).
 
-**Correct path (Draft Order redirect):**
-1. Navigate back to `https://inanctekstil.store/products/tul-bornova`
-2. Open the cart drawer (click cart icon in header)
-3. Click "Ödeme" inside the cart drawer
-4. **Verify**: URL changes to a Draft Order URL (`/checkouts/...` with a different token)
-5. **Verify**: Checkout shows **BORNOVA Tül Perde at ₺1,150.00** ✓ (not ₺230)
-6. **Verify**: All configuration properties are visible in the order line
+**Correct path (single product, Draft Order redirect):**
+1. After adding TUL, open the cart drawer while still on `products/tul-bornova`
+2. Click "Ödeme" inside the cart drawer
+3. **Verify**: URL changes to a Draft Order checkout URL
+4. **Verify**: Checkout shows **BORNOVA Tül Perde at ₺1,150.00** ✓ (not ₺230)
+5. **Verify**: All configuration properties are visible in the order line
 
-**Bug path (bypasses Draft Order — known issue):**
+**Multi-product bug path (known issue):**
+1. Add STN via configurator on `stn-saten` (draft order URL A stored in sessionStorage)
+2. Navigate to `tul-bornova` — `init()` clears sessionStorage, URL A is lost
+3. Add TUL via configurator (draft order URL B stored in sessionStorage)
+4. Click "Ödeme" from cart drawer
+5. **Result**: Checkout shows **only TUL at ₺1,150** — STN (₺1,350) is absent ⚠️
+
+**Cart page bypass bug (known issue):**
 1. Navigate to `https://inanctekstil.store/cart` directly
 2. Click "Ödeme"
-3. **Result**: Regular Shopify checkout opens at ₺380 total — TUL is charged at ₺230 instead of ₺1,150 ⚠️
+3. **Result**: Regular Shopify checkout at base variant prices (₺230 + ₺150 = ₺380) — not calculated prices ⚠️
 
 ---
 
@@ -267,20 +277,28 @@ Tested on production store `inanctekstil.store`. Run this after any deployment.
 
 ## Known limitations
 
+- **Multi-product cart (critical)**: `sessionStorage` holds only one draft order URL at a time.
+  Each time a customer lands on a configurator product page, `init()` calls `removeItem` to clear
+  the previous URL. If a customer configures two products (e.g. STN then TUL), only the last
+  product's draft order URL survives. Clicking "Ödeme" from the cart drawer redirects to that
+  last draft order only — the earlier product is in the Shopify cart but not in the checkout order.
+  **Verified**: STN (₺1,350) + TUL (₺1,150) in cart → checkout shows only TUL at ₺1,150 ⚠️
+  **Fix options**: store a map of `variantId → checkoutUrl` in sessionStorage, or use a
+  server-side multi-item draft order, or add a global cart page interceptor that reads all stored URLs.
+
 - **Cart page checkout bypass**: The checkout interceptor is registered by the
   `curtain-configurator` Liquid section, which only renders on pages tagged `perde-tasarla`.
   If a customer navigates to `/cart` and clicks checkout there, the interceptor is not present
-  and Shopify routes to regular checkout at the base variant price (₺230/m). The Draft Order
-  URL is still in `sessionStorage` but nothing reads it on the cart page.
-  **Workaround**: Customers should checkout from the cart drawer while still on the TUL product
-  page, or a global interceptor script should be added to the theme layout.
+  and Shopify routes to regular checkout at base variant prices.
+  **Workaround**: Customers should checkout from the cart drawer while on a product page, or
+  a global interceptor script should be added to the theme layout.
 
 - **sessionStorage lifetime**: If a customer refreshes the page between adding to cart and
   clicking checkout, `sessionStorage` is cleared (init runs `removeItem`) and checkout falls
   back to the base variant price. This is a known constraint of the Basic plan.
 
-- **Cart total display**: The Shopify cart/checkout shows the stored variant price (₺230/m)
-  in the cart total. The `perde-cart-total.js` script patches the displayed total on product
-  pages only. The correct price is enforced at checkout via the Draft Order URL.
+- **Cart total display**: The Shopify cart/checkout shows the stored variant price in the cart
+  total. The `perde-cart-total.js` script patches the displayed total on product pages only.
+  The correct price is enforced at checkout via the Draft Order URL.
 
 - **Cart Transform** (which would fix all price display issues) requires Shopify Plus.
