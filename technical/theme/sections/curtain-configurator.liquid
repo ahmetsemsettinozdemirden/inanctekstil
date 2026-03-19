@@ -240,11 +240,16 @@
 
     .perde-conf__pile-card__img {
       width: 100%;
-      padding: 12px 8px 6px 8px;
+      padding: 0;
       box-sizing: border-box;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      overflow: hidden;
+      border-radius: 6px 6px 0 0;
+    }
+    .perde-conf__pile-card__img img {
+      width: 100%;
+      height: 64px;
+      object-fit: cover;
+      display: block;
     }
 
     .perde-conf__pile-card__label {
@@ -569,21 +574,7 @@
             <!-- Düz Dikiş: 1x -->
             <div class="perde-conf__pile-card" data-pile="Düz Dikiş" data-ratio="1.0" role="button" tabindex="0" aria-pressed="false">
               <div class="perde-conf__pile-card__img">
-                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
-                  <!-- Rod -->
-                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
-                  <!-- Flat panel — no gathering, hangs straight -->
-                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
-                  <line x1="4" y1="18" x2="84" y2="18" stroke="#B8C4D8" stroke-width="0.8"/>
-                  <line x1="4" y1="32" x2="84" y2="32" stroke="#B8C4D8" stroke-width="0.8"/>
-                  <line x1="4" y1="46" x2="84" y2="46" stroke="#B8C4D8" stroke-width="0.8"/>
-                  <!-- Ring hooks -->
-                  <circle cx="14" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="30" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="46" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="62" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="74" cy="4" r="2.2" fill="#1B2A4A"/>
-                </svg>
+                <img src="https://img-tac.sm.mncdn.com/img/attributes/pile-ekstraforlu-duz-dikis.jpeg" alt="Düz Dikiş">
               </div>
               <div class="perde-conf__pile-card__label">
                 Düz Dikiş<br>
@@ -594,24 +585,7 @@
             <!-- Kırma (Yatık) Pile: 2.5x -->
             <div class="perde-conf__pile-card" data-pile="Kırma Pile" data-ratio="2.5" role="button" tabindex="0" aria-pressed="false">
               <div class="perde-conf__pile-card__img">
-                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
-                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
-                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
-                  <!-- Pinch pleats: fabric gathers into pairs -->
-                  <path d="M16 4 L9 52"  stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M16 4 L23 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M36 4 L29 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M36 4 L43 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M56 4 L49 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M56 4 L63 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M74 4 L67 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <path d="M74 4 L79 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
-                  <!-- Pinch dots -->
-                  <circle cx="16" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="36" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="56" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="74" cy="4" r="2.2" fill="#1B2A4A"/>
-                </svg>
+                <img src="https://img-tac.sm.mncdn.com/img/attributes/pile-yatik.jpeg" alt="Kırma Pile">
               </div>
               <div class="perde-conf__pile-card__label">
                 Kırma Pile<br>
@@ -622,26 +596,7 @@
             <!-- Boru Pile: 3x -->
             <div class="perde-conf__pile-card" data-pile="Boru Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
               <div class="perde-conf__pile-card__img">
-                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
-                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
-                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
-                  <!-- Tube pleats: smooth cylindrical columns -->
-                  <path d="M14 4 C10 20 18 20 14 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
-                  <path d="M14 4 C18 20 10 20 14 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
-                  <path d="M28 4 C24 20 32 20 28 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
-                  <path d="M28 4 C32 20 24 20 28 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
-                  <path d="M42 4 C38 20 46 20 42 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
-                  <path d="M42 4 C46 20 38 20 42 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
-                  <path d="M56 4 C52 20 60 20 56 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
-                  <path d="M56 4 C60 20 52 20 56 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
-                  <path d="M70 4 C66 20 74 20 70 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
-                  <path d="M70 4 C74 20 66 20 70 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
-                  <circle cx="14" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="28" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="42" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="56" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="70" cy="4" r="2.2" fill="#1B2A4A"/>
-                </svg>
+                <img src="https://img-tac.sm.mncdn.com/img/attributes/pile-boru.jpeg" alt="Boru Pile">
               </div>
               <div class="perde-conf__pile-card__label">
                 Boru Pile<br>
@@ -652,26 +607,7 @@
             <!-- Kanun Pile: 3x -->
             <div class="perde-conf__pile-card" data-pile="Kanun Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
               <div class="perde-conf__pile-card__img">
-                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
-                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
-                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
-                  <!-- Fan / goblet pleats: triple folds radiating from one mount point -->
-                  <!-- Group 1 at x=18 -->
-                  <path d="M18 4 L8  52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <path d="M18 4 L18 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
-                  <path d="M18 4 L28 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <!-- Group 2 at x=44 -->
-                  <path d="M44 4 L34 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <path d="M44 4 L44 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
-                  <path d="M44 4 L54 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <!-- Group 3 at x=70 -->
-                  <path d="M70 4 L60 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <path d="M70 4 L70 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
-                  <path d="M70 4 L80 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
-                  <circle cx="18" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="44" cy="4" r="2.2" fill="#1B2A4A"/>
-                  <circle cx="70" cy="4" r="2.2" fill="#1B2A4A"/>
-                </svg>
+                <img src="https://img-tac.sm.mncdn.com/img/attributes/pile-kanun.jpeg" alt="Kanun Pile">
               </div>
               <div class="perde-conf__pile-card__label">
                 Kanun Pile<br>
