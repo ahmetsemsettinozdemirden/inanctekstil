@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/designcard.tsx","./src/components/jobrow.tsx","./src/components/nav.tsx","./src/components/statusbadge.tsx","./src/lib/api.ts","./src/lib/sse.ts","./src/pages/jobs.tsx","./src/pages/productdetail.tsx","./src/pages/productgrid.tsx"],"version":"5.9.3"}

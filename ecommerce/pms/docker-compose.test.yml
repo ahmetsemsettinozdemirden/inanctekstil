@@ -1,0 +1,14 @@
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: pms_test
+      POSTGRES_USER: pms
+      POSTGRES_PASSWORD: pms
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "pms"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
