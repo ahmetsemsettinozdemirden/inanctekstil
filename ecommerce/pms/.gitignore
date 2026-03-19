@@ -2,4 +2,4 @@ node_modules/
 .env
 frontend/dist/
 coverage/
-src/image-engine/
+src/image-engine/baml_client/
