@@ -48,7 +48,6 @@ interface ExpandedCartItem {
     adjustment: {
       fixedPricePerUnit: {
         amount: string;
-        currencyCode: string;
       };
     };
   };
@@ -124,7 +123,6 @@ export function run(input: CartTransformInput): CartTransformResult {
               adjustment: {
                 fixedPricePerUnit: {
                   amount: price.toFixed(2),
-                  currencyCode: line.cost.amountPerQuantity.currencyCode,
                 },
               },
             },

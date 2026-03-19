@@ -8,7 +8,6 @@ import { assetsRouter } from "./routes/assets.ts";
 import { jobsRouter } from "./routes/jobs.ts";
 import { imagesRouter } from "./routes/images.ts";
 import { shopifyRouter } from "./routes/shopify.ts";
-import { checkoutRouter } from "./routes/checkout.ts";
 import { startWorker, registerExecutor } from "./lib/job-queue.ts";
 import { generateLifestyleExecutor } from "./jobs/generate-lifestyle.ts";
 import { generateTextureExecutor } from "./jobs/generate-texture.ts";
@@ -49,7 +48,6 @@ app.route("/api/catalog", catalogRouter);
 app.route("/api/jobs", jobsRouter);
 app.route("/api/images", imagesRouter);
 app.route("/api/shopify", shopifyRouter);
-app.route("/api/checkout", checkoutRouter);
 
 // Static product assets (swatches, generated images)
 app.route("/assets", assetsRouter);
