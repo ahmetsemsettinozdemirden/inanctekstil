@@ -21,9 +21,9 @@
  *     fonts/                            — Inter TTF fonts for text rendering
  *
  * Usage:
- *   npx tsx src/generate.ts --sku TUL-001
- *   npx tsx src/generate.ts --sku TUL-001 --room room-01-dark-wall
- *   npx tsx src/generate.ts --sku TUL-001 --flow texture
+ *   npx tsx src/generate.ts --sku BLK-001
+ *   npx tsx src/generate.ts --sku BLK-001 --room room-01-terracotta-wall
+ *   npx tsx src/generate.ts --sku BLK-001 --flow texture
  *   npx tsx src/generate.ts --banner spring-sale
  *   npx tsx src/generate.ts --collection bahar
  */
@@ -717,9 +717,9 @@ async function main() {
 
   if (!sku && !bannerId && !collectionId) {
     console.log("Usage:");
-    console.log("  npx tsx src/generate.ts --sku TUL-001");
-    console.log("  npx tsx src/generate.ts --sku TUL-001 --room room-01-dark-wall");
-    console.log("  npx tsx src/generate.ts --sku TUL-001 --flow texture");
+    console.log("  npx tsx src/generate.ts --sku BLK-001");
+    console.log("  npx tsx src/generate.ts --sku BLK-001 --room room-01-terracotta-wall");
+    console.log("  npx tsx src/generate.ts --sku BLK-001 --flow texture");
     console.log("  npx tsx src/generate.ts --banner spring-sale");
     console.log("  npx tsx src/generate.ts --collection bahar");
     console.log("");

@@ -39,7 +39,7 @@
   },
   "banners": {
     "spring-sale": {
-      "sku": "TUL-001",
+      "sku": "BLK-001",
       "room": "room-01-terracotta-wall",
       "headline": "BAHAR KOLEKSİYONU",
       "sub_headline": "TÜM İNDİRİMLERE EK",
@@ -55,7 +55,7 @@
     "bahar": {
       "name": "Bahar Koleksiyonu",
       "mood": "indoor-warm",
-      "skus": ["TUL-001", "FON-001", "BLK-001", "STN-001", "STN-002"],
+      "skus": ["FON-001", "BLK-001", "STN-001", "STN-002"],
       "room": "room-01-terracotta-wall"
     }
   }
