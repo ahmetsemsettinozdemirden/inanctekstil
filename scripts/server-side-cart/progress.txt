@@ -1,0 +1,17 @@
+# Ralph Progress Log
+Initialized: 19 Mar 2026 Per +03 17:06:25
+---
+
+## US-001 — Add curtain-db Postgres container to Docker Compose ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/gitopsprod/docker-compose.yml: Added `curtain-db` service (postgres:16-alpine), named volume `curtain-db-data`, internal backend network only (no host port exposure). Updated `curtain-app` to depend_on curtain-db (service_healthy), added CURTAIN_DATABASE_URL env var, added backend network.
+- technical/curtain-checkout-api/README.md: Documented CURTAIN_DATABASE_URL in Environment variables table.
+
+Server deployment notes (manual step — do before US-008 deploy):
+- Generate a strong random password: openssl rand -hex 32
+- Add to /opt/inanctekstil/.env:
+    CURTAIN_DB_PASSWORD=<generated_password>
+    CURTAIN_DATABASE_URL=postgres://curtain:<generated_password>@curtain-db:5432/curtain
+- Then: docker compose up -d curtain-db

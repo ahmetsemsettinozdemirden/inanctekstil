@@ -17,8 +17,8 @@
         "Document the new env var in technical/curtain-checkout-api/README.md under Environment variables"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "curtain-db service added to docker-compose.yml. CURTAIN_DATABASE_URL and CURTAIN_DB_PASSWORD must be set in /opt/inanctekstil/.env before deploying.",
       "dependsOn": []
     },
     {

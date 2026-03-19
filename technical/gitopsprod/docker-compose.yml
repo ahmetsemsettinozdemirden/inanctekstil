@@ -67,19 +67,42 @@ services:
       - "traefik.http.services.pms.loadbalancer.server.port=3000"
       - "traefik.http.middlewares.pms-auth.basicauth.users=admin:$$2y$$05$$/IP0o/4enTiZG6jLbBKuoOkfrsqpjbvkYsyzkDZi38tmIpe81V0O2"
 
+  curtain-db:
+    image: postgres:16-alpine
+    container_name: curtain-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: curtain
+      POSTGRES_USER: curtain
+      POSTGRES_PASSWORD: ${CURTAIN_DB_PASSWORD}
+    volumes:
+      - curtain-db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "curtain"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   curtain-app:
     build:
       context: /opt/curtain-checkout-api
       dockerfile: Dockerfile
     container_name: curtain-app
     restart: unless-stopped
+    depends_on:
+      curtain-db:
+        condition: service_healthy
     environment:
       SHOPIFY_STORE_DOMAIN: ${SHOPIFY_STORE_DOMAIN}
       SHOPIFY_CLIENT_ID: ${SHOPIFY_CLIENT_ID}
       SHOPIFY_CLIENT_SECRET: ${SHOPIFY_CLIENT_SECRET}
+      CURTAIN_DATABASE_URL: ${CURTAIN_DATABASE_URL}
       PORT: "3001"
     networks:
       - web
+      - backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.curtain-app.rule=Host(`app.inanctekstil.store`)"
@@ -96,4 +119,5 @@ networks:
 
 volumes:
   postgres-data:
+  curtain-db-data:
   traefik-logs:

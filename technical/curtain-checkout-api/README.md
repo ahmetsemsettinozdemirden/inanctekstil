@@ -136,6 +136,7 @@ Returns `{ "status": "ok", "uptime": <seconds> }`.
 | `SHOPIFY_STORE_DOMAIN`  | e.g. `1z7hb1-2d.myshopify.com`                         |
 | `SHOPIFY_CLIENT_ID`     | Custom app client ID (for client_credentials OAuth)      |
 | `SHOPIFY_CLIENT_SECRET` | Custom app client secret                                 |
+| `CURTAIN_DATABASE_URL`  | Postgres connection URL, e.g. `postgres://curtain:PASSWORD@curtain-db:5432/curtain` |
 | `PORT`                  | HTTP port (default: 3001)                                |
 
 Set in `/opt/inanctekstil/.env` on the Hetzner server.
