@@ -2,6 +2,7 @@
   {% assign max_boy = product.metafields.custom.max_boy_cm | default: 300 %}
 
   <style>
+    variant-picker,
     .buy-buttons-block,
     sticky-add-to-cart {
       display: none !important;
@@ -355,7 +356,6 @@
     data-max-boy="{{ max_boy }}"
     data-base-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}"
     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-    data-product-title="{{ product.title | escape }}"
     data-api-url="{{ section.settings.draft_order_api_url | escape }}">
     <div class="perde-conf">
 
@@ -551,7 +551,7 @@
 
         <div class="perde-conf__cart-error" id="perde-cart-error"></div>
 
-        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Sepete Ekle</button>
+        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Siparişe Devam Et</button>
       </div>
 
     </div>
@@ -573,17 +573,16 @@
       var MAX_BOY = parseInt(confEl.dataset.maxBoy, 10) || 300;
       window.perdeConfig = window.perdeConfig || {};
 
-      var BASE_PRICE    = parseFloat(confEl.dataset.basePrice) || 0;
-      var VARIANT_ID    = parseInt(confEl.dataset.variantId, 10);
-      var PRODUCT_TITLE = confEl.dataset.productTitle || 'Özel Ölçü Perde';
-      var API_URL       = confEl.dataset.apiUrl || '';
+      var BASE_PRICE = parseFloat(confEl.dataset.basePrice) || 0;
+      var VARIANT_ID = parseInt(confEl.dataset.variantId, 10);
+      var API_URL    = confEl.dataset.apiUrl || '';
 
       log('init', {
-        basePrice: BASE_PRICE,
-        variantId: VARIANT_ID,
-        maxBoy: MAX_BOY,
-        apiUrl: API_URL ? 'configured' : 'MISSING',
-        productTitle: PRODUCT_TITLE
+        basePrice:  BASE_PRICE,
+        variantId:  VARIANT_ID,
+        maxBoy:     MAX_BOY,
+        apiUrl:     API_URL ? 'configured' : 'MISSING',
+        apiUrlHost: API_URL ? API_URL.replace(/^https?:\/\//, '').split('/')[0] : null
       });
 
       /* ---------- Step 1 ---------- */
@@ -751,9 +750,6 @@
         log('disclaimer:' + (disclaimerCheck.checked ? 'accepted' : 'unaccepted'));
       });
 
-      // Clear any stale draft order URL when configurator loads
-      try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e) {}
-
       addToCartBtn.addEventListener('click', function() {
         if (addToCartBtn.disabled) return;
         if (!API_URL) {
@@ -770,114 +766,57 @@
 
         var cfg = window.perdeConfig;
         var calculatedPrice = calcPrice();
-        var calculatedCents = Math.round(calculatedPrice * 100);
 
-        var draftPayload = {
-          variantId:    VARIANT_ID,
-          productTitle: PRODUCT_TITLE,
-          en:           cfg.en,
-          boy:          cfg.boy,
-          pileStili:    cfg.pile_stili,
-          pileOrani:    cfg.pile_orani,
-          kanat:        cfg.kanat,
-          kanatCount:   cfg.kanat_count
+        var payload = {
+          variantId:  VARIANT_ID,
+          en:         cfg.en,
+          boy:        cfg.boy,
+          pileStili:  cfg.pile_stili,
+          pileOrani:  cfg.pile_orani,
+          kanat:      cfg.kanat,
+          kanatCount: cfg.kanat_count
         };
-        log('cart:draft-order:request', draftPayload);
+        log('checkout:request', {
+          variantId:  payload.variantId,
+          en:         payload.en,
+          boy:        payload.boy,
+          pileStili:  payload.pileStili,
+          pileOrani:  payload.pileOrani,
+          kanat:      payload.kanat,
+          kanatCount: payload.kanatCount,
+          estimatedPrice: formatTL(calculatedPrice)
+        });
 
         fetch(API_URL + '/api/checkout/draft-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(draftPayload)
+          body: JSON.stringify(payload)
         })
         .then(function(res) {
           return res.json().then(function(data) {
-            if (!res.ok) throw new Error(data.message || 'Sipariş oluşturulamadı.');
+            if (!res.ok) {
+              log('checkout:error:api', { status: res.status, message: data.message });
+              throw new Error(data.message || 'Sipariş oluşturulamadı.');
+            }
             return data;
           });
         })
         .then(function(data) {
-          if (!data.checkoutUrl) throw new Error('Ödeme sayfası alınamadı.');
-          log('cart:draft-order:response', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
-          try { sessionStorage.setItem('perdeCheckoutUrl', data.checkoutUrl); } catch(e) {}
-
-          var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
-          var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
-
-          var cartPayload = {
-            id:       VARIANT_ID,
-            quantity: 1,
-            sections: cartSectionId,
-            properties: {
-              'En':                cfg.en + ' cm',
-              'Boy':               cfg.boy + ' cm',
-              'Pile Stili':        cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
-              'Kanat':             cfg.kanat,
-              'Hesaplanan Fiyat':  formatTL(calculatedPrice),
-              '_hesaplanan_cents': calculatedCents
-            }
-          };
-          log('cart:add:request', {
-            variantId: cartPayload.id,
-            sectionId: cartSectionId,
-            properties: cartPayload.properties
-          });
-
-          return fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(cartPayload)
-          });
-        })
-        .then(function(res) {
-          return res.json().then(function(data) {
-            if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
-            return data;
-          });
-        })
-        .then(function(cartData) {
-          var sectionsKeys = Object.keys(cartData.sections || {});
-          log('cart:add:response', { itemCount: cartData.item_count, sectionsRendered: sectionsKeys });
-
-          addToCartBtn.textContent = 'Sepete Eklendi ✓';
-          log('cart:add:complete', { price: formatTL(calculatedPrice), cents: calculatedCents });
-
-          var evt = new Event('cart:update', { bubbles: true });
-          evt.detail = { data: { sections: cartData.sections || {} } };
-          document.dispatchEvent(evt);
-          log('cart:update:dispatched', { sections: sectionsKeys.length });
-
-          var cartDrawer = document.querySelector('cart-drawer-component');
-          if (cartDrawer) {
-            cartDrawer.open();
-            log('cart:drawer:opened');
-          } else {
-            log('cart:drawer:not-found');
+          if (!data.checkoutUrl) {
+            log('checkout:error:no-url', { data: JSON.stringify(data) });
+            throw new Error('Ödeme sayfası alınamadı.');
           }
+          log('checkout:redirect', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
+          window.location.href = data.checkoutUrl;
         })
         .catch(function(err) {
-          log('error', { message: err.message });
+          log('checkout:error:catch', { message: err.message });
           cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
           cartError.classList.add('is-visible');
           addToCartBtn.disabled = false;
-          addToCartBtn.textContent = 'Sepete Ekle';
+          addToCartBtn.textContent = 'Siparişe Devam Et';
         });
       });
-
-      // Intercept any checkout button on the page and redirect to the draft order URL
-      document.addEventListener('click', function(e) {
-        var checkoutUrl;
-        try { checkoutUrl = sessionStorage.getItem('perdeCheckoutUrl'); } catch(e2) {}
-        if (!checkoutUrl) return;
-
-        var target = e.target.closest('a[href*="/checkout"], button[name="checkout"], [data-checkout-btn]');
-        if (target) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          log('checkout:intercepted', { url: checkoutUrl.substring(0, 60) + '…' });
-          try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e2) {}
-          window.location.href = checkoutUrl;
-        }
-      }, true);
 
     })();
 

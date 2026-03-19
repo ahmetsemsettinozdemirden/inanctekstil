@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 const VALID_PILE_ORANI = new Set([2.0, 2.5, 3.0]);
-const ADMIN_API_VERSION = "2024-01";
+const ADMIN_API_VERSION = "2025-01";
 
 function getEnv() {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
@@ -14,7 +14,7 @@ function getEnv() {
   return { domain, clientId, clientSecret };
 }
 
-function log(level: "INFO" | "WARN" | "ERROR", msg: string, data?: Record<string, unknown>) {
+function log(level: "DEBUG" | "INFO" | "WARN" | "ERROR", msg: string, data?: Record<string, unknown>) {
   const entry = { time: new Date().toISOString(), level, msg, ...data };
   if (level === "ERROR") {
     console.error(JSON.stringify(entry));
@@ -45,7 +45,6 @@ app.get("/health", (c) =>
 
 interface DraftOrderBody {
   variantId: number;
-  productTitle: string;
   en: number;
   boy: number;
   pileStili: string;
@@ -62,7 +61,9 @@ app.post("/api/checkout/draft-order", async (c) => {
     return c.json({ error: "INVALID_INPUT", message: "Geçersiz istek gövdesi" }, 400);
   }
 
-  const { variantId, productTitle, en, boy, pileStili, pileOrani, kanat, kanatCount } = body;
+  const { variantId, en, boy, pileStili, pileOrani, kanat, kanatCount } = body;
+
+  log("INFO", "Draft order request received", { variantId, en, boy, pileStili, pileOrani, kanat, kanatCount });
 
   if (!variantId || typeof variantId !== "number") {
     return c.json({ error: "INVALID_INPUT", message: "Geçersiz ürün" }, 400);
@@ -82,6 +83,8 @@ app.post("/api/checkout/draft-order", async (c) => {
 
   const { domain, clientId, clientSecret } = getEnv();
 
+  log("INFO", "Fetching Shopify access token", { domain });
+
   // Obtain short-lived access token via client_credentials flow
   const tokenRes = await fetch(`https://${domain}/admin/oauth/access_token`, {
     method: "POST",
@@ -93,13 +96,15 @@ app.post("/api/checkout/draft-order", async (c) => {
     }),
   });
   if (!tokenRes.ok) {
-    log("ERROR", "Shopify auth failed", { status: tokenRes.status });
+    log("ERROR", "Shopify auth failed", { domain, status: tokenRes.status });
     return c.json({ error: "AUTH_FAILED", message: "Kimlik doğrulama başarısız" }, 500);
   }
   const { access_token: token } = await tokenRes.json() as { access_token: string };
   const headers = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
+  log("INFO", "Shopify access token obtained");
 
   // Fetch variant price server-side (never trust client-sent price)
+  log("INFO", "Fetching variant price", { variantId });
   const variantRes = await fetch(
     `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json`,
     { headers },
@@ -114,47 +119,61 @@ app.post("/api/checkout/draft-order", async (c) => {
     log("ERROR", "Invalid variant price", { variantId, price: variant.price });
     return c.json({ error: "INVALID_PRICE", message: "Ürün fiyatı alınamadı" }, 500);
   }
+  log("INFO", "Variant price fetched", { variantId, basePricePerMeter });
 
   const calculatedPrice = ((en / 100) * pileOrani * kanatCount * basePricePerMeter).toFixed(2);
 
-  log("INFO", "Creating draft order", { variantId, en, boy, pileOrani, kanatCount, basePricePerMeter, calculatedPrice });
+  log("INFO", "Creating draft order", {
+    variantId,
+    en,
+    boy,
+    pileStili,
+    pileOrani,
+    kanat,
+    kanatCount,
+    basePricePerMeter,
+    calculatedPrice,
+    formula: `(${en}/100) × ${pileOrani} × ${kanatCount} × ${basePricePerMeter}`,
+  });
+
+  const draftOrderPayload = {
+    draft_order: {
+      line_items: [
+        {
+          variant_id: variantId,
+          quantity: 1,
+          price: calculatedPrice,
+          properties: [
+            { name: "En", value: `${en} cm` },
+            { name: "Boy", value: `${boy} cm` },
+            { name: "Pile Stili", value: `${pileStili} (x${pileOrani})` },
+            { name: "Kanat", value: kanat },
+          ],
+        },
+      ],
+      note: `Özel ölçü perde — En: ${en}cm, Boy: ${boy}cm, ${pileStili} x${pileOrani}, ${kanat}`,
+    },
+  };
+
+  log("DEBUG", "Draft order payload", { payload: JSON.stringify(draftOrderPayload) });
 
   const draftRes = await fetch(
     `https://${domain}/admin/api/${ADMIN_API_VERSION}/draft_orders.json`,
     {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        draft_order: {
-          line_items: [
-            {
-              title: productTitle || "Özel Ölçü Perde",
-              price: calculatedPrice,
-              quantity: 1,
-              requires_shipping: true,
-              taxable: true,
-              properties: [
-                { name: "En", value: `${en} cm` },
-                { name: "Boy", value: `${boy} cm` },
-                { name: "Pile Stili", value: `${pileStili} (x${pileOrani})` },
-                { name: "Kanat", value: kanat },
-              ],
-            },
-          ],
-          note: `Özel ölçü perde — En: ${en}cm, Boy: ${boy}cm, ${pileStili} x${pileOrani}, ${kanat}`,
-        },
-      }),
+      body: JSON.stringify(draftOrderPayload),
     },
   );
 
   if (!draftRes.ok) {
     const errBody = await draftRes.text();
-    log("ERROR", "Draft order creation failed", { status: draftRes.status, body: errBody });
+    log("ERROR", "Draft order creation failed", { status: draftRes.status, variantId, body: errBody });
     return c.json({ error: "DRAFT_ORDER_FAILED", message: "Sipariş oluşturulamadı. Lütfen tekrar deneyin." }, 500);
   }
 
   const { draft_order } = await draftRes.json() as { draft_order: { id: number; invoice_url: string } };
-  log("INFO", "Draft order created", { draftOrderId: draft_order.id, calculatedPrice });
+  log("INFO", "Draft order created", { draftOrderId: draft_order.id, variantId, calculatedPrice, checkoutUrl: draft_order.invoice_url });
 
   return c.json({ checkoutUrl: draft_order.invoice_url });
 });

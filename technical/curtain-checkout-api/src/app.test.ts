@@ -21,7 +21,6 @@ function clearEnv() {
 
 const VALID_BODY = {
   variantId: 123,
-  productTitle: 'Test Perde',
   en: 200,
   boy: 260,
   pileStili: 'Düz Pile',
@@ -352,7 +351,7 @@ describe('POST /api/checkout/draft-order — happy path', () => {
     expect(props).toContainEqual({ name: 'Kanat', value: 'Çift Kanat' });
   });
 
-  test('uses fallback title when productTitle is empty', async () => {
+  test('draft order line item uses variant_id, not a free-form title', async () => {
     const bodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -367,10 +366,20 @@ describe('POST /api/checkout/draft-order — happy path', () => {
       ));
     }) as unknown as typeof fetch;
 
-    await post({ ...VALID_BODY, productTitle: '' });
+    await post(VALID_BODY);
 
-    const draftBody = JSON.parse(bodies[0]) as { draft_order: { line_items: { title: string }[] } };
-    expect(draftBody.draft_order.line_items[0].title).toBe('Özel Ölçü Perde');
+    const draftBody = JSON.parse(bodies[0]) as {
+      draft_order: { line_items: Array<{ variant_id?: number; title?: string }> };
+    };
+    expect(draftBody.draft_order.line_items[0].variant_id).toBe(VALID_BODY.variantId);
+    expect(draftBody.draft_order.line_items[0].title).toBeUndefined();
+  });
+
+  test('draft order does not require productTitle field', async () => {
+    globalThis.fetch = mockShopify({ invoiceUrl: 'https://checkout.shopify.com/draft/2' });
+    const bodyWithoutTitle = { variantId: 123, en: 200, boy: 260, pileStili: 'Düz Pile', pileOrani: 2.5, kanat: 'Çift Kanat', kanatCount: 2 };
+    const res = await post(bodyWithoutTitle);
+    expect(res.status).toBe(200);
   });
 
   test('sends Authorization header to Shopify variant and draft endpoints', async () => {
