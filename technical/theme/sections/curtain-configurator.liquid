@@ -551,7 +551,7 @@
 
         <div class="perde-conf__cart-error" id="perde-cart-error"></div>
 
-        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Siparişe Devam Et</button>
+        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Sepete Ekle</button>
       </div>
 
     </div>
@@ -750,6 +750,9 @@
         log('disclaimer:' + (disclaimerCheck.checked ? 'accepted' : 'unaccepted'));
       });
 
+      // Clear any stale draft order URL when configurator loads
+      try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e) {}
+
       addToCartBtn.addEventListener('click', function() {
         if (addToCartBtn.disabled) return;
         if (!API_URL) {
@@ -766,8 +769,9 @@
 
         var cfg = window.perdeConfig;
         var calculatedPrice = calcPrice();
+        var calculatedCents = Math.round(calculatedPrice * 100);
 
-        var payload = {
+        var draftPayload = {
           variantId:  VARIANT_ID,
           en:         cfg.en,
           boy:        cfg.boy,
@@ -776,47 +780,96 @@
           kanat:      cfg.kanat,
           kanatCount: cfg.kanat_count
         };
-        log('checkout:request', {
-          variantId:  payload.variantId,
-          en:         payload.en,
-          boy:        payload.boy,
-          pileStili:  payload.pileStili,
-          pileOrani:  payload.pileOrani,
-          kanat:      payload.kanat,
-          kanatCount: payload.kanatCount,
-          estimatedPrice: formatTL(calculatedPrice)
-        });
+        log('cart:draft-order:request', draftPayload);
 
+        // Step 1: create draft order to get a checkout URL with the correct calculated price
         fetch(API_URL + '/api/checkout/draft-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(draftPayload)
         })
         .then(function(res) {
           return res.json().then(function(data) {
-            if (!res.ok) {
-              log('checkout:error:api', { status: res.status, message: data.message });
-              throw new Error(data.message || 'Sipariş oluşturulamadı.');
-            }
+            if (!res.ok) throw new Error(data.message || 'Sipariş oluşturulamadı.');
             return data;
           });
         })
         .then(function(data) {
-          if (!data.checkoutUrl) {
-            log('checkout:error:no-url', { data: JSON.stringify(data) });
-            throw new Error('Ödeme sayfası alınamadı.');
+          if (!data.checkoutUrl) throw new Error('Ödeme sayfası alınamadı.');
+          log('cart:draft-order:response', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
+          // Store the draft order checkout URL — the checkout interception listener will use it
+          try { sessionStorage.setItem('perdeCheckoutUrl', data.checkoutUrl); } catch(e) {}
+
+          var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
+          var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
+
+          var cartPayload = {
+            id:       VARIANT_ID,
+            quantity: 1,
+            sections: cartSectionId,
+            properties: {
+              'En':                cfg.en + ' cm',
+              'Boy':               cfg.boy + ' cm',
+              'Pile Stili':        cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
+              'Kanat':             cfg.kanat,
+              'Hesaplanan Fiyat':  formatTL(calculatedPrice),
+              '_hesaplanan_cents': calculatedCents
+            }
+          };
+          log('cart:add:request', { variantId: cartPayload.id, properties: cartPayload.properties });
+
+          // Step 2: add to cart so the item appears in the cart drawer
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cartPayload)
+          });
+        })
+        .then(function(res) {
+          return res.json().then(function(data) {
+            if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
+            return data;
+          });
+        })
+        .then(function(cartData) {
+          log('cart:add:response', { itemCount: cartData.item_count });
+          addToCartBtn.textContent = 'Sepete Eklendi ✓';
+          log('cart:add:complete', { price: formatTL(calculatedPrice) });
+
+          document.dispatchEvent(new Event('cart:update', { bubbles: true }));
+
+          var cartDrawer = document.querySelector('cart-drawer-component');
+          if (cartDrawer) {
+            cartDrawer.open();
+            log('cart:drawer:opened');
+          } else {
+            log('cart:drawer:not-found');
           }
-          log('checkout:redirect', { checkoutUrl: data.checkoutUrl.substring(0, 60) + '…' });
-          window.location.href = data.checkoutUrl;
         })
         .catch(function(err) {
-          log('checkout:error:catch', { message: err.message });
+          log('cart:error', { message: err.message });
           cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
           cartError.classList.add('is-visible');
           addToCartBtn.disabled = false;
-          addToCartBtn.textContent = 'Siparişe Devam Et';
+          addToCartBtn.textContent = 'Sepete Ekle';
         });
       });
+
+      // Intercept checkout button clicks and redirect to the draft order URL (correct price)
+      document.addEventListener('click', function(e) {
+        var checkoutUrl;
+        try { checkoutUrl = sessionStorage.getItem('perdeCheckoutUrl'); } catch(e2) {}
+        if (!checkoutUrl) return;
+
+        var target = e.target.closest('a[href*="/checkout"], button[name="checkout"], [data-checkout-btn]');
+        if (target) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          log('checkout:intercepted', { url: checkoutUrl.substring(0, 60) + '…' });
+          try { sessionStorage.removeItem('perdeCheckoutUrl'); } catch(e2) {}
+          window.location.href = checkoutUrl;
+        }
+      }, true);
 
     })();
 
