@@ -171,9 +171,116 @@ The service runs as the `curtain-app` container, exposed via Traefik at
 
 ---
 
+## Manual E2E test guide
+
+Tested on production store `inanctekstil.store`. Run this after any deployment.
+
+### Prerequisites
+- Browser with no existing cart (or clear the cart first at `/cart`)
+- API service is running: `curl https://app.inanctekstil.store/health` → `{"status":"ok",...}`
+
+---
+
+### Step 1 — Add TUL product via configurator
+
+1. Navigate to `https://inanctekstil.store/products/tul-bornova`
+2. **Verify**: standard variant picker and buy button are **hidden** (replaced by configurator)
+3. In Step 1 (Ölçü Seçimi), enter **En: 200**, **Boy: 250**
+4. **Verify**: "Devam Et" becomes enabled
+5. Click "Devam Et"
+6. **Verify**: Step 1 collapses to "Ölçü: 200 x 250 cm"; Step 2 pile style picker appears
+7. Select **Kanun Pile x2.5**
+8. Click "Devam Et"
+9. **Verify**: Step 2 collapses to "Pile: Kanun Pile"; Step 3 panel picker appears
+10. Select **Tek Kanat**
+11. Click "Devam Et"
+12. **Verify**: Step 3 collapses to "Kanat: Tek Kanat"; Step 4 Onay appears with:
+    - Review table: En 200 cm / Boy 250 cm / Pile Stili Kanun Pile / Kanat Tek Kanat
+    - **Tahmini Fiyat: 1.150,00 TL** ✓ (formula: 200/100 × 2.5 × 1 × 230)
+    - Disclaimer checkbox unchecked; "Sepete Ekle" disabled
+13. Check the disclaimer checkbox
+14. **Verify**: "Sepete Ekle" becomes enabled
+15. Click "Sepete Ekle"
+16. **Verify**: Button shows "Hazırlanıyor…" (draft order request in flight)
+17. **Verify**: Cart drawer opens with:
+    - Item: BORNOVA Tül Perde
+    - Properties: En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat
+    - Line price: **1,150.00TL** ✓
+    - Tahmini toplam: 1.150,00 TL
+
+---
+
+### Step 2 — Add STN product via normal add-to-cart
+
+1. Navigate to `https://inanctekstil.store/products/stn-saten`
+2. **Verify**: Standard buy button is visible (no configurator — product is not tagged `perde-tasarla`)
+3. **Verify**: Cart badge shows **1** item from the TUL step
+4. Click "Sepete ekle"
+5. **Verify**: Status shows "Eklendi"; cart badge increments to **2**
+
+---
+
+### Step 3 — Verify cart contents
+
+1. Navigate to `https://inanctekstil.store/cart`
+2. **Verify 2 line items**:
+
+   | Item | Properties | Displayed line price | Shopify stored price |
+   |------|-----------|---------------------|----------------------|
+   | BORNOVA Tül Perde | En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat | 1,150.00TL | 230.00TL (base/m) |
+   | Saten Perde | Renk: BEYAZ | 150.00TL | 150.00TL |
+
+3. **Verify**: Cart total shows **380.00 TRY** — this is Shopify's stored total (230+150), not the displayed total. This is expected on Basic plan (see Known limitations below).
+
+---
+
+### Step 4 — Checkout from cart drawer (correct path)
+
+> ⚠️ **Important**: The checkout interceptor only works if you click checkout **while on the TUL product page**. Clicking checkout from the `/cart` page bypasses the interceptor (see Known limitations).
+
+**Correct path (Draft Order redirect):**
+1. Navigate back to `https://inanctekstil.store/products/tul-bornova`
+2. Open the cart drawer (click cart icon in header)
+3. Click "Ödeme" inside the cart drawer
+4. **Verify**: URL changes to a Draft Order URL (`/checkouts/...` with a different token)
+5. **Verify**: Checkout shows **BORNOVA Tül Perde at ₺1,150.00** ✓ (not ₺230)
+6. **Verify**: All configuration properties are visible in the order line
+
+**Bug path (bypasses Draft Order — known issue):**
+1. Navigate to `https://inanctekstil.store/cart` directly
+2. Click "Ödeme"
+3. **Result**: Regular Shopify checkout opens at ₺380 total — TUL is charged at ₺230 instead of ₺1,150 ⚠️
+
+---
+
+### Step 5 — Checkout form
+
+1. On the Shopify checkout page (Draft Order path):
+2. Fill in contact: email address
+3. Delivery method: "Gönder" (ship)
+4. Fill in shipping address: Ad, Soyadı, Adres, Şehir (country pre-set to Türkiye)
+5. **Verify**: Shipping method appears (e.g. Standart ₺89.00)
+6. **Verify**: Order summary shows correct prices
+7. Payment: "Kredi / Banka Kartı (PayTR)" — clicking "Şimdi öde" redirects to PayTR
+
+---
+
 ## Known limitations
 
+- **Cart page checkout bypass**: The checkout interceptor is registered by the
+  `curtain-configurator` Liquid section, which only renders on pages tagged `perde-tasarla`.
+  If a customer navigates to `/cart` and clicks checkout there, the interceptor is not present
+  and Shopify routes to regular checkout at the base variant price (₺230/m). The Draft Order
+  URL is still in `sessionStorage` but nothing reads it on the cart page.
+  **Workaround**: Customers should checkout from the cart drawer while still on the TUL product
+  page, or a global interceptor script should be added to the theme layout.
+
 - **sessionStorage lifetime**: If a customer refreshes the page between adding to cart and
-  clicking checkout, `sessionStorage` is cleared and checkout falls back to the base variant
-  price (₺/m). This is a known constraint of the Basic plan.
-- **Cart Transform** (which would fix this properly) requires Shopify Plus.
+  clicking checkout, `sessionStorage` is cleared (init runs `removeItem`) and checkout falls
+  back to the base variant price. This is a known constraint of the Basic plan.
+
+- **Cart total display**: The Shopify cart/checkout shows the stored variant price (₺230/m)
+  in the cart total. The `perde-cart-total.js` script patches the displayed total on product
+  pages only. The correct price is enforced at checkout via the Draft Order URL.
+
+- **Cart Transform** (which would fix all price display issues) requires Shopify Plus.
