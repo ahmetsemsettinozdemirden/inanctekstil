@@ -27,6 +27,10 @@ const CREATE_INDEX = `
   ON cart_items(cart_token, variant_id)
 `;
 
+const ALTER_ADD_PRODUCT_ID = `
+  ALTER TABLE cart_items ADD COLUMN IF NOT EXISTS product_id BIGINT
+`;
+
 async function cleanup() {
   await sql`DELETE FROM cart_items WHERE created_at < NOW() - INTERVAL '7 days'`;
 }
@@ -39,6 +43,7 @@ export async function initDb(): Promise<void> {
   sql = postgres(url);
   await sql.unsafe(CREATE_TABLE);
   await sql.unsafe(CREATE_INDEX);
+  await sql.unsafe(ALTER_ADD_PRODUCT_ID);
   await cleanup();
   setInterval(cleanup, 24 * 60 * 60 * 1000);
 }

@@ -2,14 +2,14 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { sql } from "./db.ts";
 
-const VALID_PILE_ORANI = new Set([2.0, 2.5, 3.0]);
+const VALID_PILE_ORANI = new Set([1.0, 2.5, 3.0]);
 const ADMIN_API_VERSION = "2025-01";
 // Shopify cart tokens are alphanumeric with optional ?key=... suffix
 // e.g. "hWN9zvzqmHTRwvNxviJXoHPG?key=c8b76dc5c0984b5e472c32826d665c3a"
 const CART_TOKEN_RE = /^[a-zA-Z0-9\-_?=]{1,128}$/;
 
 // In-memory rate limiter: max 10 requests per minute per IP for /api/checkout/complete
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+export const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
 
@@ -135,36 +135,55 @@ app.post("/api/checkout/item", async (c) => {
   const headers = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
 
   // Fetch variant price server-side (never trust client-sent price)
+  // Fetch full variant object (no ?fields= filter) to ensure product_id is always present
+  log("DEBUG", "Fetching variant", { variantId });
   const variantRes = await fetch(
-    `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json?fields=price,product`,
+    `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json`,
     { headers },
   );
   if (!variantRes.ok) {
     log("WARN", "Variant not found", { variantId, status: variantRes.status });
     return c.json({ error: "VARIANT_NOT_FOUND", message: "Ürün bulunamadı" }, 404);
   }
-  const { variant } = await variantRes.json() as { variant: { price: string; product?: { title: string } } };
+  const { variant } = await variantRes.json() as { variant: { price: string; product_id: number } };
+  log("DEBUG", "Variant fetched", { variantId, price: variant.price, productId: variant.product_id });
+
   const basePricePerMeter = parseFloat(variant.price);
   if (!basePricePerMeter || basePricePerMeter <= 0) {
     log("ERROR", "Invalid variant price", { variantId, price: variant.price });
     return c.json({ error: "INVALID_PRICE", message: "Ürün fiyatı alınamadı" }, 500);
   }
-  const productTitle = variant.product?.title ?? "Özel Ölçü Perde";
+
+  // Fetch product title (variants only carry product_id, not title)
+  let productTitle = "Özel Ölçü Perde";
+  const productRes = await fetch(
+    `https://${domain}/admin/api/${ADMIN_API_VERSION}/products/${variant.product_id}.json?fields=id,title`,
+    { headers },
+  );
+  if (productRes.ok) {
+    const { product } = await productRes.json() as { product: { title: string } };
+    productTitle = product?.title ?? "Özel Ölçü Perde";
+    log("INFO", "Product title fetched", { productId: variant.product_id, productTitle });
+  } else {
+    log("WARN", "Product title fetch failed, using fallback", { productId: variant.product_id, status: productRes.status });
+  }
 
   // Price formula: (en / 100) × pileOrani × kanatCount × basePricePerMeter
   // boy_cm is stored for cutting reference only — not part of price
   const calculatedPrice = ((en / 100) * pileOrani * kanatCount * basePricePerMeter).toFixed(2);
+  const productId = variant.product_id;
 
-  log("INFO", "Upserting cart item", { cartToken, variantId, calculatedPrice });
+  log("INFO", "Upserting cart item", { cartToken, variantId, productId, productTitle, calculatedPrice });
 
   try {
     await sql`
       INSERT INTO cart_items
-        (cart_token, variant_id, product_title, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, base_price_per_meter, calculated_price)
+        (cart_token, variant_id, product_id, product_title, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, base_price_per_meter, calculated_price)
       VALUES
-        (${cartToken}, ${variantId}, ${productTitle}, ${en}, ${boy}, ${pileStili}, ${pileOrani}, ${kanat}, ${kanatCount}, ${basePricePerMeter}, ${calculatedPrice})
+        (${cartToken}, ${variantId}, ${productId}, ${productTitle}, ${en}, ${boy}, ${pileStili}, ${pileOrani}, ${kanat}, ${kanatCount}, ${basePricePerMeter}, ${calculatedPrice})
       ON CONFLICT (cart_token, variant_id)
       DO UPDATE SET
+        product_id = EXCLUDED.product_id,
         product_title = EXCLUDED.product_title,
         en_cm = EXCLUDED.en_cm,
         boy_cm = EXCLUDED.boy_cm,
@@ -181,7 +200,7 @@ app.post("/api/checkout/item", async (c) => {
     return c.json({ error: "DB_ERROR", message: "Veritabanı hatası" }, 500);
   }
 
-  log("INFO", "Cart item saved", { cartToken, variantId, calculatedPrice });
+  log("INFO", "Cart item saved", { cartToken, variantId, productId, productTitle, calculatedPrice });
   return c.json({ ok: true, calculatedPrice });
 });
 
@@ -192,6 +211,7 @@ app.post("/api/checkout/item", async (c) => {
 interface CartItemRow {
   product_title: string;
   variant_id: string;
+  product_id: string | null;
   en_cm: number;
   boy_cm: number;
   pile_stili: string;
@@ -231,7 +251,7 @@ app.post("/api/checkout/complete", async (c) => {
   let rows: CartItemRow[];
   try {
     rows = await sql<CartItemRow[]>`
-      SELECT product_title, variant_id, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, calculated_price
+      SELECT product_title, variant_id, product_id, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, calculated_price
       FROM cart_items
       WHERE cart_token = ${cartToken}
     `;
@@ -264,7 +284,10 @@ app.post("/api/checkout/complete", async (c) => {
   const { access_token: token } = await tokenRes.json() as { access_token: string };
   const shopifyHeaders = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
 
-  // Build draft order line items from all cart rows
+  // Build draft order line items from all cart rows.
+  // variant_id links the line item to the actual product for order management.
+  // title and price override the variant defaults so configured dimensions and
+  // calculated price are honoured even though the variant has a different base price.
   const lineItems = rows.map((row) => ({
     title: row.product_title,
     quantity: 1,
@@ -276,18 +299,22 @@ app.post("/api/checkout/complete", async (c) => {
       { name: "Boy", value: `${row.boy_cm} cm` },
       { name: "Pile Stili", value: `${row.pile_stili} (x${row.pile_orani})` },
       { name: "Kanat", value: row.kanat },
-      { name: "_variant_id", value: String(row.variant_id) },
     ],
   }));
 
-  log("INFO", "Creating draft order", { cartToken, itemCount: rows.length });
+  // Order note: one line per item so the admin sees what was configured
+  const note = rows
+    .map((row) => `${row.product_title}: ${row.en_cm}cm × ${row.pile_stili} (x${row.pile_orani}) × ${row.kanat}`)
+    .join("\n");
+
+  log("INFO", "Creating draft order", { cartToken, itemCount: rows.length, note });
 
   const draftRes = await fetch(
     `https://${domain}/admin/api/${ADMIN_API_VERSION}/draft_orders.json`,
     {
       method: "POST",
       headers: shopifyHeaders,
-      body: JSON.stringify({ draft_order: { line_items: lineItems } }),
+      body: JSON.stringify({ draft_order: { line_items: lineItems, note } }),
     },
   );
 

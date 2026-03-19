@@ -76,6 +76,8 @@
             return res.json().then(function (data) {
               if (data && data.checkoutUrl) {
                 log('redirecting to draft order checkout', { url: data.checkoutUrl.substring(0, 60) });
+                // Clear the Shopify cart — configured items now live in the draft order
+                fetch('/cart/clear.js', { method: 'POST' }).catch(function () {});
                 window.location.href = data.checkoutUrl;
               } else {
                 log('no checkoutUrl in response — falling through');

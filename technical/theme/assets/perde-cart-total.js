@@ -181,13 +181,20 @@
 
   function init() {
     var cartDrawer = document.querySelector('cart-drawer-component');
-    if (!cartDrawer) {
-      // cart-drawer-component might not exist yet; retry
+    var cartPage = document.querySelector('cart-items-component');
+    var target = cartDrawer || cartPage;
+
+    if (!target) {
+      // Neither element found yet — retry (e.g. deferred render)
       setTimeout(init, 500);
       return;
     }
 
-    _obs.observe(cartDrawer, {
+    if (cartPage && !cartDrawer) {
+      console.log('[PerdeCartTotal] running on cart page, observing cart-items-component');
+    }
+
+    _obs.observe(target, {
       childList: true,
       subtree: true,
       characterData: true,

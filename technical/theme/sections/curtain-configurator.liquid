@@ -8,6 +8,7 @@
       display: none !important;
     }
 
+    /* ── Container ───────────────────────────────────────────── */
     .perde-conf {
       font-family: var(--font-body--family, 'Inter', sans-serif);
       color: #333333;
@@ -15,80 +16,147 @@
       margin: 32px 0;
     }
 
-    /* ---- Active step card ---- */
-    .perde-conf__step {
+    /* ── Accordion item ──────────────────────────────────────── */
+    .perde-acc__item {
       border: 1px solid #E5E5E5;
       border-radius: 8px;
-      padding: 24px;
+      margin-bottom: 8px;
       background: #FFFFFF;
-      display: none;
+      overflow: hidden;
+      transition: border-color 0.2s;
     }
 
-    .perde-conf__step.is-active {
+    .perde-acc__item.is-active {
+      border-color: #1B2A4A;
+    }
+
+    /* ── Accordion header ────────────────────────────────────── */
+    .perde-acc__header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      gap: 12px;
+      user-select: none;
+      cursor: default;
+    }
+
+    .perde-acc__item.is-done .perde-acc__header {
+      cursor: pointer;
+    }
+
+    .perde-acc__item.is-done .perde-acc__header:hover {
+      background: #F8F8F8;
+    }
+
+    /* Step number circle */
+    .perde-acc__step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E5E5E5;
+      color: #999;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .perde-acc__item.is-active .perde-acc__step-num {
+      background: #1B2A4A;
+      color: #FFF;
+    }
+
+    .perde-acc__item.is-done .perde-acc__step-num {
+      background: #1B2A4A;
+      color: #FFF;
+      font-size: 0; /* hide number; show checkmark via ::after */
+    }
+
+    .perde-acc__item.is-done .perde-acc__step-num::after {
+      content: '✓';
+      font-size: 0.85rem;
+    }
+
+    /* Header text block */
+    .perde-acc__header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .perde-acc__step-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1B2A4A;
+      line-height: 1.2;
+    }
+
+    .perde-acc__item.is-locked .perde-acc__step-title {
+      color: #999;
+    }
+
+    .perde-acc__step-summary {
+      font-size: 0.82rem;
+      color: #555;
+      margin-top: 2px;
+      display: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .perde-acc__item.is-done .perde-acc__step-summary {
       display: block;
     }
 
-    .perde-conf__step-title {
-      font-family: var(--font-primary--family, 'Playfair Display', serif);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1B2A4A;
-      margin: 0 0 20px 0;
-    }
-
-    /* ---- Collapsed summary rows ---- */
-    .perde-conf__summary {
-      display: none;
-      border: 1px solid #E5E5E5;
-      border-radius: 8px;
-      padding: 14px 20px;
-      background: #F8F8F8;
-      font-size: 0.9rem;
-      color: #333333;
-      margin-bottom: 12px;
-    }
-
-    .perde-conf__summary.is-visible {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .perde-conf__summary-label {
-      font-weight: 600;
-      color: #1B2A4A;
-      margin-right: 8px;
-    }
-
-    /* ---- Step 1: measure hint link ---- */
-    .perde-conf__measure-hint {
-      font-size: 0.82rem;
-      color: #888;
-      margin: -8px 0 20px 0;
-    }
-
-    .perde-conf__measure-link {
+    /* Edit button */
+    .perde-acc__edit-btn {
+      font-size: 0.78rem;
       color: #1B2A4A;
       text-decoration: underline;
       text-underline-offset: 2px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 2px;
+      flex-shrink: 0;
+      display: none;
+      transition: opacity 0.15s;
     }
 
-    .perde-conf__measure-link:hover {
-      opacity: 0.75;
+    .perde-acc__edit-btn:hover {
+      opacity: 0.65;
     }
 
-    /* ---- Step 1: measurement inputs ---- */
+    .perde-acc__item.is-done .perde-acc__edit-btn {
+      display: block;
+    }
+
+    /* ── Accordion body ──────────────────────────────────────── */
+    .perde-acc__body {
+      display: none;
+      padding: 4px 16px 20px 16px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    .perde-acc__item.is-active .perde-acc__body {
+      display: block;
+    }
+
+    /* ── Step 1: diagram + inputs ────────────────────────────── */
     .perde-conf__diagram {
       display: flex;
       justify-content: center;
-      margin-bottom: 24px;
+      margin: 20px 0 18px 0;
     }
 
     .perde-conf__fields {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 14px;
+      margin-bottom: 12px;
     }
 
     .perde-conf__field label {
@@ -130,20 +198,31 @@
       display: block;
     }
 
-    /* ---- Step 2: pile card picker ---- */
+    .perde-conf__measure-hint {
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .perde-conf__measure-link {
+      color: #1B2A4A;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Step 2: pile cards (2×2) ────────────────────────────── */
     .perde-conf__pile-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 18px 0 16px 0;
     }
 
     .perde-conf__pile-card {
       border: 2px solid #E5E5E5;
       border-radius: 8px;
-      padding: 0;
       cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
       background: #F8F8F8;
       text-align: center;
       overflow: hidden;
@@ -155,31 +234,26 @@
 
     .perde-conf__pile-card.is-selected {
       border-color: #1B2A4A;
-      box-shadow: 0 0 0 2px #1B2A4A22;
+      box-shadow: 0 0 0 2px #1B2A4A1A;
+      background: #FFFFFF;
     }
 
     .perde-conf__pile-card__img {
       width: 100%;
-      aspect-ratio: 1;
-      background: #ffffff;
+      padding: 12px 8px 6px 8px;
+      box-sizing: border-box;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
-      font-size: 0.7rem;
-      color: #999;
-      position: relative;
-    }
-
-    .perde-conf__pile-card__img svg {
-      opacity: 0.4;
     }
 
     .perde-conf__pile-card__label {
-      padding: 10px 6px;
+      padding: 8px 6px 10px 6px;
       font-size: 0.82rem;
       font-weight: 600;
       color: #1B2A4A;
-      line-height: 1.3;
+      line-height: 1.35;
+      border-top: 1px solid #E5E5E5;
     }
 
     .perde-conf__pile-card__ratio {
@@ -188,20 +262,20 @@
       font-weight: 400;
     }
 
-    /* ---- Step 3: kanat options ---- */
+    /* ── Step 3: kanat options ───────────────────────────────── */
     .perde-conf__kanat-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 20px;
+      margin: 18px 0 16px 0;
     }
 
     .perde-conf__kanat-option {
       border: 2px solid #E5E5E5;
       border-radius: 8px;
-      padding: 16px 12px;
+      padding: 16px 12px 14px 12px;
       cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
       background: #F8F8F8;
       text-align: center;
     }
@@ -212,7 +286,8 @@
 
     .perde-conf__kanat-option.is-selected {
       border-color: #1B2A4A;
-      box-shadow: 0 0 0 2px #1B2A4A22;
+      box-shadow: 0 0 0 2px #1B2A4A1A;
+      background: #FFFFFF;
     }
 
     .perde-conf__kanat-option__img {
@@ -223,49 +298,54 @@
 
     .perde-conf__kanat-option__label {
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #1B2A4A;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .perde-conf__kanat-option__desc {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: #666;
       line-height: 1.4;
     }
 
-    /* ---- Shared button ---- */
+    /* ── Shared continue button ──────────────────────────────── */
     .perde-conf__btn {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       background: #1B2A4A;
       color: #FFFFFF;
       border: none;
       border-radius: 6px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       transition: opacity 0.15s;
     }
 
+    .perde-conf__btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
     .perde-conf__btn:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: not-allowed;
     }
 
-    /* ---- Step 4: config summary table ---- */
+    /* ── Step 4: summary table ───────────────────────────────── */
     .perde-conf__review-table {
       border: 1px solid #E5E5E5;
       border-radius: 8px;
       overflow: hidden;
-      margin-bottom: 20px;
+      margin: 18px 0 14px 0;
     }
 
     .perde-conf__review-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 10px 16px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #333;
       border-bottom: 1px solid #E5E5E5;
     }
@@ -277,50 +357,63 @@
     .perde-conf__review-row-label {
       font-weight: 600;
       color: #1B2A4A;
+      flex-shrink: 0;
+      margin-right: 12px;
     }
 
-    /* ---- Price block ---- */
+    .perde-conf__review-row-value {
+      text-align: right;
+    }
+
+    /* ── Price block ─────────────────────────────────────────── */
     .perde-conf__price-block {
-      background: #F8F8F8;
-      border: 1px solid #E5E5E5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F4F6FA;
+      border: 1px solid #D8DDE8;
       border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      text-align: center;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    .perde-conf__price-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .perde-conf__price-label {
       font-size: 0.78rem;
       color: #888;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .perde-conf__price-formula {
+      font-size: 0.75rem;
+      color: #999;
     }
 
     .perde-conf__price-value {
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 700;
       color: #1B2A4A;
       font-family: var(--font-primary--family, 'Playfair Display', serif);
-      margin-bottom: 4px;
     }
 
-    .perde-conf__price-note {
-      font-size: 0.75rem;
-      color: #888;
-    }
-
-    /* ---- Disclaimer checkbox ---- */
+    /* ── Disclaimer checkbox ─────────────────────────────────── */
     .perde-conf__disclaimer {
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      padding: 14px 16px;
+      padding: 12px 14px;
       background: #FFFBF0;
       border: 1px solid #EDD98A;
       border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
+      margin-bottom: 14px;
+      font-size: 0.83rem;
       color: #555;
       cursor: pointer;
       line-height: 1.5;
@@ -328,14 +421,14 @@
 
     .perde-conf__disclaimer input[type="checkbox"] {
       flex-shrink: 0;
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       margin-top: 2px;
       accent-color: #1B2A4A;
       cursor: pointer;
     }
 
-    /* ---- Cart error ---- */
+    /* ── Cart error ──────────────────────────────────────────── */
     .perde-conf__cart-error {
       display: none;
       color: #c0392b;
@@ -350,6 +443,38 @@
     .perde-conf__cart-error.is-visible {
       display: block;
     }
+
+    /* ── Step 4: curtain preview ─────────────────────────────── */
+    .perde-preview {
+      background: #EAF0F6;
+      border: 1px solid #C8D4E0;
+      border-radius: 8px;
+      padding: 18px 12px 14px 12px;
+      margin: 18px 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #perde-preview-svg {
+      max-width: 100%;
+      overflow: visible;
+      display: block;
+    }
+
+    .perde-preview__caption {
+      font-size: 0.8rem;
+      color: #5A6A80;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .perde-preview__caption strong {
+      color: #1B2A4A;
+      font-weight: 700;
+    }
+
   </style>
 
   <div id="curtain-configurator" class="curtain-configurator page-width"
@@ -359,199 +484,320 @@
     data-api-url="{{ section.settings.draft_order_api_url | escape }}">
     <div class="perde-conf">
 
-      <!-- Collapsed summary: Step 1 -->
-      <div id="perde-summary-1" class="perde-conf__summary">
-        <span><span class="perde-conf__summary-label">Ölçü:</span><span id="perde-summary-1-text"></span></span>
+      <!-- ── Step 1: Ölçü ── -->
+      <div id="perde-acc-1" class="perde-acc__item is-active">
+        <div class="perde-acc__header" id="perde-hdr-1">
+          <div class="perde-acc__step-num">1</div>
+          <div class="perde-acc__header-text">
+            <div class="perde-acc__step-title">Ölçü</div>
+            <div class="perde-acc__step-summary" id="perde-sum-1"></div>
+          </div>
+          <button class="perde-acc__edit-btn" data-step="1" aria-label="Ölçüyü düzenle">Düzenle</button>
+        </div>
+        <div class="perde-acc__body">
+
+          <div class="perde-conf__diagram">
+            <!--
+              Diagram: EN arrow at top (represents the kornis/rod),
+              rod drawn as a thick horizontal line, curtain hangs below.
+              BOY arrow on the right.
+            -->
+            <svg width="186" height="150" viewBox="0 0 186 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- EN arrow at top, above the rod -->
+              <line x1="30" y1="8" x2="130" y2="8" stroke="#1B2A4A" stroke-width="1.5"/>
+              <polygon points="30,4 30,12 22,8" fill="#1B2A4A"/>
+              <polygon points="130,4 130,12 138,8" fill="#1B2A4A"/>
+              <rect x="69" y="1" width="22" height="14" rx="2" fill="#FFFFFF"/>
+              <text x="80" y="12" text-anchor="middle" font-size="10" fill="#1B2A4A" font-weight="700">EN</text>
+              <!-- Kornis (rod) -->
+              <rect x="26" y="16" width="108" height="7" rx="3.5" fill="#1B2A4A" opacity="0.18"/>
+              <line x1="26" y1="19" x2="134" y2="19" stroke="#1B2A4A" stroke-width="4" stroke-linecap="round"/>
+              <!-- Curtain body -->
+              <rect x="30" y="23" width="100" height="108" fill="#EEF1F8" stroke="#1B2A4A" stroke-width="1.5"/>
+              <!-- Subtle fold lines -->
+              <line x1="50" y1="23" x2="50" y2="131" stroke="#C5CEDF" stroke-width="1" stroke-dasharray="4 3"/>
+              <line x1="70" y1="23" x2="70" y2="131" stroke="#C5CEDF" stroke-width="1" stroke-dasharray="4 3"/>
+              <line x1="90" y1="23" x2="90" y2="131" stroke="#C5CEDF" stroke-width="1" stroke-dasharray="4 3"/>
+              <line x1="110" y1="23" x2="110" y2="131" stroke="#C5CEDF" stroke-width="1" stroke-dasharray="4 3"/>
+              <!-- BOY arrow on right — dashed ref lines + shaft with label gap -->
+              <line x1="130" y1="23" x2="178" y2="23" stroke="#1B2A4A" stroke-width="1" stroke-dasharray="2 2"/>
+              <line x1="130" y1="131" x2="178" y2="131" stroke="#1B2A4A" stroke-width="1" stroke-dasharray="2 2"/>
+              <line x1="174" y1="27" x2="174" y2="68" stroke="#1B2A4A" stroke-width="1.5"/>
+              <line x1="174" y1="86" x2="174" y2="127" stroke="#1B2A4A" stroke-width="1.5"/>
+              <polygon points="170,27 178,27 174,19" fill="#1B2A4A"/>
+              <polygon points="170,127 178,127 174,135" fill="#1B2A4A"/>
+              <rect x="167" y="69" width="14" height="16" rx="2" fill="#FFFFFF"/>
+              <text x="174" y="77" text-anchor="middle" font-size="9" fill="#1B2A4A" font-weight="700" transform="rotate(90,174,77)">BOY</text>
+            </svg>
+          </div>
+
+          <div class="perde-conf__fields">
+            <div class="perde-conf__field">
+              <label for="perde-en">En (cm)</label>
+              <input type="number" id="perde-en" min="50" max="1000" placeholder="örn. 200">
+              <span class="perde-conf__error" id="perde-en-error">En 50–1000 cm arasında olmalıdır</span>
+            </div>
+            <div class="perde-conf__field">
+              <label for="perde-boy">Boy (cm)</label>
+              <input type="number" id="perde-boy" min="1" max="{{ max_boy }}" placeholder="örn. 250">
+              <span class="perde-conf__error" id="perde-boy-error">Boy en fazla {{ max_boy }} cm olabilir</span>
+            </div>
+          </div>
+
+          <p class="perde-conf__measure-hint">
+            Nasıl ölçü alınır?
+            <a id="perde-measure-link" href="#" class="perde-conf__measure-link">Perde Ölçüsü Nasıl Alınır? →</a>
+          </p>
+
+          <button class="perde-conf__btn" id="perde-step1-btn" disabled>Devam Et</button>
+        </div>
       </div>
 
-      <!-- Step 1: Ölçü Seçimi -->
-      <div id="perde-step-1" class="perde-conf__step is-active">
-        <p class="perde-conf__step-title">1. Ölçü Seçimi</p>
-
-        <div class="perde-conf__diagram">
-          <svg width="160" height="140" viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="30" y="10" width="100" height="110" fill="#F8F8F8" stroke="#1B2A4A" stroke-width="2"/>
-            <line x1="50" y1="10" x2="50" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="70" y1="10" x2="70" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="90" y1="10" x2="90" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="110" y1="10" x2="110" y2="120" stroke="#E5E5E5" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="30" y1="132" x2="130" y2="132" stroke="#1B2A4A" stroke-width="1.5"/>
-            <polygon points="30,128 30,136 22,132" fill="#1B2A4A"/>
-            <polygon points="130,128 130,136 138,132" fill="#1B2A4A"/>
-            <text x="80" y="128" text-anchor="middle" font-size="11" fill="#1B2A4A" font-weight="600">EN</text>
-            <line x1="144" y1="10" x2="144" y2="120" stroke="#1B2A4A" stroke-width="1.5"/>
-            <polygon points="140,10 148,10 144,2" fill="#1B2A4A"/>
-            <polygon points="140,120 148,120 144,128" fill="#1B2A4A"/>
-            <text x="144" y="70" text-anchor="middle" font-size="11" fill="#1B2A4A" font-weight="600" transform="rotate(90,144,70)">BOY</text>
-          </svg>
-        </div>
-
-        <div class="perde-conf__fields">
-          <div class="perde-conf__field">
-            <label for="perde-en">En (cm)</label>
-            <input type="number" id="perde-en" min="50" placeholder="örn. 200">
-            <span class="perde-conf__error" id="perde-en-error">En en az 50 cm olmalıdır</span>
+      <!-- ── Step 2: Pile Modeli ── -->
+      <div id="perde-acc-2" class="perde-acc__item is-locked">
+        <div class="perde-acc__header" id="perde-hdr-2">
+          <div class="perde-acc__step-num">2</div>
+          <div class="perde-acc__header-text">
+            <div class="perde-acc__step-title">Pile Modeli</div>
+            <div class="perde-acc__step-summary" id="perde-sum-2"></div>
           </div>
-          <div class="perde-conf__field">
-            <label for="perde-boy">Boy (cm)</label>
-            <input type="number" id="perde-boy" min="1" max="{{ max_boy }}" placeholder="örn. 250">
-            <span class="perde-conf__error" id="perde-boy-error">Boy en fazla {{ max_boy }} cm olabilir</span>
-          </div>
+          <button class="perde-acc__edit-btn" data-step="2" aria-label="Pile modelini düzenle">Düzenle</button>
         </div>
+        <div class="perde-acc__body">
+          <div class="perde-conf__pile-cards">
 
-        <p class="perde-conf__measure-hint">
-          Ölçü almayı bilmiyor musunuz?
-          <a id="perde-measure-link" href="#" class="perde-conf__measure-link">Perde Ölçüsü Nasıl Alınır? →</a>
-        </p>
+            <!-- Düz Dikiş: 1x -->
+            <div class="perde-conf__pile-card" data-pile="Düz Dikiş" data-ratio="1.0" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__pile-card__img">
+                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
+                  <!-- Rod -->
+                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Flat panel — no gathering, hangs straight -->
+                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
+                  <line x1="4" y1="18" x2="84" y2="18" stroke="#B8C4D8" stroke-width="0.8"/>
+                  <line x1="4" y1="32" x2="84" y2="32" stroke="#B8C4D8" stroke-width="0.8"/>
+                  <line x1="4" y1="46" x2="84" y2="46" stroke="#B8C4D8" stroke-width="0.8"/>
+                  <!-- Ring hooks -->
+                  <circle cx="14" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="30" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="46" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="62" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="74" cy="4" r="2.2" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__pile-card__label">
+                Düz Dikiş<br>
+                <span class="perde-conf__pile-card__ratio">×1.0</span>
+              </div>
+            </div>
 
-        <button class="perde-conf__btn" id="perde-step1-btn" disabled>Devam Et</button>
+            <!-- Kırma (Yatık) Pile: 2.5x -->
+            <div class="perde-conf__pile-card" data-pile="Kırma Pile" data-ratio="2.5" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__pile-card__img">
+                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
+                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
+                  <!-- Pinch pleats: fabric gathers into pairs -->
+                  <path d="M16 4 L9 52"  stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M16 4 L23 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M36 4 L29 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M36 4 L43 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M56 4 L49 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M56 4 L63 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M74 4 L67 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <path d="M74 4 L79 52" stroke="#8898B4" stroke-width="1.2" fill="none"/>
+                  <!-- Pinch dots -->
+                  <circle cx="16" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="36" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="56" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="74" cy="4" r="2.2" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__pile-card__label">
+                Kırma Pile<br>
+                <span class="perde-conf__pile-card__ratio">×2.5</span>
+              </div>
+            </div>
+
+            <!-- Boru Pile: 3x -->
+            <div class="perde-conf__pile-card" data-pile="Boru Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__pile-card__img">
+                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
+                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
+                  <!-- Tube pleats: smooth cylindrical columns -->
+                  <path d="M14 4 C10 20 18 20 14 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
+                  <path d="M14 4 C18 20 10 20 14 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
+                  <path d="M28 4 C24 20 32 20 28 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
+                  <path d="M28 4 C32 20 24 20 28 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
+                  <path d="M42 4 C38 20 46 20 42 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
+                  <path d="M42 4 C46 20 38 20 42 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
+                  <path d="M56 4 C52 20 60 20 56 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
+                  <path d="M56 4 C60 20 52 20 56 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
+                  <path d="M70 4 C66 20 74 20 70 52" stroke="#6878A0" stroke-width="1.6" fill="none"/>
+                  <path d="M70 4 C74 20 66 20 70 52" stroke="#A8B4CC" stroke-width="0.9" fill="none"/>
+                  <circle cx="14" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="28" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="42" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="56" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="70" cy="4" r="2.2" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__pile-card__label">
+                Boru Pile<br>
+                <span class="perde-conf__pile-card__ratio">×3.0</span>
+              </div>
+            </div>
+
+            <!-- Kanun Pile: 3x -->
+            <div class="perde-conf__pile-card" data-pile="Kanun Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__pile-card__img">
+                <svg width="88" height="56" viewBox="0 0 88 56" fill="none">
+                  <line x1="4" y1="4" x2="84" y2="4" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="4" y="4" width="80" height="48" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.2"/>
+                  <!-- Fan / goblet pleats: triple folds radiating from one mount point -->
+                  <!-- Group 1 at x=18 -->
+                  <path d="M18 4 L8  52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <path d="M18 4 L18 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
+                  <path d="M18 4 L28 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <!-- Group 2 at x=44 -->
+                  <path d="M44 4 L34 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <path d="M44 4 L44 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
+                  <path d="M44 4 L54 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <!-- Group 3 at x=70 -->
+                  <path d="M70 4 L60 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <path d="M70 4 L70 52" stroke="#5C6E8A" stroke-width="1.6" fill="none"/>
+                  <path d="M70 4 L80 52" stroke="#8898B4" stroke-width="1.1" fill="none"/>
+                  <circle cx="18" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="44" cy="4" r="2.2" fill="#1B2A4A"/>
+                  <circle cx="70" cy="4" r="2.2" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__pile-card__label">
+                Kanun Pile<br>
+                <span class="perde-conf__pile-card__ratio">×3.0</span>
+              </div>
+            </div>
+
+          </div>
+          <button class="perde-conf__btn" id="perde-step2-btn" disabled>Devam Et</button>
+        </div>
       </div>
 
-      <!-- Collapsed summary: Step 2 -->
-      <div id="perde-summary-2" class="perde-conf__summary">
-        <span><span class="perde-conf__summary-label">Pile:</span><span id="perde-summary-2-text"></span></span>
+      <!-- ── Step 3: Kanat ── -->
+      <div id="perde-acc-3" class="perde-acc__item is-locked">
+        <div class="perde-acc__header" id="perde-hdr-3">
+          <div class="perde-acc__step-num">3</div>
+          <div class="perde-acc__header-text">
+            <div class="perde-acc__step-title">Kanat</div>
+            <div class="perde-acc__step-summary" id="perde-sum-3"></div>
+          </div>
+          <button class="perde-acc__edit-btn" data-step="3" aria-label="Kanat seçimini düzenle">Düzenle</button>
+        </div>
+        <div class="perde-acc__body">
+          <div class="perde-conf__kanat-options">
+
+            <!-- Tek Kanat -->
+            <div class="perde-conf__kanat-option" data-kanat="Tek Kanat" data-count="1" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__kanat-option__img">
+                <svg width="80" height="76" viewBox="0 0 80 76" fill="none" aria-hidden="true">
+                  <!-- Rod across full width -->
+                  <line x1="4" y1="8" x2="76" y2="8" stroke="#1B2A4A" stroke-width="3.5" stroke-linecap="round"/>
+                  <!-- Single full-width panel -->
+                  <rect x="4" y="8" width="72" height="56" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.5"/>
+                  <line x1="18" y1="8" x2="18" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <line x1="32" y1="8" x2="32" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <line x1="46" y1="8" x2="46" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <line x1="60" y1="8" x2="60" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <!-- Arrow: opens to one side (right) -->
+                  <path d="M36 70 L56 70" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+                  <polygon points="56,67 56,73 63,70" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__kanat-option__label">Tek Kanat</div>
+              <div class="perde-conf__kanat-option__desc">Tek parça, tek tarafa açılır</div>
+            </div>
+
+            <!-- Çift Kanat -->
+            <div class="perde-conf__kanat-option" data-kanat="Çift Kanat" data-count="2" role="button" tabindex="0" aria-pressed="false">
+              <div class="perde-conf__kanat-option__img">
+                <svg width="80" height="76" viewBox="0 0 80 76" fill="none" aria-hidden="true">
+                  <!-- Rod across full width -->
+                  <line x1="4" y1="8" x2="76" y2="8" stroke="#1B2A4A" stroke-width="3.5" stroke-linecap="round"/>
+                  <!-- Left panel -->
+                  <rect x="4" y="8" width="33" height="56" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.5"/>
+                  <line x1="14" y1="8" x2="14" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <line x1="25" y1="8" x2="25" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <!-- Right panel -->
+                  <rect x="43" y="8" width="33" height="56" fill="#DDE3EE" stroke="#1B2A4A" stroke-width="1.5"/>
+                  <line x1="54" y1="8" x2="54" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <line x1="65" y1="8" x2="65" y2="64" stroke="#B8C4D8" stroke-width="1" stroke-dasharray="3 3"/>
+                  <!-- Gap line (center split) -->
+                  <line x1="40" y1="8" x2="40" y2="64" stroke="#1B2A4A" stroke-width="0.8" stroke-dasharray="2 3"/>
+                  <!-- Arrows: opens both ways -->
+                  <path d="M27 70 L14 70" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+                  <polygon points="14,67 14,73 7,70" fill="#1B2A4A"/>
+                  <path d="M53 70 L66 70" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+                  <polygon points="66,67 66,73 73,70" fill="#1B2A4A"/>
+                </svg>
+              </div>
+              <div class="perde-conf__kanat-option__label">Çift Kanat</div>
+              <div class="perde-conf__kanat-option__desc">İki parça, ortadan her iki yana açılır</div>
+            </div>
+
+          </div>
+          <button class="perde-conf__btn" id="perde-step3-btn" disabled>Devam Et</button>
+        </div>
       </div>
 
-      <!-- Step 2: Pile Stili -->
-      <div id="perde-step-2" class="perde-conf__step">
-        <p class="perde-conf__step-title">2. Pile Stili</p>
-
-        <div class="perde-conf__pile-cards">
-          <!-- Düz Dikiş -->
-          <div class="perde-conf__pile-card" data-pile="Düz Dikiş" data-ratio="2.0" role="button" tabindex="0" aria-pressed="false">
-            <div class="perde-conf__pile-card__img">
-              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
-                <line x1="5" y1="15" x2="55" y2="15" stroke="#bbb" stroke-width="1"/>
-                <line x1="5" y1="25" x2="55" y2="25" stroke="#bbb" stroke-width="1"/>
-                <line x1="5" y1="35" x2="55" y2="35" stroke="#bbb" stroke-width="1"/>
-                <line x1="5" y1="45" x2="55" y2="45" stroke="#bbb" stroke-width="1"/>
-              </svg>
-            </div>
-            <div class="perde-conf__pile-card__label">
-              Düz Dikiş<br>
-              <span class="perde-conf__pile-card__ratio">x2.0</span>
-            </div>
-          </div>
-          <!-- Kanun Pile -->
-          <div class="perde-conf__pile-card" data-pile="Kanun Pile" data-ratio="2.5" role="button" tabindex="0" aria-pressed="false">
-            <div class="perde-conf__pile-card__img">
-              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
-                <path d="M10 55 Q15 30 20 55 Q25 30 30 55 Q35 30 40 55 Q45 30 50 55" stroke="#aaa" stroke-width="1.5" fill="none"/>
-              </svg>
-            </div>
-            <div class="perde-conf__pile-card__label">
-              Kanun Pile<br>
-              <span class="perde-conf__pile-card__ratio">x2.5</span>
-            </div>
-          </div>
-          <!-- Boru Pile -->
-          <div class="perde-conf__pile-card" data-pile="Boru Pile" data-ratio="3.0" role="button" tabindex="0" aria-pressed="false">
-            <div class="perde-conf__pile-card__img">
-              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                <rect x="5" y="5" width="50" height="50" fill="#D5D5D5" rx="2"/>
-                <line x1="15" y1="5" x2="15" y2="55" stroke="#aaa" stroke-width="2"/>
-                <line x1="25" y1="5" x2="25" y2="55" stroke="#aaa" stroke-width="2"/>
-                <line x1="35" y1="5" x2="35" y2="55" stroke="#aaa" stroke-width="2"/>
-                <line x1="45" y1="5" x2="45" y2="55" stroke="#aaa" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="perde-conf__pile-card__label">
-              Boru Pile<br>
-              <span class="perde-conf__pile-card__ratio">x3.0</span>
-            </div>
+      <!-- ── Step 4: Özet ve Sepet ── -->
+      <div id="perde-acc-4" class="perde-acc__item is-locked">
+        <div class="perde-acc__header">
+          <div class="perde-acc__step-num">4</div>
+          <div class="perde-acc__header-text">
+            <div class="perde-acc__step-title">Özet ve Sepet</div>
           </div>
         </div>
+        <div class="perde-acc__body">
 
-        <button class="perde-conf__btn" id="perde-step2-btn" disabled>Devam Et</button>
-      </div>
+          <!-- Dynamic curtain preview -->
+          <div class="perde-preview" id="perde-preview-box">
+            <svg id="perde-preview-svg" width="240" height="160"></svg>
+            <div class="perde-preview__caption" id="perde-preview-caption"></div>
+          </div>
 
-      <!-- Collapsed summary: Step 3 -->
-      <div id="perde-summary-3" class="perde-conf__summary">
-        <span><span class="perde-conf__summary-label">Kanat:</span><span id="perde-summary-3-text"></span></span>
-      </div>
-
-      <!-- Step 3: Kanat Seçimi -->
-      <div id="perde-step-3" class="perde-conf__step">
-        <p class="perde-conf__step-title">3. Kanat Seçimi</p>
-
-        <div class="perde-conf__kanat-options">
-          <!-- Tek Kanat -->
-          <div class="perde-conf__kanat-option" data-kanat="Tek Kanat" data-count="1" role="button" tabindex="0" aria-pressed="false">
-            <div class="perde-conf__kanat-option__img">
-              <svg width="64" height="72" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="16" y="4" width="32" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
-                <line x1="22" y1="4" x2="22" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="30" y1="4" x2="30" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="38" y1="4" x2="38" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="46" y1="4" x2="46" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="16" y1="4" x2="48" y2="4" stroke="#1B2A4A" stroke-width="2.5"/>
-              </svg>
+          <div class="perde-conf__review-table">
+            <div class="perde-conf__review-row">
+              <span class="perde-conf__review-row-label">En × Boy</span>
+              <span class="perde-conf__review-row-value" id="perde-review-dims">—</span>
             </div>
-            <div class="perde-conf__kanat-option__label">Tek Kanat</div>
-            <div class="perde-conf__kanat-option__desc">Tek parça perde, tek tarafa açılır.</div>
-          </div>
-          <!-- Çift Kanat -->
-          <div class="perde-conf__kanat-option" data-kanat="Çift Kanat" data-count="2" role="button" tabindex="0" aria-pressed="false">
-            <div class="perde-conf__kanat-option__img">
-              <svg width="64" height="72" viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect x="2" y="4" width="27" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
-                <line x1="8"  y1="4" x2="8"  y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="15" y1="4" x2="15" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="22" y1="4" x2="22" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <rect x="35" y="4" width="27" height="60" fill="#E5E5E5" stroke="#1B2A4A" stroke-width="2"/>
-                <line x1="41" y1="4" x2="41" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="48" y1="4" x2="48" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="55" y1="4" x2="55" y2="64" stroke="#C5C5C5" stroke-width="1" stroke-dasharray="3 3"/>
-                <line x1="2"  y1="4" x2="62" y2="4" stroke="#1B2A4A" stroke-width="2.5"/>
-              </svg>
+            <div class="perde-conf__review-row">
+              <span class="perde-conf__review-row-label">Pile Modeli</span>
+              <span class="perde-conf__review-row-value" id="perde-review-pile">—</span>
             </div>
-            <div class="perde-conf__kanat-option__label">Çift Kanat</div>
-            <div class="perde-conf__kanat-option__desc">İki parça perde, ortadan her iki yana açılır.</div>
+            <div class="perde-conf__review-row">
+              <span class="perde-conf__review-row-label">Kanat</span>
+              <span class="perde-conf__review-row-value" id="perde-review-kanat">—</span>
+            </div>
           </div>
+
+          <div class="perde-conf__price-block">
+            <div class="perde-conf__price-meta">
+              <span class="perde-conf__price-label">Toplam Fiyat</span>
+              <span class="perde-conf__price-formula" id="perde-price-formula"></span>
+            </div>
+            <div class="perde-conf__price-value" id="perde-price-display">—</div>
+          </div>
+
+          <label class="perde-conf__disclaimer">
+            <input type="checkbox" id="perde-disclaimer-check">
+            <span>Bu perde özel olarak dikileceği için iade edilemez. Ölçülerimi kontrol ettiğimi onaylıyorum.</span>
+          </label>
+
+          <div class="perde-conf__cart-error" id="perde-cart-error"></div>
+
+          <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Sepete Ekle</button>
         </div>
-
-        <button class="perde-conf__btn" id="perde-step3-btn" disabled>Devam Et</button>
-      </div>
-
-      <!-- Step 4: Onay -->
-      <div id="perde-step-4" class="perde-conf__step">
-        <p class="perde-conf__step-title">4. Onay</p>
-
-        <div class="perde-conf__review-table">
-          <div class="perde-conf__review-row">
-            <span class="perde-conf__review-row-label">En</span>
-            <span id="perde-review-en">—</span>
-          </div>
-          <div class="perde-conf__review-row">
-            <span class="perde-conf__review-row-label">Boy</span>
-            <span id="perde-review-boy">—</span>
-          </div>
-          <div class="perde-conf__review-row">
-            <span class="perde-conf__review-row-label">Pile Stili</span>
-            <span id="perde-review-pile">—</span>
-          </div>
-          <div class="perde-conf__review-row">
-            <span class="perde-conf__review-row-label">Kanat</span>
-            <span id="perde-review-kanat">—</span>
-          </div>
-        </div>
-
-        <div class="perde-conf__price-block">
-          <div class="perde-conf__price-label">Tahmini Fiyat</div>
-          <div class="perde-conf__price-value" id="perde-price-display">—</div>
-          <div class="perde-conf__price-note">Sepette kesinleşir.</div>
-        </div>
-
-        <label class="perde-conf__disclaimer">
-          <input type="checkbox" id="perde-disclaimer-check">
-          <span>Bu perde özel olarak dikileceği için iade edilemez. Ölçülerimi kontrol ettiğimi onaylıyorum.</span>
-        </label>
-
-        <div class="perde-conf__cart-error" id="perde-cart-error"></div>
-
-        <button class="perde-conf__btn" id="perde-add-to-cart-btn" disabled>Sepete Ekle</button>
       </div>
 
     </div>
@@ -559,7 +805,6 @@
 
   <script>
     (function() {
-      // ─── Logger ─────────────────────────────────────────────────────────────
       function log(event, data) {
         if (data !== undefined) {
           console.log('[PerdeTasarla] ' + event, data);
@@ -577,31 +822,71 @@
       var VARIANT_ID = parseInt(confEl.dataset.variantId, 10);
       var API_URL    = confEl.dataset.apiUrl || '';
 
-      log('init', {
-        basePrice:  BASE_PRICE,
-        variantId:  VARIANT_ID,
-        maxBoy:     MAX_BOY,
-        apiUrl:     API_URL ? 'configured' : 'MISSING',
-        apiUrlHost: API_URL ? API_URL.replace(/^https?:\/\//, '').split('/')[0] : null
+      log('init', { basePrice: BASE_PRICE, variantId: VARIANT_ID, maxBoy: MAX_BOY });
+
+      /* ── Accordion state: 'locked' | 'active' | 'done' ──────── */
+      var stepState = { 1: 'active', 2: 'locked', 3: 'locked', 4: 'locked' };
+      var stepDone  = {};
+
+      function setStepState(step, state) {
+        var el = document.getElementById('perde-acc-' + step);
+        el.classList.remove('is-active', 'is-locked', 'is-done');
+        if (state === 'active')  el.classList.add('is-active');
+        if (state === 'locked')  el.classList.add('is-locked');
+        if (state === 'done')    el.classList.add('is-done');
+        stepState[step] = state;
+      }
+
+      function activateStep(step) {
+        for (var s = 1; s <= 4; s++) {
+          if (s === step) { setStepState(s, 'active'); continue; }
+          if (stepState[s] === 'active') {
+            setStepState(s, stepDone[s] ? 'done' : 'locked');
+          }
+        }
+      }
+
+      function markDone(step, summaryText) {
+        stepDone[step] = true;
+        var el = document.getElementById('perde-sum-' + step);
+        if (el) el.textContent = summaryText;
+        setStepState(step, 'done');
+      }
+
+      // "Düzenle" buttons reopen a done step
+      document.querySelectorAll('.perde-acc__edit-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          activateStep(parseInt(btn.dataset.step, 10));
+          log('edit:step', { step: btn.dataset.step });
+        });
       });
 
-      /* ---------- Step 1 ---------- */
-      var enInput      = document.getElementById('perde-en');
-      var boyInput     = document.getElementById('perde-boy');
-      var enError      = document.getElementById('perde-en-error');
-      var boyError     = document.getElementById('perde-boy-error');
-      var step1Btn     = document.getElementById('perde-step1-btn');
-      var step1El      = document.getElementById('perde-step-1');
-      var summary1     = document.getElementById('perde-summary-1');
-      var summary1Text = document.getElementById('perde-summary-1-text');
-      var step2El      = document.getElementById('perde-step-2');
+      // Header click on done steps
+      [1, 2, 3].forEach(function(s) {
+        var hdr = document.getElementById('perde-hdr-' + s);
+        if (hdr) {
+          hdr.addEventListener('click', function() {
+            if (stepState[s] === 'done') {
+              activateStep(s);
+              log('header:reopen', { step: s });
+            }
+          });
+        }
+      });
+
+      /* ── Step 1: Ölçü ────────────────────────────────────────── */
+      var enInput  = document.getElementById('perde-en');
+      var boyInput = document.getElementById('perde-boy');
+      var enError  = document.getElementById('perde-en-error');
+      var boyError = document.getElementById('perde-boy-error');
+      var step1Btn = document.getElementById('perde-step1-btn');
 
       function validateEn() {
         var v = parseInt(enInput.value, 10);
-        var ok = !isNaN(v) && v >= MIN_EN;
+        var ok = !isNaN(v) && v >= MIN_EN && v <= 1000;
         enInput.classList.toggle('is-invalid', !ok && enInput.value !== '');
         enError.classList.toggle('is-visible', !ok && enInput.value !== '');
-        if (!ok && enInput.value !== '') log('validate:en:fail', { value: enInput.value, min: MIN_EN });
         return ok;
       }
 
@@ -610,35 +895,28 @@
         var ok = !isNaN(v) && v >= 1 && v <= MAX_BOY;
         boyInput.classList.toggle('is-invalid', !ok && boyInput.value !== '');
         boyError.classList.toggle('is-visible', !ok && boyInput.value !== '');
-        if (!ok && boyInput.value !== '') log('validate:boy:fail', { value: boyInput.value, max: MAX_BOY });
         return ok;
       }
 
-      function updateStep1Btn() {
+      enInput.addEventListener('input', function() {
         step1Btn.disabled = !(validateEn() && validateBoy());
-      }
-
-      enInput.addEventListener('input', updateStep1Btn);
-      boyInput.addEventListener('input', updateStep1Btn);
+      });
+      boyInput.addEventListener('input', function() {
+        step1Btn.disabled = !(validateEn() && validateBoy());
+      });
 
       step1Btn.addEventListener('click', function() {
         if (step1Btn.disabled) return;
         window.perdeConfig.en  = parseInt(enInput.value, 10);
         window.perdeConfig.boy = parseInt(boyInput.value, 10);
         log('step1:complete', { en: window.perdeConfig.en, boy: window.perdeConfig.boy });
-        step1El.classList.remove('is-active');
-        summary1Text.textContent = window.perdeConfig.en + ' x ' + window.perdeConfig.boy + ' cm';
-        summary1.classList.add('is-visible');
-        step2El.classList.add('is-active');
+        markDone(1, window.perdeConfig.en + ' × ' + window.perdeConfig.boy + ' cm');
+        activateStep(stepDone[2] ? 2 : 2); // always go to step 2
       });
 
-      /* ---------- Step 2 ---------- */
-      var step2Btn     = document.getElementById('perde-step2-btn');
-      var summary2     = document.getElementById('perde-summary-2');
-      var summary2Text = document.getElementById('perde-summary-2-text');
-      var pileCards    = document.querySelectorAll('.perde-conf__pile-card');
-      var step3El      = document.getElementById('perde-step-3');
-      var summary3     = document.getElementById('perde-summary-3');
+      /* ── Step 2: Pile Modeli ─────────────────────────────────── */
+      var step2Btn  = document.getElementById('perde-step2-btn');
+      var pileCards = document.querySelectorAll('.perde-conf__pile-card');
 
       pileCards.forEach(function(card) {
         card.addEventListener('click', function() {
@@ -661,15 +939,12 @@
       step2Btn.addEventListener('click', function() {
         if (step2Btn.disabled) return;
         log('step2:complete', { pile: window.perdeConfig.pile_stili, ratio: window.perdeConfig.pile_orani });
-        step2El.classList.remove('is-active');
-        summary2Text.textContent = window.perdeConfig.pile_stili;
-        summary2.classList.add('is-visible');
-        step3El.classList.add('is-active');
+        markDone(2, window.perdeConfig.pile_stili + ' (×' + window.perdeConfig.pile_orani + ')');
+        activateStep(3);
       });
 
-      /* ---------- Step 3 ---------- */
+      /* ── Step 3: Kanat ───────────────────────────────────────── */
       var step3Btn     = document.getElementById('perde-step3-btn');
-      var summary3Text = document.getElementById('perde-summary-3-text');
       var kanatOptions = document.querySelectorAll('.perde-conf__kanat-option');
 
       kanatOptions.forEach(function(opt) {
@@ -683,7 +958,7 @@
           window.perdeConfig.kanat       = opt.dataset.kanat;
           window.perdeConfig.kanat_count = parseInt(opt.dataset.count, 10);
           step3Btn.disabled = false;
-          log('step3:select', { kanat: opt.dataset.kanat, count: opt.dataset.count });
+          log('step3:select', { kanat: opt.dataset.kanat });
         });
         opt.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); }
@@ -692,18 +967,15 @@
 
       step3Btn.addEventListener('click', function() {
         if (step3Btn.disabled) return;
-        log('step3:complete', { kanat: window.perdeConfig.kanat, count: window.perdeConfig.kanat_count });
-        step3El.classList.remove('is-active');
-        summary3Text.textContent = window.perdeConfig.kanat;
-        summary3.classList.add('is-visible');
+        log('step3:complete', { kanat: window.perdeConfig.kanat });
+        markDone(3, window.perdeConfig.kanat);
         showStep4();
       });
 
-      /* ---------- Step 4 ---------- */
-      var step4El         = document.getElementById('perde-step-4');
+      /* ── Step 4: Özet ve Sepet ───────────────────────────────── */
       var priceDisplay    = document.getElementById('perde-price-display');
-      var reviewEn        = document.getElementById('perde-review-en');
-      var reviewBoy       = document.getElementById('perde-review-boy');
+      var priceFormula    = document.getElementById('perde-price-formula');
+      var reviewDims      = document.getElementById('perde-review-dims');
       var reviewPile      = document.getElementById('perde-review-pile');
       var reviewKanat     = document.getElementById('perde-review-kanat');
       var disclaimerCheck = document.getElementById('perde-disclaimer-check');
@@ -715,39 +987,203 @@
       }
 
       function calcPrice() {
-        var en    = window.perdeConfig.en || 0;
+        var en    = window.perdeConfig.en    || 0;
         var ratio = window.perdeConfig.pile_orani || 1;
         var count = window.perdeConfig.kanat_count || 1;
-        var price = (en / 100) * ratio * count * BASE_PRICE;
-        log('price:formula', {
-          formula: '(' + en + '/100) × ' + ratio + ' × ' + count + ' × ' + BASE_PRICE,
-          result: price,
-          resultFormatted: formatTL(price)
+        return (en / 100) * ratio * count * BASE_PRICE;
+      }
+
+      /* ── Curtain visual preview ──────────────────────────────── */
+      function buildPreview() {
+        var cfg = window.perdeConfig;
+        var svg = document.getElementById('perde-preview-svg');
+        var cap = document.getElementById('perde-preview-caption');
+        if (!svg) return;
+
+        // Canvas dimensions
+        var CW   = 220;  // curtain area width
+        var PR   = 36;   // right padding for BOY arrow
+        var PT   = 26;   // top padding for EN arrow + rod
+        var totalW = CW + PR;
+
+        var isDouble = cfg.kanat_count === 2;
+        var gap      = isDouble ? 12 : 0;
+        var panelW   = isDouble ? Math.floor((CW - gap) / 2) : CW;
+
+        // Curtain height from en/boy ratio (55% scale, clamped)
+        var ebRatio  = (cfg.boy && cfg.en && cfg.en > 0) ? cfg.boy / cfg.en : 1.2;
+        var curtainH = Math.round(Math.min(Math.max(CW * ebRatio * 0.52, 90), 170));
+        var totalH   = PT + curtainH + 12;
+
+        var rodY       = 22;
+        var curtainTop = rodY + 5;
+        var curtainBot = curtainTop + curtainH;
+
+        var pileType = cfg.pile_stili || '';
+
+        // Fold counts per panel based on pile type
+        var foldCounts = {
+          'Düz Dikiş':  Math.max(5, Math.round(panelW / 30)),
+          'Kırma Pile': Math.max(5, Math.round(panelW / 22)),
+          'Boru Pile':  Math.max(6, Math.round(panelW / 18)),
+          'Kanun Pile': Math.max(4, Math.round(panelW / 28))
+        };
+        var numFolds = foldCounts[pileType] || Math.round(panelW / 24);
+
+        var panels = isDouble
+          ? [{ x1: 0, x2: panelW }, { x1: panelW + gap, x2: CW }]
+          : [{ x1: 0, x2: CW }];
+
+        function r(n) { return Math.round(n * 10) / 10; }
+
+        var p = [];
+
+        // ── Window behind çift kanat gap ──
+        if (isDouble) {
+          p.push('<rect x="' + panelW + '" y="' + curtainTop + '" width="' + gap + '" height="' + curtainH + '" fill="#D4EBF4"/>');
+        }
+
+        // ── Each panel ──
+        panels.forEach(function(panel) {
+          var pw = panel.x2 - panel.x1;
+          var sp = pw / numFolds;
+
+          // Fabric background
+          p.push('<rect x="' + panel.x1 + '" y="' + curtainTop + '" width="' + pw + '" height="' + curtainH + '" fill="#D8DDE8"/>');
+
+          // Folds / pleat lines
+          for (var i = 0; i < numFolds; i++) {
+            var hx  = r(panel.x1 + sp * (i + 0.5));
+            var yt  = curtainTop;
+            var yb  = curtainBot;
+            var q1y = r(yt + curtainH * 0.25);
+            var q3y = r(yt + curtainH * 0.75);
+
+            if (pileType === 'Düz Dikiş') {
+              // Subtle straight lines — flat fabric
+              p.push('<line x1="' + hx + '" y1="' + yt + '" x2="' + hx + '" y2="' + yb + '" stroke="#B0BBCC" stroke-width="0.9"/>');
+
+            } else if (pileType === 'Kırma Pile') {
+              // Two lines diverge from gather point
+              var dl = r(hx - sp * 0.44);
+              var dr = r(hx + sp * 0.44);
+              p.push('<path d="M' + hx + ',' + yt + ' L' + dl + ',' + yb + '" stroke="#7888A8" stroke-width="1.1" fill="none"/>');
+              p.push('<path d="M' + hx + ',' + yt + ' L' + dr + ',' + yb + '" stroke="#7888A8" stroke-width="1.1" fill="none"/>');
+              p.push('<circle cx="' + hx + '" cy="' + yt + '" r="2.2" fill="#3A5070"/>');
+
+            } else if (pileType === 'Boru Pile') {
+              // Bezier S-curve tubes — light + shadow side
+              var cl = r(hx - sp * 0.32);
+              var cr = r(hx + sp * 0.32);
+              p.push('<path d="M' + hx + ',' + yt + ' C' + cl + ',' + q1y + ' ' + cl + ',' + q3y + ' ' + hx + ',' + yb + '" stroke="#516080" stroke-width="1.5" fill="none"/>');
+              p.push('<path d="M' + hx + ',' + yt + ' C' + cr + ',' + q1y + ' ' + cr + ',' + q3y + ' ' + hx + ',' + yb + '" stroke="#98A8C0" stroke-width="0.8" fill="none"/>');
+              p.push('<circle cx="' + hx + '" cy="' + yt + '" r="2.2" fill="#3A5070"/>');
+
+            } else if (pileType === 'Kanun Pile') {
+              // Triple fan — two outer lines + one center
+              var fl = r(hx - sp * 0.54);
+              var fr = r(hx + sp * 0.54);
+              p.push('<path d="M' + hx + ',' + yt + ' L' + fl + ',' + yb + '" stroke="#7888A8" stroke-width="1.0" fill="none"/>');
+              p.push('<path d="M' + hx + ',' + yt + ' L' + hx + ',' + yb + '" stroke="#516080" stroke-width="1.5" fill="none"/>');
+              p.push('<path d="M' + hx + ',' + yt + ' L' + fr + ',' + yb + '" stroke="#7888A8" stroke-width="1.0" fill="none"/>');
+              p.push('<circle cx="' + hx + '" cy="' + yt + '" r="2.2" fill="#3A5070"/>');
+            }
+          }
+
+          // Panel border (drawn over fold lines)
+          p.push('<rect x="' + panel.x1 + '" y="' + curtainTop + '" width="' + pw + '" height="' + curtainH + '" fill="none" stroke="#1B2A4A" stroke-width="1.3"/>');
         });
-        return price;
+
+        // ── Rod ──
+        p.push('<rect x="-2" y="' + (rodY - 3) + '" width="' + (CW + 4) + '" height="8" rx="4" fill="#1B2A4A" opacity="0.15"/>');
+        p.push('<line x1="-2" y1="' + rodY + '" x2="' + (CW + 2) + '" y2="' + rodY + '" stroke="#2C3E5A" stroke-width="5" stroke-linecap="round"/>');
+
+        // ── EN arrow(s) above rod ──
+        var enY = 4;
+        var enLabel = (cfg.en || '?') + ' cm';
+        if (isDouble) {
+          // One arrow per panel — each shows the full entered en (not half)
+          panels.forEach(function(panel) {
+            var ax1 = r(panel.x1 + 2);
+            var ax2 = r(panel.x2 - 2);
+            var midX = r((panel.x1 + panel.x2) / 2);
+            p.push('<line x1="' + ax1 + '" y1="' + enY + '" x2="' + ax2 + '" y2="' + enY + '" stroke="#1B2A4A" stroke-width="1.2"/>');
+            p.push('<polygon points="' + ax1 + ',' + (enY-2.5) + ' ' + ax1 + ',' + (enY+2.5) + ' ' + (ax1-4) + ',' + enY + '" fill="#1B2A4A"/>');
+            p.push('<polygon points="' + ax2 + ',' + (enY-2.5) + ' ' + ax2 + ',' + (enY+2.5) + ' ' + (ax2+4) + ',' + enY + '" fill="#1B2A4A"/>');
+            p.push('<rect x="' + (midX - 15) + '" y="' + (enY - 5) + '" width="30" height="11" rx="2" fill="#EAF0F6"/>');
+            p.push('<text x="' + midX + '" y="' + (enY + 3.5) + '" text-anchor="middle" font-size="8.5" fill="#1B2A4A" font-weight="700" font-family="Inter,sans-serif">' + enLabel + '</text>');
+          });
+        } else {
+          p.push('<line x1="4" y1="' + enY + '" x2="' + (CW - 4) + '" y2="' + enY + '" stroke="#1B2A4A" stroke-width="1.3"/>');
+          p.push('<polygon points="4,' + (enY - 3) + ' 4,' + (enY + 3) + ' -2,' + enY + '" fill="#1B2A4A"/>');
+          p.push('<polygon points="' + (CW - 4) + ',' + (enY - 3) + ' ' + (CW - 4) + ',' + (enY + 3) + ' ' + (CW + 2) + ',' + enY + '" fill="#1B2A4A"/>');
+          var enLX = Math.round(CW / 2);
+          p.push('<rect x="' + (enLX - 18) + '" y="' + (enY - 5) + '" width="36" height="11" rx="2" fill="#EAF0F6"/>');
+          p.push('<text x="' + enLX + '" y="' + (enY + 3.5) + '" text-anchor="middle" font-size="9.5" fill="#1B2A4A" font-weight="700" font-family="Inter,sans-serif">' + enLabel + '</text>');
+        }
+
+        // ── BOY arrow on right — dashed ref lines + shaft with label gap ──
+        var boyX  = CW + 24;
+        var boyLY = Math.round((curtainTop + curtainBot) / 2);
+        // Dashed reference lines from curtain right edge to arrow
+        p.push('<line x1="' + (CW - 2) + '" y1="' + curtainTop + '" x2="' + (boyX + 4) + '" y2="' + curtainTop + '" stroke="#1B2A4A" stroke-width="0.9" stroke-dasharray="2 2"/>');
+        p.push('<line x1="' + (CW - 2) + '" y1="' + curtainBot + '" x2="' + (boyX + 4) + '" y2="' + curtainBot + '" stroke="#1B2A4A" stroke-width="0.9" stroke-dasharray="2 2"/>');
+        // Shaft in two halves — gap in centre for label
+        p.push('<line x1="' + boyX + '" y1="' + curtainTop + '" x2="' + boyX + '" y2="' + (boyLY - 18) + '" stroke="#1B2A4A" stroke-width="1.3"/>');
+        p.push('<line x1="' + boyX + '" y1="' + (boyLY + 18) + '" x2="' + boyX + '" y2="' + curtainBot + '" stroke="#1B2A4A" stroke-width="1.3"/>');
+        // Arrowheads pointing inward (tips at curtain top/bottom)
+        p.push('<polygon points="' + (boyX-3) + ',' + (curtainTop+7) + ' ' + (boyX+3) + ',' + (curtainTop+7) + ' ' + boyX + ',' + curtainTop + '" fill="#1B2A4A"/>');
+        p.push('<polygon points="' + (boyX-3) + ',' + (curtainBot-7) + ' ' + (boyX+3) + ',' + (curtainBot-7) + ' ' + boyX + ',' + curtainBot + '" fill="#1B2A4A"/>');
+        // White background rect + label
+        p.push('<rect x="' + (boyX-6) + '" y="' + (boyLY-17) + '" width="12" height="34" rx="2" fill="#EAF0F6"/>');
+        p.push('<text x="' + boyX + '" y="' + boyLY + '" text-anchor="middle" dominant-baseline="middle" font-size="9" fill="#1B2A4A" font-weight="700" font-family="Inter,sans-serif" transform="rotate(90,' + boyX + ',' + boyLY + ')">' + (cfg.boy || '?') + ' cm</text>');
+
+        // ── Kanat label badge at bottom of curtain ──
+        var badgeText = isDouble
+          ? 'Çift Kanat — 2 × ' + (cfg.en || '?') + ' cm'
+          : 'Tek Kanat — ' + (cfg.en || '?') + ' cm';
+        var badgeW    = isDouble ? 120 : 96;
+        var badgeX    = Math.round(CW / 2 - badgeW / 2);
+        var badgeY    = curtainBot - 20;
+        p.push('<rect x="' + badgeX + '" y="' + badgeY + '" width="' + badgeW + '" height="15" rx="3" fill="#1B2A4A" opacity="0.72"/>');
+        p.push('<text x="' + Math.round(CW / 2) + '" y="' + (badgeY + 10.5) + '" text-anchor="middle" font-size="8.5" fill="#FFFFFF" font-weight="600" font-family="Inter,sans-serif">' + badgeText + '</text>');
+
+        // ── Build final SVG ──
+        svg.setAttribute('width',   totalW);
+        svg.setAttribute('height',  totalH);
+        svg.setAttribute('viewBox', '-6 0 ' + (totalW + 8) + ' ' + totalH);
+        svg.innerHTML = p.join('');
+
+        // Caption
+        if (cap) {
+          var kanatStr = isDouble
+            ? 'Çift Kanat — 2 × ' + (cfg.en || '?') + ' cm'
+            : 'Tek Kanat — ' + (cfg.en || '?') + ' cm';
+          cap.innerHTML = '<strong>' + (cfg.pile_stili || '') + '</strong> &nbsp;·&nbsp; Boy: ' + (cfg.boy || '?') + ' cm &nbsp;·&nbsp; ' + kanatStr;
+        }
+
+        log('preview:built', { pile: pileType, en: cfg.en, boy: cfg.boy, kanat: cfg.kanat });
       }
 
       function showStep4() {
+        var cfg   = window.perdeConfig;
         var price = calcPrice();
-        reviewEn.textContent     = (window.perdeConfig.en || '—') + ' cm';
-        reviewBoy.textContent    = (window.perdeConfig.boy || '—') + ' cm';
-        reviewPile.textContent   = window.perdeConfig.pile_stili || '—';
-        reviewKanat.textContent  = window.perdeConfig.kanat || '—';
+        reviewDims.textContent   = (cfg.en || '—') + ' × ' + (cfg.boy || '—') + ' cm' + (cfg.kanat_count === 2 ? ' (her kanat)' : '');
+        reviewPile.textContent   = cfg.pile_stili + ' (×' + cfg.pile_orani + ')';
+        reviewKanat.textContent  = cfg.kanat_count === 2 ? 'Çift Kanat — 2 parça' : 'Tek Kanat — 1 parça';
+
         priceDisplay.textContent = formatTL(price);
-        step4El.classList.add('is-active');
-        log('step4:show', {
-          config: {
-            en: window.perdeConfig.en, boy: window.perdeConfig.boy,
-            pile: window.perdeConfig.pile_stili, ratio: window.perdeConfig.pile_orani,
-            kanat: window.perdeConfig.kanat, count: window.perdeConfig.kanat_count
-          },
-          price: formatTL(price)
-        });
+        priceFormula.textContent = cfg.en + ' cm × ' + cfg.pile_orani + (cfg.kanat_count === 2 ? ' × 2 kanat' : ' × 1 kanat');
+        // Reset disclaimer when recalculating
+        disclaimerCheck.checked = false;
+        addToCartBtn.disabled = true;
+        activateStep(4);
+        buildPreview();
+        log('step4:show', { price: formatTL(price) });
       }
 
       disclaimerCheck.addEventListener('change', function() {
         addToCartBtn.disabled = !disclaimerCheck.checked;
-        log('disclaimer:' + (disclaimerCheck.checked ? 'accepted' : 'unaccepted'));
       });
 
       addToCartBtn.addEventListener('click', function() {
@@ -755,7 +1191,6 @@
         if (!API_URL) {
           cartError.textContent = 'Sipariş API adresi yapılandırılmamış. Lütfen yöneticiyle iletişime geçin.';
           cartError.classList.add('is-visible');
-          log('error:no-api-url');
           return;
         }
 
@@ -768,106 +1203,82 @@
         var confirmedPrice = calcPrice();
         var confirmedCents = Math.round(confirmedPrice * 100);
 
-        log('cart:item:start', { variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy });
-
-        // Step 1: get Shopify cart token (stable across page refreshes)
         fetch('/cart.js')
-        .then(function(res) { return res.json(); })
-        .then(function(cart) {
-          var cartToken = cart.token;
-          if (!cartToken) throw new Error('Sepet tokeni alınamadı.');
-
-          var itemPayload = {
-            cartToken:  cartToken,
-            variantId:  VARIANT_ID,
-            en:         cfg.en,
-            boy:        cfg.boy,
-            pileStili:  cfg.pile_stili,
-            pileOrani:  cfg.pile_orani,
-            kanat:      cfg.kanat,
-            kanatCount: cfg.kanat_count
-          };
-          log('cart:item:request', itemPayload);
-
-          // Step 2: register item server-side (price calculated and stored in Postgres)
-          return fetch(API_URL + '/api/checkout/item', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(itemPayload)
+          .then(function(res) { return res.json(); })
+          .then(function(cart) {
+            var cartToken = cart.token;
+            if (!cartToken) throw new Error('Sepet tokeni alınamadı.');
+            log('cart:item:start', { variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy });
+            return fetch(API_URL + '/api/checkout/item', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                cartToken:  cartToken,
+                variantId:  VARIANT_ID,
+                en:         cfg.en,
+                boy:        cfg.boy,
+                pileStili:  cfg.pile_stili,
+                pileOrani:  cfg.pile_orani,
+                kanat:      cfg.kanat,
+                kanatCount: cfg.kanat_count
+              })
+            });
+          })
+          .then(function(res) {
+            return res.json().then(function(data) {
+              if (!res.ok) throw new Error(data.message || 'Ürün yapılandırılamadı.');
+              return data;
+            });
+          })
+          .then(function(data) {
+            confirmedPrice = parseFloat(data.calculatedPrice) || confirmedPrice;
+            confirmedCents = Math.round(confirmedPrice * 100);
+            var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
+            var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                id:       VARIANT_ID,
+                quantity: 1,
+                sections: cartSectionId,
+                properties: {
+                  'En':                cfg.en + ' cm',
+                  'Boy':               cfg.boy + ' cm',
+                  'Pile Stili':        cfg.pile_stili + ' (×' + cfg.pile_orani + ')',
+                  'Kanat':             cfg.kanat,
+                  'Hesaplanan Fiyat':  formatTL(confirmedPrice),
+                  '_hesaplanan_cents': confirmedCents
+                }
+              })
+            });
+          })
+          .then(function(res) {
+            return res.json().then(function(data) {
+              if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
+              return data;
+            });
+          })
+          .then(function(cartData) {
+            var sectionsData = cartData.sections || {};
+            addToCartBtn.textContent = 'Sepete Eklendi ✓';
+            log('cart:add:complete', { price: formatTL(confirmedPrice) });
+            var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
+            document.dispatchEvent(evt);
+            var cartDrawer = document.querySelector('cart-drawer-component');
+            if (cartDrawer) { cartDrawer.open(); }
+          })
+          .catch(function(err) {
+            log('cart:error', { message: err.message });
+            cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
+            cartError.classList.add('is-visible');
+            addToCartBtn.disabled = false;
+            addToCartBtn.textContent = 'Sepete Ekle';
           });
-        })
-        .then(function(res) {
-          return res.json().then(function(data) {
-            if (!res.ok) throw new Error(data.message || 'Ürün yapılandırılamadı.');
-            return data;
-          });
-        })
-        .then(function(data) {
-          log('cart:item:response', { calculatedPrice: data.calculatedPrice });
-          // Use server-confirmed price for cart properties
-          confirmedPrice = parseFloat(data.calculatedPrice) || confirmedPrice;
-          confirmedCents = Math.round(confirmedPrice * 100);
-
-          var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
-          var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
-
-          var cartPayload = {
-            id:       VARIANT_ID,
-            quantity: 1,
-            sections: cartSectionId,
-            properties: {
-              'En':                cfg.en + ' cm',
-              'Boy':               cfg.boy + ' cm',
-              'Pile Stili':        cfg.pile_stili + ' (x' + cfg.pile_orani + ')',
-              'Kanat':             cfg.kanat,
-              'Hesaplanan Fiyat':  formatTL(confirmedPrice),
-              '_hesaplanan_cents': confirmedCents
-            }
-          };
-          log('cart:add:request', { variantId: cartPayload.id, properties: cartPayload.properties });
-
-          // Step 3: add to cart so the item appears in the cart drawer
-          return fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(cartPayload)
-          });
-        })
-        .then(function(res) {
-          return res.json().then(function(data) {
-            if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
-            return data;
-          });
-        })
-        .then(function(cartData) {
-          var sectionsData = cartData.sections || {};
-          log('cart:add:response', { itemCount: cartData.item_count, sectionsRendered: Object.keys(sectionsData).length });
-          addToCartBtn.textContent = 'Sepete Eklendi ✓';
-          log('cart:add:complete', { price: formatTL(confirmedPrice) });
-
-          var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
-          document.dispatchEvent(evt);
-
-          var cartDrawer = document.querySelector('cart-drawer-component');
-          if (cartDrawer) {
-            cartDrawer.open();
-            log('cart:drawer:opened');
-          } else {
-            log('cart:drawer:not-found');
-          }
-        })
-        .catch(function(err) {
-          log('cart:error', { message: err.message });
-          cartError.textContent = err.message || 'Hata oluştu. Lütfen tekrar deneyin.';
-          cartError.classList.add('is-visible');
-          addToCartBtn.disabled = false;
-          addToCartBtn.textContent = 'Sepete Ekle';
-        });
       });
 
     })();
 
-    // Move configurator into the product details column, below the description
     document.addEventListener('DOMContentLoaded', function() {
       var conf = document.getElementById('curtain-configurator');
       var target = document.querySelector('.product-details .group-block-content');
@@ -875,8 +1286,6 @@
         conf.classList.remove('page-width');
         target.appendChild(conf);
       }
-
-      // Resolve measurement section anchor dynamically
       var measureLink = document.getElementById('perde-measure-link');
       if (measureLink) {
         var measureSection = document.querySelector('[id*="measurement_videos_pdp"]');
