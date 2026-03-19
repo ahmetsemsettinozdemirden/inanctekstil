@@ -104,22 +104,23 @@ app.post("/api/checkout/draft-order", async (c) => {
   log("INFO", "Shopify access token obtained");
 
   // Fetch variant price server-side (never trust client-sent price)
-  log("INFO", "Fetching variant price", { variantId });
+  log("INFO", "Fetching variant price and product title", { variantId });
   const variantRes = await fetch(
-    `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json`,
+    `https://${domain}/admin/api/${ADMIN_API_VERSION}/variants/${variantId}.json?fields=price,product`,
     { headers },
   );
   if (!variantRes.ok) {
     log("WARN", "Variant not found", { variantId, status: variantRes.status });
     return c.json({ error: "VARIANT_NOT_FOUND", message: "Ürün bulunamadı" }, 404);
   }
-  const { variant } = await variantRes.json() as { variant: { price: string } };
+  const { variant } = await variantRes.json() as { variant: { price: string; product?: { title: string } } };
   const basePricePerMeter = parseFloat(variant.price);
   if (!basePricePerMeter || basePricePerMeter <= 0) {
     log("ERROR", "Invalid variant price", { variantId, price: variant.price });
     return c.json({ error: "INVALID_PRICE", message: "Ürün fiyatı alınamadı" }, 500);
   }
-  log("INFO", "Variant price fetched", { variantId, basePricePerMeter });
+  const productTitle = variant.product?.title ?? "Özel Ölçü Perde";
+  log("INFO", "Variant price fetched", { variantId, basePricePerMeter, productTitle });
 
   const calculatedPrice = ((en / 100) * pileOrani * kanatCount * basePricePerMeter).toFixed(2);
 
@@ -136,18 +137,25 @@ app.post("/api/checkout/draft-order", async (c) => {
     formula: `(${en}/100) × ${pileOrani} × ${kanatCount} × ${basePricePerMeter}`,
   });
 
+  // Custom line item (no variant_id): Shopify ignores `price` overrides on variant-based
+  // line items — it always uses the variant's catalogue price instead. Custom made-to-order
+  // curtains need a calculated price, so we use a title-based custom line item and store
+  // the variant_id in properties for staff reference.
   const draftOrderPayload = {
     draft_order: {
       line_items: [
         {
-          variant_id: variantId,
+          title: productTitle,
           quantity: 1,
           price: calculatedPrice,
+          requires_shipping: true,
+          taxable: true,
           properties: [
             { name: "En", value: `${en} cm` },
             { name: "Boy", value: `${boy} cm` },
             { name: "Pile Stili", value: `${pileStili} (x${pileOrani})` },
             { name: "Kanat", value: kanat },
+            { name: "_variant_id", value: String(variantId) },
           ],
         },
       ],

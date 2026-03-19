@@ -2,15 +2,15 @@ import { useState, useEffect, useMemo } from "react";
 import { DesignCard } from "../components/DesignCard.tsx";
 import { api, type Design } from "../lib/api.ts";
 
-type TypeFilter   = "ALL" | "TUL" | "FON" | "BLK" | "STN";
+type TypeFilter   = "ALL" | "TUL" | "FON" | "BLACKOUT" | "STN";
 type StatusFilter = "ALL" | "ACTIVE" | "DRAFT" | "MISSING";
 
 const TYPE_LABELS: Record<TypeFilter, string> = {
-  ALL: "Tümü",
-  TUL: "Tül",
-  FON: "Fon",
-  BLK: "Blackout",
-  STN: "Saten",
+  ALL:      "Tümü",
+  TUL:      "Tül",
+  FON:      "Fon",
+  BLACKOUT: "Blackout",
+  STN:      "Saten",
 };
 
 const STATUS_LABELS: Record<StatusFilter, string> = {

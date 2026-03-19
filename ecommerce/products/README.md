@@ -78,7 +78,7 @@ Examples: SULTAN 22260 (KOYU/AÇIK), ŞÖNİL BLACKOUT (DESENLİ/DÜZ), LÜX BLA
 }
 ```
 
-`catalog.json` contains only product data. Rooms, banners, and collections are image generation concerns and live in `pdp-image-generator/assets/input/manifest.json`.
+`catalog.json` contains only product data. Rooms, banners, and collections are image generation concerns and live in `pms/assets/input/manifest.json`.
 
 ### Design entry
 
@@ -142,14 +142,7 @@ IDs are stable as long as the SKU prefix and design name don't change in the CSV
 
 The script leaves `fabric.texture` as `null` for all designs except STN. This field is used by the AI image generator to produce accurate lifestyle photos.
 
-Either fill it in manually by editing `catalog.json`, or use the image generator's analysis tool:
-
-```bash
-cd ../pdp-image-generator
-npx tsx src/add-product.ts --sku FON-001 --swatch ../products/01-cropped-katalog-images/FON/FON-001.JPG
-```
-
-Note: `add-product.ts` will need to be updated to write into `catalog.json` instead of the old `manifest.json`.
+Either fill it in manually by editing `catalog.json`, or use the PMS fabric analysis tool via the design detail page (⚗ Analiz button per variant).
 
 Fabric textures by design (fill these in):
 
@@ -174,11 +167,9 @@ Fabric textures by design (fill these in):
 
 Place swatch photos at: `01-cropped-katalog-images/{TYPE}/{SKU}.JPG`
 
-Currently missing (from the HÜRREM design): FON-001 through FON-032.
-
 ### 3. Create Shopify products
 
-Run the (yet to be built) Shopify import script which reads `catalog.json` and creates products/variants via the Shopify API. It writes back the `product_id` and `variant_id` values.
+Use the PMS at `pms.inanctekstil.store` — open a design and click "Shopify'a aktar" to create the product and variants via the Shopify API. The PMS writes back `product_id` and `variant_id` into the database.
 
 ---
 
@@ -208,13 +199,10 @@ Run the (yet to be built) Shopify import script which reads `catalog.json` and c
 
 ## How consumers use catalog.json
 
-### Image generator (`pdp-image-generator`)
+### Image generator (`pms/src/image-engine`)
 
-Iterates `catalog.designs`, then for each design iterates `design.variants`. For each variant it generates lifestyle images (swatch + room → AI image) and texture images. Uses `design.fabric` + `variant.colour` + `variant.swatch` as inputs. Room selection, banners, and collections are configured separately in `pdp-image-generator/assets/input/manifest.json`.
+Iterates `catalog.designs`, then for each design iterates `design.variants`. For each variant it generates lifestyle images (swatch + room → AI image) and texture images. Uses `design.fabric` + `variant.colour` + `variant.swatch` as inputs. Room selection is configured in `pms/assets/input/manifest.json`.
 
-### Shopify import script (to be built)
+### PMS Shopify sync
 
-Reads `catalog.designs` and for each design:
-1. Creates a Shopify product with `design.shopify` metadata and `design.shopify.options`
-2. Creates one variant per entry in `design.variants` using `variant.colour` + `variant.finish`
-3. Writes back `product_id` and `variant_id` into `catalog.json`
+The PMS (`pms.inanctekstil.store`) handles all Shopify product management. It reads from its PostgreSQL database (seeded from `catalog.json`) and syncs products/variants to Shopify, writing back IDs into the DB.

@@ -61,7 +61,7 @@ function mockShopify({
       // GET /variants/:id
       return Promise.resolve(
         variantOk
-          ? new Response(JSON.stringify({ variant: { price: variantPrice } }), { status: 200 })
+          ? new Response(JSON.stringify({ variant: { price: variantPrice, product: { title: 'Mock Perde' } } }), { status: 200 })
           : new Response('Not Found', { status: 404 }),
       );
     }
@@ -287,7 +287,7 @@ describe('POST /api/checkout/draft-order — happy path', () => {
         return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
       }
       if (url.includes('variants')) {
-        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00' } }), { status: 200 }));
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
       }
       bodies.push(init?.body as string);
       return Promise.resolve(new Response(
@@ -309,7 +309,7 @@ describe('POST /api/checkout/draft-order — happy path', () => {
         return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
       }
       if (url.includes('variants')) {
-        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '400.00' } }), { status: 200 }));
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '400.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
       }
       bodies.push(init?.body as string);
       return Promise.resolve(new Response(
@@ -331,7 +331,7 @@ describe('POST /api/checkout/draft-order — happy path', () => {
         return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
       }
       if (url.includes('variants')) {
-        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00' } }), { status: 200 }));
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
       }
       bodies.push(init?.body as string);
       return Promise.resolve(new Response(
@@ -351,7 +351,33 @@ describe('POST /api/checkout/draft-order — happy path', () => {
     expect(props).toContainEqual({ name: 'Kanat', value: 'Çift Kanat' });
   });
 
-  test('draft order line item uses variant_id, not a free-form title', async () => {
+  test('draft order line item uses server-fetched product title, not variant_id', async () => {
+    const bodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Test Perde' } } }), { status: 200 }));
+      }
+      bodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await post(VALID_BODY);
+
+    const draftBody = JSON.parse(bodies[0]) as {
+      draft_order: { line_items: Array<{ variant_id?: number; title?: string; price: string }> };
+    };
+    const li = draftBody.draft_order.line_items[0];
+    expect(li.variant_id).toBeUndefined();
+    expect(li.title).toBe('Test Perde');
+    expect(li.price).toBe('2300.00');
+  });
+
+  test('draft order line item falls back to generic title when variant has no product', async () => {
     const bodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -368,11 +394,8 @@ describe('POST /api/checkout/draft-order — happy path', () => {
 
     await post(VALID_BODY);
 
-    const draftBody = JSON.parse(bodies[0]) as {
-      draft_order: { line_items: Array<{ variant_id?: number; title?: string }> };
-    };
-    expect(draftBody.draft_order.line_items[0].variant_id).toBe(VALID_BODY.variantId);
-    expect(draftBody.draft_order.line_items[0].title).toBeUndefined();
+    const draftBody = JSON.parse(bodies[0]) as { draft_order: { line_items: Array<{ title: string }> } };
+    expect(draftBody.draft_order.line_items[0].title).toBe('Özel Ölçü Perde');
   });
 
   test('draft order does not require productTitle field', async () => {
@@ -390,7 +413,7 @@ describe('POST /api/checkout/draft-order — happy path', () => {
       }
       headers[url.includes('variants') ? 'variant' : 'draft'] = init?.headers as Record<string, string>;
       if (url.includes('variants')) {
-        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00' } }), { status: 200 }));
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
       }
       return Promise.resolve(new Response(
         JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },

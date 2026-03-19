@@ -24,10 +24,10 @@ interface TypeBadgeProps {
 }
 
 const TYPE_CONFIG: Record<string, { label: string; className: string }> = {
-  TUL:     { label: "Tül",      className: "type-tul" },
-  FON:     { label: "Fon",      className: "type-fon" },
-  BLK:     { label: "Blackout", className: "type-blk" },
-  STN:     { label: "Saten",    className: "type-stn" },
+  TUL:      { label: "Tül",      className: "type-tul" },
+  FON:      { label: "Fon",      className: "type-fon" },
+  BLACKOUT: { label: "Blackout", className: "type-blk" },
+  STN:      { label: "Saten",    className: "type-stn" },
 };
 
 export function TypeBadge({ type }: TypeBadgeProps) {
