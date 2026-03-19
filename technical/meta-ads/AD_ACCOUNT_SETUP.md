@@ -36,47 +36,33 @@ Use this document to track what needs to be done before activating campaigns.
 
 - [x] **Verified in Meta Business Manager** — `inanctekstil.store` confirmed verified
 
+- [x] **Domain allowlist configured** — added `inanctekstil.store` and `1z7hb1-2d.myshopify.com` to Traffic Permissions allow list in Events Manager → Settings → Traffic permissions – websites
+
+- [x] **Diagnostics cleared** — "Confirm domains that belong to you" issue resolved (2026-03-19)
+
 ---
 
 ## 3. Pixel Events (Shopify → Meta)
 
-**Why it matters:** The pixel is only firing `PageView`. Without purchase/cart events, Meta has no signal to optimize conversion campaigns toward buyers.
+**Why it matters:** All funnel events must fire for Meta to optimize conversion campaigns.
 
-**Good news:** You already have Meta Sales Channel installed with "Maximum" data sharing. This means Shopify automatically sends all standard events server-side (CAPI) + browser-side. You do NOT need to manually configure Customer Events.
+- [x] All 6 events confirmed active in Events Manager (2026-03-19):
+  - `PageView` — 528 events, 6.2/10 match quality
+  - `ViewContent` — 136 events, 6.2/10 match quality
+  - `AddToCart` — 20 events, 4.7/10 match quality
+  - `InitiateCheckout` — 11 events, 4.5/10 match quality
+  - `AddPaymentInfo` — 2 events, 7.4/10 match quality (CAPI only)
+  - `Purchase` — 1 event, 8.0/10 match quality (CAPI only)
 
-**What to verify instead:**
-
-- [ ] Go to **Meta Events Manager** → select pixel `1446692113800169` → "Test Events" tab
-  - Load `https://inanctekstil.store` → should see `PageView` appear
-  - Add a product to cart → should see `AddToCart`
-  - Start checkout → should see `InitiateCheckout`
-  - Complete a test purchase → should see `Purchase`
-
-- [ ] If events are missing, check **Shopify Admin → Apps → Meta** → confirm "Data sharing" is set to Maximum and the pixel ID shown matches `1446692113800169`
-
-- [ ] In **Meta Events Manager → Overview**, confirm these events appear under "Active":
-  - `PageView`
-  - `ViewContent`
-  - `AddToCart`
-  - `InitiateCheckout`
-  - `Purchase`
+**Note:** AddToCart and InitiateCheckout match quality is 4.5–4.7/10. This is because browser pixel sends limited customer data. To improve: enable Automatic Advanced Matching in Events Manager → Settings → Turn on automatic advanced matching.
 
 ---
 
 ## 4. Aggregated Event Measurement (AEM)
 
-**Why it matters:** iOS14+ limits each domain to reporting only 8 conversion events. You must tell Meta which 8 to prioritize, in order of importance.
+**Status:** Meta no longer exposes a manual "Configure Web Events" interface in the current UI. AEM is now handled automatically when domain verification is complete and CAPI + pixel are both active. No action required.
 
-**Prerequisite:** Domain must be verified (step 2) first.
-
-- [ ] Go to **Meta Events Manager → Aggregated Event Measurement → Configure Web Events**
-- [ ] Add `inanctekstil.store` and set event priority (top to bottom = highest priority):
-  1. `Purchase`
-  2. `InitiateCheckout`
-  3. `AddToCart`
-  4. `ViewContent`
-  5. `PageView`
-  *(5 is enough; you have 3 slots remaining for future use)*
+**Evidence:** Domain verified ✅, all events firing ✅, purchase event has 8.0/10 match quality ✅
 
 ---
 
@@ -92,7 +78,7 @@ Use this document to track what needs to be done before activating campaigns.
 
 ## 6. Product Catalog
 
-**Current state:** 4 products, 2 variants visible in Commerce Manager. 2 critical issues in the Events tab.
+**Current state:** 4 products synced to Shopify/catalog. 2 critical issues in Commerce Manager → Events tab (not yet investigated).
 
 - [!] **Investigate the 2 critical issues in Commerce Manager → Events tab**
   Common causes:
@@ -100,10 +86,9 @@ Use this document to track what needs to be done before activating campaigns.
   - Shopify product IDs in pixel events don't match the catalog feed format Meta expects
   - Fix: In Meta Sales Channel (Shopify), ensure product catalog is connected to the same pixel
 
-- [ ] **Why only 4 products?** Your PMS has 14 designs but only 4 synced to Shopify:
+- [ ] **Only 4 products synced.** PMS has 14 designs but only 4 in Shopify:
   `blk-sonil`, `fon-hurrem`, `stn-saten`, `tul-bornova`
-  → Sync more products to Shopify first, then catalog will automatically expand
-  → See PMS at `pms.inanctekstil.store`
+  → Sync more products via PMS at `pms.inanctekstil.store`, catalog will expand automatically
 
 - [ ] **Verify catalog is connected to ad account** in Commerce Manager → Settings → Ad Accounts → confirm `act_1460297365542314` is listed
 
@@ -117,11 +102,11 @@ Use this document to track what needs to be done before activating campaigns.
 |---|-------|--------|
 | C1-1 | Ad set `LINK_CLICKS` → `LANDING_PAGE_VIEWS` | ✅ Applied |
 | C1-2 | Pixel tracking specs added to Blackout + Saten ads | ✅ Applied |
-| C1-3 | `destination_type: UNDEFINED` — needs `WEBSITE` | [ ] Not yet — `destination_type` not exposed in `update_ad_set`; needs ad set rebuild |
+| C1-3 | `destination_type: UNDEFINED` — needs `WEBSITE` | [ ] `destination_type` not exposed in `update_ad_set`; requires ad set rebuild |
 | C1-4 | Budget ₺45/day too low for conversion optimization | [ ] Raise to ₺150–200/day before activating |
-| C1-5 | Campaign named "Dinamik" but no catalog integration | [ ] Decide: rename OR rebuild as true DPA (requires step 6 catalog fixes first) |
+| C1-5 | Campaign named "Dinamik" but no catalog integration | [ ] Decide: rename OR rebuild as true DPA (fix catalog issues in step 6 first) |
 | C1-6 | Only Blackout + Saten ads — no Tül, no Fon | [ ] Add after more products synced to Shopify |
-| C1-7 | Switch to `OFFSITE_CONVERSIONS` once pixel fires Purchase | [ ] Do after step 3 (pixel events) confirmed |
+| C1-7 | Switch to `OFFSITE_CONVERSIONS` once more Purchases fire | [ ] Purchase event confirmed active (1 event) — switch when volume > 10/week |
 
 ### Campaign 2: Reels — Farkındalık (Soğuk Kitle) `6933660244056`
 
