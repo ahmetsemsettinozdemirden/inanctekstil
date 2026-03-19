@@ -110,7 +110,11 @@ Use this document to track what needs to be done before activating campaigns.
 
 ### Campaign 2: Reels — Farkındalık (Soğuk Kitle) ~~`6933660244056`~~
 
-**DELETED** (2026-03-19) — campaign, all ad sets, and all ads permanently removed.
+**DELETED by mistake** (2026-03-19). Was confused with the "New Awareness campaign" draft (`6932536178856`) which was the intended target and has since been deleted correctly via Ads Manager.
+
+Video and creative assets still exist in the account and can be reused:
+- Video: `4525340454399489` (inanc-tekstil-mvp.mp4)
+- Creative: `966088742674546` (video, LEARN_MORE → inanctekstil.store)
 
 ---
 
