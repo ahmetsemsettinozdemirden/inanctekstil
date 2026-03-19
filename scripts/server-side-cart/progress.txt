@@ -65,3 +65,31 @@ Changes:
 - technical/theme/layout/theme.liquid: Added window.PERDE_API_URL = 'https://app.inanctekstil.store' inline script and perde-checkout.js deferred script before </body>.
 - shopify theme push --allow-live: SUCCESS (both files, theme Horizon #193714913361)
 - Browser verified (Playwright on /cart): console log '[PerdeCheckout] loaded {apiUrl: https://app.inanctekstil.store}' ✓
+
+## US-008 — Deploy curtain-checkout-api with curtain-db and verify end-to-end ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/curtain-checkout-api/src/server.ts: Added `import { initDb } from "./db.ts"` and `await initDb()` before Bun.serve(). Without this, sql was null at runtime (initDb was never called), causing all DB operations to throw "TypeError: null is not a function".
+- technical/curtain-checkout-api/README.md: Rewrote to reflect server-side cart architecture. Updated "Why this exists", use case flow, API docs for /api/checkout/item and /api/checkout/complete, and Manual E2E Test Guide for multi-product flow.
+- scripts/server-side-cart/prd.json: US-008 marked passes: true.
+
+Deployment steps:
+- CURTAIN_DB_PASSWORD and CURTAIN_DATABASE_URL already set in /opt/inanctekstil/.env from earlier
+- curtain-db container already running and healthy
+- scp src/server.ts to /opt/curtain-checkout-api/src/server.ts
+- docker compose up -d --build curtain-app: SUCCESS, server ready, initDb() runs on startup
+
+E2E verification (Playwright on inanctekstil.store):
+- curl https://app.inanctekstil.store/health → {status:'ok'} ✓
+- TUL BORNOVA 200cm × Kanun Pile x2.5 × Tek Kanat → 1.150,00 TL, added to cart ✓
+- Navigate to STN Saten page → cart badge still shows 1 (DB rows not cleared by navigation) ✓
+- STN Saten 150cm × Boru Pile x3.0 × Çift Kanat → 1.350,00 TL, added to cart ✓
+- Cart drawer: 2 items, Tahmini toplam 2.500,00 TL ✓
+- Navigate to /cart, click Ödeme → URL: 1z7hb1-2d.myshopify.com/checkouts/do/... (Draft Order) ✓
+- Checkout order summary: both items present, TUL 1.150,00 TL + STN 1.350,00 TL, Alt toplam 2.500,00 TL ✓
+
+---
+
+## ALL STORIES COMPLETE ✓
+All 8 user stories pass. Server-side cart is live on production.

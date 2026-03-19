@@ -160,8 +160,8 @@
         "Update curtain-checkout-api README.md Manual E2E Test Guide to reflect the new multi-product flow"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": "Server: ssh -i ~/.ssh/inanctekstil root@5.75.165.158. Deploy: scp -r -i ~/.ssh/inanctekstil src package.json tsconfig.json root@5.75.165.158:/opt/curtain-checkout-api/ then docker compose up -d --build curtain-app in /opt/inanctekstil/",
+      "passes": true,
+      "notes": "Deployed: curtain-db running, curtain-app rebuilt with initDb() call in server.ts. Fix: server.ts was missing await initDb() — sql was null until added. E2E verified via Playwright: TUL 1150 TL + STN 1350 TL, cart 2 items, /cart Ödeme → Draft Order URL /checkouts/do/..., checkout shows both items total 2500 TL. README updated for multi-product flow.",
       "dependsOn": ["US-005", "US-007"]
     }
   ]

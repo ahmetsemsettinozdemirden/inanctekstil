@@ -1,6 +1,6 @@
 # curtain-checkout-api
 
-Hono/Bun HTTP service that creates Shopify Draft Orders for custom-cut curtains.
+Hono/Bun HTTP service that manages server-side curtain cart items and creates Shopify Draft Orders for custom-cut curtains.
 
 Deployed at `https://app.inanctekstil.store` (Docker on Hetzner `5.75.165.158`).
 
@@ -11,16 +11,7 @@ Deployed at `https://app.inanctekstil.store` (Docker on Hetzner `5.75.165.158`).
 Shopify's Cart Transform API (which can override line item prices) requires **Shopify Plus**.
 The store is on Basic plan, so Cart Transform silently no-ops.
 
-The solution: when a customer configures a curtain, the frontend calls this service instead of
-adding to cart directly. The service calculates the correct price server-side, creates a
-**Draft Order** with that price, and returns a checkout URL. The frontend then:
-
-1. Stores the checkout URL in `sessionStorage`
-2. Adds the item to the Shopify cart (so the cart drawer shows the product)
-3. Intercepts any checkout button click and redirects to the Draft Order URL
-
-This means the cart drawer shows the item normally, but checkout always uses the server-calculated
-price — not the base per-metre price stored in the variant.
+The solution: when a customer configures a curtain, the frontend saves the configuration to this service's Postgres-backed cart. On checkout, the service creates a single **Draft Order** with all configured curtain items at server-calculated prices.
 
 ---
 
@@ -36,30 +27,42 @@ Fills curtain configurator
   ▼
 Clicks "Sepete Ekle"
   │
-  ├─► POST /api/checkout/draft-order
-  │     body: { variantId, en, boy, pileStili, pileOrani, kanat, kanatCount }
+  ├─► GET /cart.js  (Shopify storefront — gets current cart token)
+  │
+  ├─► POST /api/checkout/item
+  │     body: { cartToken, variantId, en, boy, pileStili, pileOrani, kanat, kanatCount }
   │     ├─ Validates inputs
   │     ├─ Gets short-lived Shopify token (client_credentials OAuth)
   │     ├─ Fetches variant base price from Shopify REST (server-side — never trusts client)
   │     ├─ Calculates: (en / 100) × pileOrani × kanatCount × basePricePerMeter
-  │     ├─ Creates Draft Order with custom line item (correct price + order properties)
-  │     └─ Returns { checkoutUrl }
+  │     ├─ Upserts row into cart_items Postgres table keyed to (cartToken, variantId)
+  │     └─ Returns { ok: true, calculatedPrice }
   │
-  ├─► sessionStorage.setItem('perdeCheckoutUrl', checkoutUrl)
-  │
-  ├─► POST /cart/add.js   (Shopify storefront — adds variant to cart drawer)
+  ├─► POST /cart/add.js  (Shopify storefront — adds variant to cart drawer)
   │
   └─► Cart drawer opens showing the item
         │
         ▼
-  Customer clicks "Checkout"
+  Customer navigates to other products, adds more items...
+  (each calls /api/checkout/item — all rows saved under same cartToken)
         │
         ▼
-  Click interceptor (capture phase) detects checkout button,
-  reads sessionStorage, redirects to Draft Order URL
+  Customer clicks "Ödeme" from any page
         │
         ▼
-  Shopify checkout shows correct calculated price  ✓
+  perde-checkout.js intercepts (capture phase), POSTs to:
+  POST /api/checkout/complete
+    body: { cartToken }
+    ├─ Reads all cart_items rows for this cartToken from Postgres
+    ├─ Creates ONE Draft Order with all line items at server-calculated prices
+    ├─ Deletes the rows from Postgres (cleanup)
+    └─ Returns { checkoutUrl }
+        │
+        ▼
+  Redirect to Draft Order checkout URL
+        │
+        ▼
+  Shopify checkout shows ALL items at correct calculated prices  ✓
 ```
 
 ### Price formula
@@ -68,28 +71,33 @@ Clicks "Sepete Ekle"
 price = (en_cm / 100) × pileOrani × kanatCount × basePricePerMeter
 ```
 
-| Parameter       | Description                                         |
-|-----------------|-----------------------------------------------------|
-| `en_cm`         | Curtain width in centimetres (50–1000)              |
-| `pileOrani`     | Pleat ratio: 2.0 (Düz), 2.5 (Kanun Pile), 3.0 (Boru Pile) |
-| `kanatCount`    | Panel count: 1 (Tek Kanat) or 2 (Çift Kanat)       |
-| `basePricePerMeter` | Variant price from Shopify (₺ per metre of fabric) |
+| Parameter           | Description                                                        |
+|---------------------|--------------------------------------------------------------------|
+| `en_cm`             | Curtain width in centimetres (50–1000)                             |
+| `pileOrani`         | Pleat ratio: 2.0 (Düz), 2.5 (Kanun Pile), 3.0 (Boru Pile)        |
+| `kanatCount`        | Panel count: 1 (Tek Kanat) or 2 (Çift Kanat)                      |
+| `basePricePerMeter` | Variant price from Shopify (₺ per metre of fabric)                 |
 
-Example: 200 cm × 2.5 × 1 × ₺230/m = **₺1,150.00**
+Examples:
+- 200 cm × 2.5 × 1 × 230 TL/m = **1,150.00 TL** (TUL Bornova, Tek Kanat)
+- 150 cm × 3.0 × 2 × 150 TL/m = **1,350.00 TL** (Saten, Çift Kanat)
 
 ---
 
 ## API
 
-### `POST /api/checkout/draft-order`
+### `POST /api/checkout/item`
+
+Saves or updates a curtain configuration for a cart token.
 
 **Request body** (JSON):
 
 ```json
 {
-  "variantId": 12345678,
+  "cartToken": "hWN9zvzqmHTRwvNxviJXoHPG?key=c8b76dc5c0984b5e472c32826d665c3a",
+  "variantId": 59200390725713,
   "en": 200,
-  "boy": 260,
+  "boy": 250,
   "pileStili": "Kanun Pile",
   "pileOrani": 2.5,
   "kanat": "Tek Kanat",
@@ -97,31 +105,54 @@ Example: 200 cm × 2.5 × 1 × ₺230/m = **₺1,150.00**
 }
 ```
 
-| Field        | Type    | Constraints                                   |
-|--------------|---------|-----------------------------------------------|
-| `variantId`  | number  | Must be a number                              |
-| `en`         | number  | 50–1000 cm                                    |
-| `boy`        | number  | 1–600 cm                                      |
-| `pileStili`  | string  | Display label (stored in order properties)    |
-| `pileOrani`  | number  | One of: 2.0, 2.5, 3.0                        |
-| `kanat`      | string  | Display label (stored in order properties)    |
-| `kanatCount` | number  | 1 or 2                                        |
-
 **Success response** `200`:
 
 ```json
-{ "checkoutUrl": "https://inanctekstil.store/..." }
+{ "ok": true, "calculatedPrice": "1150.00" }
 ```
 
 **Error responses**:
 
-| Status | `error`               | Cause                                      |
-|--------|-----------------------|--------------------------------------------|
-| 400    | `INVALID_INPUT`       | Validation failure (see message for detail)|
-| 404    | `VARIANT_NOT_FOUND`   | Shopify variant lookup failed              |
-| 500    | `AUTH_FAILED`         | Shopify OAuth token request failed         |
-| 500    | `INVALID_PRICE`       | Variant price is zero or negative          |
-| 500    | `DRAFT_ORDER_FAILED`  | Shopify Draft Orders API returned error    |
+| Status | `error`              | Cause                                                     |
+|--------|----------------------|-----------------------------------------------------------|
+| 400    | `MISSING_CART_TOKEN` | cartToken absent or empty                                 |
+| 400    | `INVALID_INPUT`      | Validation failure (cartToken format, field ranges)       |
+| 404    | `VARIANT_NOT_FOUND`  | Shopify variant lookup failed                             |
+| 500    | `AUTH_FAILED`        | Shopify OAuth token request failed                        |
+| 500    | `INVALID_PRICE`      | Variant price is zero or negative                         |
+| 500    | `DB_ERROR`           | Postgres upsert failed                                    |
+
+---
+
+### `POST /api/checkout/complete`
+
+Creates a Draft Order for all saved cart items and returns the checkout URL.
+Rate-limited to 10 requests per minute per IP.
+
+**Request body** (JSON):
+
+```json
+{ "cartToken": "hWN9zvzqmHTRwvNxviJXoHPG?key=c8b76dc5c0984b5e472c32826d665c3a" }
+```
+
+**Success response** `200`:
+
+```json
+{ "checkoutUrl": "https://1z7hb1-2d.myshopify.com/checkouts/do/..." }
+```
+
+**Error responses**:
+
+| Status | `error`               | Cause                                         |
+|--------|-----------------------|-----------------------------------------------|
+| 400    | `MISSING_CART_TOKEN`  | cartToken absent, empty, or invalid format    |
+| 404    | `NO_ITEMS`            | No configured items found for this cartToken  |
+| 429    | `RATE_LIMITED`        | More than 10 requests/minute from this IP     |
+| 500    | `AUTH_FAILED`         | Shopify OAuth token request failed            |
+| 500    | `DRAFT_ORDER_FAILED`  | Shopify Draft Orders API returned error       |
+| 500    | `DB_ERROR`            | Postgres read failed                          |
+
+---
 
 ### `GET /health`
 
@@ -164,7 +195,8 @@ scp -r -i ~/.ssh/inanctekstil src package.json tsconfig.json \
 # SSH and rebuild
 ssh -i ~/.ssh/inanctekstil root@5.75.165.158
 cd /opt/inanctekstil
-docker compose up -d --build curtain-app
+docker compose up -d curtain-db          # start DB first (if not running)
+docker compose up -d --build curtain-app # rebuild and restart API
 ```
 
 The service runs as the `curtain-app` container, exposed via Traefik at
@@ -178,89 +210,61 @@ Tested on production store `inanctekstil.store`. Run this after any deployment.
 
 ### Prerequisites
 - Browser with no existing cart (or clear the cart first at `/cart`)
-- API service is running: `curl https://app.inanctekstil.store/health` → `{"status":"ok",...}`
+- API service is running: `curl https://app.inanctekstil.store/health` should return `{"status":"ok",...}`
+- `curtain-db` container is running: `docker exec curtain-db pg_isready -U curtain`
 
 ---
 
 ### Step 1 — Add TUL product via configurator
 
 1. Navigate to `https://inanctekstil.store/products/tul-bornova`
-2. **Verify**: standard variant picker and buy button are **hidden** (replaced by configurator)
-3. In Step 1 (Ölçü Seçimi), enter **En: 200**, **Boy: 250**
-4. **Verify**: "Devam Et" becomes enabled
-5. Click "Devam Et"
-6. **Verify**: Step 1 collapses to "Ölçü: 200 x 250 cm"; Step 2 pile style picker appears
-7. Select **Kanun Pile x2.5**
-8. Click "Devam Et"
-9. **Verify**: Step 2 collapses to "Pile: Kanun Pile"; Step 3 panel picker appears
-10. Select **Tek Kanat**
-11. Click "Devam Et"
-12. **Verify**: Step 3 collapses to "Kanat: Tek Kanat"; Step 4 Onay appears with:
-    - Review table: En 200 cm / Boy 250 cm / Pile Stili Kanun Pile / Kanat Tek Kanat
-    - **Tahmini Fiyat: 1.150,00 TL** ✓ (formula: 200/100 × 2.5 × 1 × 230)
-    - Disclaimer checkbox unchecked; "Sepete Ekle" disabled
-13. Check the disclaimer checkbox
-14. **Verify**: "Sepete Ekle" becomes enabled
-15. Click "Sepete Ekle"
-16. **Verify**: Button shows "Hazırlanıyor…" (draft order request in flight)
-17. **Verify**: Cart drawer opens with:
-    - Item: BORNOVA Tül Perde
-    - Properties: En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat
-    - Line price: **1,150.00TL** ✓
-    - Tahmini toplam: 1.150,00 TL
+2. In Step 1 (Ölçü Seçimi), enter **En: 200**, **Boy: 250**, click "Devam Et"
+3. Select **Kanun Pile x2.5**, click "Devam Et"
+4. Select **Tek Kanat**, click "Devam Et"
+5. **Verify Step 4 Onay**:
+   - Tahmini Fiyat: **1.150,00 TL** (formula: 200/100 × 2.5 × 1 × 230)
+6. Check the disclaimer checkbox, click "Sepete Ekle"
+7. **Verify**: Cart drawer opens with:
+   - Item: BORNOVA Tül Perde, line price **1,150.00TL**
+   - Button shows "Sepete Eklendi ✓"
 
 ---
 
-### Step 2 — Add STN product via configurator
-
-All products are tagged `perde-tasarla` and show the curtain configurator.
+### Step 2 — Navigate to STN page (items must survive page navigation)
 
 1. Navigate to `https://inanctekstil.store/products/stn-saten`
-2. **Verify**: Configurator is visible; standard buy button is hidden
-3. **Verify**: Cart badge shows **1** item from the TUL step
-4. Complete configurator: En=150, Boy=200 → Boru Pile x3.0 → Çift Kanat
+2. **Verify**: Cart badge still shows **1** item (DB rows are not cleared on navigation)
+3. Complete configurator: En=150, Boy=200 → Boru Pile x3.0 → Çift Kanat
+4. **Verify Step 4**: Tahmini Fiyat: **1.350,00 TL** (formula: 150/100 × 3.0 × 2 × 150)
 5. Check disclaimer, click "Sepete Ekle"
-6. **Verify**: Cart drawer opens with STN line at **1,350.00TL**
-   - Formula: (150/100) × 3.0 × 2 × 150 = ₺1,350 ✓
-7. **Verify**: Cart badge shows **2**
+6. **Verify**: Cart drawer opens with **2 items**, Tahmini toplam **2.500,00 TL**:
+   - Saten Perde: 1,350.00TL
+   - BORNOVA Tül Perde: 1,150.00TL
 
 ---
 
-### Step 3 — Verify cart drawer contents
+### Step 3 — Checkout from cart page
 
-From the cart drawer (while still on `stn-saten` product page):
-
-| Item | Properties | Displayed line price |
-|------|-----------|---------------------|
-| BORNOVA Tül Perde | En: 200 cm, Boy: 250 cm, Pile Stili: Kanun Pile (x2.5), Kanat: Tek Kanat | 1,150.00TL |
-| Saten Perde | En: 150 cm, Boy: 200 cm, Pile Stili: Boru Pile (x3), Kanat: Çift Kanat | 1,350.00TL |
-
-**Verify**: Tahmini toplam shows **2.500,00 TL** (patched by `perde-cart-total.js`) ✓
+1. Navigate to `https://inanctekstil.store/cart`
+2. **Verify**: Both items are shown correctly
+3. Click **"Ödeme"**
+4. **Verify**: Browser console shows `[PerdeCheckout] intercepted checkout click`
+5. **Verify**: URL changes to a Draft Order URL — `1z7hb1-2d.myshopify.com/checkouts/do/...`
+   (NOT the normal `/checkout` path)
+6. **Verify**: Checkout order summary shows **both items**:
+   - Özel Ölçü Perde (TUL): En 200 cm, Kanun Pile (x2.50), Tek Kanat — **1.150,00 TL**
+   - Özel Ölçü Perde (STN): En 150 cm, Boru Pile (x3.00), Çift Kanat — **1.350,00 TL**
+   - Alt toplam: **2.500,00 TL**
 
 ---
 
-### Step 4 — Checkout from cart drawer (correct path for single-product)
+### Step 4 — Verify page refresh persistence
 
-> ⚠️ **Important**: The checkout interceptor only works if you click checkout **while on the last configured product's page**. It only redirects to **that product's draft order** — other items are NOT included (see Known limitations).
-
-**Correct path (single product, Draft Order redirect):**
-1. After adding TUL, open the cart drawer while still on `products/tul-bornova`
-2. Click "Ödeme" inside the cart drawer
-3. **Verify**: URL changes to a Draft Order checkout URL
-4. **Verify**: Checkout shows **BORNOVA Tül Perde at ₺1,150.00** ✓ (not ₺230)
-5. **Verify**: All configuration properties are visible in the order line
-
-**Multi-product bug path (known issue):**
-1. Add STN via configurator on `stn-saten` (draft order URL A stored in sessionStorage)
-2. Navigate to `tul-bornova` — `init()` clears sessionStorage, URL A is lost
-3. Add TUL via configurator (draft order URL B stored in sessionStorage)
-4. Click "Ödeme" from cart drawer
-5. **Result**: Checkout shows **only TUL at ₺1,150** — STN (₺1,350) is absent ⚠️
-
-**Cart page bypass bug (known issue):**
-1. Navigate to `https://inanctekstil.store/cart` directly
-2. Click "Ödeme"
-3. **Result**: Regular Shopify checkout at base variant prices (₺230 + ₺150 = ₺380) — not calculated prices ⚠️
+1. Clear the cart and repeat Step 1 (add TUL only, do not checkout yet)
+2. **Refresh** the product page
+3. Navigate to `/cart` and click "Ödeme"
+4. **Verify**: Draft Order checkout shows TUL item at 1.150,00 TL
+   (DB row survived the page refresh — no sessionStorage dependency)
 
 ---
 
@@ -268,38 +272,6 @@ From the cart drawer (while still on `stn-saten` product page):
 
 1. On the Shopify checkout page (Draft Order path):
 2. Fill in contact: email address
-3. Delivery method: "Gönder" (ship)
-4. Fill in shipping address: Ad, Soyadı, Adres, Şehir (country pre-set to Türkiye)
-5. **Verify**: Shipping method appears (e.g. Standart ₺89.00)
-6. **Verify**: Order summary shows correct prices
-7. Payment: "Kredi / Banka Kartı (PayTR)" — clicking "Şimdi öde" redirects to PayTR
-
----
-
-## Known limitations
-
-- **Multi-product cart (critical)**: `sessionStorage` holds only one draft order URL at a time.
-  Each time a customer lands on a configurator product page, `init()` calls `removeItem` to clear
-  the previous URL. If a customer configures two products (e.g. STN then TUL), only the last
-  product's draft order URL survives. Clicking "Ödeme" from the cart drawer redirects to that
-  last draft order only — the earlier product is in the Shopify cart but not in the checkout order.
-  **Verified**: STN (₺1,350) + TUL (₺1,150) in cart → checkout shows only TUL at ₺1,150 ⚠️
-  **Fix options**: store a map of `variantId → checkoutUrl` in sessionStorage, or use a
-  server-side multi-item draft order, or add a global cart page interceptor that reads all stored URLs.
-
-- **Cart page checkout bypass**: The checkout interceptor is registered by the
-  `curtain-configurator` Liquid section, which only renders on pages tagged `perde-tasarla`.
-  If a customer navigates to `/cart` and clicks checkout there, the interceptor is not present
-  and Shopify routes to regular checkout at base variant prices.
-  **Workaround**: Customers should checkout from the cart drawer while on a product page, or
-  a global interceptor script should be added to the theme layout.
-
-- **sessionStorage lifetime**: If a customer refreshes the page between adding to cart and
-  clicking checkout, `sessionStorage` is cleared (init runs `removeItem`) and checkout falls
-  back to the base variant price. This is a known constraint of the Basic plan.
-
-- **Cart total display**: The Shopify cart/checkout shows the stored variant price in the cart
-  total. The `perde-cart-total.js` script patches the displayed total on product pages only.
-  The correct price is enforced at checkout via the Draft Order URL.
-
-- **Cart Transform** (which would fix all price display issues) requires Shopify Plus.
+3. Delivery: "Gönder" — fill shipping address (country pre-set to Türkiye)
+4. **Verify**: Shipping method appears (e.g. Standart 89.00 TL)
+5. Payment: "Kredi / Banka Kartı (PayTR)" — "Şimdi öde" redirects to PayTR

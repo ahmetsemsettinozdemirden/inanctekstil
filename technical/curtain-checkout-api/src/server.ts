@@ -1,4 +1,7 @@
 import { app } from "./app.ts";
+import { initDb } from "./db.ts";
+
+await initDb();
 
 const port = parseInt(process.env.PORT ?? "3001", 10);
 const server = Bun.serve({ port, fetch: app.fetch });

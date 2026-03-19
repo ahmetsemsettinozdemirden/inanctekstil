@@ -185,8 +185,8 @@ describe('POST /api/checkout/item — cartToken validation', () => {
     expect(json.error).toBe('INVALID_INPUT');
   });
 
-  test('returns 400 INVALID_INPUT for cartToken longer than 64 chars', async () => {
-    const res = await postItem({ ...VALID_BODY, cartToken: 'a'.repeat(65) });
+  test('returns 400 INVALID_INPUT for cartToken longer than 128 chars', async () => {
+    const res = await postItem({ ...VALID_BODY, cartToken: 'a'.repeat(129) });
     expect(res.status).toBe(400);
     const json = await res.json() as { error: string };
     expect(json.error).toBe('INVALID_INPUT');
@@ -194,8 +194,15 @@ describe('POST /api/checkout/item — cartToken validation', () => {
 
   test('accepts cartToken with hyphens', async () => {
     globalThis.fetch = mockItemShopify();
-    mockState.sqlQueue = [[]]; // upsert succeeds
+    mockState.sqlQueue = [[]];
     const res = await postItem({ ...VALID_BODY, cartToken: 'abc-def-123' });
+    expect(res.status).toBe(200);
+  });
+
+  test('accepts real Shopify cart token format (alphanumeric?key=hex)', async () => {
+    globalThis.fetch = mockItemShopify();
+    mockState.sqlQueue = [[]];
+    const res = await postItem({ ...VALID_BODY, cartToken: 'hWN9zvzqmHTRwvNxviJXoHPG?key=c8b76dc5c0984b5e472c32826d665c3a' });
     expect(res.status).toBe(200);
   });
 });

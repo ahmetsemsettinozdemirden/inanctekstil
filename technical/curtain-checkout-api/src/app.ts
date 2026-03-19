@@ -4,7 +4,9 @@ import { sql } from "./db.ts";
 
 const VALID_PILE_ORANI = new Set([2.0, 2.5, 3.0]);
 const ADMIN_API_VERSION = "2025-01";
-const CART_TOKEN_RE = /^[a-zA-Z0-9-]{1,64}$/;
+// Shopify cart tokens are alphanumeric with optional ?key=... suffix
+// e.g. "hWN9zvzqmHTRwvNxviJXoHPG?key=c8b76dc5c0984b5e472c32826d665c3a"
+const CART_TOKEN_RE = /^[a-zA-Z0-9\-_?=]{1,128}$/;
 
 // In-memory rate limiter: max 10 requests per minute per IP for /api/checkout/complete
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
