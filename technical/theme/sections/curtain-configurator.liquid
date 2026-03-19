@@ -832,11 +832,13 @@
           });
         })
         .then(function(cartData) {
-          log('cart:add:response', { itemCount: cartData.item_count });
+          var sectionsData = cartData.sections || {};
+          log('cart:add:response', { itemCount: cartData.item_count, sectionsRendered: Object.keys(sectionsData).length });
           addToCartBtn.textContent = 'Sepete Eklendi ✓';
           log('cart:add:complete', { price: formatTL(calculatedPrice) });
 
-          document.dispatchEvent(new Event('cart:update', { bubbles: true }));
+          var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
+          document.dispatchEvent(evt);
 
           var cartDrawer = document.querySelector('cart-drawer-component');
           if (cartDrawer) {
