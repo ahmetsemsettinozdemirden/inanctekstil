@@ -31,18 +31,10 @@ Use this document to track what needs to be done before activating campaigns.
 
 **Why it matters:** Required for Aggregated Event Measurement (AEM) and proper iOS14+ attribution. Without it, Meta cannot reliably attribute purchases from iOS users.
 
-- [ ] **Add TXT record to DNS** — already added to Terraform, needs `apply`:
-  ```
-  cd technical/gitopsprod
-  terraform plan   # verify only the TXT record is being added
-  terraform apply
-  ```
-  Record value: `facebook-domain-verification=a88frdgxv5jt1kwa7kosgx34hf7wre`
+- [x] **TXT record added to DNS** — applied via Terraform (`5d277bd`)
+  Record: `facebook-domain-verification=a88frdgxv5jt1kwa7kosgx34hf7wre`
 
-- [ ] **Verify in Meta Business Manager:**
-  1. Go to Business Manager → Brand Safety → Domains
-  2. Find `inanctekstil.store`
-  3. Click "Verify" — DNS propagation may take up to 24h after Terraform apply
+- [x] **Verified in Meta Business Manager** — `inanctekstil.store` confirmed verified
 
 ---
 
@@ -117,29 +109,30 @@ Use this document to track what needs to be done before activating campaigns.
 
 ---
 
-## 7. Campaign Fixes (do after steps 1–6)
+## 7. Campaign Fixes
 
-These are all doable via the MCP — tell Claude to "apply campaign fixes" when ready.
+### Campaign 1: Katalog — Ürün Satışları `6933662901256`
 
-### Campaign 1: Katalog — Ürün Satışları (Dinamik) `6933662901256`
-
-| # | Issue | Fix |
-|---|-------|-----|
-| C1-1 | Ad set optimizes for `LINK_CLICKS` on an OUTCOME_SALES campaign | Change to `LANDING_PAGE_VIEWS` now; switch to `OFFSITE_CONVERSIONS` once pixel fires Purchase events |
-| C1-2 | Ads have no pixel tracking specs | Add `{"action.type": ["offsite_conversion"], "fb_pixel": ["1446692113800169"]}` to both ads |
-| C1-3 | `destination_type: UNDEFINED` on ad set | Update to `WEBSITE` |
-| C1-4 | Budget ₺45/day is too low for conversion optimization | Raise to ₺150–200/day minimum; at ₺45/day Meta can't exit the learning phase (needs ~50 conversions/week) |
-| C1-5 | Campaign named "Dinamik" but no catalog integration | Either: (a) rename to reflect what it actually is, or (b) rebuild as a true Dynamic Product Ad using catalog `25593862530291556` — requires catalog issues (step 6) fixed first |
-| C1-6 | Only 2 product categories (Blackout + Saten) — no Tül, no Fon | Add ads for remaining collections once more products are synced |
+| # | Issue | Status |
+|---|-------|--------|
+| C1-1 | Ad set `LINK_CLICKS` → `LANDING_PAGE_VIEWS` | ✅ Applied |
+| C1-2 | Pixel tracking specs added to Blackout + Saten ads | ✅ Applied |
+| C1-3 | `destination_type: UNDEFINED` — needs `WEBSITE` | [ ] Not yet — `destination_type` not exposed in `update_ad_set`; needs ad set rebuild |
+| C1-4 | Budget ₺45/day too low for conversion optimization | [ ] Raise to ₺150–200/day before activating |
+| C1-5 | Campaign named "Dinamik" but no catalog integration | [ ] Decide: rename OR rebuild as true DPA (requires step 6 catalog fixes first) |
+| C1-6 | Only Blackout + Saten ads — no Tül, no Fon | [ ] Add after more products synced to Shopify |
+| C1-7 | Switch to `OFFSITE_CONVERSIONS` once pixel fires Purchase | [ ] Do after step 3 (pixel events) confirmed |
 
 ### Campaign 2: Reels — Farkındalık (Soğuk Kitle) `6933660244056`
 
-| # | Issue | Fix |
-|---|-------|-----|
-| C2-1 | Static image ad on Instagram Reels placement | Replace creative with a video (15–30s room reveal, product showcase, or slideshow video) — Reels is video-first, static images perform poorly |
-| C2-2 | `SHOP_NOW` CTA on an awareness campaign | Change to `LEARN_MORE` — awareness audiences aren't in buying mode |
-| C2-3 | No frequency cap — same people see ad repeatedly | Add `frequency_control_specs`: max 3 impressions per 7 days |
-| C2-4 | Duplicate paused ad `6933661259056` (no UTM version) | Delete it — superseded by the UTM version |
+| # | Issue | Status |
+|---|-------|--------|
+| C2-1 | Static image in Reels — needs video creative | [ ] Upload a 15–30s video (room reveal, product showcase, slideshow) |
+| C2-2 | `SHOP_NOW` → `LEARN_MORE` | ✅ New creative `793405240111328` created |
+| C2-3 | No frequency cap | ✅ New ad set `6934611186856` created with max 3/7 days |
+| C2-4 | Duplicate no-UTM ad deleted | ✅ Ad `6933661259056` deleted |
+| C2-5 | Old ad + old ad set paused | ✅ Ad `6933661911256` + ad set `6933660347256` paused |
+| C2-6 | New ad `6934611326856` created under freq-capped ad set | ✅ PAUSED, ready to activate |
 
 ---
 
@@ -170,4 +163,7 @@ These metrics will stop working in `list_insights` / `create_report` after May 1
 | Campaign — Sales | `6933662901256` |
 | Campaign — Awareness | `6933660244056` |
 | Ad set — Sales | `6933663283856` |
-| Ad set — Awareness | `6933660347256` |
+| Ad set — Awareness (old, paused) | `6933660347256` |
+| Ad set — Awareness (freq cap, active) | `6934611186856` |
+| Ad — Awareness (active) | `6934611326856` |
+| Creative — Awareness LEARN_MORE | `793405240111328` |
