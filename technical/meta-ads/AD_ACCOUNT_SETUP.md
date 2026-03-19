@@ -108,16 +108,9 @@ Use this document to track what needs to be done before activating campaigns.
 | C1-6 | Only Blackout + Saten ads — no Tül, no Fon | [ ] Add after more products synced to Shopify |
 | C1-7 | Switch to `OFFSITE_CONVERSIONS` once more Purchases fire | [ ] Switch when Purchase volume > 10/week |
 
-### Campaign 2: Reels — Farkındalık (Soğuk Kitle) `6933660244056`
+### Campaign 2: Reels — Farkındalık (Soğuk Kitle) ~~`6933660244056`~~
 
-| # | Issue | Status |
-|---|-------|--------|
-| C2-1 | Static image in Reels — needs video creative | ✅ Video `4525340454399489` uploaded; creative `966088742674546` created; ad `6934641762256` created PAUSED under freq-capped ad set (2026-03-19) |
-| C2-2 | `SHOP_NOW` → `LEARN_MORE` | ✅ New creative `793405240111328` created |
-| C2-3 | No frequency cap | ✅ New ad set `6934611186856` created with max 3/7 days |
-| C2-4 | Duplicate no-UTM ad deleted | ✅ Ad `6933661259056` deleted |
-| C2-5 | Old ad + old ad set paused | ✅ Ad `6933661911256` + ad set `6933660347256` paused |
-| C2-6 | New ad `6934611326856` created under freq-capped ad set | ✅ PAUSED (static image — superseded by C2-1 video ad) |
+**DELETED** (2026-03-19) — campaign, all ad sets, and all ads permanently removed.
 
 ---
 
@@ -149,10 +142,4 @@ These metrics will stop working in `list_insights` / `create_report` after May 1
 | Campaign — Awareness | `6933660244056` |
 | Ad set — Sales (old, PAUSED — destination_type UNDEFINED) | `6933663283856` |
 | Ad set — Sales v2 (PAUSED — destination_type WEBSITE, ₺150/day) | `6934642328656` |
-| Ad set — Awareness (old, paused) | `6933660347256` |
-| Ad set — Awareness (freq cap, active) | `6934611186856` |
-| Ad — Awareness static image (PAUSED) | `6934611326856` |
-| Ad — Awareness video Reels (PAUSED) | `6934641762256` |
-| Creative — Awareness LEARN_MORE (static) | `793405240111328` |
-| Creative — Awareness video Reels | `966088742674546` |
 | Video — İnanç Tekstil MVP | `4525340454399489` |
