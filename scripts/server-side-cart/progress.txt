@@ -40,3 +40,11 @@ Completed: 19 Mar 2026
 Changes:
 - technical/curtain-checkout-api/src/app.ts: Added POST /api/checkout/complete. Validates cartToken, reads all cart_items rows for token, returns 404 NO_ITEMS if empty, creates Shopify Draft Order with all line items (invoice_url), deletes rows on success, returns {checkoutUrl}. In-memory rate limiter: 10 req/min per IP.
 - bun run typecheck: PASS, bun test src/: PASS (27 tests, existing tests unchanged)
+
+## US-005 — Write tests for POST /api/checkout/item and POST /api/checkout/complete ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/curtain-checkout-api/src/app.test.ts: Added comprehensive test suite for /api/checkout/complete. Updated mock to use sqlQueue pattern (array of results/errors, one per DB call) allowing independent SELECT/DELETE mocking. 36 tests total (0 fail).
+- Tests cover: valid 2-item draft order, empty cart→NO_ITEMS, rows deleted after success, AUTH_FAILED, DRAFT_ORDER_FAILED, DB_ERROR, line item properties, invoice_url vs checkout_url.
+- bun run typecheck: PASS, bun test src/: PASS (36 tests)

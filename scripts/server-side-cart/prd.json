@@ -99,8 +99,8 @@
         "bun run typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "Follow TDD: write failing tests first, then confirm implementation passes them. See existing test patterns in technical/curtain-checkout-api/src/app.test.ts",
+      "passes": true,
+      "notes": "Comprehensive tests added for both endpoints. 36 tests total. Uses mock.module + sqlQueue pattern for flexible DB mocking.",
       "dependsOn": ["US-004"]
     },
     {
