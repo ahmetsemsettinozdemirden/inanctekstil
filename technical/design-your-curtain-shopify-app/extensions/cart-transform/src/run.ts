@@ -1,15 +1,15 @@
 /**
  * Cart Transform function — Perde Tasarla price calculation.
  *
- * Reads _en, _pile_orani, _kanat from line item properties and sets
+ * Reads _en, _pile_orani, _kanat from line item attributes and sets
  * the correct price using the formula:
  *   total = (en_cm / 100) × pile_orani × kanat × base_price_per_meter
  *
- * Items without these properties are left unchanged.
+ * Items without these attributes are left unchanged.
  */
 
 // ---------------------------------------------------------------------------
-// Types
+// Types (matching input.graphql)
 // ---------------------------------------------------------------------------
 
 interface Money {
@@ -17,8 +17,7 @@ interface Money {
   currencyCode: string;
 }
 
-interface CartLineProperty {
-  key: string;
+interface Attribute {
   value: string;
 }
 
@@ -28,7 +27,9 @@ interface CartLine {
   merchandise: {
     id: string;
   };
-  properties: CartLineProperty[];
+  en: Attribute | null;
+  pileOrani: Attribute | null;
+  kanat: Attribute | null;
   cost: {
     amountPerQuantity: Money;
   };
@@ -88,15 +89,6 @@ export function calculateCurtainPrice(config: PriceConfig): number | null {
 }
 
 // ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function getProperty(properties: CartLineProperty[], key: string): string | null {
-  const prop = properties.find((p) => p.key === key);
-  return prop ? prop.value : null;
-}
-
-// ---------------------------------------------------------------------------
 // Function entry point
 // ---------------------------------------------------------------------------
 
@@ -104,18 +96,14 @@ export function run(input: CartTransformInput): CartTransformResult {
   const operations: ExpandOperation[] = [];
 
   for (const line of input.cart.lines) {
-    const enStr = getProperty(line.properties, '_en');
-    const pileOraniStr = getProperty(line.properties, '_pile_orani');
-    const kanatStr = getProperty(line.properties, '_kanat');
-
-    // Skip non-curtain products (missing properties)
-    if (!enStr || !pileOraniStr || !kanatStr) {
+    // Skip non-curtain products (missing attributes)
+    if (!line.en || !line.pileOrani || !line.kanat) {
       continue;
     }
 
-    const enCm = parseFloat(enStr);
-    const pileOrani = parseFloat(pileOraniStr);
-    const kanat = parseFloat(kanatStr);
+    const enCm = parseFloat(line.en.value);
+    const pileOrani = parseFloat(line.pileOrani.value);
+    const kanat = parseFloat(line.kanat.value);
     const basePricePerMeter = parseFloat(line.cost.amountPerQuantity.amount);
 
     const price = calculateCurtainPrice({ enCm, pileOrani, kanat, basePricePerMeter });
@@ -148,3 +136,5 @@ export function run(input: CartTransformInput): CartTransformResult {
 
   return { operations };
 }
+
+export default run;

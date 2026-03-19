@@ -1,0 +1,12 @@
+{
+  "name": "perde-cart-transform",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "vitest run src/run.test.ts"
+  },
+  "dependencies": {
+    "@shopify/shopify_function": "^2.0.1"
+  }
+}
+

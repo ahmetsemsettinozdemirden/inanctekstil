@@ -1,0 +1,29 @@
+query CartTransformInput {
+  cart {
+    lines {
+      id
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+        }
+      }
+      en: attribute(key: "_en") {
+        value
+      }
+      pileOrani: attribute(key: "_pile_orani") {
+        value
+      }
+      kanat: attribute(key: "_kanat") {
+        value
+      }
+      cost {
+        amountPerQuantity {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+}

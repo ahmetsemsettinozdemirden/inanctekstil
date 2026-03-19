@@ -1,13 +1,14 @@
-api_version = "2025-01"
+api_version = "2025-10"
 
 [[extensions]]
+uid = "0d5c4811-e92e-7909-cdef-ef3bfab64f2502114365"
 type = "function"
 name = "Perde Tasarla - Cart Transform"
 handle = "perde-cart-transform"
 
 [extensions.build]
-command = "bun run build"
 path = "dist/function.wasm"
+typegen_command = "true"
 watch = ["src/**/*.ts"]
 
 [[extensions.targeting]]
