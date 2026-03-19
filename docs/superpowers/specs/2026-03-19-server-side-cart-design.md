@@ -38,6 +38,8 @@ If the cart has no configured items in Postgres (e.g. future non-curtain product
 
 A new `curtain-db` Postgres container is added to the Docker Compose stack at `/opt/inanctekstil/`. It is isolated from the existing PMS `postgres` container.
 
+**CORS**: the API restricts `Access-Control-Allow-Origin` to `https://inanctekstil.store` only. The current `origin: "*"` setting is replaced. This is the only legitimate caller.
+
 ```
 Docker Compose stack (/opt/inanctekstil/)
 ├── traefik       (existing)
@@ -75,9 +77,11 @@ CREATE TABLE cart_items (
 CREATE UNIQUE INDEX ON cart_items(cart_token, variant_id);
 ```
 
-**Upsert rule**: conflict on `(cart_token, variant_id)` → update all fields. Reconfiguring the same product replaces the previous entry.
+**Upsert rule**: conflict on `(cart_token, variant_id)` → update all fields. Reconfiguring the same product replaces the previous entry. If a customer tries to add the same variant a second time with different dimensions, the first configuration is silently overwritten — the frontend should not offer this path (each product has one variant per colour, so this is not a real use case today).
 
-**Cleanup**: rows older than 7 days are deleted. Runs on server startup and once every 24 hours via `setInterval`.
+**Row lifecycle**: on successful draft order creation in `/api/checkout/complete`, all rows for that `cartToken` are deleted immediately. This prevents a customer from accidentally including already-purchased items in a subsequent checkout.
+
+**Cleanup**: rows older than 7 days are deleted to handle abandoned carts. Runs on server startup and once every 24 hours via `setInterval`.
 
 ## API endpoints
 
@@ -99,13 +103,17 @@ Replaces `POST /api/checkout/draft-order`.
 }
 ```
 
+**Validation rules for `cartToken`**: must be present, non-empty, alphanumeric + hyphens only, max 64 characters. Parameterised queries prevent SQL injection regardless, but length validation is enforced.
+
 **Steps:**
-1. Validate inputs (same rules as existing endpoint)
+1. Validate inputs (same rules as existing endpoint + cartToken format above)
 2. Fetch Shopify token via `client_credentials` OAuth
 3. Fetch variant price + product title from Shopify REST
 4. Calculate: `(en / 100) × pileOrani × kanatCount × basePricePerMeter`
+   - Height (`boy_cm`) is **not** part of the price formula — fabric is priced per metre of width. It is stored and displayed in the order as a cutting specification only.
 5. Upsert row into `cart_items`
 6. Return `{ ok: true, calculatedPrice: "1150.00" }`
+   - The frontend uses `calculatedPrice` to display the confirmed price in the Step 4 summary before opening the cart drawer. No checkout URL is returned from this endpoint.
 
 **Errors:**
 
@@ -128,10 +136,13 @@ Replaces `POST /api/checkout/draft-order`.
 ```
 
 **Steps:**
-1. Read all rows for `cartToken` from Postgres
-2. If none → `404 { error: "NO_ITEMS" }` (interceptor falls through to normal checkout)
-3. Create one Shopify Draft Order with all line items (each with correct price + En/Boy/Pile Stili/Kanat properties)
-4. Return `{ checkoutUrl }`
+1. Validate `cartToken` (same format rules as `/api/checkout/item`)
+2. Read all rows for `cartToken` from Postgres
+3. If none → `404 { error: "NO_ITEMS" }` (interceptor falls through to normal checkout)
+4. Create one Shopify Draft Order with all line items (each with correct price + En/Boy/Pile Stili/Kanat properties)
+   - `checkoutUrl` maps to `draft_order.invoice_url` from the Shopify Draft Orders API response (not `draft_order.checkout_url`, which is a different shorter URL)
+5. Delete all rows for this `cartToken` from Postgres (within the same operation, after successful draft order creation)
+6. Return `{ checkoutUrl }`
 
 **Errors:**
 
@@ -157,6 +168,8 @@ Replaces `POST /api/checkout/draft-order`.
 ### New: `assets/perde-checkout.js`
 
 Global checkout interceptor loaded on every page. Intercepts clicks on checkout buttons/links in the capture phase.
+
+Rate limiting: the server enforces a maximum of 10 requests per minute per IP on `/api/checkout/complete` to prevent Shopify Draft Orders API quota exhaustion.
 
 ```
 click intercepted
@@ -205,6 +218,7 @@ Customer pays ₺2,500 ✓
 
 ## Known limitations after this change
 
+- **Delete-after-checkout failure**: if the Postgres delete in `/api/checkout/complete` fails after a successful draft order creation, the rows persist until the 7-day cleanup. A subsequent checkout by the same customer before cleanup would include already-purchased items. This is an unlikely edge case (draft order created, then DB delete fails) and is acceptable given the 7-day TTL.
 - **Same variant, different configs**: if a customer configures the same product variant twice with different dimensions, the second config overwrites the first (upsert on `cart_token + variant_id`). This is acceptable for now — most products have one variant per colour.
 - **Cart token change**: if the customer clears their Shopify cart, Shopify issues a new cart token and the Postgres rows become orphaned (cleaned up after 7 days).
 - **Cart page checkout**: after this change, checkout from `/cart` works correctly because the interceptor is now global.
