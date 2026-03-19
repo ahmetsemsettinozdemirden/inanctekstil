@@ -154,7 +154,7 @@ resource "hcloud_zone_record" "posthog_proxy" {
   zone  = hcloud_zone.main.id
   name  = "svc"
   type  = "CNAME"
-  value = "REPLACE_WITH_POSTHOG_CNAME_TARGET."
+  value = "4470bbf4e458b2332c54.cf-prod-eu-proxy.europehog.com."
 }
 
 # analytics-forwarder webhook receiver
