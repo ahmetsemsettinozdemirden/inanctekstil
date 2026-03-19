@@ -247,7 +247,7 @@
     }
     .perde-conf__pile-card__img img {
       width: 100%;
-      height: 64px;
+      height: 172px;
       object-fit: cover;
       display: block;
     }
@@ -1110,6 +1110,14 @@
 
         priceDisplay.textContent = formatTL(price);
         priceFormula.textContent = cfg.en + ' cm × ' + cfg.pile_orani + (cfg.kanat_count === 2 ? ' × 2 kanat' : ' × 1 kanat');
+        if (window.posthog) {
+          posthog.capture('calculator_completed', {
+            variant_id: VARIANT_ID,
+            width_cm: cfg.en,
+            height_cm: cfg.boy,
+            calculated_price: price,
+          });
+        }
         // Reset disclaimer when recalculating
         disclaimerCheck.checked = false;
         addToCartBtn.disabled = true;
@@ -1199,6 +1207,13 @@
             var sectionsData = cartData.sections || {};
             addToCartBtn.textContent = 'Sepete Eklendi ✓';
             log('cart:add:complete', { price: formatTL(confirmedPrice) });
+            if (window.posthog) {
+              posthog.capture('add_to_cart', {
+                variant_id: VARIANT_ID,
+                price: confirmedPrice,
+                quantity: 1,
+              });
+            }
             var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
             document.dispatchEvent(evt);
             var cartDrawer = document.querySelector('cart-drawer-component');
