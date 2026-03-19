@@ -1,0 +1,168 @@
+{
+  "project": "inanc-tekstil",
+  "branchName": "ralph/server-side-cart",
+  "description": "Replace sessionStorage-based draft order URL with Postgres-backed cart items keyed to Shopify cart token. Fixes multi-product checkout and page-refresh bugs. Spec: docs/superpowers/specs/2026-03-19-server-side-cart-design.md",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Add curtain-db Postgres container to Docker Compose",
+      "description": "As a developer, I want a dedicated Postgres container for curtain-checkout-api so that cart items can be persisted independently of the PMS database.",
+      "acceptanceCriteria": [
+        "Add `curtain-db` service to docker-compose.yml at technical/gitopsprod/ using image postgres:16-alpine",
+        "Service uses a named volume `curtain-db-data` for persistence",
+        "curtain-db is NOT exposed on any host port — internal Docker network only",
+        "curtain-app service has `CURTAIN_DATABASE_URL` env var: postgres://curtain:PASSWORD@curtain-db:5432/curtain",
+        "curtain-app depends_on curtain-db in compose",
+        "CURTAIN_DATABASE_URL added to /opt/inanctekstil/.env on the Hetzner server (use a strong random password)",
+        "Document the new env var in technical/curtain-checkout-api/README.md under Environment variables"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
+    },
+    {
+      "id": "US-002",
+      "title": "Add Postgres client, schema migration, and cleanup to curtain-checkout-api",
+      "description": "As a developer, I want the curtain-checkout-api to connect to curtain-db and manage the cart_items table so that configured items can be stored and queried.",
+      "acceptanceCriteria": [
+        "Add `postgres` npm package (porsager/postgres) to technical/curtain-checkout-api/package.json",
+        "Create src/db.ts that exports a `sql` client using CURTAIN_DATABASE_URL env var",
+        "On startup, run CREATE TABLE IF NOT EXISTS cart_items with columns: id SERIAL PRIMARY KEY, cart_token TEXT NOT NULL, variant_id BIGINT NOT NULL, product_title TEXT NOT NULL, en_cm INT NOT NULL, boy_cm INT NOT NULL, pile_stili TEXT NOT NULL, pile_orani DECIMAL(4,2) NOT NULL, kanat TEXT NOT NULL, kanat_count INT NOT NULL, base_price_per_meter DECIMAL(10,2) NOT NULL, calculated_price DECIMAL(10,2) NOT NULL, created_at TIMESTAMPTZ DEFAULT NOW()",
+        "On startup, run CREATE UNIQUE INDEX IF NOT EXISTS ON cart_items(cart_token, variant_id)",
+        "Cleanup job: DELETE FROM cart_items WHERE created_at < NOW() - INTERVAL '7 days' — runs on startup and every 24 hours via setInterval",
+        "If CURTAIN_DATABASE_URL is not set, server throws on startup (fail fast)",
+        "bun run typecheck passes",
+        "bun test src/ passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-003",
+      "title": "Implement POST /api/checkout/item endpoint",
+      "description": "As a customer, I want my curtain configuration to be saved server-side when I click Sepete Ekle so that my configuration survives page navigation and refresh.",
+      "acceptanceCriteria": [
+        "New endpoint POST /api/checkout/item accepts: cartToken (string), variantId (number), en (number), boy (number), pileStili (string), pileOrani (number), kanat (string), kanatCount (number)",
+        "cartToken validation: present, non-empty, alphanumeric+hyphens only, max 64 chars — returns 400 MISSING_CART_TOKEN or INVALID_INPUT on failure",
+        "All other field validations match existing /api/checkout/draft-order rules",
+        "Fetches Shopify access token via client_credentials OAuth (same as existing endpoint)",
+        "Fetches variant price + product_title from Shopify REST API server-side (never trusts client price)",
+        "Calculates price: (en / 100) * pileOrani * kanatCount * basePricePerMeter",
+        "Upserts row into cart_items — on conflict (cart_token, variant_id) update all fields",
+        "Returns { ok: true, calculatedPrice: '1150.00' } on success",
+        "Returns correct error codes: INVALID_INPUT (400), MISSING_CART_TOKEN (400), VARIANT_NOT_FOUND (404), AUTH_FAILED (500), INVALID_PRICE (500), DB_ERROR (500)",
+        "CORS origin restricted to https://inanctekstil.store (replaces origin: '*' in app.ts)",
+        "Old POST /api/checkout/draft-order endpoint is removed",
+        "bun run typecheck passes",
+        "bun test src/ passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Spec: docs/superpowers/specs/2026-03-19-server-side-cart-design.md — API endpoints section",
+      "dependsOn": ["US-002"]
+    },
+    {
+      "id": "US-004",
+      "title": "Implement POST /api/checkout/complete endpoint",
+      "description": "As a customer, I want a single checkout URL created for all my configured curtains when I click Ödeme so that I pay the correct price for every item.",
+      "acceptanceCriteria": [
+        "New endpoint POST /api/checkout/complete accepts: { cartToken: string }",
+        "Validates cartToken with same format rules as /api/checkout/item",
+        "Reads all cart_items rows for the cartToken from Postgres",
+        "Returns 404 NO_ITEMS if no rows found (interceptor will fall through to normal checkout)",
+        "Creates one Shopify Draft Order with all line items — each with correct calculated_price and properties (En, Boy, Pile Stili, Kanat, _variant_id)",
+        "checkoutUrl returned is draft_order.invoice_url (NOT draft_order.checkout_url)",
+        "On successful draft order creation, deletes all rows for this cartToken from Postgres",
+        "Returns { checkoutUrl } on success",
+        "Returns correct error codes: MISSING_CART_TOKEN (400), NO_ITEMS (404), AUTH_FAILED (500), DRAFT_ORDER_FAILED (500), DB_ERROR (500)",
+        "Rate limiting: maximum 10 requests per minute per IP (use hono/basic-auth or a simple in-memory rate limiter middleware)",
+        "bun run typecheck passes",
+        "bun test src/ passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Spec: docs/superpowers/specs/2026-03-19-server-side-cart-design.md — POST /api/checkout/complete section",
+      "dependsOn": ["US-003"]
+    },
+    {
+      "id": "US-005",
+      "title": "Write tests for POST /api/checkout/item and POST /api/checkout/complete",
+      "description": "As a developer, I want unit and integration tests for the new endpoints so that regressions are caught automatically.",
+      "acceptanceCriteria": [
+        "Tests for POST /api/checkout/item: valid request upserts row and returns calculatedPrice, missing cartToken returns 400, invalid cartToken format returns 400, variant not found returns 404, price formula correct for 200cm x2.5 x1 = 1150.00, price formula correct for 150cm x3.0 x2 = 1350.00",
+        "Tests for POST /api/checkout/complete: valid request with 2 items creates draft order with 2 line items and returns checkoutUrl, empty cart returns 404 NO_ITEMS, rows are deleted after successful draft order creation",
+        "Tests use mocked fetch (same pattern as existing app.test.ts) — no real Shopify or DB calls in unit tests",
+        "bun test src/ passes with all new tests",
+        "bun run typecheck passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Follow TDD: write failing tests first, then confirm implementation passes them. See existing test patterns in technical/curtain-checkout-api/src/app.test.ts",
+      "dependsOn": ["US-004"]
+    },
+    {
+      "id": "US-006",
+      "title": "Update curtain-configurator.liquid to use /api/checkout/item",
+      "description": "As a developer, I want the curtain configurator to register items server-side instead of storing a draft order URL in sessionStorage so that multi-product carts work correctly.",
+      "acceptanceCriteria": [
+        "Sepete Ekle handler: GET /cart.js first to obtain cartToken, then POST /api/checkout/item with { cartToken, variantId, en, boy, pileStili, pileOrani, kanat, kanatCount }",
+        "On /api/checkout/item success: proceed to POST /cart/add.js (unchanged), then open cart drawer (unchanged)",
+        "All sessionStorage.getItem and sessionStorage.setItem calls removed from the section",
+        "The checkout interceptor block (document.addEventListener capture-phase click handler) removed from this file entirely",
+        "Button loading state: shows 'Hazırlanıyor...' while /api/checkout/item request is in flight",
+        "Error handling: show Turkish error message inline if /api/checkout/item returns non-2xx",
+        "shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com --only 'sections/curtain-configurator.liquid' --nodelete --path technical/theme succeeds",
+        "Verified in browser: adding TUL product does NOT store anything in sessionStorage (DevTools Application tab)"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Production theme ID: 193714913361. API URL: https://app.inanctekstil.store. Read technical/theme/sections/curtain-configurator.liquid before editing.",
+      "dependsOn": ["US-003"]
+    },
+    {
+      "id": "US-007",
+      "title": "Add global checkout interceptor to theme layout",
+      "description": "As a customer, I want checkout to work correctly from any page (product page, cart page, or elsewhere) so that my configured prices are always honoured at checkout.",
+      "acceptanceCriteria": [
+        "New file technical/theme/assets/perde-checkout.js created",
+        "Intercepts clicks on checkout buttons/links via document.addEventListener capture phase: selectors a[href*='/checkout'], button[name='checkout'], input[name='checkout'], a[href*='checkouts']",
+        "On intercept: GET /cart.js → if cart empty fall through to normal checkout",
+        "POST window.PERDE_API_URL + /api/checkout/complete with { cartToken: cart.token }",
+        "If response is 404 (NO_ITEMS): fall through to normal checkout (window.location.href = btn.href || '/checkout')",
+        "If response is ok: window.location.href = checkoutUrl",
+        "Shows a loading indicator or disables the button while the request is in flight to prevent double-clicks",
+        "layout/theme.liquid has <script>window.PERDE_API_URL = 'https://app.inanctekstil.store';</script> before </body>",
+        "layout/theme.liquid has <script src=\"{{ 'perde-checkout.js' | asset_url }}\" defer></script> before </body>",
+        "shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com --only 'assets/perde-checkout.js' --only 'layout/theme.liquid' --nodelete --path technical/theme succeeds",
+        "Verified in browser via Playwright: checkout from /cart page now redirects to draft order URL (not base price checkout)"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "Production theme ID: 193714913361. Read technical/theme/layout/theme.liquid before editing.",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-008",
+      "title": "Deploy curtain-checkout-api with curtain-db and verify end-to-end",
+      "description": "As a developer, I want the new server-side cart deployed to production and verified so that multi-product checkout works for real customers.",
+      "acceptanceCriteria": [
+        "curtain-db container running on Hetzner: docker compose up -d curtain-db in /opt/inanctekstil/",
+        "curtain-app redeployed with new code and CURTAIN_DATABASE_URL env var: docker compose up -d --build curtain-app",
+        "Health check passes: curl https://app.inanctekstil.store/health returns {status:'ok'}",
+        "E2E test via Playwright: add STN (150cm x Boru Pile x Cift Kanat) via configurator — cart shows 1,350 TL",
+        "E2E test: navigate to TUL product page (does NOT clear DB rows), add TUL (200cm x Kanun Pile x Tek Kanat) — cart shows 2 items",
+        "E2E test: click Odeme from /cart page — checkout URL is a Draft Order URL (not /checkout)",
+        "E2E test: checkout shows both items — Saten Perde 1,350 TL and BORNOVA Tul Perde 1,150 TL — total 2,500 TL",
+        "E2E test: page refresh between add-to-cart and checkout does NOT lose configured items",
+        "Update curtain-checkout-api README.md Manual E2E Test Guide to reflect the new multi-product flow"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "Server: ssh -i ~/.ssh/inanctekstil root@5.75.165.158. Deploy: scp -r -i ~/.ssh/inanctekstil src package.json tsconfig.json root@5.75.165.158:/opt/curtain-checkout-api/ then docker compose up -d --build curtain-app in /opt/inanctekstil/",
+      "dependsOn": ["US-005", "US-007"]
+    }
+  ]
+}
