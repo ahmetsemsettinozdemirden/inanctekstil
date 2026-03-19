@@ -12,7 +12,7 @@
     "hero_perde": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<div style=\"position:relative;min-height:520px;display:flex;align-items:flex-end;overflow:hidden\">\n  <img src=\"{{ 'hero-tul-room.webp' | asset_url }}\" alt=\"Tül perde - oda görünümü\" loading=\"eager\" fetchpriority=\"high\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover\">\n  <div style=\"position:absolute;inset:0;background:linear-gradient(to top,rgba(18,18,18,0.55),rgba(18,18,18,0.1))\"></div>\n  <div style=\"position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 24px 72px;color:#fff\">\n    <h1 style=\"font-family:var(--font-heading--family);font-size:clamp(1.75rem,4vw,2.5rem);margin:0 0 12px;font-weight:700\">30 Yıldır İskenderun'un Perde Atölyesi</h1>\n    <p style=\"font-size:clamp(0.875rem,2vw,1.125rem);margin:0 0 24px;max-width:540px;line-height:1.6;opacity:0.9\">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>\n    <a href=\"/collections/all\" style=\"display:inline-block;padding:12px 28px;border:1.5px solid #fff;color:#fff;text-decoration:none;font-size:0.9rem;letter-spacing:0.02em;transition:all 0.2s\">Tüm Perdeleri Gör</a>\n  </div>\n</div>",
+        "custom_liquid": "<div style=\"position:relative;min-height:520px;display:flex;align-items:flex-end;overflow:hidden\">\n  <img src=\"{{ 'hero-fon-room.webp' | asset_url }}\" alt=\"Fon perde - oda görünümü\" loading=\"eager\" fetchpriority=\"high\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover\">\n  <div style=\"position:absolute;inset:0;background:linear-gradient(to top,rgba(18,18,18,0.55),rgba(18,18,18,0.1))\"></div>\n  <div style=\"position:relative;max-width:1200px;width:100%;margin:0 auto;padding:0 24px 72px;color:#fff\">\n    <h1 style=\"font-family:var(--font-heading--family);font-size:clamp(1.75rem,4vw,2.5rem);margin:0 0 12px;font-weight:700\">30 Yıldır İskenderun'un Perde Atölyesi</h1>\n    <p style=\"font-size:clamp(0.875rem,2vw,1.125rem);margin:0 0 24px;max-width:540px;line-height:1.6;opacity:0.9\">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>\n    <a href=\"/collections/all\" style=\"display:inline-block;padding:12px 28px;border:1.5px solid #fff;color:#fff;text-decoration:none;font-size:0.9rem;letter-spacing:0.02em;transition:all 0.2s\">Tüm Perdeleri Gör</a>\n  </div>\n</div>",
         "color_scheme": "",
         "section_width": "full-width",
         "padding-block-start": 0,
@@ -23,207 +23,12 @@
       "type": "collection-links",
       "settings": {
         "collection_list": [
-          "tul-perdeler",
           "fon-perdeler",
           "blackout-perdeler"
         ],
         "layout": "spotlight",
         "section_width": "page-width",
         "alignment": "center",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
-    "products_tul": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "header_text": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "header_button": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "Tümünü Gör",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "header_text",
-            "header_button"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "gallery": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "gallery",
-            "title",
-            "price"
-          ]
-        }
-      },
-      "name": "Tül Perdeler",
-      "settings": {
-        "collection": "tul-perdeler",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
         "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 48
@@ -641,7 +446,6 @@
   "order": [
     "hero_perde",
     "categories",
-    "products_tul",
     "products_fon",
     "products_blk",
     "measurement_videos",
