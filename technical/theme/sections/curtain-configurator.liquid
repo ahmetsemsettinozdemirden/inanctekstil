@@ -1147,17 +1147,52 @@
         var confirmedPrice = calcPrice();
         var confirmedCents = Math.round(confirmedPrice * 100);
 
-        fetch('/cart.js')
-          .then(function(res) { return res.json(); })
-          .then(function(cart) {
-            var cartToken = cart.token;
-            if (!cartToken) throw new Error('Sepet tokeni alınamadı.');
-            log('cart:item:start', { variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy });
+        // Step 1: Add to cart first — this stabilises the cart token
+        var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
+        var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
+        log('cart:add:start', { variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy, pileOrani: cfg.pile_orani, kanatCount: cfg.kanat_count });
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id:       VARIANT_ID,
+            quantity: 1,
+            sections: cartSectionId,
+            properties: {
+              'En':         cfg.en + ' cm',
+              'Boy':        cfg.boy + ' cm',
+              'Pile Stili': cfg.pile_stili + ' (×' + cfg.pile_orani + ')',
+              'Kanat':      cfg.kanat
+            }
+          })
+        })
+          .then(function(res) {
+            return res.json().then(function(data) {
+              if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
+              log('cart:add:added', { key: data.key, variantId: data.variant_id });
+              return data;
+            });
+          })
+          // Step 2: Fetch cart.js after add — token is now definitive
+          .then(function(cartAddData) {
+            var sectionsData = cartAddData.sections || {};
+            var lineItemKey  = cartAddData.key;
+            return fetch('/cart.js')
+              .then(function(r) { return r.json(); })
+              .then(function(cart) {
+                if (!cart.token) throw new Error('Sepet tokeni alınamadı.');
+                log('cart:token:resolved', { token: cart.token.substring(0, 16) + '…', lineItemKey: lineItemKey, itemCount: cart.item_count });
+                return { sectionsData: sectionsData, cartToken: cart.token, lineItemKey: lineItemKey };
+              });
+          })
+          // Step 3: Save config to server with the correct token — server fetches live Shopify price
+          .then(function(ctx) {
+            log('cart:item:start', { cartToken: ctx.cartToken.substring(0, 16) + '…', variantId: VARIANT_ID, en: cfg.en, boy: cfg.boy });
             return fetch(API_URL + '/api/checkout/item', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                cartToken:  cartToken,
+                cartToken:  ctx.cartToken,
                 variantId:  VARIANT_ID,
                 en:         cfg.en,
                 boy:        cfg.boy,
@@ -1166,24 +1201,27 @@
                 kanat:      cfg.kanat,
                 kanatCount: cfg.kanat_count
               })
+            }).then(function(res) {
+              return res.json().then(function(data) {
+                if (!res.ok) {
+                  log('cart:item:error', { status: res.status, error: data.error, message: data.message });
+                  throw new Error(data.message || 'Ürün yapılandırılamadı.');
+                }
+                log('cart:item:saved', { calculatedPrice: data.calculatedPrice, cartToken: ctx.cartToken.substring(0, 16) + '…' });
+                return { data: data, sectionsData: ctx.sectionsData, lineItemKey: ctx.lineItemKey };
+              });
             });
           })
-          .then(function(res) {
-            return res.json().then(function(data) {
-              if (!res.ok) throw new Error(data.message || 'Ürün yapılandırılamadı.');
-              return data;
-            });
-          })
-          .then(function(data) {
-            confirmedPrice = parseFloat(data.calculatedPrice) || confirmedPrice;
+          // Step 4: Update cart item with server-calculated price so drawer shows correct amount
+          .then(function(result) {
+            confirmedPrice = parseFloat(result.data.calculatedPrice) || confirmedPrice;
             confirmedCents = Math.round(confirmedPrice * 100);
-            var cartItemsEl   = document.querySelector('cart-items-component[data-section-id]');
-            var cartSectionId = cartItemsEl ? cartItemsEl.dataset.sectionId : '';
-            return fetch('/cart/add.js', {
+            log('cart:price:update', { lineItemKey: result.lineItemKey, price: formatTL(confirmedPrice), cents: confirmedCents });
+            return fetch('/cart/change.js', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                id:       VARIANT_ID,
+                id:       result.lineItemKey,
                 quantity: 1,
                 sections: cartSectionId,
                 properties: {
@@ -1195,18 +1233,13 @@
                   '_hesaplanan_cents': confirmedCents
                 }
               })
+            }).then(function(r) { return r.json(); }).then(function(changeData) {
+              return { sectionsData: changeData.sections || result.sectionsData };
             });
           })
-          .then(function(res) {
-            return res.json().then(function(data) {
-              if (!res.ok) throw new Error(data.description || 'Sepete eklenemedi.');
-              return data;
-            });
-          })
-          .then(function(cartData) {
-            var sectionsData = cartData.sections || {};
+          .then(function(final) {
             addToCartBtn.textContent = 'Sepete Eklendi ✓';
-            log('cart:add:complete', { price: formatTL(confirmedPrice) });
+            log('cart:add:complete', { price: formatTL(confirmedPrice), cents: confirmedCents });
             if (window.posthog) {
               posthog.capture('add_to_cart', {
                 variant_id: VARIANT_ID,
@@ -1214,7 +1247,7 @@
                 quantity: 1,
               });
             }
-            var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: sectionsData } } });
+            var evt = new CustomEvent('cart:update', { bubbles: true, detail: { data: { sections: final.sectionsData } } });
             document.dispatchEvent(evt);
             var cartDrawer = document.querySelector('cart-drawer-component');
             if (cartDrawer) { cartDrawer.open(); }

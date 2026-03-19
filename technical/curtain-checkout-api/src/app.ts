@@ -264,6 +264,7 @@ app.post("/api/checkout/complete", async (c) => {
     log("INFO", "No items found for cart token", { cartToken });
     return c.json({ error: "NO_ITEMS", message: "Sepette yapılandırılmış ürün bulunamadı" }, 404);
   }
+  log("INFO", "Cart items found", { cartToken, count: rows.length, prices: rows.map((r) => r.calculated_price) });
 
   const { domain, clientId, clientSecret } = getEnv();
 

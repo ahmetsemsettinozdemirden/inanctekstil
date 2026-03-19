@@ -804,6 +804,90 @@ describe('POST /api/checkout/complete — rate limiting', () => {
 });
 
 // ---------------------------------------------------------------------------
+// POST /api/checkout/item — real-world price calculations
+// ---------------------------------------------------------------------------
+
+describe('POST /api/checkout/item — real-world prices', () => {
+  beforeAll(setEnv);
+  afterAll(clearEnv);
+  beforeEach(() => { mockState.sqlQueue = [[]]; mockState.sqlCalls = []; });
+
+  test('HÜRREM 200cm × 2.5 pile × 2 kanat × 700 TL/m = 7000.00', async () => {
+    globalThis.fetch = mockItemShopify({ variantPrice: '700.00' });
+    const res = await postItem({ ...VALID_BODY, en: 200, pileOrani: 2.5, kanatCount: 2 });
+    expect(res.status).toBe(200);
+    const body = await res.json() as { calculatedPrice: string };
+    expect(body.calculatedPrice).toBe('7000.00');
+  });
+
+  test('HÜRREM 150cm × 2.5 pile × 1 kanat × 700 TL/m = 2625.00', async () => {
+    globalThis.fetch = mockItemShopify({ variantPrice: '700.00' });
+    const res = await postItem({ ...VALID_BODY, en: 150, pileOrani: 2.5, kanatCount: 1 });
+    expect(res.status).toBe(200);
+    const body = await res.json() as { calculatedPrice: string };
+    expect(body.calculatedPrice).toBe('2625.00');
+  });
+
+  test('Şönil Blackout 100cm × 3.0 pile × 1 kanat × 1500 TL/m = 4500.00', async () => {
+    globalThis.fetch = mockItemShopify({ variantPrice: '1500.00' });
+    const res = await postItem({ ...VALID_BODY, en: 100, pileOrani: 3.0, kanatCount: 1 });
+    expect(res.status).toBe(200);
+    const body = await res.json() as { calculatedPrice: string };
+    expect(body.calculatedPrice).toBe('4500.00');
+  });
+
+  test('Saten Perde 80cm × 1.0 pile × 1 kanat × 150 TL/m = 120.00', async () => {
+    globalThis.fetch = mockItemShopify({ variantPrice: '150.00' });
+    const res = await postItem({ ...VALID_BODY, en: 80, pileOrani: 1.0, kanatCount: 1 });
+    expect(res.status).toBe(200);
+    const body = await res.json() as { calculatedPrice: string };
+    expect(body.calculatedPrice).toBe('120.00');
+  });
+
+  test('calculated price is stored in DB — not base price per meter', async () => {
+    // base = 700/m, calculated = 200cm × 2.5 × 2 × 700 = 7000
+    globalThis.fetch = mockItemShopify({ variantPrice: '700.00' });
+    await postItem({ ...VALID_BODY, en: 200, pileOrani: 2.5, kanatCount: 2 });
+    const upsertValues = mockState.sqlCalls[0];
+    expect(upsertValues).toContain(700);      // base_price_per_meter
+    expect(upsertValues).toContain('7000.00'); // calculated_price
+  });
+
+  test('complete endpoint uses DB-stored calculated price, not variant base price', async () => {
+    const rowWithCalculatedPrice = [{
+      product_title: 'HÜRREM Fon Perde',
+      variant_id: '59200390758481',
+      product_id: '15726200717393',
+      en_cm: 200,
+      boy_cm: 260,
+      pile_stili: 'Düz Dikiş',
+      pile_orani: '2.50',
+      kanat: 'Çift Kanat',
+      kanat_count: 2,
+      calculated_price: '7000.00',
+    }];
+    mockState.sqlQueue = [rowWithCalculatedPrice, []];
+    const draftBodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      draftBodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://checkout.shopify.com/draft/1' } }),
+        { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await postComplete({ cartToken: 'abc123' });
+
+    const payload = JSON.parse(draftBodies[0]) as { draft_order: { line_items: Array<{ price: string }> } };
+    // Draft order must use 7000.00 (DB price), NOT 700.00 (variant base price)
+    expect(payload.draft_order.line_items[0].price).toBe('7000.00');
+  });
+});
+
+// ---------------------------------------------------------------------------
 // POST /api/checkout/complete — resilience
 // ---------------------------------------------------------------------------
 
