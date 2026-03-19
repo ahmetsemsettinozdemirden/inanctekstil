@@ -84,6 +84,13 @@ resource "hcloud_zone_record" "google_site_verification" {
   value = "\"google-site-verification=G9nOXNt0Srf9QA2-Wz74zuzTNfTSI54tAPfs-_epc_I\""
 }
 
+resource "hcloud_zone_record" "facebook_domain_verification" {
+  zone  = hcloud_zone.main.id
+  name  = "@"
+  type  = "TXT"
+  value = "\"facebook-domain-verification=a88frdgxv5jt1kwa7kosgx34hf7wre\""
+}
+
 resource "hcloud_zone_record" "spf" {
   zone  = hcloud_zone.main.id
   name  = "@"
