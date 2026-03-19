@@ -82,6 +82,7 @@ function mockShopify({
 // ---------------------------------------------------------------------------
 
 describe('GET /health', () => {
+
   test('returns 200 with status ok', async () => {
     const res = await app.request('/health');
     expect(res.status).toBe(200);
@@ -424,5 +425,137 @@ describe('POST /api/checkout/draft-order — happy path', () => {
 
     expect(headers.variant['X-Shopify-Access-Token']).toBe('tok_abc');
     expect(headers.draft['X-Shopify-Access-Token']).toBe('tok_abc');
+  });
+
+  test('price: 300cm × 3.0 × 2 panels × 230 TL/m = 4140.00', async () => {
+    const bodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
+      }
+      bodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    const res = await post({ ...VALID_BODY, en: 300, pileOrani: 3.0, kanatCount: 2 });
+    expect(res.status).toBe(200);
+
+    const draftBody = JSON.parse(bodies[0]) as { draft_order: { line_items: { price: string }[] } };
+    expect(draftBody.draft_order.line_items[0].price).toBe('4140.00');
+  });
+
+  test('draft order line item has requires_shipping and taxable set to true', async () => {
+    const bodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
+      }
+      bodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await post(VALID_BODY);
+
+    const draftBody = JSON.parse(bodies[0]) as {
+      draft_order: { line_items: Array<{ requires_shipping: boolean; taxable: boolean }> };
+    };
+    const li = draftBody.draft_order.line_items[0];
+    expect(li.requires_shipping).toBe(true);
+    expect(li.taxable).toBe(true);
+  });
+
+  test('draft order line item includes _variant_id in properties', async () => {
+    const bodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
+      }
+      bodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await post({ ...VALID_BODY, variantId: 456 });
+
+    const draftBody = JSON.parse(bodies[0]) as {
+      draft_order: { line_items: Array<{ properties: { name: string; value: string }[] }> };
+    };
+    const props = draftBody.draft_order.line_items[0].properties;
+    expect(props).toContainEqual({ name: '_variant_id', value: '456' });
+  });
+
+  test('draft order note contains en, boy, pile style, and kanat', async () => {
+    const bodies: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
+      }
+      bodies.push(init?.body as string);
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await post({ ...VALID_BODY, en: 200, boy: 260, pileStili: 'Kanun Pile', kanat: 'Çift Kanat' });
+
+    const draftBody = JSON.parse(bodies[0]) as { draft_order: { note: string } };
+    expect(draftBody.draft_order.note).toContain('200');
+    expect(draftBody.draft_order.note).toContain('260');
+    expect(draftBody.draft_order.note).toContain('Kanun Pile');
+    expect(draftBody.draft_order.note).toContain('Çift Kanat');
+  });
+
+  test('fetches variant with ?fields=price,product query param', async () => {
+    const urls: string[] = [];
+    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+      urls.push(url);
+      if (url.includes('access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      if (url.includes('variants')) {
+        return Promise.resolve(new Response(JSON.stringify({ variant: { price: '230.00', product: { title: 'Mock Perde' } } }), { status: 200 }));
+      }
+      return Promise.resolve(new Response(
+        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 },
+      ));
+    }) as unknown as typeof fetch;
+
+    await post(VALID_BODY);
+
+    const variantUrl = urls.find(u => u.includes('variants'));
+    expect(variantUrl).toContain('fields=price,product');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/checkout/draft-order — missing environment variables
+// ---------------------------------------------------------------------------
+
+describe('POST /api/checkout/draft-order — missing env', () => {
+  test('returns 500 when environment variables are not set', async () => {
+    clearEnv();
+    globalThis.fetch = mock(() =>
+      Promise.resolve(new Response('', { status: 200 })),
+    ) as unknown as typeof fetch;
+    const res = await post(VALID_BODY);
+    expect(res.status).toBe(500);
+    setEnv();
   });
 });
