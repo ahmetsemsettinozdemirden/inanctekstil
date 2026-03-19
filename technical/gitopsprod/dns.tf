@@ -147,3 +147,20 @@ resource "hcloud_zone_record" "shopify_mailer" {
 #   type  = "CNAME"
 #   value = "value-from-resend-dashboard"
 # }
+
+# PostHog managed reverse proxy
+# Fill in 'value' after creating the proxy in PostHog Admin → Organization Settings → Proxy
+resource "hcloud_zone_record" "posthog_proxy" {
+  zone  = hcloud_zone.main.id
+  name  = "svc"
+  type  = "CNAME"
+  value = "REPLACE_WITH_POSTHOG_CNAME_TARGET."
+}
+
+# analytics-forwarder webhook receiver
+resource "hcloud_zone_record" "hooks" {
+  zone  = hcloud_zone.main.id
+  name  = "hooks"
+  type  = "A"
+  value = "5.75.165.158"
+}
