@@ -51,7 +51,7 @@
       "curtain_type": "FON",
       "design": "HÜRREM",
       "width_cm": 310,
-      "price": 350,
+      "price": 700,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -397,7 +397,7 @@
       "curtain_type": "FON",
       "design": "SULTAN 22260",
       "width_cm": 310,
-      "price": 430,
+      "price": 860,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -1024,7 +1024,7 @@
       "curtain_type": "FON",
       "design": "HERA",
       "width_cm": 300,
-      "price": 430,
+      "price": 860,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -1260,7 +1260,7 @@
       "curtain_type": "FON",
       "design": "YAĞMUR",
       "width_cm": 310,
-      "price": 500,
+      "price": 1000,
       "composition": "%80 PES-%20 CO",
       "fabric": {
         "material": "polyester",
@@ -1396,7 +1396,7 @@
       "curtain_type": "BLACKOUT",
       "design": "ŞÖNİL BLACKOUT",
       "width_cm": 310,
-      "price": 750,
+      "price": 1500,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -1803,7 +1803,7 @@
       "curtain_type": "BLACKOUT",
       "design": "LÜX BLACKOUT",
       "width_cm": 320,
-      "price": 590,
+      "price": 1180,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -2230,7 +2230,7 @@
       "curtain_type": "BLACKOUT",
       "design": "DARK BLACKOUT",
       "width_cm": 320,
-      "price": 520,
+      "price": 1040,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -2536,7 +2536,7 @@
       "curtain_type": "BLACKOUT",
       "design": "%100 BLACKOUT",
       "width_cm": 310,
-      "price": 590,
+      "price": 1180,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -2812,7 +2812,7 @@
       "curtain_type": "BLACKOUT",
       "design": "HERMES BLACKOUT",
       "width_cm": 310,
-      "price": 750,
+      "price": 1500,
       "composition": null,
       "fabric": {
         "material": "polyester",
@@ -3359,7 +3359,7 @@
       "curtain_type": "BLACKOUT",
       "design": "HAVUZ BLACKOUT",
       "width_cm": 295,
-      "price": 230,
+      "price": 460,
       "composition": null,
       "fabric": {
         "material": "polyester",
