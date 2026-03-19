@@ -6,6 +6,23 @@ const VALID_PILE_ORANI = new Set([2.0, 2.5, 3.0]);
 const ADMIN_API_VERSION = "2025-01";
 const CART_TOKEN_RE = /^[a-zA-Z0-9-]{1,64}$/;
 
+// In-memory rate limiter: max 10 requests per minute per IP for /api/checkout/complete
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 60_000;
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return true;
+  }
+  if (entry.count >= RATE_LIMIT) return false;
+  entry.count++;
+  return true;
+}
+
 function getEnv() {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
   const clientId = process.env.SHOPIFY_CLIENT_ID;
@@ -44,6 +61,10 @@ app.use("*", async (c, next) => {
 app.get("/health", (c) =>
   c.json({ status: "ok", uptime: Math.floor(process.uptime()) }),
 );
+
+// ---------------------------------------------------------------------------
+// POST /api/checkout/item
+// ---------------------------------------------------------------------------
 
 interface CartItemBody {
   cartToken: string;
@@ -160,4 +181,130 @@ app.post("/api/checkout/item", async (c) => {
 
   log("INFO", "Cart item saved", { cartToken, variantId, calculatedPrice });
   return c.json({ ok: true, calculatedPrice });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/checkout/complete
+// ---------------------------------------------------------------------------
+
+interface CartItemRow {
+  product_title: string;
+  variant_id: string;
+  en_cm: number;
+  boy_cm: number;
+  pile_stili: string;
+  pile_orani: string;
+  kanat: string;
+  kanat_count: number;
+  calculated_price: string;
+}
+
+app.post("/api/checkout/complete", async (c) => {
+  // Rate limiting per IP
+  const ip = c.req.header("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (!checkRateLimit(ip)) {
+    log("WARN", "Rate limit exceeded", { ip });
+    return c.json({ error: "RATE_LIMITED", message: "Çok fazla istek. Lütfen bir dakika bekleyin." }, 429);
+  }
+
+  let body: { cartToken?: string };
+  try {
+    body = await c.req.json<{ cartToken?: string }>();
+  } catch {
+    return c.json({ error: "MISSING_CART_TOKEN", message: "Sepet tokeni gereklidir" }, 400);
+  }
+
+  const { cartToken } = body;
+
+  if (!cartToken || cartToken === "") {
+    return c.json({ error: "MISSING_CART_TOKEN", message: "Sepet tokeni gereklidir" }, 400);
+  }
+  if (!CART_TOKEN_RE.test(cartToken)) {
+    return c.json({ error: "MISSING_CART_TOKEN", message: "Geçersiz sepet tokeni" }, 400);
+  }
+
+  log("INFO", "Checkout complete request", { cartToken });
+
+  // Read all cart items for this token
+  let rows: CartItemRow[];
+  try {
+    rows = await sql<CartItemRow[]>`
+      SELECT product_title, variant_id, en_cm, boy_cm, pile_stili, pile_orani, kanat, kanat_count, calculated_price
+      FROM cart_items
+      WHERE cart_token = ${cartToken}
+    `;
+  } catch (err) {
+    log("ERROR", "DB read failed", { cartToken, err: String(err) });
+    return c.json({ error: "DB_ERROR", message: "Veritabanı hatası" }, 500);
+  }
+
+  if (rows.length === 0) {
+    log("INFO", "No items found for cart token", { cartToken });
+    return c.json({ error: "NO_ITEMS", message: "Sepette yapılandırılmış ürün bulunamadı" }, 404);
+  }
+
+  const { domain, clientId, clientSecret } = getEnv();
+
+  // Obtain short-lived access token
+  const tokenRes = await fetch(`https://${domain}/admin/oauth/access_token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "client_credentials",
+      client_id: clientId,
+      client_secret: clientSecret,
+    }),
+  });
+  if (!tokenRes.ok) {
+    log("ERROR", "Shopify auth failed", { domain, status: tokenRes.status });
+    return c.json({ error: "AUTH_FAILED", message: "Kimlik doğrulama başarısız" }, 500);
+  }
+  const { access_token: token } = await tokenRes.json() as { access_token: string };
+  const shopifyHeaders = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
+
+  // Build draft order line items from all cart rows
+  const lineItems = rows.map((row) => ({
+    title: row.product_title,
+    quantity: 1,
+    price: row.calculated_price,
+    requires_shipping: true,
+    taxable: true,
+    properties: [
+      { name: "En", value: `${row.en_cm} cm` },
+      { name: "Boy", value: `${row.boy_cm} cm` },
+      { name: "Pile Stili", value: `${row.pile_stili} (x${row.pile_orani})` },
+      { name: "Kanat", value: row.kanat },
+      { name: "_variant_id", value: String(row.variant_id) },
+    ],
+  }));
+
+  log("INFO", "Creating draft order", { cartToken, itemCount: rows.length });
+
+  const draftRes = await fetch(
+    `https://${domain}/admin/api/${ADMIN_API_VERSION}/draft_orders.json`,
+    {
+      method: "POST",
+      headers: shopifyHeaders,
+      body: JSON.stringify({ draft_order: { line_items: lineItems } }),
+    },
+  );
+
+  if (!draftRes.ok) {
+    const errBody = await draftRes.text();
+    log("ERROR", "Draft order creation failed", { status: draftRes.status, cartToken, body: errBody });
+    return c.json({ error: "DRAFT_ORDER_FAILED", message: "Sipariş oluşturulamadı. Lütfen tekrar deneyin." }, 500);
+  }
+
+  const { draft_order } = await draftRes.json() as { draft_order: { id: number; invoice_url: string } };
+  log("INFO", "Draft order created", { draftOrderId: draft_order.id, cartToken, checkoutUrl: draft_order.invoice_url });
+
+  // Delete rows after successful draft order creation
+  try {
+    await sql`DELETE FROM cart_items WHERE cart_token = ${cartToken}`;
+  } catch (err) {
+    // Log but don't fail — rows will be cleaned up by the 7-day TTL job
+    log("WARN", "DB delete after checkout failed", { cartToken, err: String(err) });
+  }
+
+  return c.json({ checkoutUrl: draft_order.invoice_url });
 });

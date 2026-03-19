@@ -33,3 +33,10 @@ Changes:
 - technical/curtain-checkout-api/src/db.ts: Restructured so module-level export (sql=null) doesn't throw; fail-fast moved into initDb(). This allows test isolation via mock.module.
 - technical/curtain-checkout-api/src/app.test.ts: Rewrote using mock.module + dynamic import pattern. 27 tests covering cartToken validation, field validation, Shopify errors, DB errors, happy path, and price formula.
 - bun run typecheck: PASS, bun test src/: PASS (27 tests)
+
+## US-004 — Implement POST /api/checkout/complete endpoint ✓
+Completed: 19 Mar 2026
+
+Changes:
+- technical/curtain-checkout-api/src/app.ts: Added POST /api/checkout/complete. Validates cartToken, reads all cart_items rows for token, returns 404 NO_ITEMS if empty, creates Shopify Draft Order with all line items (invoice_url), deletes rows on success, returns {checkoutUrl}. In-memory rate limiter: 10 req/min per IP.
+- bun run typecheck: PASS, bun test src/: PASS (27 tests, existing tests unchanged)
