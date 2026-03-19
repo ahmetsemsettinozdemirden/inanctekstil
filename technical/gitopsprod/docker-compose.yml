@@ -63,7 +63,9 @@ services:
       - "traefik.http.routers.pms.rule=Host(`pms.inanctekstil.store`)"
       - "traefik.http.routers.pms.entrypoints=websecure"
       - "traefik.http.routers.pms.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.pms.middlewares=pms-auth"
       - "traefik.http.services.pms.loadbalancer.server.port=3000"
+      - "traefik.http.middlewares.pms-auth.basicauth.users=admin:$$2y$$05$$/IP0o/4enTiZG6jLbBKuoOkfrsqpjbvkYsyzkDZi38tmIpe81V0O2"
 
   curtain-app:
     build:
