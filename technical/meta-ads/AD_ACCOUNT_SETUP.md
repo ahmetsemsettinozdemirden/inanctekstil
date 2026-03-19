@@ -78,19 +78,19 @@ Use this document to track what needs to be done before activating campaigns.
 
 ## 6. Product Catalog
 
-**Current state:** 4 products synced to Shopify/catalog. 2 critical issues in Commerce Manager → Events tab (not yet investigated).
+**Current state:** 4 products synced to Shopify/catalog. 6 items total in catalog.
 
-- [!] **Investigate the 2 critical issues in Commerce Manager → Events tab**
-  Common causes:
-  - `ViewContent` / `Purchase` events not firing with `content_ids` that match catalog product IDs
-  - Shopify product IDs in pixel events don't match the catalog feed format Meta expects
-  - Fix: In Meta Sales Channel (Shopify), ensure product catalog is connected to the same pixel
+- [x] **Investigated 2 critical issues in Commerce Manager → Events tab** (2026-03-19)
+  - Root cause: no AddToCart or Purchase events in the last 7 days — low traffic, not a pixel bug
+  - Catalogue match rate: **100%** — when events do fire, `content_ids` correctly match catalog IDs
+  - Product purchases show "Missing" because the 1 Purchase event is outside the 28-day window
+  - **No fix needed.** Alerts will resolve automatically as traffic increases.
+
+- [x] **Catalog connected to ad account** — `act_1460297365542314` confirmed in Commerce Manager → Settings → Business assets → Ads (2026-03-19)
 
 - [ ] **Only 4 products synced.** PMS has 14 designs but only 4 in Shopify:
   `blk-sonil`, `fon-hurrem`, `stn-saten`, `tul-bornova`
   → Sync more products via PMS at `pms.inanctekstil.store`, catalog will expand automatically
-
-- [ ] **Verify catalog is connected to ad account** in Commerce Manager → Settings → Ad Accounts → confirm `act_1460297365542314` is listed
 
 ---
 
