@@ -107,3 +107,23 @@ Both `bun run typecheck` and `bun run lint` pass.
 - Pushed sections/odanda-gor-page.liquid + templates/page.odanda-gor.json to theme 193714913361
 - Playwright verification: /pages/odanda-gor renders hero + 3-step + Hemen Dene button,
   clicking opens modal in State 2 with 3 products (FON/BLK/STN) grouped by type
+
+## Final Summary (20 Mar 2026)
+All 11 user stories complete. Feature: Odanda Gör AI Room Visualizer.
+
+Backend (technical/room-visualizer/):
+- Bun/Hono server at visualizer.inanctekstil.store
+- POST /api/visualize: validates, rate-limits, calls fal-ai/nano-banana-pro, evaluates with Claude Opus 4.6 via BAML/Bedrock, retries up to 3x, returns best image binary
+- Full test coverage (fal, evaluator, prompt-builder, shopify, visualize tests all pass)
+
+Frontend (technical/theme/):
+- room-visualizer.ts → room-visualizer.js (IIFE, esbuild)
+- 5-state modal: upload → picker → loading → result → error
+- snippets/room-visualizer-button.liquid: product page "Odanda Gör" button (tag-gated)
+- sections/odanda-gor-page.liquid: dedicated landing page for Reels ads
+- templates/page.odanda-gor.json: custom page template
+- Shopify page /pages/odanda-gor created and live
+
+Infrastructure:
+- DNS: visualizer.inanctekstil.store → 5.75.165.158
+- Docker: room-visualizer service with Traefik TLS labels
