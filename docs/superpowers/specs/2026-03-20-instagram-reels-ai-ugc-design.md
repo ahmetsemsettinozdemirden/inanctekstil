@@ -22,7 +22,7 @@ These two videos serve different funnel purposes and should launch sequentially:
 
 **Voice:** Warm, conversational female Turkish voice. Generated via ElevenLabs (same voice ID for both videos — consistency across the campaign).
 
-**Visual:** Head and shoulders, transparent background. Generated via fal.ai — use **Creatify** for avatar selection and lip-sync video generation (upload avatar photo + ElevenLabs .mp3 → outputs lip-synced talking head video with transparent background). Aurora is an alternative if Creatify is unavailable on fal.ai at time of production.
+**Visual:** Head and shoulders, transparent background. Generated via fal.ai — use **`fal-ai/kling-video/v1/pro/ai-avatar`** (upload avatar photo + ElevenLabs .mp3 → outputs lip-synced talking head video). Then remove background with `fal-ai/bria/video/background-removal`. Note: `fal-ai/creatify` and `fal-ai/aurora` return 404 as of March 2026 — Kling AI Avatar is the replacement.
 
 ---
 
@@ -32,7 +32,7 @@ These two videos serve different funnel purposes and should launch sequentially:
 Layer 1 (base):   Context video — full 9:16 frame, changes per script segment
 Layer 2 (overlay): Avatar — transparent bg, head+shoulders, fixed bottom-left (~30% frame width)
 Layer 3 (top):    Auto-captions (CapCut)
-Audio:            ElevenLabs TTS (lip-synced by fal.ai Creatify)
+Audio:            ElevenLabs TTS (lip-synced by fal-ai/kling-video/v1/pro/ai-avatar)
 ```
 
 **Export spec:** 9:16, 1080×1920, for Instagram Reels and Meta feed placement.
@@ -49,10 +49,11 @@ Applies to both videos, in order:
      - Select a warm, natural female Turkish voice (same voice ID both videos)
      - Conversational pacing, slight pauses between sentences
      - Plain TTS output — no effects
-3. fal.ai Creatify → avatar photo + .mp3 → lip-synced talking head video
+3. fal.ai `fal-ai/kling-video/v1/pro/ai-avatar` → avatar photo + .mp3 → lip-synced talking head video
      - Upload: static avatar image (AI-generated Turkish woman, 30–35)
      - Upload: .mp3 from step 2
-     - Output: lip-synced video with transparent background (.webm or similar)
+     - Output: lip-synced video (.mp4)
+     - Then: fal.ai `fal-ai/bria/video/background-removal` → transparent background output
 4. fal.ai → generate AI room staging images
      - Fon perdeler in Turkish living room (warm afternoon light)
      - Blackout perdeler in Turkish bedroom
