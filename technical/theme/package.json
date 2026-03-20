@@ -1,0 +1,12 @@
+{
+  "name": "inanc-tekstil-theme",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "esbuild assets/room-visualizer.ts --bundle --format=iife --target=es2017 --outfile=assets/room-visualizer.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "typescript": "^5.0.0"
+  }
+}

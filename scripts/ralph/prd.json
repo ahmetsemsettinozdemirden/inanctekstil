@@ -147,7 +147,7 @@
         "Both room-visualizer.ts and room-visualizer.js committed to repo"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "",
       "dependsOn": []
     },

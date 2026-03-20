@@ -11,6 +11,13 @@ Created technical/room-visualizer/ with:
 - src/lib/logger.ts (pino JSON logger)
 Both `bun run typecheck` and `bun run lint` pass.
 
+## US-008 — Frontend build setup (20 Mar 2026)
+- Created technical/theme/package.json with esbuild build script (IIFE, ES2017)
+- Created technical/theme/tsconfig.json (target ES2017, strict, noEmit)
+- Created placeholder technical/theme/assets/room-visualizer.ts (exports empty initRoomVisualizer)
+- `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
+- Added technical/theme/.gitignore to exclude node_modules
+
 ## US-002 — DNS record + Docker compose entry (20 Mar 2026)
 - Added `hcloud_zone_record "visualizer"` to technical/gitopsprod/dns.tf (A, 5.75.165.158)
 - Created technical/room-visualizer/docker-compose.service.yml with Traefik labels for visualizer.inanctekstil.store, TLS, and 15MB body buffer
