@@ -18,6 +18,15 @@ Both `bun run typecheck` and `bun run lint` pass.
 - `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
 - Added technical/theme/.gitignore to exclude node_modules
 
+## US-005 — BAML evaluator (20 Mar 2026)
+- Created baml_src/clients.baml: ClaudeOpus client (aws-bedrock, anthropic.claude-opus-4-6, region from env)
+- Created baml_src/evaluator.baml: EvaluateRoomImage function → EvaluationResult{score, has_curtains, feedback}
+- Generated baml_client/ with `node baml/cli.js generate`
+- Created src/lib/evaluator.ts: evaluateImage(imageBuffer, productName) with setEvaluatorClient() for test injection
+  (used injectable pattern to work around bun ESM static import validation of BAML's toBamlError)
+- tests/evaluator.test.ts: 3 tests using setEvaluatorClient mock — all pass
+- typecheck and lint pass
+
 ## US-004 — Prompt builder (20 Mar 2026)
 - Created src/lib/prompt-builder.ts: buildPrompt(product, attempt, seedFn?) returns {prompt, seed}
 - Attempt 1: base prompt with color+type; attempt 2+: appends prominence text
