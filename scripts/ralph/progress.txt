@@ -18,6 +18,16 @@ Both `bun run typecheck` and `bun run lint` pass.
 - `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
 - Added technical/theme/.gitignore to exclude node_modules
 
+## US-006 — fal.ai client with retry loop (20 Mar 2026)
+- Created src/lib/fal.ts: generateRoomImage(roomImageBuffer, productData) with full retry loop
+- Uploads room image to fal.ai storage, calls FAL_MODEL with room+curtain+prompt+seed
+- Per-attempt timeout via AbortController; downloads result binary immediately
+- Retries if score < SCORE_THRESHOLD OR has_curtains == false (up to MAX_ATTEMPTS=3)
+- Returns highest-scored binary from all attempts
+- Logs fal_call, fal_downloaded, eval_result events via pino
+- tests/fal.test.ts: 3 tests (highest score wins, has_curtains=false retry, 3-attempt max) — all pass
+- typecheck and lint pass
+
 ## US-005 — BAML evaluator (20 Mar 2026)
 - Created baml_src/clients.baml: ClaudeOpus client (aws-bedrock, anthropic.claude-opus-4-6, region from env)
 - Created baml_src/evaluator.baml: EvaluateRoomImage function → EvaluationResult{score, has_curtains, feedback}
