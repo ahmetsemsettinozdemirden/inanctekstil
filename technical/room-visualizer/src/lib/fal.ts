@@ -77,21 +77,26 @@ export async function generateRoomImage(
 			logger.info({ event: "fal_downloaded", attempt, bytes: binary.length });
 
 			// Evaluate quality
-			const evalResult = await evaluateImage(binary, productData.title);
-			logger.info({
-				event: "eval_result",
-				attempt,
-				score: evalResult.score,
-				has_curtains: evalResult.has_curtains,
-			});
+			let score = 7;
+			let has_curtains = true;
+			try {
+				const evalResult = await evaluateImage(binary, productData.title);
+				score = evalResult.score;
+				has_curtains = evalResult.has_curtains;
+				logger.info({
+					event: "eval_result",
+					attempt,
+					score,
+					has_curtains,
+				});
+			} catch (evalErr) {
+				logger.warn({ event: "eval_failed", attempt, err: evalErr });
+			}
 
-			attempts.push({ binary, score: evalResult.score });
+			attempts.push({ binary, score });
 
 			// Stop if quality is good enough
-			if (
-				evalResult.score >= config.SCORE_THRESHOLD &&
-				evalResult.has_curtains
-			) {
+			if (score >= config.SCORE_THRESHOLD && has_curtains) {
 				break;
 			}
 		} catch (err) {
@@ -100,11 +105,22 @@ export async function generateRoomImage(
 	}
 
 	if (attempts.length === 0) {
+		logger.error({
+			event: "generation_failed",
+			product_title: productData.title,
+			attemptsUsed,
+		});
 		throw new Error("GENERATION_FAILED");
 	}
 
 	// Return binary with highest score
 	const best = attempts.reduce((a, b) => (a.score >= b.score ? a : b));
+	logger.info({
+		event: "best_result_selected",
+		score: best.score,
+		total_attempts: attemptsUsed,
+		attempts_with_results: attempts.length,
+	});
 
 	return {
 		binary: best.binary,
