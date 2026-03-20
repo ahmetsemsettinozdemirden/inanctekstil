@@ -219,7 +219,7 @@
         "Verified in browser via Playwright MCP: navigate to /pages/odanda-gor preview URL, page renders hero + 3-step explainer + Hemen Dene button, clicking opens modal in State 2 (curtain picker visible)"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "notes": "",
       "dependsOn": [
         "US-010"

@@ -1,0 +1,103 @@
+{%- assign curtain_handles = 'tul-perdeler,fon-perdeler,blackout-perdeler,saten-perdeler' | split: ',' -%}
+
+{%- capture products_json -%}
+[
+{%- assign first_item = true -%}
+{%- for h in curtain_handles -%}
+  {%- assign col = collections[h] -%}
+  {%- if col -%}
+    {%- for product in col.products limit: 50 -%}
+      {%- unless first_item -%},{%- endunless -%}
+      {%- assign first_item = false -%}
+      {"id":{{ product.admin_graphql_api_id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"imageUrl":{{ product.featured_image | image_url: width: 400 | json }},"type":{{ product.type | json }}}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+<div
+  id="odanda-gor-{{ section.id }}"
+  class="odanda-gor-page"
+  data-products="{{ products_json | escape }}"
+  style="font-family: var(--font-body--family, Inter, sans-serif); color: #333333; background: #ffffff;"
+>
+
+  <!-- Hero -->
+  <div style="background: #1B2A4A; color: #ffffff; text-align: center; padding: 64px 24px 56px;">
+    <h1 style="font-family: var(--font-heading--family, 'Playfair Display', serif); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin: 0 0 16px; line-height: 1.2;">
+      Perdenizi Odanızda Görün
+    </h1>
+    <p style="font-size: 1.125rem; margin: 0 auto; max-width: 520px; opacity: 0.85; line-height: 1.6;">
+      Yapay zeka teknolojisiyle perdenizi kendi odanızda görün — satın almadan önce.
+    </p>
+  </div>
+
+  <!-- 3-step explainer -->
+  <div style="max-width: 960px; margin: 0 auto; padding: 56px 24px;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center;">
+      <div>
+        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">1</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Fotoğraf Yükle</h3>
+        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Odanızın fotoğrafını yükleyin</p>
+      </div>
+      <div>
+        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">2</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Perde Seç</h3>
+        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Perdenizi seçin</p>
+      </div>
+      <div>
+        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">3</div>
+        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Yapay Zeka Eklesin</h3>
+        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Yapay zeka perdenizi odanıza eklesin</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align: center; margin-top: 48px;">
+      <button
+        id="hemen-dene-{{ section.id }}"
+        type="button"
+        style="background: #1B2A4A; color: #ffffff; border: none; padding: 18px 48px; font-size: 1.125rem; font-family: inherit; font-weight: 600; cursor: pointer; border-radius: 4px; letter-spacing: 0.03em;"
+      >Hemen Dene</button>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  @media (max-width: 640px) {
+    #odanda-gor-{{ section.id }} .odanda-gor-steps {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+<script src="{{ 'room-visualizer.js' | asset_url }}"></script>
+<script>
+  (function () {
+    var btn = document.getElementById('hemen-dene-{{ section.id }}');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var wrapper = document.getElementById('odanda-gor-{{ section.id }}');
+        var dataProductsJson = wrapper ? wrapper.getAttribute('data-products') : '[]';
+        initRoomVisualizer({
+          apiUrl: 'https://visualizer.inanctekstil.store',
+          dataProductsJson: dataProductsJson
+        });
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Odanda Gör Sayfası",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Odanda Gör Sayfası"
+    }
+  ]
+}
+{% endschema %}

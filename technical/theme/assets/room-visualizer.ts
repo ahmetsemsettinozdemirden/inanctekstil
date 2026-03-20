@@ -231,7 +231,11 @@ function showUploadError(el: HTMLElement | null, msg: string): void {
 
 function proceedFromUpload(): void {
   if (!currentConfig) return;
-  if (currentConfig.productId) {
+  if (selectedProduct) {
+    // Product already selected (e.g. picker → upload flow)
+    setState("loading");
+    runVisualization();
+  } else if (currentConfig.productId) {
     selectedProduct = { id: currentConfig.productId, handle: currentConfig.productHandle ?? "" };
     setState("loading");
     runVisualization();
@@ -279,15 +283,24 @@ function renderPickerState(body: HTMLElement): void {
       const handle = card.dataset["handle"]!;
       selectedProduct = { id, handle };
       setTimeout(() => {
-        setState("loading");
-        runVisualization();
+        // If photo already uploaded (picker shown mid-flow), go to loading.
+        // Otherwise go to upload first.
+        if (uploadedFile) {
+          setState("loading");
+          runVisualization();
+        } else {
+          setState("upload");
+        }
       }, 300);
     }
     card.addEventListener("click", select);
     card.addEventListener("keydown", (e) => { if (e.key === "Enter") select(); });
   });
 
-  body.querySelector<HTMLButtonElement>("#rv-back-picker")?.addEventListener("click", () => setState("upload"));
+  body.querySelector<HTMLButtonElement>("#rv-back-picker")?.addEventListener("click", () => {
+    selectedProduct = null;
+    setState("upload");
+  });
 }
 
 function renderLoadingState(body: HTMLElement): void {
@@ -470,7 +483,8 @@ export function initRoomVisualizer(config: RoomVisualizerConfig): void {
     resultBlobUrl = null;
   }
 
-  setState("upload");
+  // Start in picker if no productId (dedicated landing page flow)
+  setState(config.productId ? "upload" : "picker");
   openModal();
 }
 

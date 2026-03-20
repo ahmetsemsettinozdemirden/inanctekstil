@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "odanda_gor": {
+      "type": "odanda-gor-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "odanda_gor"
+  ]
+}

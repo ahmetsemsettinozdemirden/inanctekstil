@@ -89,3 +89,21 @@ Both `bun run typecheck` and `bun run lint` pass.
 - Pushed snippets/room-visualizer-button.liquid + templates/product.json to theme 193714913361
 - Added 'odanda-gor' tag to HÜRREM Fon Perde (fon-hurrem) via Shopify MCP for testing
 - Playwright verification: button visible on /products/fon-hurrem, clicking opens modal in State 1 (picker skipped)
+
+## US-011 — Dedicated /pages/odanda-gor landing page (20 Mar 2026)
+- Created technical/theme/sections/odanda-gor-page.liquid with:
+  - Hero: "Perdenizi Odanızda Görün" headline + subtitle
+  - 3-step explainer: Fotoğraf Yükle / Perde Seç / Yapay Zeka Eklesin
+  - "Hemen Dene" button calls initRoomVisualizer with dataProductsJson (no productId)
+  - Liquid builds products JSON from collections (tul/fon/blackout/saten) via nested for loops
+  - Products serialized as [{id, handle, title, imageUrl, type}] in data-products attribute
+  - Section schema with presets defined
+- Created technical/theme/templates/page.odanda-gor.json (custom page template)
+- Created Shopify page "Odanda Gör" with handle "odanda-gor" (visible) via Admin
+- Assigned page.odanda-gor template to the page
+- Updated room-visualizer.ts: when no productId, modal opens in State 2 (picker) not State 1
+  - After curtain selected → goes to State 1 (upload) if no photo yet
+  - proceedFromUpload: if selectedProduct already set, skips picker and goes to loading
+- Pushed sections/odanda-gor-page.liquid + templates/page.odanda-gor.json to theme 193714913361
+- Playwright verification: /pages/odanda-gor renders hero + 3-step + Hemen Dene button,
+  clicking opens modal in State 2 with 3 products (FON/BLK/STN) grouped by type

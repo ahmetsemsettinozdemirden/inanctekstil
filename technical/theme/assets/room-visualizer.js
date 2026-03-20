@@ -201,7 +201,10 @@
   function proceedFromUpload() {
     var _a;
     if (!currentConfig) return;
-    if (currentConfig.productId) {
+    if (selectedProduct) {
+      setState("loading");
+      runVisualization();
+    } else if (currentConfig.productId) {
       selectedProduct = { id: currentConfig.productId, handle: (_a = currentConfig.productHandle) != null ? _a : "" };
       setState("loading");
       runVisualization();
@@ -241,8 +244,12 @@
         const handle = card.dataset["handle"];
         selectedProduct = { id, handle };
         setTimeout(() => {
-          setState("loading");
-          runVisualization();
+          if (uploadedFile) {
+            setState("loading");
+            runVisualization();
+          } else {
+            setState("upload");
+          }
         }, 300);
       }
       card.addEventListener("click", select);
@@ -250,7 +257,10 @@
         if (e.key === "Enter") select();
       });
     });
-    (_a = body.querySelector("#rv-back-picker")) == null ? void 0 : _a.addEventListener("click", () => setState("upload"));
+    (_a = body.querySelector("#rv-back-picker")) == null ? void 0 : _a.addEventListener("click", () => {
+      selectedProduct = null;
+      setState("upload");
+    });
   }
   function renderLoadingState(body) {
     const previewUrl = uploadedFile ? URL.createObjectURL(uploadedFile) : "";
@@ -406,7 +416,7 @@
       URL.revokeObjectURL(resultBlobUrl);
       resultBlobUrl = null;
     }
-    setState("upload");
+    setState(config.productId ? "upload" : "picker");
     openModal();
   }
   globalThis["initRoomVisualizer"] = initRoomVisualizer;
