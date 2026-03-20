@@ -10,3 +10,9 @@ Created technical/room-visualizer/ with:
 - src/config.ts (all required env vars with defaults: SCORE_THRESHOLD=7, MAX_ATTEMPTS=3, FAL_TIMEOUT_MS=45000)
 - src/lib/logger.ts (pino JSON logger)
 Both `bun run typecheck` and `bun run lint` pass.
+
+## US-002 — DNS record + Docker compose entry (20 Mar 2026)
+- Added `hcloud_zone_record "visualizer"` to technical/gitopsprod/dns.tf (A, 5.75.165.158)
+- Created technical/room-visualizer/docker-compose.service.yml with Traefik labels for visualizer.inanctekstil.store, TLS, and 15MB body buffer
+- Created technical/room-visualizer/README.md documenting all env vars and deploy commands
+Both `bun run typecheck` and `bun run lint` pass.

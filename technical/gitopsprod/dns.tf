@@ -164,3 +164,11 @@ resource "hcloud_zone_record" "hooks" {
   type  = "A"
   value = "5.75.165.158"
 }
+
+# Room visualizer AI service
+resource "hcloud_zone_record" "visualizer" {
+  zone  = hcloud_zone.main.id
+  name  = "visualizer"
+  type  = "A"
+  value = "5.75.165.158"
+}

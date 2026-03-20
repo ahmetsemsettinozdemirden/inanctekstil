@@ -1,0 +1,18 @@
+services:
+  room-visualizer:
+    build: /opt/room-visualizer
+    restart: unless-stopped
+    environment:
+      - FAL_API_KEY
+      - FAL_MODEL=${FAL_MODEL:-fal-ai/nano-banana-pro}
+      - SHOPIFY_ACCESS_TOKEN
+      - SHOPIFY_STORE_DOMAIN
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.visualizer.rule=Host(`visualizer.inanctekstil.store`)"
+      - "traefik.http.routers.visualizer.tls.certresolver=letsencrypt"
+      - "traefik.http.middlewares.visualizer-limit.buffering.maxRequestBodyBytes=15728640"
+      - "traefik.http.routers.visualizer.middlewares=visualizer-limit"
