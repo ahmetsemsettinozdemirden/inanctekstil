@@ -212,51 +212,68 @@ dramatic heavy fabric with deep folds
 
 ## 6. Talking Avatar Video — Video 1
 
-**Model:** `fal-ai/kling-video/v1/pro/ai-avatar`
-**URL:** https://fal.ai/models/fal-ai/kling-video/v1/pro/ai-avatar
-**Cost:** $0.115 per second of output (~$2.88 for a 25s clip)
-
-> Note: `fal-ai/creatify` and `fal-ai/aurora` return 404 as of March 2026. Kling AI Avatar is the current replacement.
+**Model:** `fal-ai/creatify/aurora`
+**URL:** https://fal.ai/models/fal-ai/creatify/aurora
+**Cost:** $0.14/sec at 720p (~$3.50 for a 25s clip)
 
 ### Inputs
 
-| Input | Value |
-|-------|-------|
-| image_url | Upload `assets/avatar-portrait.jpg` |
-| audio_url | Upload `assets/video1-voice.mp3` |
+| Parameter | Value |
+|-----------|-------|
+| `image_url` | Upload `assets/avatar-portrait.jpg` |
+| `audio_url` | Upload `assets/video1-voice.mp3` |
+| `resolution` | `720p` (use for final output; use `480p` for test drafts at $0.07/s) |
+| `guidance_scale` | `1` (default — how closely the model follows the text prompt) |
+| `audio_guidance_scale` | `2` (default — lip-sync adherence; increase to `3` if sync feels loose) |
 
-### Optional prompt
+### Prompt
 
 ```
-Turkish woman talking naturally and warmly to camera,
-slight natural head movement, genuine friendly expression,
-simple indoor background, conversational energy
+Turkish woman speaking warmly to camera, natural conversational tone,
+medium close-up framing, steady eye contact, slight natural head movement,
+soft indoor lighting, studio quality
 ```
+
+### Guidance scale tuning
+
+| Parameter | Lower value | Higher value |
+|-----------|-------------|--------------|
+| `guidance_scale` (0–5) | Less prompt influence, more natural movement | More rigid adherence to prompt description |
+| `audio_guidance_scale` (0–5) | Looser lip-sync, more natural motion | Tighter lip-sync precision |
+
+Start with defaults (`1` / `2`). If lip-sync looks off: raise `audio_guidance_scale` to `3`. If movement looks robotic: lower `guidance_scale` to `0.5`.
 
 ### Quality check
 
-- Lip-sync matches audio throughout (check mid-clip and end, not just the first few seconds)
-- Eyes look natural — no rapid blinking, no glassy stare
-- Head movement is subtle and human (not robotic nodding)
-- No mouth distortion artifacts
+- Lip-sync matches audio throughout — check mid-clip and final seconds, not just the start
+- Eyes look natural (no rapid blinking, no glassy stare)
+- Head movement feels human and unhurried
+- No mouth or jaw distortion artifacts
+
+### Supported audio formats
+
+mp3, ogg, wav, m4a, aac — all accepted. Use `video1-voice.mp3` from ElevenLabs directly.
 
 ### If quality is insufficient
 
-Switch to `fal-ai/bytedance/omnihuman/v1.5` (https://fal.ai/models/fal-ai/bytedance/omnihuman/v1.5) — same inputs, higher realism, $0.16/sec.
+Try `fal-ai/kling-video/v1/pro/ai-avatar` (https://fal.ai/models/fal-ai/kling-video/v1/pro/ai-avatar) — same image + audio inputs, $0.115/sec, different rendering approach.
 
 ---
 
 ## 7. Talking Avatar Video — Video 2
 
-**Model:** `fal-ai/kling-video/v1/pro/ai-avatar`
+**Model:** `fal-ai/creatify/aurora`
 **Same settings as section 6**, with:
 
-| Input | Value |
-|-------|-------|
-| image_url | Same `assets/avatar-portrait.jpg` |
-| audio_url | Upload `assets/video2-voice.mp3` |
+| Parameter | Value |
+|-----------|-------|
+| `image_url` | Same `assets/avatar-portrait.jpg` |
+| `audio_url` | Upload `assets/video2-voice.mp3` |
+| `resolution` | `720p` |
+| `guidance_scale` | `1` |
+| `audio_guidance_scale` | `2` |
 
-Using the same portrait image for both videos is intentional — visual consistency signals it's the same person across both ads.
+Same prompt as Video 1. Using the same portrait image is intentional — visual consistency signals it's the same person across both ads.
 
 ---
 
@@ -313,7 +330,9 @@ Output: PNG with transparent background. Use this as the input to Kling AI Avata
 | Room edits (if needed) | nano-banana-pro /edit | $0.15/edit | 0–4 edits | $0–0.60 |
 | Fon animation | kling v2.1 i2v | ~$0.49/5s | 1–2 clips | $0.49–0.98 |
 | Blackout animation | kling v2.1 i2v | ~$0.49/5s | 1–2 clips | $0.49–0.98 |
-| Avatar video V1 (25s) | kling ai-avatar | $0.115/s | 25s | $2.88 |
-| Avatar video V2 (25s) | kling ai-avatar | $0.115/s | 25s | $2.88 |
+| Avatar video V1 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
+| Avatar video V2 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | BG removal | bria video | TBD | 2 videos | TBD |
-| **Total estimate** | | | | **~$9–12** |
+| **Total estimate** | | | | **~$10–13** |
+
+> **Draft tip:** Use `resolution: 480p` ($0.07/s) for test runs during development. Switch to `720p` only for the final export.

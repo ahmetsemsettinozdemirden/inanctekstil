@@ -17,14 +17,14 @@
 | Room staging (image gen) | `fal-ai/flux-pro/v1.1-ultra` | $0.06/image |
 | Iterate/edit existing image | `fal-ai/flux-pro/kontext` | $0.04/edit |
 | Curtain animation (image→video) | `fal-ai/kling-video/v2.1/pro/image-to-video` | ~$0.49/5s clip |
-| Talking avatar (photo+audio→video) | `fal-ai/kling-video/v1/pro/ai-avatar` | $0.115/sec |
-| Higher-quality avatar (alternative) | `fal-ai/bytedance/omnihuman/v1.5` | $0.16/sec |
+| Talking avatar (photo+audio→video) | `fal-ai/creatify/aurora` | $0.14/sec (720p) |
+| Avatar fallback | `fal-ai/kling-video/v1/pro/ai-avatar` | $0.115/sec |
 | Video background removal | `fal-ai/bria/video/background-removal` | check playground |
 | Image background removal | `fal-ai/birefnet` | sub-cent/image |
 
 **Estimated cost per finished Reel:** ~$3–4 in fal.ai credits.
 
-> ⚠️ **Creatify/Aurora:** The spec originally referenced `fal-ai/creatify` and `fal-ai/aurora`. Both return 404 as of March 2026 — not accessible on fal.ai. The spec has been updated to reflect this. `fal-ai/kling-video/v1/pro/ai-avatar` is the replacement — same workflow (portrait photo + audio → lip-synced video), same one-step process.
+> **Avatar model:** `fal-ai/creatify/aurora` — accessible at the full path. Note: `fal-ai/creatify` (without `/aurora`) returns 404. Kling AI Avatar is the fallback if Aurora output is insufficient.
 
 ---
 
@@ -250,7 +250,7 @@ photorealistic, not a model or influencer — a real everyday person, shot on iP
 
 **Output file:** `docs/marketing/meta-ads/reels-production/assets/video1-avatar-raw.mp4`
 
-> **Note:** The spec originally referenced `fal-ai/creatify` — that model returns 404 on fal.ai as of March 2026. `fal-ai/kling-video/v1/pro/ai-avatar` is the direct replacement with the same workflow.
+> **Note:** `fal-ai/creatify` (without `/aurora`) returns 404. The correct model ID is `fal-ai/creatify/aurora`. Kling AI Avatar is the fallback.
 
 - [ ] Open fal.ai playground → `fal.ai/models/fal-ai/kling-video/v1/pro/ai-avatar`
 - [ ] Upload: `avatar-portrait.jpg` as image input
