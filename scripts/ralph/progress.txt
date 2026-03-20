@@ -65,3 +65,15 @@ Both `bun run typecheck` and `bun run lint` pass.
 - Created technical/room-visualizer/docker-compose.service.yml with Traefik labels for visualizer.inanctekstil.store, TLS, and 15MB body buffer
 - Created technical/room-visualizer/README.md documenting all env vars and deploy commands
 Both `bun run typecheck` and `bun run lint` pass.
+
+## US-009 — Room visualizer modal, all 5 states (20 Mar 2026)
+- Created technical/theme/assets/room-visualizer.ts: full modal implementation (~480 lines)
+- initRoomVisualizer(config) exposed on globalThis (IIFE global scope)
+- State 1 Upload: dropzone + file input + camera capture (accept=image/*, capture=environment on mobile)
+- State 2 Curtain Picker: shown when productId absent; reads dataProductsJson; grouped by type
+- State 3 Loading: dimmed uploaded photo + spinner + 'Yapay zeka odanızı hazırlıyor'
+- State 4 Result: Blob URL image + X-Product-Title decoded title + Kaydet download + Sipariş Ver CTA
+- State 5 Error: 'Görsel oluşturulamadı.' + Tekrar Dene button → back to State 1
+- npm run build produces valid IIFE room-visualizer.js (15.7KB)
+- Pushed to Shopify theme 193714913361 via shopify theme push
+- Playwright verification: modal opens in State 1, initRoomVisualizer is function, overlay renders
