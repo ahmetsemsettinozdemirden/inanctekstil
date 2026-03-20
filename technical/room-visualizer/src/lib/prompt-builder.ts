@@ -10,11 +10,11 @@ export function buildPrompt(
 	attempt: number,
 	seedFn: () => number = Math.random,
 ): PromptResult {
-	const base = `A modern Turkish living room with ${product.color} ${product.type} curtains hanging on the windows, photorealistic, interior design photography, natural lighting, high quality`;
+	const base = `Add ${product.color} ${product.type} curtains to all windows in this room, floor-length drapes, neatly hanging, photorealistic, interior design photography`;
 
 	const prompt =
 		attempt > 1
-			? `${base}, curtains prominently visible on windows, window treatment focal point`
+			? `${base}, curtains clearly visible on every window, elegant window treatment`
 			: base;
 
 	const seed = Math.floor(seedFn() * 2 ** 31);

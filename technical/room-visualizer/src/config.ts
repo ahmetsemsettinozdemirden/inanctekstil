@@ -1,6 +1,6 @@
 export const config = {
 	FAL_API_KEY: process.env.FAL_API_KEY ?? "",
-	FAL_MODEL: process.env.FAL_MODEL ?? "fal-ai/nano-banana-pro",
+	FAL_MODEL: process.env.FAL_MODEL ?? "fal-ai/flux-2-pro/edit",
 	SHOPIFY_ACCESS_TOKEN: process.env.SHOPIFY_ACCESS_TOKEN ?? "",
 	SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN ?? "",
 	AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ?? "",

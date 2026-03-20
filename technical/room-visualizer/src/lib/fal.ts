@@ -55,8 +55,7 @@ export async function generateRoomImage(
 					input: {
 						prompt,
 						seed,
-						image_url: roomImageUrl,
-						reference_image_url: productData.imageUrl,
+						image_urls: [roomImageUrl],
 					},
 					abortSignal: controller.signal,
 				});
