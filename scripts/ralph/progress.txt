@@ -18,6 +18,13 @@ Both `bun run typecheck` and `bun run lint` pass.
 - `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
 - Added technical/theme/.gitignore to exclude node_modules
 
+## US-004 — Prompt builder (20 Mar 2026)
+- Created src/lib/prompt-builder.ts: buildPrompt(product, attempt, seedFn?) returns {prompt, seed}
+- Attempt 1: base prompt with color+type; attempt 2+: appends prominence text
+- seed injected via seedFn for deterministic testing
+- tests/prompt-builder.test.ts: 4 tests (base prompt, retry prompt, seed type, deterministic seed) — all pass
+- typecheck and lint pass
+
 ## US-003 — Shopify + PMS product data fetcher (20 Mar 2026)
 - Created src/lib/shopify.ts: getProductData(productId) via Shopify Admin GraphQL, returns {title, type, color, imageUrl, sku}
 - Created src/lib/pms.ts: getPmsSwatchUrl(sku) from PMS, returns null on failure (non-blocking, 5s timeout)
