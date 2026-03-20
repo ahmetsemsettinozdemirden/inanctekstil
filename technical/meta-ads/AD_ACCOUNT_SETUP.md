@@ -107,14 +107,19 @@ Use this document to track what needs to be done before activating campaigns.
 | C1-5 | Campaign named "Dinamik" but no catalog integration | [ ] Decide: rename OR rebuild as true DPA (sync more products to Shopify first) |
 | C1-6 | Only Blackout + Saten ads — no Tül, no Fon | [ ] Add after more products synced to Shopify |
 | C1-7 | Switch to `OFFSITE_CONVERSIONS` once more Purchases fire | [ ] Switch when Purchase volume > 10/week |
+| C1-8 | Facebook Story placement — low engagement in TR | ✅ Removed; Sales ad set now: FB Feed + IG stream/story/reels only |
+| C1-9 | Creatives missing description, WhatsApp CTA, Saten headline weak | ✅ Rebuilt as v3 (2026-03-19) |
+| C1-10 | Blackout WhatsApp CTA "kurulum için" → "sipariş için" | ✅ Rebuilt as v4; ad `6934748708656` PAUSED (2026-03-19) |
 
 ### Campaign 2: Reels — Farkındalık (Soğuk Kitle) `6934664141256`
 
 | # | Issue | Status |
 |---|-------|--------|
-| C2-1 | Video creative for Reels | ✅ Video `4525340454399489`; creative `966088742674546`; ad `6934664468856` PAUSED |
+| C2-1 | Video creative for Reels | ✅ Video `4525340454399489`; creative v3 `25906779639024635`; ad v3 `6934742353056` PAUSED |
 | C2-2 | Frequency cap | ✅ Ad set `6934664327456` — max 3 per 7 days |
 | C2-3 | Instagram Reels only, interior design interests | ✅ |
+| C2-4 | Reels link → homepage | ✅ Fixed to `/collections/all` in v3 |
+| C2-5 | Awareness serving to past website visitors (wasted spend) | ✅ Excluded custom audience `6934748660856` (website visitors 30d) (2026-03-19) |
 
 ---
 
@@ -148,6 +153,11 @@ These metrics will stop working in `list_insights` / `create_report` after May 1
 | Ad set — Sales v2 (PAUSED — destination_type WEBSITE, ₺150/day) | `6934642328656` |
 | Campaign — Awareness | `6934664141256` |
 | Ad set — Awareness (freq cap, PAUSED) | `6934664327456` |
-| Ad — Awareness video Reels (PAUSED) | `6934664468856` |
-| Creative — Awareness video Reels | `966088742674546` |
+| Ad — Blackout Sonil v4 (PAUSED) | `6934748708656` |
+| Ad — Saten Perde v3 (PAUSED) | `6934742342856` |
+| Ad — Awareness video Reels v3 (PAUSED) | `6934742353056` |
+| Creative — Blackout Sonil v4 | `1849171629127247` |
+| Creative — Saten Perde v3 | `1288234709868688` |
+| Creative — Awareness video Reels v3 | `25906779639024635` |
+| Custom Audience — Website Visitors 30d | `6934748660856` |
 | Video — İnanç Tekstil MVP | `4525340454399489` |
