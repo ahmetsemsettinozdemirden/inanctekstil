@@ -1,44 +1,70 @@
-# Ralph Agent Instructions — Perde Tasarla Curtain Configurator
+# Ralph Agent Instructions — Odanda Gör AI Room Visualizer
 
-You are building the "Perde Tasarla" curtain configurator for inanctekstil.store, a custom curtain shop in Iskenderun, Hatay, Turkey. The site runs on Shopify (Horizon theme).
+You are building the "Odanda Gör" feature for inanctekstil.store — an AI room visualizer where customers upload a room photo, select a curtain, and fal.ai generates a new version of the room with that curtain placed. The site runs on Shopify (Horizon theme) with a Bun/Hono backend on Hetzner.
 
 ## Your Task
 
 1. Read `scripts/ralph/prd.json` for user stories
 2. Read `scripts/ralph/progress.txt` for context from previous iterations
 3. Pick the **highest priority** story where `passes: false` and all `dependsOn` stories have `passes: true`
-4. Implement it, following acceptance criteria exactly
-5. If passing: set `passes: true` in prd.json, commit with descriptive message
-6. Append progress to `scripts/ralph/progress.txt`
+4. Read the spec FIRST before implementing: `docs/superpowers/specs/2026-03-19-odanda-gor-design.md`
+5. Implement the story, following acceptance criteria exactly
+6. If passing: set `passes: true` in prd.json, commit with descriptive message
+7. Append progress to `scripts/ralph/progress.txt`
 
 ## Project Structure
 
 ```
-technical/theme/          -- Shopify Horizon theme files (always use --path technical/theme with CLI)
-  templates/              -- JSON templates (product.json, index.json, etc.)
-  sections/               -- Liquid sections
-  assets/                 -- CSS, JS, SVGs
-  snippets/               -- Liquid snippets
+technical/room-visualizer/     -- New backend service (Bun/Hono)
+  baml_src/                    -- BAML definitions (Claude Opus evaluator)
+  src/
+    index.ts                   -- Hono server entry
+    config.ts                  -- Env vars, thresholds
+    routes/visualize.ts        -- POST /api/visualize
+    lib/
+      fal.ts                   -- fal.ai client + retry loop
+      evaluator.ts             -- BAML quality evaluator
+      prompt-builder.ts        -- Curtain data → prompt
+      shopify.ts               -- Shopify product fetcher
+      pms.ts                   -- PMS swatch fetcher (optional)
+      logger.ts                -- pino structured logger
+  tests/
+  Dockerfile
+  README.md
 
-technical/curtain-shopify-app/  -- Private Shopify App (Cart Transform function)
-  extensions/cart-transform/                -- Shopify Function (Cart Transform)
-  shopify.app.toml
+technical/theme/               -- Shopify Horizon theme (always use --path technical/theme with CLI)
+  templates/                   -- JSON templates (product.json, index.json, etc.)
+  sections/                    -- Liquid sections
+  assets/
+    room-visualizer.ts         -- TypeScript source (compiled → room-visualizer.js via esbuild)
+    room-visualizer.js         -- Compiled IIFE output (committed + pushed to Shopify)
+  snippets/
+    room-visualizer-button.liquid
 
-scripts/ralph/            -- This agent's working directory
-  prd.json                -- User stories
-  progress.txt            -- Progress log
-  CLAUDE.md               -- These instructions
+technical/gitopsprod/
+  dns.tf                       -- Add hcloud_zone_record for visualizer subdomain
 
-docs/                     -- Specs, brand guidelines, competitor analysis
+scripts/ralph/                 -- This agent's working directory
+  prd.json                     -- User stories
+  progress.txt                 -- Progress log
+  CLAUDE.md                    -- These instructions
+
+docs/superpowers/specs/2026-03-19-odanda-gor-design.md  -- Full feature spec
 ```
 
 ## Store Details
 
 - **Store domain:** `inanctekstil.store`
 - **Myshopify domain:** `1z7hb1-2d.myshopify.com`
-- **Admin:** `https://1z7hb1-2d.myshopify.com/admin`
-- **Theme:** Horizon
-- **Shopify plan:** Basic (Shopify Functions supported)
+- **Production theme ID:** `193714913361`
+- **Shopify plan:** Basic
+
+## Server Details
+
+- **IP:** `5.75.165.158`
+- **SSH:** `ssh -i ~/.ssh/inanctekstil root@5.75.165.158`
+- **Docker stack:** `/opt/inanctekstil/`
+- **New service path:** `/opt/room-visualizer/`
 
 ## Shopify CLI Commands
 
@@ -46,90 +72,80 @@ Always use `--path technical/theme` for theme commands.
 
 ```bash
 # Push specific files
-shopify theme push --theme <THEME_ID> --store 1z7hb1-2d.myshopify.com --only "sections/curtain-configurator.liquid" --nodelete --path technical/theme
-
-# Push multiple files
-shopify theme push --theme <THEME_ID> --store 1z7hb1-2d.myshopify.com --only "sections/curtain-configurator.liquid" --only "templates/product.json" --nodelete --path technical/theme
+shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com \
+  --only "assets/room-visualizer.js" --nodelete --path technical/theme
 
 # Pull files from remote theme
-shopify theme pull --theme <THEME_ID> --store 1z7hb1-2d.myshopify.com --only "templates/product.json" --path technical/theme
-
-# List themes (to find theme IDs)
-shopify theme list --store 1z7hb1-2d.myshopify.com
-
-# Deploy Shopify app (from app directory)
-cd technical/curtain-shopify-app && shopify app deploy
+shopify theme pull --theme 193714913361 --store 1z7hb1-2d.myshopify.com \
+  --only "templates/product.json" --path technical/theme
 ```
 
 ## Quality Gates
 
-**Theme stories (no bun project):**
+**Backend stories (technical/room-visualizer/):**
+- `bun run typecheck` passes
+- `bun run lint` passes
+
+**Frontend build stories (technical/theme/):**
+- `npm run build` produces valid IIFE room-visualizer.js
 - `shopify theme push` completes without errors
-- Manual browser verification via Playwright MCP
 
-**App stories (bun project at technical/curtain-shopify-app/):**
-- `bun run typecheck && bun run lint`
-- Manual browser verification via Playwright MCP (where applicable)
-
-## Brand Identity
-
-- **Primary color:** #1B2A4A (Deep Navy)
-- **Background:** #FFFFFF (White)
-- **Text:** #333333 (Charcoal)
-- **Border:** #E5E5E5 (Light Gray)
-- **Surface:** #F8F8F8 (Off-White)
-- **Heading font:** Playfair Display (700)
-- **Body font:** Inter (400/600)
+**UI stories (modal/page visible in browser):**
+- Verified in browser via Playwright MCP
 
 ## Key Implementation Details
 
-### Configurator Behaviour
-- Renders only on products tagged `perde-tasarla`
-- Hides standard Horizon variant-picker and buy-buttons blocks via CSS when active
-- 4 sequential steps: Ölçü Seçimi → Pile Stili → Kanat Seçimi → Onay
-- Completed steps show a collapsed summary row
+### API Endpoint
+- `POST https://visualizer.inanctekstil.store/api/visualize`
+- Content-Type: `multipart/form-data`
+- Fields: `product_id` (Shopify GID) + `room_image` (File)
+- CORS: `Access-Control-Allow-Origin: https://inanctekstil.store` on ALL responses
 
-### Pricing Formula
-```
-total = (en_cm / 100) × pleat_ratio × panel_count × base_price_per_meter
-```
-Pleat ratios: Düz Dikiş = 2.0, Kanun Pile = 2.5, Boru Pile = 3.0
+### AI Pipeline
+1. Fetch product data (Shopify Admin GraphQL + PMS swatch)
+2. Build prompt: `"A modern Turkish living room with {color} {type} curtains hanging on the windows, photorealistic, interior design photography, natural lighting, high quality"`
+3. Call `fal-ai/nano-banana-pro` with room photo + curtain image + prompt (45s timeout)
+4. Download result as binary immediately
+5. Evaluate with Claude Opus 4.6 (Bedrock via BAML) → `{score: 1-10, has_curtains: bool, feedback: string}`
+6. Retry if `score < 7` OR `has_curtains == false`, up to 3 attempts
+7. Return binary with highest score
 
-### Cart Submission
-POST to `/cart/add.js` with:
-- `quantity: 1`
-- `id: <variant_id>`
-- `properties: { _en, _boy, _pile_stili, _pile_orani, _kanat }`
+### Response Format
+- Success: `Content-Type: image/jpeg` binary
+- Headers: `X-Product-Title` (percent-encoded), `X-Attempts-Used`, `X-Final-Score`
+- Error: JSON `{success: false, error: {code, message}}`
 
-Cart Transform function intercepts and sets the correct price server-side.
+### Frontend Modal
+- `initRoomVisualizer(config)` function injected into global scope
+- Config: `{ productId?, productHandle?, apiUrl, dataProductsJson? }`
+- If `productId` present → skip curtain picker (State 2)
+- If absent → show curtain picker (reads `dataProductsJson`)
+- Result image rendered from `URL.createObjectURL(blob)` — never a remote URL
+- "Sipariş Ver" CTA: if opened from product page → scroll to configurator; if from dedicated page → navigate to `/{productHandle}`
 
-### Product Metafield
-- Namespace: `custom`, Key: `max_boy_cm`, Type: `number_integer`
-- Read in Liquid: `product.metafields.custom.max_boy_cm`
-- Min width hardcoded: 50cm for all curtain products
-
-## Key Gotchas
-
-- **Always use `--path technical/theme`** with Shopify CLI — without it, push reports success but uploads nothing
-- **JSONC format:** Horizon theme files use `/* */` comment headers — this is normal
-- **Preview URLs:** `https://inanctekstil.store/?preview_theme_id=<THEME_ID>`
-- **Shopify Partners account** required to deploy the custom app (US-007 prerequisite)
-- **All customer-facing strings must be in Turkish**
-- **Prices formatted as:** `1.695,00 TL`
+### Brand Identity
+- **Primary color:** #1B2A4A (Deep Navy)
+- **Background:** #FFFFFF (White)
+- **Text:** #333333 (Charcoal)
+- **Heading font:** Playfair Display (700)
+- **Body font:** Inter (400/600)
+- All customer-facing strings in **Turkish**
 
 ## Commit Format
 
 ```
-feat(perde-tasarla): US-XXX — <title>
+feat(odanda-gor): US-XXX — <title>
 ```
 
 ## IMPORTANT Rules
 
-- Read referenced files BEFORE implementing a story
+- Read the spec `docs/superpowers/specs/2026-03-19-odanda-gor-design.md` BEFORE implementing any story
+- Read referenced files before implementing
 - One iteration = ONE user story
 - Commit after each completed story (commit prd.json and progress.txt changes too)
-- DO NOT commit secrets, API keys, or app credentials
+- DO NOT commit secrets, API keys, or credentials
 - Turkish language for all customer-facing strings
+- Always `--path technical/theme` with Shopify CLI
 
 ## Completion Signal
 

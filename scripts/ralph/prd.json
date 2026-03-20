@@ -1,172 +1,212 @@
 {
-  "project": "inanc-tekstil",
-  "branchName": "ralph/perde-tasarla-configurator",
-  "description": "Multi-step curtain configurator (Perde Tasarla) for inanctekstil.store. Customers configure Tul curtains (width, pleat style, panel count), see a live price, and add to cart. A private Shopify App with a Cart Transform function sets the correct line item price server-side.",
+  "name": "inanc-tekstil",
+  "branchName": "ralph/odanda-gor",
+  "description": "Odanda Gör — AI room visualizer. Customers upload a room photo, select a curtain, and fal-ai/nano-banana-pro generates a new version of the room with the curtain placed. Quality-evaluated by Claude Opus 4.6 via Amazon Bedrock (BAML), auto-retries up to 3x. Entry: fullscreen modal on product pages + dedicated /pages/odanda-gor Shopify landing page for Reels ads.",
   "userStories": [
     {
       "id": "US-001",
-      "title": "Define product metafield for max height",
-      "description": "As a store admin, I want each curtain product to have a max_boy_cm metafield so the configurator can enforce per-product height limits.",
+      "title": "Backend project scaffold — Bun/Hono server with CORS, body limit, logger",
+      "description": "As a developer, I want the room-visualizer backend scaffolded as a Bun/Hono project so subsequent stories have a working foundation to build on.",
       "acceptanceCriteria": [
-        "Metafield definition created in Shopify admin: namespace 'custom', key 'max_boy_cm', type 'number_integer'",
-        "A test Tul product exists tagged 'perde-tasarla' with custom.max_boy_cm set to 270",
-        "The metafield value is readable in Liquid via product.metafields.custom.max_boy_cm",
-        "Verified in browser via Playwright MCP: navigate to the test product page and confirm metafield is accessible"
+        "Directory technical/room-visualizer/ created with package.json, tsconfig.json, Dockerfile",
+        "Hono server in src/index.ts with CORS (allow origin https://inanctekstil.store), bodyLimit(12MB), OPTIONS preflight handler",
+        "src/config.ts reads env vars: FAL_API_KEY, FAL_MODEL, SHOPIFY_ACCESS_TOKEN, SHOPIFY_STORE_DOMAIN, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION; SCORE_THRESHOLD=7, MAX_ATTEMPTS=3, FAL_TIMEOUT_MS=45000",
+        "src/lib/logger.ts exports a pino structured JSON logger",
+        "GET /health endpoint returns 200 {ok: true}",
+        "bun run typecheck passes",
+        "bun run lint passes"
       ],
       "priority": 1,
-      "passes": true,
-      "notes": "Metafield definition created via Admin GraphQL API (gid://shopify/MetafieldDefinition/408730304593), pinned. BORNOVA Tül Perde tagged perde-tasarla with max_boy_cm=270.",
+      "passes": false,
+      "notes": "",
       "dependsOn": []
     },
     {
       "id": "US-002",
-      "title": "Curtain configurator section scaffold",
-      "description": "As a developer, I want a Liquid section that conditionally renders on curtain products so the configurator UI can be placed in the product page without creating a new template.",
+      "title": "DNS record + Docker compose entry for room-visualizer",
+      "description": "As a developer, I want the infrastructure configured so the room-visualizer service is reachable at visualizer.inanctekstil.store.",
       "acceptanceCriteria": [
-        "New file technical/theme/sections/curtain-configurator.liquid created",
-        "Section renders only when product.tags contains 'perde-tasarla'; otherwise outputs nothing",
-        "When active, injects CSS that hides the standard variant-picker and buy-buttons blocks from the product-information section",
-        "Section added to technical/theme/templates/product.json above the product_recommendations section",
-        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
-        "Verified in browser via Playwright MCP: test product shows empty configurator container; non-tagged product shows normal buy button"
-      ],
-      "priority": 2,
-      "passes": true,
-      "notes": "Section created at technical/theme/sections/curtain-configurator.liquid. CSS hides variant-picker, .buy-buttons-block, sticky-add-to-cart on perde-tasarla products. Added to product.json above product_recommendations. Verified on unpublished theme #193719566417.",
-      "dependsOn": ["US-001"]
-    },
-    {
-      "id": "US-003",
-      "title": "Step 1 — Olcu Secimi (size inputs with validation)",
-      "description": "As a customer, I want to enter curtain width and height with clear constraints so I don't submit invalid measurements.",
-      "acceptanceCriteria": [
-        "Step 1 renders inside the configurator section with two number inputs: En (cm) and Boy (cm)",
-        "En: minimum 50cm enforced; Turkish error shown if below: 'En en az 50 cm olmalidir'",
-        "Boy: maximum read from product.metafields.custom.max_boy_cm; Turkish error shown if exceeded: 'Boy en fazla [X] cm olabilir'",
-        "Devam Et button disabled until both inputs are valid",
-        "A simple measurement diagram (SVG or inline illustration) shows En and Boy labels on a curtain outline",
-        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
-        "Verified in browser via Playwright MCP: enter 30cm width -> error shown; enter 200x250 -> Devam Et button enabled"
-      ],
-      "priority": 3,
-      "passes": true,
-      "notes": "Step 1 rendered with SVG diagram, En/Boy inputs, Turkish validation, Devam Et disabled until valid. Verified: 30cm shows error, 200x250 enables button.",
-      "dependsOn": ["US-002"]
-    },
-    {
-      "id": "US-004",
-      "title": "Step 2 — Pile Stili visual picker",
-      "description": "As a customer, I want to choose a pleat style by seeing a photo of each option so I understand what I'm selecting.",
-      "acceptanceCriteria": [
-        "Step 2 renders after Step 1 is completed; Step 1 summary shown as collapsed row: 'Olcu: 200 x 250 cm'",
-        "Three options displayed as photo cards: Duz Dikis (ratio 2.0), Kanun Pile (ratio 2.5), Boru Pile (ratio 3.0)",
-        "Placeholder images used (grey boxes with text label) — real photos to be swapped in later",
-        "Clicking a card selects it with a visual highlight; one must be selected to proceed",
-        "Selected pleat ratio stored in JS state for price calculation",
-        "Devam Et button disabled until a style is selected",
-        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
-        "Verified in browser via Playwright MCP: all three cards visible, clicking one highlights it, Devam Et enables"
-      ],
-      "priority": 4,
-      "passes": true,
-      "notes": "Step 2 shows after Step 1; collapsed summary 'Ölçü: 200 x 250 cm' visible. Three pile cards with placeholder SVGs. Selecting Kanun Pile highlights card and enables Devam Et. Ratio stored in window.perdeConfig.",
-      "dependsOn": ["US-003"]
-    },
-    {
-      "id": "US-005",
-      "title": "Step 3 — Kanat Secimi (panel selection)",
-      "description": "As a customer, I want to select single or double panel so the correct fabric amount is calculated.",
-      "acceptanceCriteria": [
-        "Step 3 renders after Step 2 is completed; Step 2 summary shown: 'Pile: Kanun Pile'",
-        "Two radio options with illustrations: Tek Kanat (1 panel) and Cift Kanat (2 panels)",
-        "Each option includes a brief Turkish description (1 sentence)",
-        "Panel count (1 or 2) stored in JS state",
-        "Devam Et button disabled until one option is selected",
-        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
-        "Verified in browser via Playwright MCP: both options visible, selecting one enables Devam Et"
-      ],
-      "priority": 5,
-      "passes": true,
-      "notes": "Step 3 renders after Step 2; collapsed summary 'Pile: Kanun Pile' shown. Tek Kanat and Çift Kanat options with SVG illustrations and Turkish descriptions. Selecting one highlights and enables Devam Et. kanat and kanat_count stored in window.perdeConfig. Verified via Playwright.",
-      "dependsOn": ["US-004"]
-    },
-    {
-      "id": "US-006",
-      "title": "Step 4 — Onay, live price, and add to cart",
-      "description": "As a customer, I want to review my configuration with an accurate price estimate and accept the custom-product disclaimer before adding to cart.",
-      "acceptanceCriteria": [
-        "Step 4 renders after Step 3 is completed; Step 3 summary shown: 'Kanat: Tek Kanat'",
-        "Configuration summary displayed: En, Boy, Pile Stili, Kanat",
-        "Live calculated price displayed using formula: (en_cm / 100) * pleat_ratio * panel_count * base_price_per_meter, formatted as Turkish currency (e.g. '1.695,00 TL')",
-        "Note below price: 'Tahmini fiyat. Sepette kesinlesir.'",
-        "Required disclaimer checkbox: 'Bu perde ozel olarak dikilecegi icin iade edilemez. Olculerimi kontrol ettigimi onayliyorum.'",
-        "Sepete Ekle button disabled until checkbox is checked",
-        "On click: POST to Shopify /cart/add.js with quantity 1, variant id, and properties: _en, _boy, _pile_stili, _pile_orani, _kanat",
-        "On success: Horizon cart drawer opens",
-        "On error: Turkish error message shown inline",
-        "shopify theme push --path technical/theme --store 1z7hb1-2d.myshopify.com succeeds without errors",
-        "Verified in browser via Playwright MCP: complete full configurator flow, cart drawer opens with correct item"
-      ],
-      "priority": 6,
-      "passes": true,
-      "notes": "Step 4 Onay renders after Step 3; summary row 'Kanat: Tek Kanat' shown. Review table with En/Boy/Pile/Kanat. Live price formatted as Turkish currency (e.g. 862,50 TL). Disclaimer checkbox gates Sepete Ekle. POST to /cart/add.js with properties. Horizon cart-drawer-component opens on success. Verified via Playwright full flow.",
-      "dependsOn": ["US-005"]
-    },
-    {
-      "id": "US-007",
-      "title": "Initialize Shopify App project",
-      "description": "As a developer, I want the Shopify App scaffolded at technical/curtain-shopify-app/ so the Cart Transform function can be developed and deployed.",
-      "acceptanceCriteria": [
-        "Shopify CLI used to create app at technical/curtain-shopify-app/",
-        "App type: custom app (not published to App Store)",
-        "shopify.app.toml configured for store 1z7hb1-2d.myshopify.com",
-        "Cart Transform extension scaffolded inside extensions/cart-transform/",
+        "New hcloud_zone_record resource 'visualizer' added to technical/gitopsprod/dns.tf: name=visualizer, type=A, value=5.75.165.158",
+        "New service 'room-visualizer' added to /opt/inanctekstil/docker-compose.yml (or local docker-compose reference file at technical/room-visualizer/docker-compose.service.yml) with Traefik labels for visualizer.inanctekstil.store, TLS, and buffering.maxRequestBodyBytes=15728640",
+        "Environment variables documented in technical/room-visualizer/README.md: FAL_API_KEY, FAL_MODEL, SHOPIFY_ACCESS_TOKEN, SHOPIFY_STORE_DOMAIN, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION",
+        "README.md includes deploy commands: rsync + docker compose up -d --build room-visualizer + terraform apply",
         "bun run typecheck passes",
-        "bun run lint passes",
-        "README.md added with setup instructions (Partners account requirement noted, deploy command)"
+        "bun run lint passes"
       ],
-      "priority": 2,
-      "passes": true,
-      "notes": "App scaffolded manually at technical/curtain-shopify-app/. shopify.app.toml configured for 1z7hb1-2d.myshopify.com (client_id placeholder — requires Partners account to fill in). Cart Transform extension at extensions/cart-transform/ with TypeScript stub. bun run typecheck && bun run lint both pass. README.md documents Partners setup and deploy steps.",
+      "priority": 1,
+      "passes": false,
+      "notes": "",
       "dependsOn": []
     },
     {
-      "id": "US-008",
-      "title": "Implement Cart Transform price calculation",
-      "description": "As a developer, I want the Cart Transform function to read line item properties and set the correct price so customers are charged the right amount.",
+      "id": "US-003",
+      "title": "Shopify + PMS product data fetcher",
+      "description": "As a developer, I want a module that fetches curtain product data (title, image, metafields) from Shopify and optionally PMS so the prompt builder has the data it needs.",
       "acceptanceCriteria": [
-        "Function reads _en, _pile_orani, _kanat from line item properties",
-        "Skips items without these properties so non-curtain products are unaffected",
-        "Price formula: (en_cm / 100) * pile_orani * kanat * base_price_per_meter",
-        "Base price per meter read from lineItem.cost.amountPerQuantity.amount",
-        "Returns expand operation with corrected price",
-        "Missing or invalid properties return original price unchanged",
-        "Pure calculation logic extracted into a function with at least 3 test cases: valid config, missing properties, zero dimensions",
+        "src/lib/shopify.ts fetches product by GID using Shopify Admin GraphQL API: returns { title, type (curtain.type metafield), color (curtain.color metafield), imageUrl (first product image) }",
+        "src/lib/pms.ts attempts to fetch swatch image URL for the product SKU from PMS at http://pms.inanctekstil.store; returns null on failure (non-blocking)",
+        "If PMS returns a swatch URL it is preferred over Shopify image; otherwise Shopify image used",
+        "getProductData(productId: string) exported from src/lib/shopify.ts returns combined data",
+        "Returns null (not throws) if product not found in Shopify",
+        "tests/shopify.test.ts: mocks fetch, tests product found, product not found, PMS fallback",
+        "bun run typecheck passes",
+        "bun run lint passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-004",
+      "title": "Prompt builder — curtain data to fal.ai prompt",
+      "description": "As a developer, I want a prompt builder module that constructs the fal.ai image+text prompt from curtain product data and adjusts it on retries.",
+      "acceptanceCriteria": [
+        "src/lib/prompt-builder.ts exports buildPrompt(product: ProductData, attempt: number): { prompt: string, seed: number }",
+        "Attempt 1 base prompt: 'A modern Turkish living room with {color} {type} curtains hanging on the windows, photorealistic, interior design photography, natural lighting, high quality'",
+        "Attempt 2+: appends ', curtains prominently visible on windows, window treatment focal point'",
+        "seed is random on each call (Math.random based, deterministic in tests via injection)",
+        "tests/prompt-builder.test.ts: base prompt structure, retry prompt includes prominence text, different seeds per call",
         "bun run typecheck passes",
         "bun run lint passes"
       ],
       "priority": 3,
-      "passes": true,
-      "notes": "Cart Transform function implemented in run.ts. calculateCurtainPrice extracted as pure function. Reads _en, _pile_orani, _kanat from line properties; skips non-curtain items. Returns expand operation with fixedPricePerUnit. 11 tests across 6 unit + 5 integration cases. bun run typecheck && bun run lint both pass.",
-      "dependsOn": ["US-007"]
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-003"]
+    },
+    {
+      "id": "US-005",
+      "title": "BAML evaluator — Claude Opus 4.6 quality scoring via Bedrock",
+      "description": "As a developer, I want a BAML-defined evaluation function that uses Claude Opus 4.6 (Amazon Bedrock) to score generated room images.",
+      "acceptanceCriteria": [
+        "baml_src/clients.baml defines ClaudeOpus client using aws-bedrock provider with model 'anthropic.claude-opus-4-6' and region from env.AWS_REGION",
+        "baml_src/evaluator.baml defines EvaluateRoomImage(image: image, product_name: string) -> EvaluationResult with fields: score (int 1-10), has_curtains (bool), feedback (string)",
+        "BAML client generated (baml_client/ directory)",
+        "src/lib/evaluator.ts exports evaluateImage(imageBuffer: Buffer, productName: string): Promise<EvaluationResult> using generated BAML client",
+        "tests/evaluator.test.ts: mocks BAML client, verifies evaluateImage returns typed result",
+        "bun run typecheck passes",
+        "bun run lint passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-001"]
+    },
+    {
+      "id": "US-006",
+      "title": "fal.ai client with retry loop",
+      "description": "As a developer, I want a fal.ai client that calls nano-banana-pro, downloads the result binary, evaluates quality, and retries up to 3 times.",
+      "acceptanceCriteria": [
+        "src/lib/fal.ts exports generateRoomImage(roomImageBuffer: Buffer, productData: ProductData): Promise<{ binary: Buffer, score: number, attemptsUsed: number }>",
+        "Calls fal-ai/nano-banana-pro (from FAL_MODEL config) with room photo + curtain image URL + text prompt",
+        "Per-attempt timeout: FAL_TIMEOUT_MS (45000ms); timeout counts as failed attempt",
+        "Immediately downloads fal.ai CDN image as binary Buffer after each generation",
+        "Calls evaluateImage() on downloaded binary; retries if score < SCORE_THRESHOLD (7) OR has_curtains == false AND attempts < MAX_ATTEMPTS (3)",
+        "Stores all attempt binaries in memory (scoped to function call); returns Buffer with highest score",
+        "Logs each fal_call, fal_downloaded, eval_result event via logger",
+        "tests/fal.test.ts: mocks fal.ai and evaluator; tests 3-attempt max; has_curtains=false triggers retry; returns highest-scored binary not last",
+        "bun run typecheck passes",
+        "bun run lint passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-004", "US-005"]
+    },
+    {
+      "id": "US-007",
+      "title": "POST /api/visualize route — full pipeline",
+      "description": "As a developer, I want the main visualize endpoint that accepts a room photo + product ID, runs the full AI pipeline, and returns the generated image binary.",
+      "acceptanceCriteria": [
+        "src/routes/visualize.ts handles POST /api/visualize (multipart/form-data)",
+        "Validates: product_id present, room_image file present, file size <= 10MB, file type jpg/png/webp",
+        "Returns 400 VALIDATION_ERROR for invalid input, 404 PRODUCT_NOT_FOUND if getProductData returns null, 429 RATE_LIMITED (5 req/min per IP, in-memory), 502 GENERATION_FAILED if fal returns error after all retries",
+        "On success: returns image/jpeg binary with headers X-Product-Title (percent-encoded), X-Attempts-Used, X-Final-Score",
+        "Logs visualize_start and visualize_complete events with duration_ms",
+        "CORS headers present on all responses including error responses",
+        "tests/visualize.test.ts: CORS headers on 400/404/502; multipart parsing; VALIDATION_ERROR cases; PRODUCT_NOT_FOUND; GENERATION_FAILED; success returns binary",
+        "bun run typecheck passes",
+        "bun run lint passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-006"]
+    },
+    {
+      "id": "US-008",
+      "title": "Frontend build setup — esbuild + TypeScript config",
+      "description": "As a developer, I want the Shopify theme configured with an esbuild build pipeline for TypeScript so room-visualizer.ts compiles to a browser-compatible IIFE.",
+      "acceptanceCriteria": [
+        "technical/theme/package.json created with build script: esbuild assets/room-visualizer.ts --bundle --format=iife --target=es2017 --outfile=assets/room-visualizer.js",
+        "technical/theme/tsconfig.json created with target ES2017, strict: true, noEmit: true",
+        "Placeholder technical/theme/assets/room-visualizer.ts created (minimal — just exports an empty init function)",
+        "npm run build in technical/theme/ completes without errors and produces room-visualizer.js",
+        "room-visualizer.js is valid IIFE format (starts with (function(){) or similar)",
+        "Both room-visualizer.ts and room-visualizer.js committed to repo"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
     },
     {
       "id": "US-009",
-      "title": "Deploy Cart Transform and verify end-to-end",
-      "description": "As a developer, I want the Cart Transform deployed and installed on the store so the configurator charges the correct price at checkout.",
+      "title": "Room visualizer modal — all 5 states in TypeScript",
+      "description": "As a customer, I want the room visualizer modal to guide me from photo upload through curtain selection to viewing and saving the AI-generated result.",
       "acceptanceCriteria": [
-        "shopify app deploy runs successfully from technical/curtain-shopify-app/",
-        "App installed on 1z7hb1-2d.myshopify.com",
-        "Cart Transform function active (visible in Shopify admin -> Settings -> Custom data -> Functions)",
-        "bun run typecheck passes",
-        "bun run lint passes",
-        "Verified via Playwright MCP: complete full configurator flow on test product -> cart drawer opens -> line item price matches the formula, not the base per-meter price",
-        "Verified via Playwright MCP: a non-curtain product added to cart has unaffected price"
+        "technical/theme/assets/room-visualizer.ts implements initRoomVisualizer(config: { productId?: string, productHandle?: string, apiUrl: string, dataProductsJson?: string }) exported function",
+        "Calling initRoomVisualizer() injects the modal into document.body on first call; subsequent calls re-open it",
+        "State 1 Upload: file input (jpg/png/webp, max 10MB) + camera capture on mobile (accept=image/* capture=environment); client-side size/format validation shows inline error before proceeding",
+        "State 2 Curtain Picker: shown only when config.productId is absent; reads products from config.dataProductsJson (JSON array of {id, handle, title, imageUrl, type}); grouped by type; tap selects and stores {id, handle} in modal state",
+        "State 3 Loading: shows uploaded photo dimmed + 'Yapay zeka odanızı hazırlıyor' text",
+        "State 4 Result: renders generated image from Blob URL (URL.createObjectURL); shows percent-decoded X-Product-Title; Kaydet button downloads via anchor; Sipariş Ver closes modal + navigates to /{handle} (dedicated page) or scrolls to configurator (product page)",
+        "State 5 Error: shows 'Görsel oluşturulamadı. Lütfen tekrar deneyin.' + Tekrar Dene button returning to State 1",
+        "API call: POST multipart/form-data to config.apiUrl with product_id + room_image file",
+        "npm run build in technical/theme/ passes",
+        "shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com --only 'assets/room-visualizer.js' --nodelete --path technical/theme succeeds",
+        "Verified in browser via Playwright MCP: open /pages/odanda-gor preview, click Hemen Dene, modal opens in State 1"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-008"]
+    },
+    {
+      "id": "US-010",
+      "title": "Product page — Odanda Gör button snippet",
+      "description": "As a customer browsing a product page, I want an 'Odanda Gör' button that opens the visualizer modal with that product pre-selected.",
+      "acceptanceCriteria": [
+        "technical/theme/snippets/room-visualizer-button.liquid created; renders a button 'Odanda Gör' that calls initRoomVisualizer with the current product.id and product.handle",
+        "Button only rendered when product.tags contains 'odanda-gor'",
+        "Script tag in snippet loads room-visualizer.js and calls initRoomVisualizer({ productId: '{{product.admin_graphql_api_id}}', productHandle: '{{product.handle}}', apiUrl: 'https://visualizer.inanctekstil.store' })",
+        "Snippet included in technical/theme/templates/product.json (placed after product images, before configurator)",
+        "shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com --only 'snippets/room-visualizer-button.liquid' --only 'templates/product.json' --nodelete --path technical/theme succeeds",
+        "Verified in browser via Playwright MCP: navigate to a product tagged 'odanda-gor', Odanda Gör button visible, clicking opens modal in State 1 (picker skipped)"
       ],
       "priority": 7,
-      "passes": true,
-      "notes": "Cart Transform requires Shopify Plus — store is on Basic plan so it silently no-ops. Pivoted to Draft Orders API (available on all plans): PMS backend (Hono/Bun) exposes POST /api/checkout/draft-order which validates inputs, fetches a short-lived token via client_credentials OAuth, reads variant price from Shopify REST, calculates price server-side ((en/100)*pileOrani*kanatCount*basePricePerMeter), creates a Draft Order with correct line item price and configuration properties, and returns the invoice_url. Theme section updated to call this endpoint and redirect to checkoutUrl. Tunnel exposed via serveo.net for testing. Verified end-to-end via Playwright: En=200, Boy=250, Kanun Pile x2.5, Tek Kanat → Shopify checkout shows BORNOVA Tül Perde ₺1.150,00. Files: ecommerce/pms/src/routes/checkout.ts (new), ecommerce/pms/src/server.ts (modified), ecommerce/pms/src/lib/env.ts (modified), technical/theme/sections/curtain-configurator.liquid (modified), technical/theme/templates/product.json (modified).",
-      "dependsOn": ["US-006", "US-008"]
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-009"]
+    },
+    {
+      "id": "US-011",
+      "title": "Dedicated /pages/odanda-gor Shopify landing page",
+      "description": "As a customer arriving from an Instagram Reels ad, I want a clear landing page that explains the feature and lets me launch the visualizer with a curtain picker.",
+      "acceptanceCriteria": [
+        "A Shopify page with handle 'odanda-gor' exists (create via Admin or note it must be created manually)",
+        "technical/theme/sections/odanda-gor-page.liquid created as a custom section with: hero headline 'Perdenizi Odanızda Görün', 3-step explainer (Fotoğraf yükle / Perde seç / Yapay zeka eklesin), 'Hemen Dene' button",
+        "Section uses Liquid to inline product data as JSON in a data-products attribute: {% assign curtain_products = collections['all'].products | where: 'type', 'Perde' %} (or equivalent to get TUL/FON/BLACKOUT products); serialized as [{id, handle, title, imageUrl, type}]",
+        "Hemen Dene button calls initRoomVisualizer({ apiUrl: 'https://visualizer.inanctekstil.store', dataProductsJson: '...' }) — no productId so picker is shown",
+        "Section schema defined so it can be added to a page template",
+        "shopify theme push --theme 193714913361 --store 1z7hb1-2d.myshopify.com --only 'sections/odanda-gor-page.liquid' --nodelete --path technical/theme succeeds",
+        "Verified in browser via Playwright MCP: navigate to /pages/odanda-gor preview URL, page renders hero + 3-step explainer + Hemen Dene button, clicking opens modal in State 2 (curtain picker visible)"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "",
+      "dependsOn": ["US-010"]
     }
   ]
 }
