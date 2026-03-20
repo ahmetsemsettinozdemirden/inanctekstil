@@ -18,6 +18,15 @@ Both `bun run typecheck` and `bun run lint` pass.
 - `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
 - Added technical/theme/.gitignore to exclude node_modules
 
+## US-007 — POST /api/visualize route (20 Mar 2026)
+- Created src/routes/visualize.ts: handles POST /api/visualize (multipart/form-data)
+- Validates product_id, room_image (type/size), rate limits 5/min per IP (in-memory)
+- Returns 400/404/429/502 JSON errors with CORS headers; 200 image/jpeg with X-* headers
+- Logs visualize_start and visualize_complete with duration_ms
+- Registered route on app in src/index.ts
+- tests/visualize.test.ts: 5 tests (CORS on 400/404/502, success, file type validation) — all pass
+- typecheck and lint pass
+
 ## US-006 — fal.ai client with retry loop (20 Mar 2026)
 - Created src/lib/fal.ts: generateRoomImage(roomImageBuffer, productData) with full retry loop
 - Uploads room image to fal.ai storage, calls FAL_MODEL with room+curtain+prompt+seed
