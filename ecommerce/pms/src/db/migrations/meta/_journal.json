@@ -8,6 +8,13 @@
       "when": 1773838393669,
       "tag": "0000_black_agent_brand",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1742396400000,
+      "tag": "0001_add_description_tags",
+      "breakpoints": true
     }
   ]
 }

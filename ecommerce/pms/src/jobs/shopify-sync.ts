@@ -53,6 +53,7 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
   const productType = PRODUCT_TYPE_MAP[design.curtainType] ?? design.curtainType;
   const title = `${productType.split(" ")[0].toUpperCase()} ${design.designName}`;
   const priceStr = String(design.price) + ".00";
+  const tags = design.tags ? design.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
 
   const variantInputs: ProductVariantInput[] = variantRows.map((v) => ({
     sku:   v.sku,
@@ -70,9 +71,11 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
     const product = await client.createProduct({
       title,
       productType,
-      status:   "DRAFT",
-      options:  ["Renk"],
-      variants: variantInputs,
+      status:          "DRAFT",
+      options:         ["Renk"],
+      variants:        variantInputs,
+      ...(design.description ? { descriptionHtml: design.description } : {}),
+      ...(tags.length > 0    ? { tags }                                : {}),
     });
 
     shopifyProductId = product.id;
@@ -108,6 +111,8 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
     const product = await client.updateProduct(shopifyProductId, {
       title,
       productType,
+      ...(design.description ? { descriptionHtml: design.description } : {}),
+      ...(tags.length > 0    ? { tags }                                : {}),
     });
     updatedHandle = product.handle;
 

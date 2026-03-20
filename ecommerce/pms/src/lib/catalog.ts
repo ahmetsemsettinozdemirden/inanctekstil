@@ -31,6 +31,8 @@ export interface DesignWithShopify {
   width_cm:    number;
   price:       number;
   composition: string | null;
+  description: string | null;
+  tags:        string | null;
   fabric:      DesignFabric;
   shopify: {
     product_id:   string | null;
@@ -38,6 +40,7 @@ export interface DesignWithShopify {
     product_type: string | null;
     status:       string;
     options:      string[];
+    synced_at:    string | null;
   };
   variants: DesignVariant[];
 }
@@ -45,6 +48,8 @@ export interface DesignWithShopify {
 export interface UpdateDesignInput {
   price?:       number;
   composition?: string | null;
+  description?: string | null;
+  tags?:        string | null;
   fabric?:      Partial<DesignFabric>;
 }
 
@@ -64,6 +69,8 @@ export function mapRowToDesign(
     width_cm:     design.widthCm,
     price:        design.price,
     composition:  design.composition,
+    description:  design.description ?? null,
+    tags:         design.tags ?? null,
     fabric: {
       material:     design.fabricMaterial,
       transparency: design.fabricTransparency,
@@ -77,6 +84,7 @@ export function mapRowToDesign(
       product_type: shopify?.productType ?? null,
       status:       shopify?.status      ?? "DRAFT",
       options:      (shopify?.options as string[]) ?? ["Renk"],
+      synced_at:    shopify?.syncedAt?.toISOString() ?? null,
     },
     variants: variantRows.map((v) => ({
       sku:    v.sku,
@@ -147,7 +155,7 @@ export async function updateDesign(
   updates: UpdateDesignInput,
 ): Promise<DesignWithShopify> {
   // Validate
-  const ALLOWED_KEYS = ["price", "composition", "fabric"] as const;
+  const ALLOWED_KEYS = ["price", "composition", "description", "tags", "fabric"] as const;
   const unknownKeys = Object.keys(updates).filter(
     (k) => !(ALLOWED_KEYS as readonly string[]).includes(k),
   );
@@ -164,6 +172,8 @@ export async function updateDesign(
   const patch: Partial<typeof designs.$inferInsert> = { updatedAt: new Date() };
   if (updates.price       !== undefined) patch.price       = updates.price;
   if (updates.composition !== undefined) patch.composition = updates.composition;
+  if (updates.description !== undefined) patch.description = updates.description;
+  if (updates.tags        !== undefined) patch.tags        = updates.tags;
   if (updates.fabric) {
     const f = updates.fabric;
     if (f.material     !== undefined) patch.fabricMaterial     = f.material;

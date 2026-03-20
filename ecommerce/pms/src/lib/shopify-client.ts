@@ -19,7 +19,10 @@ export interface ShopifyVariant {
 export interface ShopifyProduct {
   id: string;     // GID: "gid://shopify/Product/456"
   handle: string;
+  title: string;
   status: string;
+  description: string | null;
+  tags: string[];
   variants: ShopifyVariant[];
 }
 
@@ -36,6 +39,7 @@ export interface ProductInput {
   id?: string;
   title: string;
   productType: string;
+  descriptionHtml?: string;
   status?: "ACTIVE" | "DRAFT" | "ARCHIVED";
   tags?: string[];
   vendor?: string;
@@ -129,7 +133,7 @@ export class ShopifyClient {
     const data = await this.gql<{ productUpdate: { product: ShopifyProductRaw; userErrors: UserError[] } }>(
       `mutation productUpdate($input: ProductInput!) {
         productUpdate(input: $input) {
-          product { id handle status variants(first: 100) { nodes { id sku title } } }
+          product { id handle title status descriptionHtml tags variants(first: 100) { nodes { id sku title } } }
           userErrors { field message }
         }
       }`,
@@ -143,7 +147,7 @@ export class ShopifyClient {
     const data = await this.gql<{ product: ShopifyProductRaw | null }>(
       `query getProduct($id: ID!) {
         product(id: $id) {
-          id handle status
+          id handle title status descriptionHtml tags
           variants(first: 100) { nodes { id sku title } }
         }
       }`,
@@ -386,16 +390,22 @@ interface UserError { field: string[]; message: string; }
 interface ShopifyProductRaw {
   id: string;
   handle: string;
+  title: string;
   status: string;
+  descriptionHtml?: string;
+  tags?: string[];
   variants: { nodes: Array<{ id: string; sku: string; title: string }> };
 }
 
 function parseProduct(raw: ShopifyProductRaw): ShopifyProduct {
   return {
-    id:       raw.id,
-    handle:   raw.handle,
-    status:   raw.status,
-    variants: raw.variants.nodes,
+    id:          raw.id,
+    handle:      raw.handle,
+    title:       raw.title,
+    status:      raw.status,
+    description: raw.descriptionHtml ?? null,
+    tags:        raw.tags ?? [],
+    variants:    raw.variants.nodes,
   };
 }
 
@@ -414,11 +424,12 @@ function buildProductInput(input: ProductInput): Record<string, unknown> {
     productType: input.productType,
     status:      input.status ?? "DRAFT",
   };
-  if (input.id)       out.id       = input.id;
-  if (input.tags)     out.tags     = input.tags;
-  if (input.vendor)   out.vendor   = input.vendor;
-  if (input.options)  out.options  = input.options;
-  if (input.variants) out.variants = input.variants.map(buildVariantInput);
+  if (input.id)              out.id              = input.id;
+  if (input.descriptionHtml) out.descriptionHtml = input.descriptionHtml;
+  if (input.tags)            out.tags            = input.tags;
+  if (input.vendor)          out.vendor          = input.vendor;
+  if (input.options)         out.options         = input.options;
+  if (input.variants)        out.variants        = input.variants.map(buildVariantInput);
   return out;
 }
 

@@ -25,6 +25,8 @@ export interface Design {
   width_cm:     number;
   price:        number;
   composition:  string | null;
+  description:  string | null;
+  tags:         string | null;
   fabric:       DesignFabric;
   shopify: {
     product_id:   string | null;
@@ -32,6 +34,7 @@ export interface Design {
     product_type: string | null;
     status:       string;
     options:      string[];
+    synced_at:    string | null;
   };
   variants: DesignVariant[];
 }
@@ -39,6 +42,8 @@ export interface Design {
 export interface UpdateDesignPayload {
   price?:       number;
   composition?: string | null;
+  description?: string | null;
+  tags?:        string | null;
   fabric?:      Partial<DesignFabric>;
 }
 

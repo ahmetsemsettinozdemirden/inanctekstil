@@ -12,6 +12,8 @@ export const designs = pgTable("designs", {
   fabricTexture:      text("fabric_texture"),
   fabricWeight:       text("fabric_weight"),
   fabricPattern:      text("fabric_pattern"),
+  description:        text("description"),
+  tags:               text("tags"),
   createdAt:          timestamp("created_at").defaultNow().notNull(),
   updatedAt:          timestamp("updated_at").defaultNow().notNull(),
 });

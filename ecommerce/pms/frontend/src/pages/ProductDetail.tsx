@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { api, type Design, type Room, type GeneratedImage, type UpdateDesignPayload } from "../lib/api.ts";
 import { StatusBadge, TypeBadge } from "../components/StatusBadge.tsx";
 import { swatchUrl, generatedImageUrl } from "../lib/api.ts";
+import { connectJobsStream } from "../lib/sse.ts";
 
 // Map SKU → { lifestyle: GeneratedImage[], texture: GeneratedImage | null }
 type ImagesBySkuMap = Record<string, { lifestyle: GeneratedImage[]; texture: GeneratedImage | null }>;
@@ -30,6 +31,7 @@ export function ProductDetail() {
   const [editDraft, setEditDraft]         = useState<UpdateDesignPayload>({});
   const [editSaving, setEditSaving]       = useState(false);
   const [selectedSku, setSelectedSku]     = useState<string>("");
+  const designRef = useRef<Design | null>(null);
 
   const loadImages = useCallback(async (skus: string[]) => {
     const entries = await Promise.all(
@@ -50,6 +52,7 @@ export function ProductDetail() {
     api.catalog.get(id)
       .then((d) => {
         setDesign(d);
+        designRef.current = d;
         setSelectedSku(d.variants[0]?.sku ?? "");
         loadImages(d.variants.map((v) => v.sku));
       })
@@ -57,6 +60,25 @@ export function ProductDetail() {
       .finally(() => setLoading(false));
     api.images.rooms().then(setRooms).catch(() => {});
   }, [id, loadImages]);
+
+  // Subscribe to job SSE — reload images + bust cache when a generation job finishes
+  useEffect(() => {
+    const disconnect = connectJobsStream((msg) => {
+      if (msg.type !== "job_update") return;
+      const { job } = msg;
+      if (job.status !== "done") return;
+      if (job.type !== "texture" && job.type !== "lifestyle") return;
+      const sku = job.params.sku as string | undefined;
+      if (!sku) return;
+      const skus = designRef.current?.variants.map((v) => v.sku) ?? [];
+      if (!skus.includes(sku)) return;
+      // Reload images for this SKU and bump cache-bust key
+      api.images.bySku(sku).then((data) => {
+        setImagesBySku((prev) => ({ ...prev, [sku]: data }));
+      }).catch(() => {});
+    });
+    return disconnect;
+  }, []);
 
   const shopifyStatus = design
     ? design.shopify.product_id ? design.shopify.status : "MISSING"
@@ -290,11 +312,11 @@ export function ProductDetail() {
                   {selectedImages?.texture ? (
                     <>
                       <img
-                        src={generatedImageUrl(
+                        src={`${generatedImageUrl(
                           selectedImages.texture.filePath.split("/")[1],
                           selectedSku,
                           selectedImages.texture.filePath.split("/").pop()!,
-                        )}
+                        )}?v=${selectedImages.texture.id}`}
                         alt="texture"
                         className="compare-img"
                       />
@@ -321,7 +343,7 @@ export function ProductDetail() {
                       <div key={img.id} className="lifestyle-item">
                         <div className="lifestyle-img-wrap">
                           <img
-                            src={generatedImageUrl(typeDir, selectedSku, filename)}
+                            src={`${generatedImageUrl(typeDir, selectedSku, filename)}?v=${img.id}`}
                             alt={filename}
                             className="gallery-img"
                           />
@@ -369,21 +391,63 @@ export function ProductDetail() {
           {/* Right: actions panel */}
           <div className="detail-actions">
 
-            {/* Shopify sync */}
+            {/* Shopify details */}
             <div className="detail-card">
-              <h3 className="detail-card-title">Shopify Senkronizasyonu</h3>
+              <h3 className="detail-card-title">Shopify</h3>
               {design.shopify.product_id ? (
-                <div className="detail-shopify-info">
-                  <a
-                    href={`https://1z7hb1-2d.myshopify.com/admin/products/${design.shopify.product_id.split("/").pop()}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="detail-shopify-link"
-                  >
-                    Shopify'da görüntüle ↗
-                  </a>
-                  <span className="detail-shopify-handle">/{design.shopify.handle}</span>
-                </div>
+                <>
+                  <dl className="shopify-details">
+                    <dt>Ürün ID</dt>
+                    <dd>
+                      <a
+                        href={`https://1z7hb1-2d.myshopify.com/admin/products/${design.shopify.product_id.split("/").pop()}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="detail-shopify-link"
+                      >
+                        {design.shopify.product_id.split("/").pop()} ↗
+                      </a>
+                      <span className="shopify-gid">{design.shopify.product_id}</span>
+                    </dd>
+                    <dt>Handle</dt>
+                    <dd>
+                      <a
+                        href={`https://inanctekstil.store/products/${design.shopify.handle}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="detail-shopify-link"
+                      >
+                        /{design.shopify.handle} ↗
+                      </a>
+                    </dd>
+                    <dt>Ürün Tipi</dt>
+                    <dd>{design.shopify.product_type ?? "—"}</dd>
+                    <dt>Durum</dt>
+                    <dd><StatusBadge status={design.shopify.status} size="sm" /></dd>
+                    <dt>Seçenekler</dt>
+                    <dd>{design.shopify.options.join(", ")}</dd>
+                    {design.shopify.synced_at && (
+                      <>
+                        <dt>Son Senkron</dt>
+                        <dd>{new Date(design.shopify.synced_at).toLocaleString("tr-TR")}</dd>
+                      </>
+                    )}
+                  </dl>
+                  {selectedVariant?.shopify.variant_id && (
+                    <div className="shopify-variant-row">
+                      <span className="shopify-variant-label">Seçili Varyant ID</span>
+                      <a
+                        href={`https://1z7hb1-2d.myshopify.com/admin/products/${design.shopify.product_id.split("/").pop()}/variants/${selectedVariant.shopify.variant_id.split("/").pop()}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="detail-shopify-link"
+                      >
+                        {selectedVariant.shopify.variant_id.split("/").pop()} ↗
+                      </a>
+                      <span className="shopify-gid">{selectedVariant.shopify.variant_id}</span>
+                    </div>
+                  )}
+                </>
               ) : (
                 <p className="detail-card-hint">Shopify'da henüz ürün oluşturulmamış.</p>
               )}
@@ -448,7 +512,7 @@ export function ProductDetail() {
                   className="btn-ghost"
                   onClick={() => {
                     if (editMode) { setEditMode(false); setEditDraft({}); }
-                    else { setEditMode(true); setEditDraft({ price: design.price, composition: design.composition ?? undefined, fabric: { ...design.fabric } }); }
+                    else { setEditMode(true); setEditDraft({ price: design.price, composition: design.composition ?? undefined, description: design.description ?? undefined, tags: design.tags ?? undefined, fabric: { ...design.fabric } }); }
                   }}
                 >
                   {editMode ? "İptal" : "Düzenle"}
@@ -464,6 +528,25 @@ export function ProductDetail() {
                       className="detail-edit-input"
                       value={editDraft.price ?? ""}
                       onChange={(e) => setEditDraft((d) => ({ ...d, price: Number(e.target.value) }))}
+                    />
+                  </label>
+                  <label className="detail-edit-label">
+                    Açıklama (HTML)
+                    <textarea
+                      className="detail-edit-input detail-edit-textarea"
+                      value={editDraft.description ?? ""}
+                      rows={5}
+                      onChange={(e) => setEditDraft((d) => ({ ...d, description: e.target.value || null }))}
+                    />
+                  </label>
+                  <label className="detail-edit-label">
+                    Etiketler (virgülle ayırın)
+                    <input
+                      type="text"
+                      className="detail-edit-input"
+                      placeholder="tül, beyaz, şeffaf"
+                      value={editDraft.tags ?? ""}
+                      onChange={(e) => setEditDraft((d) => ({ ...d, tags: e.target.value || null }))}
                     />
                   </label>
                   <label className="detail-edit-label">
@@ -526,6 +609,18 @@ export function ProductDetail() {
                 </div>
               ) : (
                 <dl className="detail-fabric">
+                  {design.description && (
+                    <>
+                      <dt>Açıklama</dt>
+                      <dd>
+                        <div
+                          className="detail-description-preview"
+                          dangerouslySetInnerHTML={{ __html: design.description }}
+                        />
+                      </dd>
+                    </>
+                  )}
+                  {design.tags && <><dt>Etiketler</dt><dd className="detail-tags">{design.tags.split(",").map((t) => t.trim()).filter(Boolean).map((t) => <span key={t} className="detail-tag">{t}</span>)}</dd></>}
                   {design.composition && <><dt>Kompozisyon</dt><dd>{design.composition}</dd></>}
                   {design.fabric.material     && <><dt>Materyal</dt><dd>{design.fabric.material}</dd></>}
                   {design.fabric.transparency && <><dt>Şeffaflık</dt><dd>{design.fabric.transparency}</dd></>}

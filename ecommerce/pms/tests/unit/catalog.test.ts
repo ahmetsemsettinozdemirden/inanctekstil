@@ -22,6 +22,8 @@ const baseDesign: DesignRow = {
   fabricTexture:      "fine woven mesh",
   fabricWeight:       "light",
   fabricPattern:      null,
+  description:        null,
+  tags:               null,
   createdAt:          new Date("2025-01-01"),
   updatedAt:          new Date("2025-01-01"),
 };
