@@ -146,67 +146,83 @@ realistic Turkish apartment bedroom — not a hotel room, not a luxury suite
 
 ## 4. Curtain Animation — Fon Perdeler
 
-**Model:** `fal-ai/kling-video/v2.1/pro/image-to-video`
-**URL:** https://fal.ai/models/fal-ai/kling-video/v2.1/pro/image-to-video
-**Cost:** ~$0.49 for 5 seconds
+**Model:** `fal-ai/veo3.1/image-to-video`
+**URL:** https://fal.ai/models/fal-ai/veo3.1/image-to-video
+**Cost:** $0.20/sec at 1080p, no audio ($1.60 for 8s) — use `/fast` variant at $0.10/sec for test drafts
 
 ### Settings
 
-| Parameter | Value |
-|-----------|-------|
-| Input image | `assets/room-fon-living.jpg` |
-| Duration | `5` seconds |
-| Aspect ratio | `9:16` |
-| cfg_scale | `0.5` |
-| output_format | `mp4` |
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| `image_url` | Upload `assets/room-fon-living.jpg` | Max 8MB |
+| `prompt` | See below | |
+| `resolution` | `1080p` | Use `720p` for drafts |
+| `duration` | `8s` | Options: `4s`, `6s`, `8s` — use 8s for maximum footage to trim in CapCut |
+| `aspect_ratio` | `9:16` | Portrait for Reels |
+| `generate_audio` | `false` | Own audio comes from ElevenLabs voiceover |
+| `negative_prompt` | See below | |
+| `safety_tolerance` | `4` | Default |
 
-### Motion prompt
+### Prompt
 
 ```
 Sheer linen curtain gently billowing in a soft indoor breeze through a slightly open window,
 slow graceful fabric movement with natural wave patterns,
 warm afternoon light shifting subtly through the fabric,
-camera completely still, no camera movement, floor and furniture completely static,
+camera completely still, no camera movement whatsoever,
+floor and furniture completely static,
 only the curtain fabric moves
 ```
 
-### Dynamic mask (strongly recommended)
+### Negative prompt
 
-If the playground shows a **Motion Brush** or mask drawing tool:
-1. Draw a rough selection over the curtain panels only
-2. Leave floor, furniture, and walls outside the mask
-3. This constrains all motion to the curtain, preventing furniture from warping
+```
+camera shake, zoom, pan, fast motion, distorted furniture, warped floor,
+time lapse, people, hands
+```
 
 ### Quality check
 
-- Motion should look like real fabric physics — smooth wave, not jitter
-- Floor and furniture should not distort or ripple
-- If motion looks unnatural: lower cfg_scale to `0.4` and regenerate
-- If furniture distorts regardless: use the static image in CapCut instead of the animated clip
+- Curtain motion is slow and natural — fabric physics, not a fan blowing
+- Camera is completely still (no drift, no zoom)
+- Floor, walls, and furniture are static — no rippling or warping
+- If furniture distorts: add more detail to the negative prompt and regenerate
+- If motion is still wrong after 2 attempts: fall back to `fal-ai/kling-video/v2.1/pro/image-to-video` which has a **Motion Brush** mask to spatially constrain movement to the curtain only
+
+### Draft workflow
+
+Use `fal-ai/veo3.1/fast` (half the cost) to test prompt + image quality before generating the final 1080p clip.
 
 ---
 
 ## 5. Curtain Animation — Blackout Perdeler
 
-**Model:** `fal-ai/kling-video/v2.1/pro/image-to-video`
-**URL:** https://fal.ai/models/fal-ai/kling-video/v2.1/pro/image-to-video
-**Cost:** ~$0.49 for 5 seconds
+**Model:** `fal-ai/veo3.1/image-to-video`
+**URL:** https://fal.ai/models/fal-ai/veo3.1/image-to-video
+**Cost:** $0.20/sec at 1080p, no audio ($1.60 for 8s)
 
 ### Settings
 
-Same as section 4 (`5s`, `9:16`, `cfg_scale: 0.5`), with `assets/room-blackout-bedroom.jpg` as input.
+Same as section 4, with `assets/room-blackout-bedroom.jpg` as input image.
 
-### Motion prompt
+### Prompt
 
 ```
 Heavy blackout curtain panels with subtle slow fabric texture movement,
 barely perceptible natural sway as if from a very gentle air current,
-cozy bedroom atmosphere maintained,
-camera completely still, only the curtain fabric has minimal movement,
-dramatic heavy fabric with deep folds
+cozy dimly lit bedroom atmosphere maintained,
+camera completely still, no camera movement,
+only the heavy curtain fabric moves slightly
 ```
 
-> **Note:** Blackout curtain movement should be very minimal — these are heavy panels. The goal is just enough motion to show the fabric is real, not a freeze frame. Too much movement will look wrong for a blackout product.
+### Negative prompt
+
+```
+camera shake, zoom, pan, fast motion, sheer curtain, transparent fabric,
+distorted furniture, warped floor, people, bright light through curtain
+```
+
+> **Note:** Blackout curtain movement should be very minimal — heavy panels sway slightly, they do not billow. The `negative_prompt` explicitly excludes sheer/transparent fabric to ensure the blackout quality is preserved.
 
 ---
 
@@ -328,11 +344,13 @@ Output: PNG with transparent background. Use this as the input to Kling AI Avata
 | Room: fon | nano-banana-pro | $0.15/img | 4 images | $0.60 |
 | Room: blackout | nano-banana-pro | $0.15/img | 4 images | $0.60 |
 | Room edits (if needed) | nano-banana-pro /edit | $0.15/edit | 0–4 edits | $0–0.60 |
-| Fon animation | kling v2.1 i2v | ~$0.49/5s | 1–2 clips | $0.49–0.98 |
-| Blackout animation | kling v2.1 i2v | ~$0.49/5s | 1–2 clips | $0.49–0.98 |
+| Fon animation (8s, 1080p) | veo3.1/image-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
+| Blackout animation (8s, 1080p) | veo3.1/image-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
 | Avatar video V1 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | Avatar video V2 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | BG removal | bria video | TBD | 2 videos | TBD |
-| **Total estimate** | | | | **~$10–13** |
+| **Total estimate** | | | | **~$13–18** |
 
-> **Draft tip:** Use `resolution: 480p` ($0.07/s) for test runs during development. Switch to `720p` only for the final export.
+> **Draft tips:**
+> - Avatar: use `resolution: 480p` ($0.07/s) for test runs. Switch to `720p` for final export.
+> - Curtain animation: use `fal-ai/veo3.1/fast` ($0.10/s) for test prompts. Switch to standard `fal-ai/veo3.1/image-to-video` ($0.20/s) at `1080p` for final output.

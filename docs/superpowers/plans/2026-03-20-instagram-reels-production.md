@@ -16,7 +16,7 @@
 |------|----------|------|
 | Room staging (image gen) | `fal-ai/flux-pro/v1.1-ultra` | $0.06/image |
 | Iterate/edit existing image | `fal-ai/flux-pro/kontext` | $0.04/edit |
-| Curtain animation (image→video) | `fal-ai/kling-video/v2.1/pro/image-to-video` | ~$0.49/5s clip |
+| Curtain animation (image→video) | `fal-ai/veo3.1/image-to-video` | $0.20/sec, 1080p |
 | Talking avatar (photo+audio→video) | `fal-ai/creatify/aurora` | $0.14/sec (720p) |
 | Avatar fallback | `fal-ai/kling-video/v1/pro/ai-avatar` | $0.115/sec |
 | Video background removal | `fal-ai/bria/video/background-removal` | check playground |
