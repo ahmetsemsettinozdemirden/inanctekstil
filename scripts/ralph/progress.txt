@@ -1,5 +1,12 @@
 # Ralph Progress Log
-Feature: Odanda Gör — AI Room Visualizer
-Branch: ralph/odanda-gor
-Started: 20 Mar 2026 Cum +03 16:07:50
+Started: 20 Mar 2026 Cum +03 16:10:30
 ---
+## US-001 — Backend project scaffold (20 Mar 2026)
+Created technical/room-visualizer/ with:
+- package.json (hono, pino, @fal-ai/client, @boundaryml/baml, biome, typescript)
+- tsconfig.json (ESNext, strict, bundler resolution)
+- Dockerfile (oven/bun:1.2-alpine, port 3000)
+- src/index.ts (Hono, CORS allow inanctekstil.store, bodyLimit 12MB, GET /health)
+- src/config.ts (all required env vars with defaults: SCORE_THRESHOLD=7, MAX_ATTEMPTS=3, FAL_TIMEOUT_MS=45000)
+- src/lib/logger.ts (pino JSON logger)
+Both `bun run typecheck` and `bun run lint` pass.
