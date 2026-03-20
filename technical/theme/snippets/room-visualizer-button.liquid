@@ -1,0 +1,24 @@
+{% if product.tags contains 'odanda-gor' %}
+  <div style="padding: 8px 0 16px;">
+    <button
+      type="button"
+      id="odanda-gor-btn"
+      style="display:block;width:100%;padding:14px 24px;background:#1B2A4A;color:#ffffff;border:none;border-radius:4px;font-size:1rem;font-family:inherit;font-weight:600;cursor:pointer;letter-spacing:0.02em;"
+    >Odanda Gör</button>
+  </div>
+  <script src="{{ 'room-visualizer.js' | asset_url }}"></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('odanda-gor-btn');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          initRoomVisualizer({
+            productId: '{{ product.admin_graphql_api_id }}',
+            productHandle: '{{ product.handle }}',
+            apiUrl: 'https://visualizer.inanctekstil.store'
+          });
+        });
+      }
+    })();
+  </script>
+{% endif %}

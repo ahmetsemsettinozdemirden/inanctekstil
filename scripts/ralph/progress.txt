@@ -77,3 +77,15 @@ Both `bun run typecheck` and `bun run lint` pass.
 - npm run build produces valid IIFE room-visualizer.js (15.7KB)
 - Pushed to Shopify theme 193714913361 via shopify theme push
 - Playwright verification: modal opens in State 1, initRoomVisualizer is function, overlay renders
+
+## US-010 — Product page Odanda Gör button snippet (20 Mar 2026)
+- Created technical/theme/snippets/room-visualizer-button.liquid
+  - Renders "Odanda Gör" button only when product.tags contains 'odanda-gor'
+  - Loads room-visualizer.js synchronously, attaches click listener to initRoomVisualizer
+  - initRoomVisualizer called with productId (admin_graphql_api_id), productHandle, apiUrl
+- Updated technical/theme/templates/product.json: added odanda_gor_button (custom-liquid) section
+  - Placed between "main" and "curtain_configurator" in order array
+  - custom_liquid: "{% render 'room-visualizer-button', product: product %}"
+- Pushed snippets/room-visualizer-button.liquid + templates/product.json to theme 193714913361
+- Added 'odanda-gor' tag to HÜRREM Fon Perde (fon-hurrem) via Shopify MCP for testing
+- Playwright verification: button visible on /products/fon-hurrem, clicking opens modal in State 1 (picker skipped)

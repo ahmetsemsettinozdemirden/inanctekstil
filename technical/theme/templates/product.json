@@ -264,6 +264,12 @@
         "padding-block-end": 0
       }
     },
+    "odanda_gor_button": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'room-visualizer-button', product: product %}"
+      }
+    },
     "curtain_configurator": {
       "type": "curtain-configurator",
       "settings": {
@@ -434,6 +440,7 @@
   },
   "order": [
     "main",
+    "odanda_gor_button",
     "curtain_configurator",
     "product_recommendations_qggXJq",
     "measurement_videos_pdp",
