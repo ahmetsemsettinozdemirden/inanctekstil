@@ -146,21 +146,25 @@ realistic Turkish apartment bedroom — not a hotel room, not a luxury suite
 
 ## 4. Curtain Animation — Fon Perdeler
 
-**Model:** `fal-ai/veo3.1/image-to-video`
-**URL:** https://fal.ai/models/fal-ai/veo3.1/image-to-video
-**Cost:** $0.20/sec at 1080p, no audio ($1.60 for 8s) — use `/fast` variant at $0.10/sec for test drafts
+**Model:** `fal-ai/veo3.1/first-last-frame-to-video` (standard quality)
+**URL:** https://fal.ai/models/fal-ai/veo3.1/first-last-frame-to-video
+**Draft model:** `fal-ai/veo3.1/fast/first-last-frame-to-video` — half cost ($0.80 vs $1.60 for 8s)
+**Cost:** $0.20/sec at 1080p, no audio ($1.60 for 8s)
+
+**Why this model:** Setting the same room image as both `first_frame_url` and `last_frame_url` locks the composition at start and end — no camera drift, no furniture warp. The model animates only what the prompt describes (curtain movement) between two identical frames, producing a naturally loopable clip. See `veo3-reference.md` for full model comparison.
 
 ### Settings
 
 | Parameter | Value | Notes |
 |-----------|-------|-------|
-| `image_url` | Upload `assets/room-fon-living.jpg` | Max 8MB |
+| `first_frame_url` | Upload `assets/room-fon-living.jpg` | Start frame — max 8MB |
+| `last_frame_url` | Upload `assets/room-fon-living.jpg` | **Same image** — locks composition |
 | `prompt` | See below | |
-| `resolution` | `1080p` | Use `720p` for drafts |
-| `duration` | `8s` | Options: `4s`, `6s`, `8s` — use 8s for maximum footage to trim in CapCut |
-| `aspect_ratio` | `9:16` | Portrait for Reels |
-| `generate_audio` | `false` | Own audio comes from ElevenLabs voiceover |
 | `negative_prompt` | See below | |
+| `resolution` | `1080p` | Use `720p` for drafts |
+| `duration` | `8s` | Max duration — gives most footage to trim in CapCut |
+| `aspect_ratio` | `9:16` | Portrait for Reels (inferred from image if set to `auto`) |
+| `generate_audio` | `false` | Voiceover comes from ElevenLabs |
 | `safety_tolerance` | `4` | Default |
 
 ### Prompt
@@ -169,41 +173,41 @@ realistic Turkish apartment bedroom — not a hotel room, not a luxury suite
 Sheer linen curtain gently billowing in a soft indoor breeze through a slightly open window,
 slow graceful fabric movement with natural wave patterns,
 warm afternoon light shifting subtly through the fabric,
-camera completely still, no camera movement whatsoever,
-floor and furniture completely static,
+camera completely still, floor and furniture completely static,
 only the curtain fabric moves
 ```
 
 ### Negative prompt
 
 ```
-camera shake, zoom, pan, fast motion, distorted furniture, warped floor,
-time lapse, people, hands
+camera movement, zoom, pan, tilt, camera shake,
+distorted furniture, warped floor, rippling walls,
+fast motion, time lapse, people, hands
 ```
 
 ### Quality check
 
 - Curtain motion is slow and natural — fabric physics, not a fan blowing
-- Camera is completely still (no drift, no zoom)
-- Floor, walls, and furniture are static — no rippling or warping
-- If furniture distorts: add more detail to the negative prompt and regenerate
-- If motion is still wrong after 2 attempts: fall back to `fal-ai/kling-video/v2.1/pro/image-to-video` which has a **Motion Brush** mask to spatially constrain movement to the curtain only
+- Camera is completely still — no drift, no zoom, no pan
+- Floor, walls, and furniture are static throughout
+- First and last frames match the input image composition
 
-### Draft workflow
+### If quality is insufficient after 2 attempts
 
-Use `fal-ai/veo3.1/fast` (half the cost) to test prompt + image quality before generating the final 1080p clip.
+Fall back to `fal-ai/veo3.1/image-to-video` (single image input) — or `fal-ai/kling-video/v2.1/pro/image-to-video` which has a **Motion Brush** mask tool to spatially constrain movement to the curtain area only.
 
 ---
 
 ## 5. Curtain Animation — Blackout Perdeler
 
-**Model:** `fal-ai/veo3.1/image-to-video`
-**URL:** https://fal.ai/models/fal-ai/veo3.1/image-to-video
+**Model:** `fal-ai/veo3.1/first-last-frame-to-video` (standard quality)
+**URL:** https://fal.ai/models/fal-ai/veo3.1/first-last-frame-to-video
+**Draft model:** `fal-ai/veo3.1/fast/first-last-frame-to-video`
 **Cost:** $0.20/sec at 1080p, no audio ($1.60 for 8s)
 
 ### Settings
 
-Same as section 4, with `assets/room-blackout-bedroom.jpg` as input image.
+Same as section 4, with `assets/room-blackout-bedroom.jpg` as **both** `first_frame_url` and `last_frame_url`.
 
 ### Prompt
 
@@ -211,18 +215,19 @@ Same as section 4, with `assets/room-blackout-bedroom.jpg` as input image.
 Heavy blackout curtain panels with subtle slow fabric texture movement,
 barely perceptible natural sway as if from a very gentle air current,
 cozy dimly lit bedroom atmosphere maintained,
-camera completely still, no camera movement,
+camera completely still,
 only the heavy curtain fabric moves slightly
 ```
 
 ### Negative prompt
 
 ```
-camera shake, zoom, pan, fast motion, sheer curtain, transparent fabric,
-distorted furniture, warped floor, people, bright light through curtain
+camera movement, zoom, pan, camera shake,
+sheer curtain, transparent fabric, light through curtain,
+distorted furniture, warped floor, fast motion, people
 ```
 
-> **Note:** Blackout curtain movement should be very minimal — heavy panels sway slightly, they do not billow. The `negative_prompt` explicitly excludes sheer/transparent fabric to ensure the blackout quality is preserved.
+> **Note:** Blackout curtain movement should be very minimal. Heavy panels sway slightly — they do not billow. The negative prompt explicitly excludes sheer/transparent fabric to preserve the blackout look.
 
 ---
 
@@ -344,8 +349,8 @@ Output: PNG with transparent background. Use this as the input to Kling AI Avata
 | Room: fon | nano-banana-pro | $0.15/img | 4 images | $0.60 |
 | Room: blackout | nano-banana-pro | $0.15/img | 4 images | $0.60 |
 | Room edits (if needed) | nano-banana-pro /edit | $0.15/edit | 0–4 edits | $0–0.60 |
-| Fon animation (8s, 1080p) | veo3.1/image-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
-| Blackout animation (8s, 1080p) | veo3.1/image-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
+| Fon animation (8s, 1080p) | veo3.1/first-last-frame-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
+| Blackout animation (8s, 1080p) | veo3.1/first-last-frame-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
 | Avatar video V1 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | Avatar video V2 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | BG removal | bria video | TBD | 2 videos | TBD |
