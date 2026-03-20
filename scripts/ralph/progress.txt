@@ -18,6 +18,13 @@ Both `bun run typecheck` and `bun run lint` pass.
 - `npm run build` produces valid IIFE room-visualizer.js (starts with `(() => {`)
 - Added technical/theme/.gitignore to exclude node_modules
 
+## US-003 — Shopify + PMS product data fetcher (20 Mar 2026)
+- Created src/lib/shopify.ts: getProductData(productId) via Shopify Admin GraphQL, returns {title, type, color, imageUrl, sku}
+- Created src/lib/pms.ts: getPmsSwatchUrl(sku) from PMS, returns null on failure (non-blocking, 5s timeout)
+- PMS swatch preferred over Shopify image; falls back gracefully
+- tests/shopify.test.ts: 3 tests (product found + PMS swatch, PMS fallback, product not found) — all pass
+- typecheck and lint pass
+
 ## US-002 — DNS record + Docker compose entry (20 Mar 2026)
 - Added `hcloud_zone_record "visualizer"` to technical/gitopsprod/dns.tf (A, 5.75.165.158)
 - Created technical/room-visualizer/docker-compose.service.yml with Traefik labels for visualizer.inanctekstil.store, TLS, and 15MB body buffer

@@ -53,7 +53,7 @@
         "bun run lint passes"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "",
       "dependsOn": ["US-001"]
     },
