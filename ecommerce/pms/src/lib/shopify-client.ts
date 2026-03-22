@@ -1,10 +1,26 @@
-import { getShopifyConfig } from "./env.ts";
+import { getShopifyConfig, getShopifyClientCredentials } from "./env.ts";
 import { logger } from "./logger.ts";
 import {
   ShopifyApiError,
   ShopifyRateLimitError,
   ShopifyNotConfiguredError,
 } from "../errors/shopify.ts";
+
+// ---------------------------------------------------------------------------
+// Token cache for client_credentials flow (token expires in ~24h)
+// ---------------------------------------------------------------------------
+let _cachedToken: { value: string; expiresAt: number } | null = null;
+
+async function fetchClientCredentialsToken(domain: string, clientId: string, clientSecret: string): Promise<string> {
+  const res = await fetch(`https://${domain}/admin/oauth/access_token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, grant_type: "client_credentials" }),
+  });
+  if (!res.ok) throw new ShopifyApiError(`Token refresh failed (HTTP ${res.status})`, []);
+  const json = await res.json() as { access_token: string; expires_in: number };
+  return json.access_token;
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -30,8 +46,17 @@ export interface ProductVariantInput {
   id?: string;         // provided when updating
   sku: string;
   price: string;       // e.g. "299.00"
-  options: string[];   // option values e.g. ["Beyaz"]
+  options: string[];   // option values e.g. ["Beyaz"] — kept for internal use
   inventoryManagement?: "NOT_SHOPIFY";
+  inventoryPolicy?: "CONTINUE" | "DENY";
+}
+
+/** Input shape for productVariantsBulkCreate/Update in Shopify API 2025-01+ */
+export interface ProductVariantBulkInput {
+  id?: string;
+  price: string;
+  optionValues: Array<{ optionName: string; name: string }>;
+  inventoryItem?: { sku?: string; tracked?: boolean };
   inventoryPolicy?: "CONTINUE" | "DENY";
 }
 
@@ -45,6 +70,22 @@ export interface ProductInput {
   vendor?: string;
   options?: string[];  // option names e.g. ["Renk"]
   variants?: ProductVariantInput[];
+}
+
+export interface ProductSetInput {
+  id?: string;
+  title: string;
+  productType?: string;
+  descriptionHtml?: string;
+  status?: "ACTIVE" | "DRAFT" | "ARCHIVED";
+  tags?: string[];
+  productOptions?: Array<{ name: string; values: Array<{ name: string }> }>;
+  variants?: Array<{
+    id?: string;
+    sku: string;
+    price: string;
+    optionValues: Array<{ optionName: string; name: string }>;
+  }>;
 }
 
 export interface MetafieldInput {
@@ -86,14 +127,16 @@ export interface ProductMedia {
 // Client
 // ---------------------------------------------------------------------------
 
-const API_VERSION = "2024-01";
+const API_VERSION = "2025-01";
 const MAX_RETRIES = 3;
 
 export class ShopifyClient {
-  private readonly token: string;
+  private token: string;
   private readonly endpoint: string;
+  private readonly domain: string;
 
   constructor(domain: string, token: string) {
+    this.domain   = domain;
     this.token    = token;
     this.endpoint = `https://${domain}/admin/api/${API_VERSION}/graphql.json`;
   }
@@ -143,6 +186,29 @@ export class ShopifyClient {
     return parseProduct(data.productUpdate.product);
   }
 
+  /** Create a new product with options + variants using the 2025-01 productSet mutation. */
+  async productSet(input: ProductSetInput): Promise<ShopifyProduct> {
+    const data = await this.gql<{
+      productSet: {
+        product: ShopifyProductRaw;
+        userErrors: UserError[];
+      }
+    }>(
+      `mutation productSet($synchronous: Boolean!, $input: ProductSetInput!) {
+        productSet(synchronous: $synchronous, input: $input) {
+          product {
+            id handle status
+            variants(first: 250) { nodes { id sku title } }
+          }
+          userErrors { field message code }
+        }
+      }`,
+      { synchronous: true, input },
+    );
+    assertNoErrors(data.productSet.userErrors, "productSet");
+    return parseProduct(data.productSet.product);
+  }
+
   async getProduct(productId: string): Promise<ShopifyProduct | null> {
     const data = await this.gql<{ product: ShopifyProductRaw | null }>(
       `query getProduct($id: ID!) {
@@ -160,7 +226,7 @@ export class ShopifyClient {
   // Variants
   // -------------------------------------------------------------------------
 
-  async variantsBulkCreate(productId: string, variants: ProductVariantInput[]): Promise<ShopifyVariant[]> {
+  async variantsBulkCreate(productId: string, variants: ProductVariantBulkInput[]): Promise<ShopifyVariant[]> {
     const data = await this.gql<{
       productVariantsBulkCreate: { productVariants: Array<{ id: string; sku: string; title: string }>; userErrors: UserError[] }
     }>(
@@ -170,13 +236,13 @@ export class ShopifyClient {
           userErrors { field message }
         }
       }`,
-      { productId, variants: variants.map(buildVariantBulkInput) },
+      { productId, variants },
     );
     assertNoErrors(data.productVariantsBulkCreate.userErrors, "productVariantsBulkCreate");
     return data.productVariantsBulkCreate.productVariants;
   }
 
-  async variantsBulkUpdate(productId: string, variants: (ProductVariantInput & { id: string })[]): Promise<ShopifyVariant[]> {
+  async variantsBulkUpdate(productId: string, variants: ProductVariantBulkInput[]): Promise<ShopifyVariant[]> {
     const data = await this.gql<{
       productVariantsBulkUpdate: { productVariants: Array<{ id: string; sku: string; title: string }>; userErrors: UserError[] }
     }>(
@@ -186,7 +252,7 @@ export class ShopifyClient {
           userErrors { field message }
         }
       }`,
-      { productId, variants: variants.map(v => ({ id: v.id, ...buildVariantBulkInput(v) })) },
+      { productId, variants },
     );
     assertNoErrors(data.productVariantsBulkUpdate.userErrors, "productVariantsBulkUpdate");
     return data.productVariantsBulkUpdate.productVariants;
@@ -352,6 +418,18 @@ export class ShopifyClient {
         },
         body: JSON.stringify({ query, variables }),
       });
+
+      if (res.status === 401) {
+        logger.warn({ attempt }, "Shopify 401 — refreshing token via client_credentials");
+        try {
+          const creds = getShopifyClientCredentials();
+          this.token = await fetchClientCredentialsToken(creds.domain, creds.clientId, creds.clientSecret);
+          logger.info("Shopify token refreshed");
+        } catch (err) {
+          throw new ShopifyApiError("Shopify token refresh failed", [String(err)]);
+        }
+        continue;
+      }
 
       if (res.status === 429) {
         const retryAfter = parseInt(res.headers.get("Retry-After") ?? "2", 10);

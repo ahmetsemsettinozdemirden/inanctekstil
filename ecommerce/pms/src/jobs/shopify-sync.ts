@@ -6,13 +6,14 @@ import { logger } from "../lib/logger.ts";
 import { DesignNotFoundError } from "../errors/catalog.ts";
 import type { JobRow } from "../db/schema.ts";
 import type { JobExecutor } from "../lib/job-queue.ts";
-import type { ProductVariantInput } from "../lib/shopify-client.ts";
+import type { ProductVariantInput, ProductVariantBulkInput, ProductSetInput } from "../lib/shopify-client.ts";
 
 // ---------------------------------------------------------------------------
 // Mapping constants
 // ---------------------------------------------------------------------------
 
-const PRODUCT_TYPE_MAP: Record<string, string> = {
+// Human-readable type labels used in product titles
+const PRODUCT_TYPE_LABEL_MAP: Record<string, string> = {
   TUL: "Tül Perde",
   FON: "Fon Perde",
   BLK: "Blackout Perde",
@@ -50,33 +51,45 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
   await log(`Loaded ${variantRows.length} variant(s)`);
 
   const client = ShopifyClient.fromEnv();
-  const productType = PRODUCT_TYPE_MAP[design.curtainType] ?? design.curtainType;
-  const title = `${productType.split(" ")[0].toUpperCase()} ${design.designName}`;
+  const productTypeCode  = design.curtainType; // "FON", "BLK", "STN" — used for Shopify productType field & collection filtering
+  const productTypeLabel = PRODUCT_TYPE_LABEL_MAP[design.curtainType] ?? design.curtainType; // used in title only
+  const title = `${design.designName} ${productTypeLabel}`;
   const priceStr = String(design.price) + ".00";
   const tags = design.tags ? design.tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
 
-  const variantInputs: ProductVariantInput[] = variantRows.map((v) => ({
-    sku:   v.sku,
-    price: priceStr,
-    options: [v.colour],
-  }));
+  const optionNames = (shopifyRow?.options as string[] | null) ?? ["Renk"];
 
   let shopifyProductId = shopifyRow?.productId ?? null;
   let updatedHandle    = shopifyRow?.handle    ?? null;
 
   // ---- CREATE or UPDATE product ----
   if (!shopifyProductId) {
-    await log(`No Shopify product found — creating...`);
+    await log(`No Shopify product found — creating via productSet...`);
 
-    const product = await client.createProduct({
+    // Build productOptions: collect unique values per option slot from variants
+    const productOptions = optionNames.map((name, i) => ({
+      name,
+      values: [...new Set(variantRows.map((v) => (i === 0 ? v.colour : v.finish)).filter(Boolean) as string[])].map((val) => ({ name: val })),
+    }));
+
+    const setInput: ProductSetInput = {
       title,
-      productType,
-      status:          "DRAFT",
-      options:         ["Renk"],
-      variants:        variantInputs,
+      productType: productTypeCode,
+      status:         "DRAFT",
+      productOptions,
+      variants: variantRows.map((v) => ({
+        sku:   v.sku,
+        price: priceStr,
+        optionValues: optionNames.map((optName, i) => ({
+          optionName: optName,
+          name: i === 0 ? v.colour : (v.finish ?? v.colour),
+        })),
+      })),
       ...(design.description ? { descriptionHtml: design.description } : {}),
       ...(tags.length > 0    ? { tags }                                : {}),
-    });
+    };
+
+    const product = await client.productSet(setInput);
 
     shopifyProductId = product.id;
     updatedHandle    = product.handle;
@@ -110,7 +123,7 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
 
     const product = await client.updateProduct(shopifyProductId, {
       title,
-      productType,
+      productType: productTypeCode,
       ...(design.description ? { descriptionHtml: design.description } : {}),
       ...(tags.length > 0    ? { tags }                                : {}),
     });
@@ -123,21 +136,29 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
     const toCreate = variantRows.filter((v) => !v.shopifyVariantId);
 
     if (toUpdate.length > 0) {
-      const updateInputs = toUpdate.map((v) => ({
-        id:      v.shopifyVariantId!,
-        sku:     v.sku,
-        price:   priceStr,
-        options: [v.colour],
+      const updateInputs: ProductVariantBulkInput[] = toUpdate.map((v) => ({
+        id:           v.shopifyVariantId!,
+        price:        priceStr,
+        optionValues: optionNames.map((optName, i) => ({
+          optionName: optName,
+          name:       i === 0 ? v.colour : (v.finish ?? v.colour),
+        })),
+        inventoryItem: { sku: v.sku, tracked: false },
+        inventoryPolicy: "CONTINUE",
       }));
       const updated = await client.variantsBulkUpdate(shopifyProductId, updateInputs);
       await log(`Updated ${updated.length} existing variant(s)`);
     }
 
     if (toCreate.length > 0) {
-      const createInputs = toCreate.map((v) => ({
-        sku:     v.sku,
-        price:   priceStr,
-        options: [v.colour],
+      const createInputs: ProductVariantBulkInput[] = toCreate.map((v) => ({
+        price:        priceStr,
+        optionValues: optionNames.map((optName, i) => ({
+          optionName: optName,
+          name:       i === 0 ? v.colour : (v.finish ?? v.colour),
+        })),
+        inventoryItem: { sku: v.sku, tracked: false },
+        inventoryPolicy: "CONTINUE",
       }));
       const created = await client.variantsBulkCreate(shopifyProductId, createInputs);
       await log(`Created ${created.length} new variant(s)`);
@@ -153,7 +174,7 @@ export const shopifySyncExecutor: JobExecutor = async (job: JobRow, log) => {
 
     // Update synced_at
     await db.update(shopifyProducts)
-      .set({ handle: updatedHandle, productType, syncedAt: new Date() })
+      .set({ handle: updatedHandle, productType: productTypeCode, syncedAt: new Date() })
       .where(eq(shopifyProducts.designId, designId));
   }
 
