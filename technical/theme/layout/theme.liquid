@@ -36,6 +36,7 @@
     {% endif %}
 
     {%- render 'posthog-analytics' -%}
+    {%- render 'google-ads-gtag' -%}
     {{ content_for_header }}
   </head>
 
@@ -138,5 +139,6 @@
     <script>window.PERDE_API_URL = 'https://app.inanctekstil.store';</script>
     <script src="{{ 'perde-checkout.js' | asset_url }}" defer></script>
     {%- render 'cookie-consent' -%}
+    {%- render 'whatsapp-button' -%}
   </body>
 </html>
