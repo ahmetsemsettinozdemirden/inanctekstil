@@ -1,0 +1,569 @@
+{% comment %}
+  Hero Carousel — mobile-first 9:16 full-bleed carousel
+  5 slides: 4 shop photos + 1 video
+  Auto-advance 5s, touch/swipe, dot indicators, keyboard nav, Visibility API pause
+{% endcomment %}
+
+<style>
+  .hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    background: #111;
+    user-select: none;
+  }
+
+  @media (min-width: 750px) {
+    .hero-carousel {
+      height: 80vh;
+      min-height: 500px;
+      max-height: 900px;
+    }
+  }
+
+  /* Track */
+  .hero-carousel__track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .hero-carousel__track--no-transition {
+    transition: none !important;
+  }
+
+  /* Slides */
+  .hero-carousel__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-carousel__slide img,
+  .hero-carousel__slide video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Dark gradient overlay */
+  .hero-carousel__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(12, 12, 12, 0.65) 0%,
+      rgba(12, 12, 12, 0.15) 50%,
+      rgba(12, 12, 12, 0.05) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Text content — only on slide 0 */
+  .hero-carousel__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 24px 80px;
+    color: #fff;
+    max-width: 600px;
+  }
+
+  @media (min-width: 750px) {
+    .hero-carousel__content {
+      padding: 0 48px 64px;
+      max-width: 640px;
+    }
+  }
+
+  .hero-carousel__heading {
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+
+  .hero-carousel__subtext {
+    font-size: clamp(0.875rem, 2vw, 1.0625rem);
+    margin: 0 0 24px;
+    line-height: 1.65;
+    opacity: 0.92;
+    max-width: 480px;
+  }
+
+  .hero-carousel__ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hero-carousel__cta--primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: #fff;
+    color: #1B2A4A;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .hero-carousel__cta--secondary {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 1.5px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Dots */
+  .hero-carousel__dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .hero-carousel__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .hero-carousel__dot--active {
+    background: #fff;
+    transform: scale(1.3);
+  }
+
+  /* Prev/Next arrows — desktop only */
+  .hero-carousel__arrow {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #fff;
+  }
+
+  .hero-carousel__arrow:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-carousel__arrow--prev { left: 20px; }
+  .hero-carousel__arrow--next { right: 20px; }
+
+  @media (min-width: 750px) {
+    .hero-carousel__arrow { display: flex; }
+  }
+</style>
+
+<div
+  class="hero-carousel"
+  id="hero-carousel-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  aria-label="Mağaza Görselleri"
+  role="region"
+>
+  <!-- Track -->
+  <div class="hero-carousel__track" id="hc-track-{{ section.id }}">
+
+    {%- comment -%} Slide 0: Shop overview photo with CTA {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="0" aria-label="Slayt 1">
+      <img
+        src="{{ 'hero-dukkan-1.jpg' | asset_url }}"
+        alt="İnanç Tekstil Mağazası"
+        loading="eager"
+        fetchpriority="high"
+        width="1080"
+        height="1920"
+      >
+      <div class="hero-carousel__overlay"></div>
+      <div class="hero-carousel__content">
+        <h1 class="hero-carousel__heading">30 Yıldır İskenderun'un Perde Atölyesi</h1>
+        <p class="hero-carousel__subtext">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>
+        <div class="hero-carousel__ctas">
+          <a
+            href="https://maps.app.goo.gl/XYt5EMMGj5uBwWsV6"
+            target="_blank"
+            rel="noopener"
+            class="hero-carousel__cta--primary"
+          >
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7.5 1C4.74 1 2.5 3.24 2.5 6c0 3.75 5 8.5 5 8.5s5-4.75 5-8.5c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5z" fill="currentColor"/>
+            </svg>
+            Haritada Gör
+          </a>
+          <a href="/collections/all" class="hero-carousel__cta--secondary">Tüm Perdeler</a>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Slide 1: Fabric photo {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="1" aria-label="Slayt 2">
+      <img
+        src="{{ 'hero-dukkan-2.jpg' | asset_url }}"
+        alt="Kumaş çeşitlerimiz"
+        loading="lazy"
+        width="1080"
+        height="1920"
+      >
+      <div class="hero-carousel__overlay"></div>
+    </div>
+
+    {%- comment -%} Slide 2: Video {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="2" data-slide-type="video" aria-label="Slayt 3">
+      <video
+        id="hc-video-{{ section.id }}"
+        src="{{ 'hero-dukkan-video.mp4' | asset_url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="none"
+        width="720"
+        height="1280"
+        aria-hidden="true"
+      ></video>
+      <div class="hero-carousel__overlay"></div>
+    </div>
+
+    {%- comment -%} Slide 3: Atelier wide {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="3" aria-label="Slayt 4">
+      <img
+        src="{{ 'hero-dukkan-3.jpg' | asset_url }}"
+        alt="Perde atölyemiz"
+        loading="lazy"
+        width="1080"
+        height="1920"
+      >
+      <div class="hero-carousel__overlay"></div>
+    </div>
+
+    {%- comment -%} Slide 4: Sewing close-up {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="4" aria-label="Slayt 5">
+      <img
+        src="{{ 'hero-dukkan-4.jpg' | asset_url }}"
+        alt="Dikişhane detayı"
+        loading="lazy"
+        width="1080"
+        height="1920"
+      >
+      <div class="hero-carousel__overlay"></div>
+    </div>
+
+  </div><!-- /track -->
+
+  <!-- Dots -->
+  <div class="hero-carousel__dots" role="tablist" aria-label="Slayt göstergeleri" id="hc-dots-{{ section.id }}">
+    <button class="hero-carousel__dot hero-carousel__dot--active" role="tab" aria-selected="true"  aria-label="Slayt 1 - aktif" data-dot="0"></button>
+    <button class="hero-carousel__dot" role="tab" aria-selected="false" aria-label="Slayt 2" data-dot="1"></button>
+    <button class="hero-carousel__dot" role="tab" aria-selected="false" aria-label="Slayt 3" data-dot="2"></button>
+    <button class="hero-carousel__dot" role="tab" aria-selected="false" aria-label="Slayt 4" data-dot="3"></button>
+    <button class="hero-carousel__dot" role="tab" aria-selected="false" aria-label="Slayt 5" data-dot="4"></button>
+  </div>
+
+  <!-- Prev / Next arrows -->
+  <button class="hero-carousel__arrow hero-carousel__arrow--prev" aria-label="Önceki slayt" id="hc-prev-{{ section.id }}">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12.5 15L7.5 10L12.5 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="hero-carousel__arrow hero-carousel__arrow--next" aria-label="Sonraki slayt" id="hc-next-{{ section.id }}">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7.5 5L12.5 10L7.5 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const SECTION_ID = {{ section.id | json }};
+  const LOG_PREFIX = '[HeroCarousel]';
+  const TOTAL_SLIDES = 5;
+  const AUTO_ADVANCE_MS = 5000;
+  const SWIPE_THRESHOLD = 50; // px
+
+  const root    = document.getElementById('hero-carousel-' + SECTION_ID);
+  const track   = document.getElementById('hc-track-' + SECTION_ID);
+  const dotsEl  = document.getElementById('hc-dots-' + SECTION_ID);
+  const prevBtn = document.getElementById('hc-prev-' + SECTION_ID);
+  const nextBtn = document.getElementById('hc-next-' + SECTION_ID);
+  const video   = document.getElementById('hc-video-' + SECTION_ID);
+
+  if (!root || !track) {
+    console.warn(LOG_PREFIX, 'Root or track element not found — aborting init');
+    return;
+  }
+
+  console.log(LOG_PREFIX, 'Initialising. slides:', TOTAL_SLIDES, 'autoAdvance:', AUTO_ADVANCE_MS + 'ms');
+
+  let currentIndex = 0;
+  let autoTimer    = null;
+  let isHovered    = false;
+  let isDragging   = false;
+  let touchStartX  = 0;
+  let touchDeltaX  = 0;
+
+  // ── Helpers ─────────────────────────────────────────────────────────────────
+
+  function setSlide(index, animate) {
+    if (index < 0) index = TOTAL_SLIDES - 1;
+    if (index >= TOTAL_SLIDES) index = 0;
+
+    const prev = currentIndex;
+    currentIndex = index;
+
+    if (!animate) {
+      track.classList.add('hero-carousel__track--no-transition');
+    } else {
+      track.classList.remove('hero-carousel__track--no-transition');
+    }
+
+    track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+    // Update dots
+    const dots = dotsEl ? dotsEl.querySelectorAll('.hero-carousel__dot') : [];
+    dots.forEach(function (dot, i) {
+      const active = i === currentIndex;
+      dot.classList.toggle('hero-carousel__dot--active', active);
+      dot.setAttribute('aria-selected', active ? 'true' : 'false');
+      dot.setAttribute('aria-label', 'Slayt ' + (i + 1) + (active ? ' - aktif' : ''));
+    });
+
+    // Video management
+    manageVideo(prev, currentIndex);
+
+    console.log(LOG_PREFIX, 'Slide changed', prev, '→', currentIndex);
+  }
+
+  function manageVideo(prevIdx, nextIdx) {
+    if (!video) return;
+    const VIDEO_SLIDE = 2;
+
+    if (nextIdx === VIDEO_SLIDE) {
+      video.play().then(function () {
+        console.log(LOG_PREFIX, 'Video playing (slide', VIDEO_SLIDE, ')');
+      }).catch(function (err) {
+        console.warn(LOG_PREFIX, 'Video play failed:', err.message);
+      });
+    } else if (prevIdx === VIDEO_SLIDE) {
+      video.pause();
+      video.currentTime = 0;
+      console.log(LOG_PREFIX, 'Video paused (left slide', VIDEO_SLIDE, ')');
+    }
+  }
+
+  function startAuto() {
+    if (autoTimer) return;
+    autoTimer = setInterval(function () {
+      if (!isHovered) {
+        console.log(LOG_PREFIX, 'Auto-advance tick');
+        setSlide(currentIndex + 1, true);
+      }
+    }, AUTO_ADVANCE_MS);
+    console.log(LOG_PREFIX, 'Auto-advance started');
+  }
+
+  function stopAuto() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+      console.log(LOG_PREFIX, 'Auto-advance stopped');
+    }
+  }
+
+  function restartAuto() {
+    stopAuto();
+    startAuto();
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────────────────
+
+  function goNext() {
+    setSlide(currentIndex + 1, true);
+    restartAuto();
+  }
+
+  function goPrev() {
+    setSlide(currentIndex - 1, true);
+    restartAuto();
+  }
+
+  // ── Dots ─────────────────────────────────────────────────────────────────────
+
+  if (dotsEl) {
+    dotsEl.addEventListener('click', function (e) {
+      const dot = e.target.closest('[data-dot]');
+      if (!dot) return;
+      const idx = parseInt(dot.dataset.dot, 10);
+      console.log(LOG_PREFIX, 'Dot clicked:', idx);
+      setSlide(idx, true);
+      restartAuto();
+    });
+  }
+
+  // ── Arrows ───────────────────────────────────────────────────────────────────
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function () {
+      console.log(LOG_PREFIX, 'Prev arrow clicked');
+      goPrev();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      console.log(LOG_PREFIX, 'Next arrow clicked');
+      goNext();
+    });
+  }
+
+  // ── Keyboard ─────────────────────────────────────────────────────────────────
+
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { console.log(LOG_PREFIX, 'Key: ArrowLeft'); goPrev(); }
+    if (e.key === 'ArrowRight') { console.log(LOG_PREFIX, 'Key: ArrowRight'); goNext(); }
+  });
+  root.setAttribute('tabindex', '0');
+
+  // ── Hover pause ──────────────────────────────────────────────────────────────
+
+  root.addEventListener('mouseenter', function () {
+    isHovered = true;
+    console.log(LOG_PREFIX, 'Hovered — auto-advance paused');
+  });
+
+  root.addEventListener('mouseleave', function () {
+    isHovered = false;
+    console.log(LOG_PREFIX, 'Unhovered — auto-advance resuming');
+  });
+
+  // ── Touch / swipe ────────────────────────────────────────────────────────────
+
+  root.addEventListener('touchstart', function (e) {
+    isDragging = true;
+    touchStartX = e.touches[0].clientX;
+    touchDeltaX = 0;
+    stopAuto();
+  }, { passive: true });
+
+  root.addEventListener('touchmove', function (e) {
+    if (!isDragging) return;
+    touchDeltaX = e.touches[0].clientX - touchStartX;
+    // Live drag feedback
+    const baseOffset = -(currentIndex * 100);
+    const dragPct = (touchDeltaX / root.offsetWidth) * 100;
+    track.classList.add('hero-carousel__track--no-transition');
+    track.style.transform = 'translateX(calc(' + baseOffset + '% + ' + touchDeltaX + 'px))';
+  }, { passive: true });
+
+  root.addEventListener('touchend', function () {
+    isDragging = false;
+    track.classList.remove('hero-carousel__track--no-transition');
+
+    console.log(LOG_PREFIX, 'Swipe ended. delta:', touchDeltaX + 'px');
+
+    if (Math.abs(touchDeltaX) >= SWIPE_THRESHOLD) {
+      if (touchDeltaX < 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    } else {
+      // Snap back
+      track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+      console.log(LOG_PREFIX, 'Swipe below threshold — snapping back');
+      startAuto();
+    }
+  }, { passive: true });
+
+  // ── Visibility API ───────────────────────────────────────────────────────────
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      console.log(LOG_PREFIX, 'Page hidden — pausing auto-advance');
+      stopAuto();
+      if (video && currentIndex === 2) video.pause();
+    } else {
+      console.log(LOG_PREFIX, 'Page visible — resuming auto-advance');
+      startAuto();
+      if (video && currentIndex === 2) {
+        video.play().catch(function (err) {
+          console.warn(LOG_PREFIX, 'Video resume failed:', err.message);
+        });
+      }
+    }
+  });
+
+  // ── Boot ─────────────────────────────────────────────────────────────────────
+
+  // Make sure first slide is positioned correctly (no animation on load)
+  setSlide(0, false);
+  startAuto();
+
+  console.log(LOG_PREFIX, 'Ready. currentIndex:', currentIndex);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "auto_advance_seconds",
+      "label": "Otomatik geçiş (saniye)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel"
+    }
+  ]
+}
+{% endschema %}
