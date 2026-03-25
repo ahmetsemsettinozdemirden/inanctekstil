@@ -1,0 +1,25 @@
+{
+  "sku": "BLK-088",
+  "design": "HAVUZ BLACKOUT",
+  "colour_code": "917",
+  "appearance": null,
+  "width_cm": 295,
+  "price": "460",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.01,
+  "transparency_class": "blackout",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/havuz-blackout/texture-512.jpg",
+  "design_texture_full": "designs/havuz-blackout/texture-full.jpg",
+  "raw_colors": [
+    "#958d83",
+    "#6b6259",
+    "#c4bcb3"
+  ],
+  "thread_colors": [
+    "#494440"
+  ],
+  "thread_count": 1,
+  "source_heic": "BLACKOUT/HAVUZ BLACKOUT/2.HEIC"
+}

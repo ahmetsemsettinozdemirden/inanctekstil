@@ -1,0 +1,25 @@
+{
+  "sku": "FON-009",
+  "design": "ENZA",
+  "colour_code": "112",
+  "appearance": null,
+  "width_cm": 300,
+  "price": "1200",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/enza/texture-512.jpg",
+  "design_texture_full": "designs/enza/texture-full.jpg",
+  "raw_colors": [
+    "#55504a",
+    "#8e8984",
+    "#d3cec9"
+  ],
+  "thread_colors": [
+    "#7b776d"
+  ],
+  "thread_count": 1,
+  "source_heic": "FON/ENZA/5.HEIC"
+}

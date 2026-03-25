@@ -42,4 +42,29 @@ describe("evaluateImage", () => {
 		const [imageBase64] = mockEvaluate.mock.calls[0] as [string, string];
 		expect(imageBase64).toBe(buffer.toString("base64"));
 	});
+
+	it("returns low score structure when curtains not visible", async () => {
+		mockEvaluate.mockImplementation(async () => ({
+			score: 3,
+			has_curtains: false,
+			feedback: "No curtains visible in the image",
+		}));
+
+		const result = await evaluateImage(Buffer.from("bad-image"), "Test Perde");
+		expect(result.score).toBe(3);
+		expect(result.has_curtains).toBe(false);
+		expect(result.feedback).toBe("No curtains visible in the image");
+	});
+
+	it("score is a number between 1 and 10", async () => {
+		mockEvaluate.mockImplementation(async () => ({
+			score: 7,
+			has_curtains: true,
+			feedback: "Good",
+		}));
+
+		const result = await evaluateImage(Buffer.from("ok-image"), "Test");
+		expect(result.score).toBeGreaterThanOrEqual(1);
+		expect(result.score).toBeLessThanOrEqual(10);
+	});
 });

@@ -20,20 +20,93 @@ All models accessed via web playground at `fal.ai/models/<model-id>` — no code
 | output_format | `jpeg` |
 | safety_tolerance | `4` (default) |
 
-### Prompt
+### Prompts — 3 phenotypes
 
+Generate 4 images from each prompt (12 total), then pick the single best result across all three. Selection is based on face expression and naturalness, not phenotype.
+
+**Settings for all three:**
+
+| Parameter | Value |
+|-----------|-------|
+| aspect_ratio | `1:1` |
+| resolution | `2K` |
+| num_images | `4` |
+| output_format | `jpeg` |
+| safety_tolerance | `4` |
+
+---
+
+#### Phenotype A — Ege / Batı Türk
+Fair skin, hazel or light brown eyes, medium brown hair
+
+```json
+{
+  "subject": "Turkish woman, 32 years old, Western Turkish / Aegean features",
+  "quality": "naturally attractive with a kind, trustworthy face — beauty comes from warmth, not symmetry",
+  "eyes": "soft hazel or light brown eyes, kind expression, slight natural catchlight, direct camera gaze",
+  "smile": "genuine relaxed smile with slightly visible teeth, smile reaches her eyes, relaxed jaw",
+  "skin": "fair to light skin with cool-neutral undertone, light natural freckles possible, healthy not airbrushed, subtle natural texture",
+  "hair": "medium brown, medium length, loose and slightly wavy, falls naturally around face and shoulders — not blown out, not styled",
+  "makeup": "minimal — touch of mascara, natural lip color, no foundation, no contouring",
+  "clothing": "cozy light beige or dusty rose knit sweater, casual and comfortable",
+  "background": "softly blurred warm Turkish apartment interior — hints of natural wood furniture and warm neutral tones, bokeh depth",
+  "lighting": "natural side window light, soft flattering shadows across face, no harsh highlights",
+  "style": "photorealistic, candid portrait, shot on iPhone 15, natural grain, not studio photography",
+  "persona": "naturally attractive woman you might know from your neighborhood — not a model, not an influencer, not a beauty queen, not a stock photo. She looks like she has a real life."
+}
 ```
-Portrait photo of a Turkish woman, 32 years old, warm genuine smile, natural minimal makeup,
-wearing casual home clothes such as a light knit sweater or simple blouse,
-softly blurred modern apartment interior background, looking directly at camera,
-natural window lighting from the side, photorealistic, shot on iPhone,
-real everyday person — not a model, not an influencer, not a stock photo,
-warm skin tone, dark hair, relaxed expression
+
+---
+
+#### Phenotype B — İç Anadolu
+Medium olive skin, dark brown eyes, dark brown hair — classic Turkish look
+
+```json
+{
+  "subject": "Turkish woman, 32 years old, Central Anatolian features",
+  "quality": "naturally attractive with a kind, trustworthy face — beauty comes from warmth, not symmetry",
+  "eyes": "warm dark brown eyes, kind expression, slight natural catchlight, direct camera gaze",
+  "smile": "genuine relaxed smile with slightly visible teeth, smile reaches her eyes, relaxed jaw",
+  "skin": "naturally clear skin with olive-warm undertone, subtle natural texture, slight warmth in cheeks, healthy not airbrushed, no heavy foundation look",
+  "hair": "dark brown, medium length, loose and slightly wavy, falls naturally around face and shoulders — not blown out, not styled",
+  "makeup": "minimal — touch of mascara, natural lip color, no foundation, no contouring",
+  "clothing": "cozy light beige or dusty rose knit sweater, casual and comfortable",
+  "background": "softly blurred warm Turkish apartment interior — hints of natural wood furniture and warm neutral tones, bokeh depth",
+  "lighting": "natural side window light, soft flattering shadows across face, no harsh highlights",
+  "style": "photorealistic, candid portrait, shot on iPhone 15, natural grain, not studio photography",
+  "persona": "naturally attractive woman you might know from your neighborhood — not a model, not an influencer, not a beauty queen, not a stock photo. She looks like she has a real life."
+}
 ```
+
+---
+
+#### Phenotype C — Güney / Hatay Akdeniz
+Deep olive skin, near-black eyes, very dark hair — closest to İskenderun local phenotype
+
+```json
+{
+  "subject": "Turkish woman, 32 years old, Southern Turkish / Hatay Mediterranean features",
+  "quality": "naturally attractive with a kind, trustworthy face — beauty comes from warmth, not symmetry",
+  "eyes": "very dark brown, almost black eyes, almond-shaped, kind expression, slight natural catchlight, direct camera gaze",
+  "smile": "genuine relaxed smile with slightly visible teeth, smile reaches her eyes, relaxed jaw",
+  "skin": "deep olive warm skin, rich Mediterranean tan undertone, naturally clear with subtle texture, healthy not airbrushed, no heavy foundation look",
+  "hair": "very dark brown to black, medium length, loose and slightly wavy, falls naturally around face and shoulders — not blown out, not styled",
+  "makeup": "minimal — touch of mascara, natural lip color, no foundation, no contouring",
+  "clothing": "cozy light beige or dusty rose knit sweater, casual and comfortable",
+  "background": "softly blurred warm Turkish apartment interior — hints of natural wood furniture and warm neutral tones, bokeh depth",
+  "lighting": "natural side window light, soft flattering shadows across face, no harsh highlights",
+  "style": "photorealistic, candid portrait, shot on iPhone 15, natural grain, not studio photography",
+  "persona": "naturally attractive woman you might know from your neighborhood — not a model, not an influencer, not a beauty queen, not a stock photo. She looks like she has a real life."
+}
+```
+
+---
 
 ### Selection criteria
 
-Pick the result that looks most like a real person you might meet in İskenderun. Reject any image that looks like a stock photo, has overly perfect symmetry, or looks like an Instagram influencer. She should look like she actually buys curtains for her own home.
+Reject: perfect symmetry, over-lit studio look, Instagram filter feel, hollow cheekbones, fashion-forward styling, anything that looks hired.
+
+Accept: the result where your first reaction is "she seems kind" before "she seems pretty." Slight natural imperfections are a plus. Pick based on face expression and naturalness — phenotype doesn't matter.
 
 > **Note:** nano-banana-pro embeds a SynthID watermark in all outputs. This is invisible to the human eye and does not affect ad use — Meta's systems do not detect or flag it.
 
@@ -300,21 +373,35 @@ Same prompt as Video 1. Using the same portrait image is intentional — visual 
 
 ## 8. Video Background Removal (Avatar)
 
-**Model:** `fal-ai/bria/video/background-removal`
-**URL:** https://fal.ai/models/fal-ai/bria/video/background-removal
-**Cost:** Check playground (not listed on pricing page)
+**Model:** `veed/video-background-removal`
+**URL:** https://fal.ai/models/veed/video-background-removal
+**Cost:** $0.0225/sec (with edge refinement) · $0.015/sec (without) — a 25s avatar clip ≈ $0.56
 
-### Input
+### Settings
 
-Upload `assets/video1-avatar-raw.mp4` (or video2).
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| `video_url` | Upload `assets/video1-avatar-raw.mp4` | Required — hosted URL or direct upload |
+| `output_codec` | `vp9` | **vp9 = single `.webm` with alpha channel** — preferred for CapCut overlay. `h264` produces two separate files (RGB + alpha mask). |
+| `refine_foreground_edges` | `true` | Enables edge smoothing — keep enabled for hair and shoulders |
+| `subject_is_person` | `true` | Optimizes model for human subject — always set true for avatar videos |
+
+### Output
+
+- **vp9 (recommended):** single `.webm` file with embedded alpha transparency — import directly into CapCut as overlay
+- **h264:** two files (RGB video + alpha mask) — requires compositing in a video editor; skip unless CapCut rejects the `.webm`
+
+Save output as:
+- `assets/video1-avatar-transparent.webm`
+- `assets/video2-avatar-transparent.webm`
 
 ### Quality check
 
-Inspect edge quality around hair and shoulders. Check a mid-clip frame, not just the first frame.
+Inspect edge quality around hair and shoulders. Check a mid-clip frame, not just the first frame. The subject_is_person + refine_foreground_edges combination should produce clean edges without fringing.
 
 ### CapCut fallback
 
-If fal.ai output has rough edges:
+If the `.webm` output has rough edges or CapCut can't import it:
 1. Import the raw avatar video into CapCut
 2. Select the clip → **Edit** → scroll toolbar → **AI Tools** → **Background Removal**
 3. Export the processed clip and use it as the transparent overlay
@@ -353,8 +440,8 @@ Output: PNG with transparent background. Use this as the input to Kling AI Avata
 | Blackout animation (8s, 1080p) | veo3.1/first-last-frame-to-video | $0.20/s | 1–2 clips | $1.60–3.20 |
 | Avatar video V1 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
 | Avatar video V2 (25s) | creatify/aurora 720p | $0.14/s | 25s | $3.50 |
-| BG removal | bria video | TBD | 2 videos | TBD |
-| **Total estimate** | | | | **~$13–18** |
+| BG removal | veed/video-background-removal | $0.0225/s | 2 × 25s clips | ~$1.13 |
+| **Total estimate** | | | | **~$14–19** |
 
 > **Draft tips:**
 > - Avatar: use `resolution: 480p` ($0.07/s) for test runs. Switch to `720p` for final export.

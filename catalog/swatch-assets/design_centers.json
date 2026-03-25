@@ -1,0 +1,147 @@
+{
+  "%100 BLACKOUT": {
+    "photo": "BLACKOUT/%100 BLACKOUT/100-blackout-design-1.heic",
+    "x_frac": 0.8136882129277566,
+    "y_frac": 0.41761768901569185,
+    "crop_half_frac": 0.18,
+    "scale_pt1": {
+      "x_frac": 0.04318618042226487,
+      "y_frac": 0.27014388489208635
+    },
+    "scale_pt2": {
+      "x_frac": 0.13723608445297505,
+      "y_frac": 0.2658273381294964
+    },
+    "real_world_cm": 15.3,
+    "pixels_per_cm": 42.4
+  },
+  "DARK BLACKOUT": {
+    "photo": "BLACKOUT/DARK BLACKOUT/dark-blackout-design-1.heic",
+    "x_frac": 0.7452471482889734,
+    "y_frac": 0.48038516405135523,
+    "crop_half_frac": 0.25,
+    "scale_pt1": {
+      "x_frac": 0.05854126679462572,
+      "y_frac": 0.3838129496402878
+    },
+    "scale_pt2": {
+      "x_frac": 0.15451055662188098,
+      "y_frac": 0.38093525179856114
+    },
+    "real_world_cm": 20.8,
+    "pixels_per_cm": 43.2
+  },
+  "HAVUZ BLACKOUT": {
+    "photo": "BLACKOUT/HAVUZ BLACKOUT/havuz-blackout-design-1.heic",
+    "x_frac": 0.7984790874524715,
+    "y_frac": 0.45470756062767476,
+    "crop_half_frac": 0.2,
+    "scale_pt1": {
+      "x_frac": 0.018234165067178502,
+      "y_frac": 0.2802158273381295
+    },
+    "scale_pt2": {
+      "x_frac": 0.11228406909788867,
+      "y_frac": 0.2758992805755396
+    },
+    "real_world_cm": 17,
+    "pixels_per_cm": 42.4
+  },
+  "HERMES BLACKOUT": {
+    "photo": "BLACKOUT/HERMES BLACKOUT/hermes-blackout-design-1.heic",
+    "x_frac": 0.752851711026616,
+    "y_frac": 0.45756062767475036,
+    "crop_half_frac": 0.25,
+    "scale_pt1": {
+      "x_frac": 0.06238003838771593,
+      "y_frac": 0.30323741007194244
+    },
+    "scale_pt2": {
+      "x_frac": 0.15642994241842612,
+      "y_frac": 0.30323741007194244
+    },
+    "real_world_cm": 21.3,
+    "pixels_per_cm": 42.3
+  },
+  "ENZA": {
+    "photo": "FON/ENZA/enza-design-1.heic",
+    "x_frac": 0.6806083650190115,
+    "y_frac": 0.4375891583452211,
+    "crop_half_frac": 0.3,
+    "scale_pt1": {
+      "x_frac": 0.04894433781190019,
+      "y_frac": 0.29028776978417264
+    },
+    "scale_pt2": {
+      "x_frac": 0.14107485604606526,
+      "y_frac": 0.29028776978417264
+    },
+    "real_world_cm": 26.1,
+    "pixels_per_cm": 41.5
+  },
+  "MONICA": {
+    "photo": "FON/MONICA/monica-design-2.heic",
+    "x_frac": 0.6749049429657795,
+    "y_frac": 0.4475748930099857,
+    "crop_half_frac": 0.3,
+    "scale_pt1": {
+      "x_frac": 0.0508637236084453,
+      "y_frac": 0.29028776978417264
+    },
+    "scale_pt2": {
+      "x_frac": 0.13915547024952016,
+      "y_frac": 0.29028776978417264
+    },
+    "real_world_cm": 27.2,
+    "pixels_per_cm": 39.7
+  },
+  "SULTAN 22260": {
+    "photo": "FON/SULTAN 22260/sultan-22260-design-2.heic",
+    "x_frac": 0.47338403041825095,
+    "y_frac": 0.4318830242510699,
+    "crop_half_frac": 0.3,
+    "scale_pt1": {
+      "x_frac": 0.05854126679462572,
+      "y_frac": 0.4974820143884892
+    },
+    "scale_pt2": {
+      "x_frac": 0.14875239923224567,
+      "y_frac": 0.4974820143884892
+    },
+    "real_world_cm": 26.6,
+    "pixels_per_cm": 40.6
+  },
+  "SÜET": {
+    "photo": "FON/SÜET/suet-design-1.heic",
+    "x_frac": 0.7775665399239544,
+    "y_frac": 0.4689728958630528,
+    "crop_half_frac": 0.2,
+    "scale_pt1": {
+      "x_frac": 0.03742802303262956,
+      "y_frac": 0.2802158273381295
+    },
+    "scale_pt2": {
+      "x_frac": 0.13147792706333974,
+      "y_frac": 0.27733812949640285
+    },
+    "real_world_cm": 17,
+    "pixels_per_cm": 42.4
+  },
+  "YAĞMUR": {
+    "photo": "FON/YAĞMUR/yagmur-design-1.heic",
+    "x_frac": 0.6958174904942965,
+    "y_frac": 0.4318830242510699,
+    "crop_half_frac": 0.28,
+    "scale_pt1": {
+      "x_frac": 0.04126679462571977,
+      "y_frac": 0.3147482014388489
+    },
+    "scale_pt2": {
+      "x_frac": 0.13339731285988485,
+      "y_frac": 0.31618705035971223
+    },
+    "ref_cm": 4,
+    "real_world_cm": 24.3,
+    "pixels_per_cm": 41.5
+  }
+}

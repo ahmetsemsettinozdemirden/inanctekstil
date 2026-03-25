@@ -1,0 +1,51 @@
+---
+description: How to release AdLoop to PyPI — version bumping, tagging, and publishing
+globs:
+  - pyproject.toml
+  - src/adloop/__init__.py
+  - .github/workflows/**
+---
+
+# Releasing AdLoop
+
+## How publishing works
+
+AdLoop uses **PyPI Trusted Publishing** via GitHub Actions. No API tokens or secrets are stored in the repo. PyPI verifies the publish request came from this exact repo and workflow via OIDC.
+
+- **CI** (`.github/workflows/ci.yml`): runs tests on every push to `main` and every PR, across Python 3.11-3.13.
+- **Release** (`.github/workflows/release.yml`): triggered by pushing a `v*` tag. Builds the package, publishes to PyPI, and creates a GitHub Release.
+
+## When to release
+
+Release after merging PRs that add features, fix bugs, or change the public tool interface. Not every merge needs a release — batch small fixes.
+
+## Release process
+
+When the user asks to release, or after significant changes are merged:
+
+1. **Decide the version bump** following semver:
+   - **Patch** (0.2.1): bug fixes, doc changes, internal refactors
+   - **Minor** (0.3.0): new tools, new parameters on existing tools, new features
+   - **Major** (1.0.0): breaking changes to tool signatures or config format
+
+2. **Bump the version in both places** (they must match):
+   - `pyproject.toml` → `version = "X.Y.Z"`
+   - `src/adloop/__init__.py` → `__version__ = "X.Y.Z"`
+
+3. **Commit and tag**:
+   ```bash
+   git add pyproject.toml src/adloop/__init__.py
+   git commit -m "Release vX.Y.Z"
+   git tag vX.Y.Z
+   git push && git push --tags
+   ```
+
+4. **GitHub Actions handles the rest**: tests run, package builds, publishes to PyPI, creates a GitHub Release with auto-generated notes.
+
+5. **Verify**: check the Actions tab on GitHub and confirm the package appears on https://pypi.org/project/adloop/
+
+## Troubleshooting
+
+- If the release workflow fails on the publish step, the user needs to verify that the trusted publisher is configured on PyPI: https://pypi.org/manage/project/adloop/settings/publishing/ (Owner: `kLOsk`, Repo: `adloop`, Workflow: `release.yml`, Environment: `pypi`).
+- If tests fail in the release workflow, the tag still exists. Fix the issue, delete the tag (`git tag -d vX.Y.Z && git push origin :refs/tags/vX.Y.Z`), then re-tag after the fix.
+- The version in `pyproject.toml` and `__init__.py` must always match. If they drift, fix both before releasing.

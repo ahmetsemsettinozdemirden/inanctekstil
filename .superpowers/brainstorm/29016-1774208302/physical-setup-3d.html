@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swatch Photography Setup — 3D</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0d1a; font-family: system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #ui {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; z-index: 10;
+  }
+  .btn {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: #ccc; padding: 7px 16px; border-radius: 6px; cursor: pointer;
+    font-size: 13px; font-family: system-ui;
+  }
+  .btn.on-warm { background: rgba(255,224,102,0.18); border-color: #ffe066; color: #ffe066; }
+  .btn.on-cool { background: rgba(126,200,227,0.18); border-color: #7ec8e3; color: #7ec8e3; }
+  #label {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.1);
+    color: #aaa; padding: 8px 20px; border-radius: 20px; font-size: 12px;
+    pointer-events: none; white-space: nowrap;
+  }
+  #hint { position: fixed; top: 58px; left: 50%; transform: translateX(-50%); color: #444; font-size: 11px; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <button class="btn on-warm" id="b1" onclick="setShot('reflected')">Shot 1 — Reflected Light</button>
+  <button class="btn"         id="b2" onclick="setShot('backlit')">Shot 2 — Backlit</button>
+</div>
+<div id="hint">Drag to rotate · Scroll to zoom</div>
+<div id="label">Side LEDs ON · Base LED OFF → color, texture, pattern</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ── Renderer ─────────────────────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+// ── Scene & Camera ────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d0d1a);
+scene.fog = new THREE.FogExp2(0x0d0d1a, 0.028);
+
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 80);
+camera.position.set(9, 9, 12);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 2, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.07;
+controls.minDistance = 5;
+controls.maxDistance = 28;
+controls.maxPolarAngle = Math.PI * 0.8;
+controls.update();
+
+// ── Lights ────────────────────────────────────────────────────────────────────
+// Scale: 1 unit = ~10cm. Lightbox = 40×40cm = 4.2 units.
+const ambient = new THREE.AmbientLight(0x1a1a2e, 3);
+scene.add(ambient);
+const sideL  = new THREE.PointLight(0xffe066, 0, 9);  sideL.position.set(-2.2, 1.0,  0);  scene.add(sideL);
+const sideR  = new THREE.PointLight(0xffe066, 0, 9);  sideR.position.set( 2.2, 1.0,  0);  scene.add(sideR);
+const sideB  = new THREE.PointLight(0xffe066, 0, 9);  sideB.position.set( 0,   1.0, -2.2); scene.add(sideB);
+const baseLt = new THREE.PointLight(0x9de8ff, 0, 12); baseLt.position.set(0, 0.35, 0);    scene.add(baseLt);
+const rim    = new THREE.DirectionalLight(0x334466, 0.5); rim.position.set(-4, 10, 6);    scene.add(rim);
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const std = (color, rough = 0.7, metal = 0) =>
+  new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: metal });
+const box = (w, h, d, mat, x, y, z) => {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+  m.position.set(x, y, z);
+  m.castShadow = true; m.receiveShadow = true;
+  scene.add(m); return m;
+};
+
+// ── Floor ─────────────────────────────────────────────────────────────────────
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), std(0x111118, 0.95));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+// ── Lightbox ──────────────────────────────────────────────────────────────────
+const BW = 4.2, BH = 1.3, BD = 4.2, TK = 0.07;
+const shell = std(0x22222e, 0.7, 0.15);
+const inner = std(0xeeede6, 0.9);
+
+box(BW+TK*2, TK, BD+TK*2,  shell,  0, 0, 0);
+box(TK, BH, BD,            shell, -BW/2-TK/2, BH/2, 0);
+box(TK, BH, BD,            shell,  BW/2+TK/2, BH/2, 0);
+box(BW, BH, TK,            shell,  0, BH/2, -BD/2-TK/2);
+box(BW, BH*0.28, TK,       shell,  0, BH*0.14, BD/2+TK/2);
+box(BW, TK*0.6, BD,        inner,  0, TK, 0);
+box(TK*0.6, BH, BD,        inner, -BW/2+TK, BH/2, 0);
+box(TK*0.6, BH, BD,        inner,  BW/2-TK, BH/2, 0);
+box(BW, BH, TK*0.6,        inner,  0, BH/2, -BD/2+TK);
+
+const ledWarm = new THREE.MeshStandardMaterial({ color: 0xffe488, emissive: 0xffe488, emissiveIntensity: 0 });
+const ledCool = new THREE.MeshStandardMaterial({ color: 0x9de8ff, emissive: 0x9de8ff, emissiveIntensity: 0 });
+box(0.04, BH*0.85, BD*0.85, ledWarm, -BW/2+TK*2, BH/2, 0);
+box(0.04, BH*0.85, BD*0.85, ledWarm,  BW/2-TK*2, BH/2, 0);
+box(BW*0.85, BH*0.85, 0.04, ledWarm,  0, BH/2, -BD/2+TK*2);
+box(BW*0.85, 0.025, BD*0.85, ledCool, 0, TK*1.4, 0);
+
+// ── Swatch: 120cm × 30cm — 1 unit = 10cm → 12 × 3 units ──────────────────────
+// Swatch runs along X axis (120cm = 12 units), 30cm wide (3 units) along Z
+// Hangs ~4 units over each side of the 4.2-unit lightbox
+
+const SWATCH_W = 12.0; // 120cm
+const SWATCH_D = 3.0;  // 30cm
+const SWATCH_T = 0.022;
+
+// Fabric canvas texture
+const fc = document.createElement('canvas'); fc.width = 512; fc.height = 128;
+const fctx = fc.getContext('2d');
+fctx.fillStyle = '#c8a870'; fctx.fillRect(0, 0, 512, 128);
+// warp threads (vertical)
+fctx.strokeStyle = 'rgba(0,0,0,0.10)'; fctx.lineWidth = 1;
+for (let i = 0; i < 512; i += 7) {
+  fctx.beginPath(); fctx.moveTo(i, 0); fctx.lineTo(i, 128); fctx.stroke();
+}
+// weft threads (horizontal)
+for (let i = 0; i < 128; i += 5) {
+  fctx.beginPath(); fctx.moveTo(0, i); fctx.lineTo(512, i); fctx.stroke();
+}
+const ftex = new THREE.CanvasTexture(fc);
+ftex.wrapS = ftex.wrapT = THREE.RepeatWrapping;
+ftex.repeat.set(8, 2);
+
+const swatchMat = new THREE.MeshStandardMaterial({ map: ftex, roughness: 0.92, side: THREE.DoubleSide });
+const swatchMesh = box(SWATCH_W, SWATCH_T, SWATCH_D, swatchMat, 0, TK + SWATCH_T/2, 0);
+
+// Overhang droops — simulate fabric hanging over sides
+// Left overhang (~3.9 units past box edge)
+const overhangMat = new THREE.MeshStandardMaterial({ map: ftex, roughness: 0.92, side: THREE.DoubleSide });
+const makeOverhang = (x, rotZ, pivotX) => {
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0.5, -0.3, 0),
+    new THREE.Vector3(1.2, -1.0, 0),
+    new THREE.Vector3(2.0, -2.2, 0),
+    new THREE.Vector3(2.6, -3.4, 0),
+    new THREE.Vector3(3.0, -4.2, 0),
+  ]);
+  const pts = curve.getPoints(12);
+  // Build a flat strip along the droop curve using BufferGeometry
+  const verts = [];
+  const uvs = [];
+  const indices = [];
+  const halfD = SWATCH_D / 2;
+  pts.forEach((p, i) => {
+    const u = i / (pts.length - 1);
+    verts.push(p.x, p.y, -halfD,  p.x, p.y, halfD);
+    uvs.push(u, 0,  u, 1);
+    if (i < pts.length - 1) {
+      const b = i * 2;
+      indices.push(b, b+1, b+2, b+1, b+3, b+2);
+    }
+  });
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+  geo.setAttribute('uv',       new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  const mesh = new THREE.Mesh(geo, overhangMat);
+  mesh.position.set(x, TK + SWATCH_T/2, 0);
+  mesh.castShadow = true;
+  scene.add(mesh);
+  return mesh;
+};
+
+// Left droop (goes negative X)
+const leftDroop = makeOverhang(-SWATCH_W/2, 0, 0);
+leftDroop.scale.x = -1;
+
+// Right droop
+makeOverhang(SWATCH_W/2, 0, 0);
+
+// ── Capture zone highlight ─────────────────────────────────────────────────────
+// The 25×25cm section being photographed (center of swatch, inside lightbox)
+const captureMat = new THREE.MeshBasicMaterial({
+  color: 0x44ff88, transparent: true, opacity: 0.12, depthWrite: false
+});
+const captureZone = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 2.5), captureMat);
+captureZone.rotation.x = -Math.PI / 2;
+captureZone.position.set(0, TK + SWATCH_T + 0.005, 0);
+captureZone.renderOrder = 3;
+scene.add(captureZone);
+
+// Capture zone border
+const captureEdges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(2.5, 0.01, 2.5)),
+  new THREE.LineBasicMaterial({ color: 0x44ff88, transparent: true, opacity: 0.7 })
+);
+captureEdges.position.set(0, TK + SWATCH_T + 0.01, 0);
+scene.add(captureEdges);
+
+// ── Glass sheet (only over capture zone) ─────────────────────────────────────
+const glassBody = new THREE.Mesh(
+  new THREE.BoxGeometry(2.6, 0.028, 2.6),
+  new THREE.MeshPhysicalMaterial({ color: 0xbbddee, transparent: true, opacity: 0.22, roughness: 0, transmission: 0.85 })
+);
+glassBody.position.set(0, TK + 0.07, 0);
+glassBody.renderOrder = 2;
+scene.add(glassBody);
+box(2.64, 0.032, 2.64, std(0x7ecde0, 0.15, 0.2), 0, TK + 0.068, 0);
+
+// ── ColorChecker card ─────────────────────────────────────────────────────────
+const cc = document.createElement('canvas'); cc.width = 192; cc.height = 128;
+const cctx = cc.getContext('2d');
+cctx.fillStyle = '#fff'; cctx.fillRect(0, 0, 192, 128);
+['#c8302a','#d4622a','#c89832','#5d8c38','#3068a0','#5c3870',
+ '#c85028','#3888a0','#a83858','#68a060','#7878c8','#d0a030',
+ '#f0f0f0','#c0c0c0','#888','#484848','#202020','#080808'].forEach((c, i) => {
+  cctx.fillStyle = c;
+  cctx.fillRect(4 + (i%6)*31, 4 + Math.floor(i/6)*38, 27, 32);
+});
+box(0.72, 0.015, 0.52,
+  new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(cc), roughness: 0.5 }),
+  1.0, TK+0.025, 0.85);
+
+// ── Tripod ────────────────────────────────────────────────────────────────────
+const metalM = std(0x888888, 0.35, 0.85);
+const darkM  = std(0x2a2a2a, 0.6,  0.5);
+
+const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 6.5, 16), metalM);
+pole.position.set(3.5, 3.25, 0); pole.castShadow = true; scene.add(pole);
+
+[0, 2.09, 4.19].forEach(a => {
+  const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 2.0, 8), metalM);
+  leg.position.set(3.5, 0.5, 0);
+  leg.rotation.z = Math.cos(a) * 0.38; leg.rotation.x = Math.sin(a) * 0.38;
+  leg.castShadow = true; scene.add(leg);
+});
+
+const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 4.2, 8), metalM);
+arm.rotation.z = Math.PI / 2; arm.position.set(1.4, 6.4, 0); arm.castShadow = true; scene.add(arm);
+box(0.16, 0.16, 0.16, darkM, 3.5, 6.4, 0);
+
+// ── iPhone ────────────────────────────────────────────────────────────────────
+const pg = new THREE.Group();
+pg.add(new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.88, 0.065), std(0x1c1c1e, 0.15, 0.7)));
+const sc2 = document.createElement('canvas'); sc2.width = 64; sc2.height = 128;
+const sctx = sc2.getContext('2d');
+const grad = sctx.createLinearGradient(0, 0, 0, 128);
+grad.addColorStop(0, '#0a1030'); grad.addColorStop(1, '#1a3a6a');
+sctx.fillStyle = grad; sctx.fillRect(0, 0, 64, 128);
+sctx.fillStyle = '#44cc66'; sctx.fillRect(6, 18, 52, 92);
+sctx.fillStyle = 'rgba(0,0,0,0.4)'; sctx.fillRect(14, 35, 36, 25);
+const screenM = new THREE.Mesh(new THREE.PlaneGeometry(0.37, 0.78),
+  new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(sc2), emissive: 0x0a2018, emissiveIntensity: 0.8 }));
+screenM.position.z = 0.034; pg.add(screenM);
+const camBump = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.17, 0.022), std(0x111111, 0.1, 0.9));
+camBump.position.set(-0.1, 0.3, -0.034); pg.add(camBump);
+[[-0.075, 0.315], [-0.128, 0.27]].forEach(([cx, cy]) => {
+  const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.008, 16),
+    new THREE.MeshStandardMaterial({ color: 0x050510, roughness: 0.05, metalness: 0.95 }));
+  lens.rotation.x = Math.PI / 2; lens.position.set(cx, cy, -0.048); pg.add(lens);
+});
+pg.rotation.x = Math.PI / 2; pg.position.set(-0.3, 6.4, 0); scene.add(pg);
+box(0.52, 0.1, 0.1, darkM, -0.3, 6.4, 0);
+
+// ── Dimension arrows ──────────────────────────────────────────────────────────
+function arrowLine(x1, y1, z1, x2, y2, z2, color = 0xffffff) {
+  const pts = [new THREE.Vector3(x1,y1,z1), new THREE.Vector3(x2,y2,z2)];
+  const line = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.5 })
+  );
+  scene.add(line);
+}
+// 120cm span arrows
+arrowLine(-6, 0.25, -2.4,  6, 0.25, -2.4, 0xffe066);
+arrowLine(-6, 0.25, -2.4, -6, 0.25, -2.0, 0xffe066);
+arrowLine( 6, 0.25, -2.4,  6, 0.25, -2.0, 0xffe066);
+// 30cm span arrows
+arrowLine( 6.8, 0.25, -1.5,  6.8, 0.25, 1.5, 0xffe066);
+arrowLine( 6.8, 0.25, -1.5,  6.4, 0.25, -1.5, 0xffe066);
+arrowLine( 6.8, 0.25,  1.5,  6.4, 0.25,  1.5, 0xffe066);
+// capture zone arrows
+arrowLine(-1.25, 0.25, -1.7,  1.25, 0.25, -1.7, 0x44ff88);
+
+// ── Sprite labels ─────────────────────────────────────────────────────────────
+function spriteLabel(text, x, y, z, fg = '#ffe066', size = 320) {
+  const c = document.createElement('canvas'); c.width = size; c.height = 52;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(10,10,20,0.82)';
+  ctx.beginPath(); ctx.roundRect(0, 0, size, 52, 10); ctx.fill();
+  ctx.fillStyle = fg; ctx.font = 'bold 19px system-ui';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(text, size/2, 26);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true }));
+  sp.scale.set(size/200, 0.3, 1); sp.position.set(x, y, z); scene.add(sp);
+}
+
+spriteLabel('iPhone 16 Pro', -0.3, 7.3, 0);
+spriteLabel('40×40cm LED Lightbox', 0, -0.35, 3.0, '#aaaaaa');
+spriteLabel('120 cm', 0, 0.65, -2.4, '#ffe066');
+spriteLabel('30 cm', 7.5, 0.65, 0, '#ffe066');
+spriteLabel('capture zone 25×25cm', 0, 0.65, -1.7, '#44ff88');
+spriteLabel('Glass sheet (center only)', 0, 0.6, 1.9, '#7ec8e3');
+spriteLabel('ColorChecker', 1.8, 0.6, 1.3, '#f5a623');
+spriteLabel('Fabric drapes over edges — that\'s OK', -5.5, 1.8, 0, '#666666', 520);
+spriteLabel('Fabric drapes over edges — that\'s OK',  5.5, 1.8, 0, '#666666', 520);
+
+// ── Shot toggle ───────────────────────────────────────────────────────────────
+const label = document.getElementById('label');
+let targetSide = 4.0, targetBase = 0;
+
+window.setShot = (shot) => {
+  document.getElementById('b1').className = 'btn' + (shot === 'reflected' ? ' on-warm' : '');
+  document.getElementById('b2').className = 'btn' + (shot === 'backlit'   ? ' on-cool' : '');
+  label.textContent = shot === 'reflected'
+    ? 'Side LEDs ON · Base LED OFF → color, texture, pattern'
+    : 'Side LEDs OFF · Base LED ON → reveals transparency of fabric';
+  targetSide = shot === 'reflected' ? 4.0 : 0;
+  targetBase = shot === 'backlit'   ? 5.5 : 0;
+};
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  const lerp = (a, b) => a + (b - a) * 0.06;
+  sideL.intensity  = lerp(sideL.intensity,  targetSide);
+  sideR.intensity  = lerp(sideR.intensity,  targetSide);
+  sideB.intensity  = lerp(sideB.intensity,  targetSide);
+  baseLt.intensity = lerp(baseLt.intensity, targetBase);
+  ledWarm.emissiveIntensity = (sideL.intensity / 4.0) * 2.8;
+  ledCool.emissiveIntensity = (baseLt.intensity / 5.5) * 2.8;
+  renderer.render(scene, camera);
+})();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

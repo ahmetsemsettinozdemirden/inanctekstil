@@ -9,66 +9,400 @@
     {%- for product in col.products limit: 50 -%}
       {%- unless first_item -%},{%- endunless -%}
       {%- assign first_item = false -%}
-      {"id":{{ product.admin_graphql_api_id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"imageUrl":{{ product.featured_image | image_url: width: 400 | json }},"type":{{ product.type | json }}}
+      {"id":"gid://shopify/Product/{{ product.id }}","handle":{{ product.handle | json }},"title":{{ product.title | json }},"imageUrl":{{ product.featured_image | image_url: width: 400 | json }},"type":{{ product.type | json }},"color":{{ product.metafields.curtain.color | default: '' | json }},"sku":{{ product.variants.first.sku | json }}}
     {%- endfor -%}
   {%- endif -%}
 {%- endfor -%}
 ]
 {%- endcapture -%}
 
+
 <div
   id="odanda-gor-{{ section.id }}"
-  class="odanda-gor-page"
+  class="odg-page"
   data-products="{{ products_json | escape }}"
-  style="font-family: var(--font-body--family, Inter, sans-serif); color: #333333; background: #ffffff;"
 >
 
-  <!-- Hero -->
-  <div style="background: #1B2A4A; color: #ffffff; text-align: center; padding: 64px 24px 56px;">
-    <h1 style="font-family: var(--font-heading--family, 'Playfair Display', serif); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin: 0 0 16px; line-height: 1.2;">
-      Perdenizi Odanızda Görün
-    </h1>
-    <p style="font-size: 1.125rem; margin: 0 auto; max-width: 520px; opacity: 0.85; line-height: 1.6;">
-      Yapay zeka teknolojisiyle perdenizi kendi odanızda görün — satın almadan önce.
-    </p>
+  <!-- ── Hero ── -->
+  <div class="odg-hero">
+    <div class="odg-hero-text">
+      <p class="odg-eyebrow">Yapay Zeka Destekli</p>
+      <h1 class="odg-h1">Perdenizi<br>Odanızda Görün</h1>
+      <p class="odg-sub">Satın almadan önce perdenizin odanıza nasıl yakıştığını görün — ücretsiz ve sadece 30 saniyede.</p>
+      <button id="hemen-dene-{{ section.id }}" type="button" class="odg-cta-btn">
+        Deneyin — Ücretsiz
+      </button>
+      <div class="odg-trust">
+        <span class="odg-trust-item">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ücretsiz
+        </span>
+        <span class="odg-trust-item">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          ~30 saniye
+        </span>
+        <span class="odg-trust-item">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          4 model
+        </span>
+      </div>
+    </div>
+    <div class="odg-hero-visual" aria-hidden="true">
+      {%- assign cmp_col = collections['saten-perdeler'] -%}
+      {%- unless cmp_col and cmp_col.products.size > 0 -%}
+        {%- assign cmp_col = collections['fon-perdeler'] -%}
+      {%- endunless -%}
+      {%- if cmp_col and cmp_col.products.size > 0 -%}
+        {%- assign cmp_img = cmp_col.products.first.featured_image | image_url: width: 800 -%}
+        <div class="odg-compare" id="odg-compare-{{ section.id }}">
+          <div class="odg-cmp-before">
+            <img src="{{ cmp_img }}" alt="Önce" draggable="false" />
+            <span class="odg-cmp-label odg-cmp-label--l">Önce</span>
+          </div>
+          <div class="odg-cmp-after">
+            <img src="{{ cmp_img }}" alt="Sonra" draggable="false" />
+            <span class="odg-cmp-label odg-cmp-label--r">Sonra</span>
+          </div>
+          <div class="odg-cmp-divider" id="odg-divider-{{ section.id }}">
+            <div class="odg-cmp-handle">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M6 9H1M1 9L4 6M1 9L4 12M12 9H17M17 9L14 6M17 9L14 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
   </div>
 
-  <!-- 3-step explainer -->
-  <div style="max-width: 960px; margin: 0 auto; padding: 56px 24px;">
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center;">
-      <div>
-        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">1</div>
-        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Fotoğraf Yükle</h3>
-        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Odanızın fotoğrafını yükleyin</p>
-      </div>
-      <div>
-        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">2</div>
-        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Perde Seç</h3>
-        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Perdenizi seçin</p>
-      </div>
-      <div>
-        <div style="width: 56px; height: 56px; background: #1B2A4A; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 16px;">3</div>
-        <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: #1B2A4A;">Yapay Zeka Eklesin</h3>
-        <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">Yapay zeka perdenizi odanıza eklesin</p>
-      </div>
-    </div>
+  <!-- ── How it works ── -->
+  <div class="odg-steps-section">
+    <p class="odg-section-label">Nasıl Çalışır?</p>
+    <div class="odg-steps">
 
-    <!-- CTA -->
-    <div style="text-align: center; margin-top: 48px;">
-      <button
-        id="hemen-dene-{{ section.id }}"
-        type="button"
-        style="background: #1B2A4A; color: #ffffff; border: none; padding: 18px 48px; font-size: 1.125rem; font-family: inherit; font-weight: 600; cursor: pointer; border-radius: 4px; letter-spacing: 0.03em;"
-      >Hemen Dene</button>
+      <div class="odg-step">
+        <div class="odg-step-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="13" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="2" y="13" width="7" height="7" rx="1.5"/>
+            <rect x="13" y="13" width="7" height="7" rx="1.5"/>
+          </svg>
+        </div>
+        <div class="odg-step-num">01</div>
+        <h3 class="odg-step-title">Perde Seçin</h3>
+        <p class="odg-step-desc">Fon, Blackout, Saten veya Tül modellerimizden birini seçin</p>
+      </div>
+
+      <div class="odg-step-connector" aria-hidden="true"></div>
+
+      <div class="odg-step">
+        <div class="odg-step-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="18" height="14" rx="2"/>
+            <path d="M7 4V3a1 1 0 011-1h6a1 1 0 011 1v1"/>
+            <path d="M11 9v5M8.5 11.5L11 9l2.5 2.5"/>
+          </svg>
+        </div>
+        <div class="odg-step-num">02</div>
+        <h3 class="odg-step-title">Fotoğraf Yükleyin</h3>
+        <p class="odg-step-desc">Odanızın bir fotoğrafını cihazınızdan ekleyin</p>
+      </div>
+
+      <div class="odg-step-connector" aria-hidden="true"></div>
+
+      <div class="odg-step">
+        <div class="odg-step-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 2l2.09 4.26L18 7.27l-3.5 3.41.83 4.82L11 13.1l-4.33 2.4.83-4.82L4 7.27l4.91-.71z"/>
+          </svg>
+        </div>
+        <div class="odg-step-num">03</div>
+        <h3 class="odg-step-title">Sonucu Görün</h3>
+        <p class="odg-step-desc">Yapay zeka saniyeler içinde perdenizi odanıza ekler</p>
+      </div>
+
     </div>
+  </div>
+
+  <!-- ── Bottom CTA ── -->
+  <div class="odg-bottom">
+    <h2 class="odg-bottom-heading">Hemen deneyin, ücretsiz.</h2>
+    <p class="odg-bottom-sub">Kredi kartı gerekmez. Sonucu beğenmezseniz başka bir model deneyin.</p>
+    <button id="hemen-dene-2-{{ section.id }}" type="button" class="odg-cta-btn odg-cta-btn--light">
+      Şimdi Deneyin
+    </button>
   </div>
 
 </div>
 
 <style>
-  @media (max-width: 640px) {
-    #odanda-gor-{{ section.id }} .odanda-gor-steps {
-      grid-template-columns: 1fr !important;
+  .odg-page {
+    font-family: var(--font-body--family, Inter, sans-serif);
+    color: #333;
+    background: #fff;
+  }
+
+  /* ── Hero ── */
+  .odg-hero {
+    background: #1B2A4A;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+    overflow: hidden;
+  }
+  .odg-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 48px 72px 5%;
+    color: #fff;
+    align-self: center;
+  }
+  .odg-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin: 0 0 16px;
+  }
+  .odg-h1 {
+    font-family: var(--font-heading--family, 'Playfair Display', serif);
+    font-size: clamp(2rem, 3.5vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 18px;
+    color: #fff;
+  }
+  .odg-sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.7);
+    margin: 0 0 32px;
+    max-width: 380px;
+  }
+  .odg-cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: #1B2A4A;
+    border: none;
+    padding: 14px 36px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    letter-spacing: 0.01em;
+    transition: opacity 0.15s;
+    align-self: flex-start;
+    margin-bottom: 24px;
+  }
+  .odg-cta-btn:hover { opacity: 0.88; }
+  .odg-trust {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .odg-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+  }
+
+  /* ── Hero visual / comparison slider ── */
+  .odg-hero-visual {
+    position: relative;
+    overflow: hidden;
+  }
+  .odg-compare {
+    position: absolute;
+    inset: 0;
+    cursor: col-resize;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .odg-cmp-before,
+  .odg-cmp-after {
+    position: absolute;
+    inset: 0;
+  }
+  .odg-cmp-before img,
+  .odg-cmp-after img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    pointer-events: none;
+  }
+  .odg-cmp-before {
+    filter: grayscale(100%) brightness(0.62);
+  }
+  .odg-cmp-after {
+    clip-path: inset(0 0 0 50%);
+  }
+  .odg-cmp-divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(255,255,255,0.9);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .odg-cmp-handle {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: #1B2A4A;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    flex-shrink: 0;
+  }
+  .odg-cmp-label {
+    position: absolute;
+    bottom: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: rgba(0,0,0,0.42);
+    padding: 4px 9px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+  .odg-cmp-label--l { left: 14px; }
+  .odg-cmp-label--r { right: 14px; }
+
+  /* ── Steps section ── */
+  .odg-steps-section {
+    background: #faf9f7;
+    padding: 64px 24px 68px;
+  }
+  .odg-section-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin: 0 0 40px;
+  }
+  .odg-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 860px;
+    margin: 0 auto;
+    gap: 0;
+  }
+  .odg-step {
+    flex: 1;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .odg-step-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(27,42,74,0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .odg-step-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #c5bfb8;
+    margin-bottom: 8px;
+  }
+  .odg-step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1B2A4A;
+    margin: 0 0 6px;
+  }
+  .odg-step-desc {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .odg-step-connector {
+    flex-shrink: 0;
+    width: 48px;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, #d4cfc9 0, #d4cfc9 4px, transparent 4px, transparent 8px);
+    margin-top: 26px;
+  }
+
+  /* ── Bottom CTA ── */
+  .odg-bottom {
+    background: #1B2A4A;
+    text-align: center;
+    padding: 64px 24px;
+    color: #fff;
+  }
+  .odg-bottom-heading {
+    font-family: var(--font-heading--family, 'Playfair Display', serif);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .odg-bottom-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin: 0 auto 28px;
+    max-width: 360px;
+    line-height: 1.6;
+  }
+  .odg-cta-btn--light {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    padding: 13px 36px;
+    align-self: center;
+    margin-bottom: 0;
+  }
+  .odg-cta-btn--light:hover {
+    background: rgba(255,255,255,0.08);
+    opacity: 1;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 680px) {
+    .odg-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .odg-hero-text {
+      padding: 52px 24px 36px;
+    }
+    .odg-hero-visual {
+      height: 300px;
+    }
+    .odg-steps {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+    .odg-step { max-width: 280px; }
+    .odg-step-connector {
+      width: 1px;
+      height: 28px;
+      background: repeating-linear-gradient(180deg, #d4cfc9 0, #d4cfc9 4px, transparent 4px, transparent 8px);
+      margin: 0;
     }
   }
 </style>
@@ -76,16 +410,39 @@
 <script src="{{ 'room-visualizer.js' | asset_url }}"></script>
 <script>
   (function () {
-    var btn = document.getElementById('hemen-dene-{{ section.id }}');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        var wrapper = document.getElementById('odanda-gor-{{ section.id }}');
-        var dataProductsJson = wrapper ? wrapper.getAttribute('data-products') : '[]';
-        initRoomVisualizer({
-          apiUrl: 'https://visualizer.inanctekstil.store',
-          dataProductsJson: dataProductsJson
-        });
+    var wrapper = document.getElementById('odanda-gor-{{ section.id }}');
+    var dataProductsJson = wrapper ? wrapper.getAttribute('data-products') : '[]';
+
+    function launch() {
+      initRoomVisualizer({
+        apiUrl: 'https://visualizer.inanctekstil.store/api/visualize',
+        dataProductsJson: dataProductsJson
       });
+    }
+
+    var btn1 = document.getElementById('hemen-dene-{{ section.id }}');
+    var btn2 = document.getElementById('hemen-dene-2-{{ section.id }}');
+    if (btn1) btn1.addEventListener('click', launch);
+    if (btn2) btn2.addEventListener('click', launch);
+
+    // Before/after comparison slider
+    var cmp = document.getElementById('odg-compare-{{ section.id }}');
+    var divider = document.getElementById('odg-divider-{{ section.id }}');
+    var after = cmp ? cmp.querySelector('.odg-cmp-after') : null;
+    if (cmp && divider && after) {
+      var dragging = false;
+      function moveTo(clientX) {
+        var rect = cmp.getBoundingClientRect();
+        var pct = Math.max(5, Math.min(95, (clientX - rect.left) / rect.width * 100));
+        after.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+        divider.style.left = pct + '%';
+      }
+      cmp.addEventListener('mousedown', function(e) { dragging = true; moveTo(e.clientX); });
+      document.addEventListener('mousemove', function(e) { if (dragging) moveTo(e.clientX); });
+      document.addEventListener('mouseup', function() { dragging = false; });
+      cmp.addEventListener('touchstart', function(e) { dragging = true; moveTo(e.touches[0].clientX); }, { passive: true });
+      document.addEventListener('touchmove', function(e) { if (dragging) moveTo(e.touches[0].clientX); }, { passive: true });
+      document.addEventListener('touchend', function() { dragging = false; });
     }
   })();
 </script>

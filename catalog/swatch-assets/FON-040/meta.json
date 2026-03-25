@@ -1,0 +1,26 @@
+{
+  "sku": "FON-040",
+  "design": "SULTAN 22260",
+  "colour_code": "609",
+  "appearance": "KOYU",
+  "width_cm": 310,
+  "price": "860",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/sultan-22260/texture-512.jpg",
+  "design_texture_full": "designs/sultan-22260/texture-full.jpg",
+  "raw_colors": [
+    "#524e47",
+    "#84807a",
+    "#c7c3bd"
+  ],
+  "thread_colors": [
+    "#9b8f7c",
+    "#736855"
+  ],
+  "thread_count": 2,
+  "source_heic": "FON/SULTAN 22260/2.HEIC"
+}

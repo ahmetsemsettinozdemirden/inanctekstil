@@ -2,7 +2,7 @@
 
 **Duration target:** 25–28 seconds
 **Format:** Instagram Reels, 9:16
-**Avatar persona:** Same as Video 1 — same woman, same voice, now telling friends about a specific feature she discovered
+**Avatar persona:** Same as Video 1 — same woman, same voice, presenting the Odanda Gör feature honestly without fake personal experience claims
 
 > ⚠️ **BLOCKER:** Do not record audio for this video until Odanda Gör is confirmed live and polished on iPhone. The script may need to be revised after you see the actual AR flow.
 
@@ -10,7 +10,9 @@
 
 ## Full Script (paste into ElevenLabs as one block)
 
-> Perde seçerken en büyük sorun — "evimde nasıl durur acaba?" Tam benim sorunum buydu. İnanç Tekstil'in sitesinde bir özellik var — odasının fotoğrafını yükle, perdeyi seç, hemen görürsün. Blackout denedim, fon denedim — karar vermeden önce kendi odamda gördüm. inanctekstil.store — gidin, deneyin.
+> Perde seçiyosun ama "evimde nasıl durur?" diye kafan çalışıyo ya — İnanç Tekstil'in sitesinde odanın fotoğrafını yüklüyosun, perdeyi seçiyosun, kendi odanda görüyosun. Almadan önce. inanç tekstil nokta store — gir, bir dene.
+
+**Note — URL in TTS:** Write `inanç tekstil nokta store` in ElevenLabs. Fix the displayed caption in CapCut to show `inanctekstil.store`.
 
 ---
 
@@ -18,10 +20,10 @@
 
 | # | Time | Line | Context video behind avatar |
 |---|------|------|-----------------------------|
-| 1 | 0–5s | "Perde seçerken en büyük sorun — 'evimde nasıl durur acaba?' Tam benim sorunum buydu." | Screen recording: Odanda Gör feature opening on iPhone |
-| 2 | 5–15s | "İnanç Tekstil'in sitesinde bir özellik var — odasının fotoğrafını yükle, perdeyi seç, hemen görürsün." | Screen recording: upload room photo → select fon perde → AR result appearing |
-| 3 | 15–22s | "Blackout denedim, fon denedim — karar vermeden önce kendi odamda gördüm." | Cut: AR screenshot (same room + blackout, 3.5s) → cut: AR screenshot (same room + fon, 3.5s) |
-| 4 | 22–28s | "inanctekstil.store — gidin, deneyin." | Website on screen with Odanda Gör entry point visible |
+| 1 | 0–5s | "Perde seçiyosun ama 'evimde nasıl durur?' diye kafan çalışıyo ya —" | Screen recording: Odanda Gör feature opening on iPhone |
+| 2 | 5–15s | "İnanç Tekstil'in sitesinde odanın fotoğrafını yüklüyosun, perdeyi seçiyosun, kendi odanda görüyosun." | Screen recording: upload room photo → select perde → AR result appearing |
+| 3 | 15–20s | "Almadan önce." | Cut: AR screenshot (blackout, 3s) → cut: AR screenshot (fon, 2s) |
+| 4 | 20–25s | "inanç tekstil nokta store — gir, bir dene." | Website on screen with Odanda Gör entry point visible |
 
 ---
 
@@ -33,8 +35,8 @@ All other settings identical to Video 1:
 
 | Setting | Value |
 |---------|-------|
-| Model | Eleven Multilingual v2 |
-| Stability | Same value used for Video 1 |
+| Model | **Eleven v3** (`eleven_v3`) |
+| Stability | Natural (same preset used for Video 1) |
 | Similarity Boost | 0.75 |
 | Style | 0 |
 | Speaker Boost | Enabled |

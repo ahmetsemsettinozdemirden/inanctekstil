@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Studio Setup — Lighting Detail</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0d0d1a; font-family:system-ui,sans-serif; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; }
+  #ui {
+    position:fixed; top:16px; left:50%; transform:translateX(-50%);
+    display:flex; gap:8px; z-index:10; align-items:center;
+  }
+  .btn {
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+    color:#ccc; padding:6px 14px; border-radius:6px; cursor:pointer; font-size:12px;
+    font-family:system-ui; transition:all 0.15s;
+  }
+  .btn.on  { background:rgba(255,224,102,0.2); border-color:#ffe066; color:#ffe066; }
+  .btn.on2 { background:rgba(126,200,227,0.2); border-color:#7ec8e3; color:#7ec8e3; }
+  .sep { color:#333; font-size:18px; }
+  #info {
+    position:fixed; bottom:0; left:0; right:0;
+    background:rgba(10,10,20,0.92); border-top:1px solid rgba(255,255,255,0.08);
+    padding:14px 24px; display:flex; gap:32px; justify-content:center; flex-wrap:wrap;
+  }
+  .tip { font-size:12px; color:#777; max-width:220px; }
+  .tip strong { color:#bbb; display:block; margin-bottom:3px; }
+  .tip.warn strong { color:#ffe066; }
+  .tip.good strong { color:#44cc88; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <span style="color:#555;font-size:12px;">Şerit LED:</span>
+  <button class="btn on" id="bSide" onclick="toggleSide()">AÇIK</button>
+  <span class="sep">|</span>
+  <span style="color:#555;font-size:12px;">Işık Tablası:</span>
+  <button class="btn" id="bPad" onclick="togglePad()">KAPALI</button>
+  <span class="sep">|</span>
+  <button class="btn" id="bExplode" onclick="toggleExplode()" style="border-color:#555;">Parçala</button>
+</div>
+
+<div id="info">
+  <div class="tip warn">
+    <strong>⚡ Şerit LED bağlantısı</strong>
+    Sol, sağ, arka 3 şerit paralel bağlı → tek 12V adaptör. Bir anahtar ile hepsi birden açılıp kapanır.
+  </div>
+  <div class="tip good">
+    <strong>📐 Şerit yerleşimi</strong>
+    Duvarın üst kenarına yapıştır, ışık DUVARA vursun — direkt kumaşa değil. Böylece yayılı ışık olur, nokta olmaz.
+  </div>
+  <div class="tip">
+    <strong>💡 Işık tablası (backlit)</strong>
+    Kutunun tabanı YOK — kutu sadece 4 duvar. Shot 1'de beyaz karton üstüne koy, Shot 2'de ışık tablasının üstüne koy.
+  </div>
+  <div class="tip warn">
+    <strong>🎛 Dimmer kullanma</strong>
+    Her seferinde aynı parlaklık şart — dimmer'da kazara değiştirirsen renk kayar. Sadece ON/OFF kullan.
+  </div>
+  <div class="tip good">
+    <strong>🪟 Oda ışığı</strong>
+    Çekim sırasında tüm dış ışığı kapat. Perde çek, yoksa gece çek. Ambient ışık renk dengesini bozar.
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d0d1a);
+scene.fog = new THREE.FogExp2(0x0d0d1a, 0.025);
+
+const camera = new THREE.PerspectiveCamera(44, window.innerWidth/window.innerHeight, 0.1, 80);
+camera.position.set(7, 7, 9);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.5, 0);
+controls.enableDamping = true; controls.dampingFactor = 0.07;
+controls.minDistance = 3; controls.maxDistance = 22;
+controls.maxPolarAngle = Math.PI * 0.82;
+controls.update();
+
+// Lights
+const ambient = new THREE.AmbientLight(0x1a1a2e, 2.5);
+scene.add(ambient);
+const sideL = new THREE.PointLight(0xffe488, 3.5, 8); sideL.position.set(-2.0,1.1,0); scene.add(sideL);
+const sideR = new THREE.PointLight(0xffe488, 3.5, 8); sideR.position.set( 2.0,1.1,0); scene.add(sideR);
+const sideB = new THREE.PointLight(0xffe488, 3.5, 8); sideB.position.set(0,1.1,-2.0); scene.add(sideB);
+const padLt = new THREE.PointLight(0x9de8ff, 0,  10); padLt.position.set(0,0.05,0);  scene.add(padLt);
+const rim   = new THREE.DirectionalLight(0x334466, 0.4); rim.position.set(-4,8,5);   scene.add(rim);
+
+// Helpers
+const std = (c,r=0.7,m=0) => new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m});
+function addBox(w,h,d,mat,x,y,z) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+  mesh.position.set(x,y,z); mesh.castShadow=true; mesh.receiveShadow=true;
+  scene.add(mesh); return mesh;
+}
+
+// Floor
+const floorM = new THREE.Mesh(new THREE.PlaneGeometry(40,40), std(0x111118,0.95));
+floorM.rotation.x=-Math.PI/2; floorM.receiveShadow=true; scene.add(floorM);
+
+// ── BOX — no bottom ────────────────────────────────────────────────────────
+const BW=4.2, BH=1.4, BD=4.2, TK=0.07;
+const shellMat = std(0x22222e,0.7,0.15);
+const innerMat = std(0xeeeee6,0.92);
+const ledWarm  = new THREE.MeshStandardMaterial({color:0xffe488, emissive:0xffe488, emissiveIntensity:2.5});
+const ledCool  = new THREE.MeshStandardMaterial({color:0x9de8ff, emissive:0x9de8ff, emissiveIntensity:0});
+
+// walls — stored for explode animation
+const parts = {};
+
+// Left wall (outer + inner face)
+parts.wallL = addBox(TK, BH, BD, shellMat, -BW/2-TK/2, BH/2, 0);
+addBox(TK*0.5, BH*0.9, BD*0.9, innerMat, -BW/2+TK*0.6, BH/2, 0);
+
+// Right wall
+parts.wallR = addBox(TK, BH, BD, shellMat,  BW/2+TK/2, BH/2, 0);
+addBox(TK*0.5, BH*0.9, BD*0.9, innerMat,  BW/2-TK*0.6, BH/2, 0);
+
+// Back wall
+parts.wallBk = addBox(BW, BH, TK, shellMat, 0, BH/2, -BD/2-TK/2);
+addBox(BW*0.95, BH*0.9, TK*0.5, innerMat, 0, BH/2, -BD/2+TK*0.6);
+
+// Front lip
+parts.wallFr = addBox(BW, BH*0.22, TK, shellMat, 0, BH*0.11, BD/2+TK/2);
+
+// Top rim (no top panel — open top)
+addBox(BW+TK*2, TK, TK, shellMat, 0, BH+TK/2, -BD/2);
+addBox(BW+TK*2, TK, TK, shellMat, 0, BH+TK/2,  BD/2);
+addBox(TK, TK, BD+TK*2, shellMat, -BW/2-TK/2, BH+TK/2, 0);
+addBox(TK, TK, BD+TK*2, shellMat,  BW/2+TK/2, BH+TK/2, 0);
+
+// LED strips — on inner top edge of each wall
+// Left strip
+const ledL = addBox(0.035, BH*0.88, BD*0.88, ledWarm, -BW/2+TK*1.8, BH/2, 0);
+// Right strip
+const ledR = addBox(0.035, BH*0.88, BD*0.88, ledWarm,  BW/2-TK*1.8, BH/2, 0);
+// Back strip
+const ledBk = addBox(BW*0.88, BH*0.88, 0.035, ledWarm, 0, BH/2, -BD/2+TK*1.8);
+
+// LED light direction arrows (visible rays)
+const arrowMat = new THREE.LineBasicMaterial({color:0xffe488, transparent:true, opacity:0.25});
+function lightRay(x1,y1,z1, x2,y2,z2) {
+  const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,z1), new THREE.Vector3(x2,y2,z2)]);
+  scene.add(new THREE.Line(g, arrowMat));
+}
+// Rays from left strip → bounce off left inner wall → spread into box
+for(let z=-1.2; z<=1.2; z+=0.4) {
+  for(let y=0.3; y<=1.1; y+=0.2) {
+    lightRay(-BW/2+TK*2, y, z,  -BW/2+TK*2+0.5, y-0.05, z);
+    lightRay(-BW/2+TK*2+0.5, y-0.05, z,  0.5, y*0.8, z*0.8);
+  }
+}
+// Rays from right strip
+for(let z=-1.2; z<=1.2; z+=0.4) {
+  for(let y=0.3; y<=1.1; y+=0.2) {
+    lightRay(BW/2-TK*2, y, z,  BW/2-TK*2-0.5, y-0.05, z);
+    lightRay(BW/2-TK*2-0.5, y-0.05, z,  -0.5, y*0.8, z*0.8);
+  }
+}
+
+// ── Light pad (A3, under box) ──────────────────────────────────────────────
+const padCanvas = document.createElement('canvas'); padCanvas.width=256; padCanvas.height=192;
+const pctx = padCanvas.getContext('2d');
+const pgrad = pctx.createLinearGradient(0,0,256,192);
+pgrad.addColorStop(0,'#9de8ff'); pgrad.addColorStop(0.5,'#c8f0ff'); pgrad.addColorStop(1,'#9de8ff');
+pctx.fillStyle=pgrad; pctx.fillRect(0,0,256,192);
+pctx.fillStyle='rgba(0,0,0,0.12)'; pctx.fillRect(0,0,256,192);
+pctx.strokeStyle='rgba(0,0,0,0.15)'; pctx.lineWidth=2;
+pctx.roundRect(8,8,240,176,6); pctx.stroke();
+
+const padMat = new THREE.MeshStandardMaterial({
+  map: new THREE.CanvasTexture(padCanvas),
+  emissive: 0x4488aa, emissiveIntensity: 0,
+  roughness: 0.1
+});
+const padMesh = addBox(4.0, 0.06, 3.0, padMat, 0, -0.03, 0);
+
+// Pad cool rays
+const padRayMat = new THREE.LineBasicMaterial({color:0x9de8ff, transparent:true, opacity:0});
+const padRays = [];
+for(let x=-1.5; x<=1.5; x+=0.5) {
+  for(let z=-1.0; z<=1.0; z+=0.5) {
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(x,0.03,z), new THREE.Vector3(x*0.7, 1.3, z*0.7)
+    ]);
+    const line = new THREE.Line(g, padRayMat.clone());
+    scene.add(line); padRays.push(line);
+  }
+}
+
+// ── Swatch fabric (120×30cm) ────────────────────────────────────────────────
+const fc = document.createElement('canvas'); fc.width=512; fc.height=128;
+const fctx = fc.getContext('2d');
+fctx.fillStyle='#c8a870'; fctx.fillRect(0,0,512,128);
+fctx.strokeStyle='rgba(0,0,0,0.09)'; fctx.lineWidth=1;
+for(let i=0;i<512;i+=8){fctx.beginPath();fctx.moveTo(i,0);fctx.lineTo(i,128);fctx.stroke();}
+for(let i=0;i<128;i+=6){fctx.beginPath();fctx.moveTo(0,i);fctx.lineTo(512,i);fctx.stroke();}
+const ftex = new THREE.CanvasTexture(fc);
+ftex.wrapS=ftex.wrapT=THREE.RepeatWrapping; ftex.repeat.set(8,2);
+const swatchMat = new THREE.MeshStandardMaterial({map:ftex, roughness:0.92, side:THREE.DoubleSide});
+addBox(12.0, 0.018, 3.0, swatchMat, 0, 0.028, 0);
+
+// Capture zone
+const czMat = new THREE.MeshBasicMaterial({color:0x44ff88, transparent:true, opacity:0.1, depthWrite:false});
+const cz = new THREE.Mesh(new THREE.PlaneGeometry(2.5,2.5), czMat);
+cz.rotation.x=-Math.PI/2; cz.position.set(0,0.05,0); cz.renderOrder=3; scene.add(cz);
+const czEdge = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(2.5,0.01,2.5)),
+  new THREE.LineBasicMaterial({color:0x44ff88, transparent:true, opacity:0.6})
+);
+czEdge.position.set(0,0.055,0); scene.add(czEdge);
+
+// Glass
+const glassMesh = addBox(2.6, 0.025, 2.6,
+  new THREE.MeshPhysicalMaterial({color:0xbbddee,transparent:true,opacity:0.2,roughness:0,transmission:0.9}),
+  0, 0.07, 0);
+glassMesh.renderOrder=2;
+addBox(2.63, 0.028, 2.63, std(0x7ecde0,0.15,0.2), 0, 0.068, 0);
+
+// ColorChecker
+const cc=document.createElement('canvas'); cc.width=192; cc.height=128;
+const cctx=cc.getContext('2d'); cctx.fillStyle='#fff'; cctx.fillRect(0,0,192,128);
+['#c8302a','#d4622a','#c89832','#5d8c38','#3068a0','#5c3870',
+ '#c85028','#3888a0','#a83858','#68a060','#7878c8','#d0a030',
+ '#f0f0f0','#c0c0c0','#888','#484848','#202020','#080808'].forEach((c,i)=>{
+  cctx.fillStyle=c; cctx.fillRect(4+(i%6)*31, 4+Math.floor(i/6)*38, 27,32);
+});
+addBox(0.72,0.012,0.52, new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(cc),roughness:0.5}), 1.0, 0.04, 0.85);
+
+// ── Tripod ─────────────────────────────────────────────────────────────────
+const metalM=std(0x888888,0.35,0.85), darkM=std(0x2a2a2a,0.6,0.5);
+const pole=new THREE.Mesh(new THREE.CylinderGeometry(0.036,0.036,6.5,16),metalM);
+pole.position.set(3.4,3.25,0); pole.castShadow=true; scene.add(pole);
+[0,2.09,4.19].forEach(a=>{
+  const leg=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.02,1.9,8),metalM);
+  leg.position.set(3.4,0.5,0); leg.rotation.z=Math.cos(a)*0.38; leg.rotation.x=Math.sin(a)*0.38;
+  leg.castShadow=true; scene.add(leg);
+});
+const armMesh=new THREE.Mesh(new THREE.CylinderGeometry(0.026,0.026,4.0,8),metalM);
+armMesh.rotation.z=Math.PI/2; armMesh.position.set(1.4,6.2,0); armMesh.castShadow=true; scene.add(armMesh);
+addBox(0.14,0.14,0.14,darkM, 3.4,6.2,0);
+
+// iPhone
+const pg=new THREE.Group();
+pg.add(new THREE.Mesh(new THREE.BoxGeometry(0.44,0.88,0.065),std(0x1c1c1e,0.15,0.7)));
+const sc2=document.createElement('canvas'); sc2.width=64; sc2.height=128;
+const sctx=sc2.getContext('2d');
+const sg=sctx.createLinearGradient(0,0,0,128); sg.addColorStop(0,'#0a1030'); sg.addColorStop(1,'#1a3a6a');
+sctx.fillStyle=sg; sctx.fillRect(0,0,64,128);
+sctx.fillStyle='#44cc66'; sctx.fillRect(6,18,52,92);
+sctx.fillStyle='rgba(0,0,0,0.35)'; sctx.fillRect(14,35,36,25);
+const sm=new THREE.Mesh(new THREE.PlaneGeometry(0.37,0.78),
+  new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(sc2),emissive:0x0a2018,emissiveIntensity:0.8}));
+sm.position.z=0.034; pg.add(sm);
+const cb=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.17,0.022),std(0x111111,0.1,0.9));
+cb.position.set(-0.1,0.3,-0.034); pg.add(cb);
+[[-0.075,0.315],[-0.128,0.27]].forEach(([cx,cy])=>{
+  const ln=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.025,0.008,16),
+    new THREE.MeshStandardMaterial({color:0x050510,roughness:0.05,metalness:0.95}));
+  ln.rotation.x=Math.PI/2; ln.position.set(cx,cy,-0.048); pg.add(ln);
+});
+pg.rotation.x=Math.PI/2; pg.position.set(-0.3,6.2,0); scene.add(pg);
+addBox(0.5,0.09,0.09,darkM,-0.3,6.2,0);
+
+// Cable from strips to adapter
+function cable(pts, color=0x333344) {
+  const curve = new THREE.CatmullRomCurve3(pts.map(([x,y,z])=>new THREE.Vector3(x,y,z)));
+  const g = new THREE.TubeGeometry(curve, 20, 0.018, 6, false);
+  const m = new THREE.Mesh(g, std(color,0.8));
+  scene.add(m);
+}
+// Left strip cable → corner → adapter on back-left outside
+cable([[-BW/2+TK*2, 0.2, -BD/2+0.3], [-BW/2-0.1, 0.3, -BD/2+0.3], [-BW/2-0.15, 0.1, -BD/2-0.2]]);
+cable([[BW/2-TK*2, 0.2, -BD/2+0.3], [BW/2+0.1, 0.3, -BD/2+0.3], [BW/2+0.15, 0.1, -BD/2-0.2]]);
+cable([[0, 0.2, -BD/2+TK*2], [0, 0.5, -BD/2-0.05], [0.5, 0.1, -BD/2-0.3]]);
+
+// Power adapter
+addBox(0.4, 0.15, 0.25, std(0x111111,0.8), 0.5, 0.075, -BD/2-0.5);
+// Label
+function spriteLabel(text, x,y,z, fg='#ffe066', w=320) {
+  const c=document.createElement('canvas'); c.width=w; c.height=50;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='rgba(10,10,20,0.85)';
+  ctx.beginPath(); ctx.roundRect(0,0,w,50,8); ctx.fill();
+  ctx.fillStyle=fg; ctx.font='bold 18px system-ui';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(text, w/2, 25);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true}));
+  sp.scale.set(w/200,0.28,1); sp.position.set(x,y,z); scene.add(sp);
+}
+spriteLabel('iPhone 16 Pro', -0.3, 7.1, 0);
+spriteLabel('Şerit LED (3×)', 2.8, 2.2, -1.8, '#ffe066', 240);
+spriteLabel('Tek 12V adaptör', 0.5, 0.6, -BD/2-0.5, '#888888', 280);
+spriteLabel('Capture zone 25×25cm', 0, 0.45, -1.9, '#44ff88', 360);
+spriteLabel('Işık tablası A3 (backlit)', 3.2, 0.45, 0, '#7ec8e3', 380);
+spriteLabel('Taban YOK — kutu sadece 4 duvar', 0, -0.28, 0, '#555555', 480);
+
+// ── State ──────────────────────────────────────────────────────────────────
+let sideOn=true, padOn=false, exploded=false;
+let tSide=3.5, tPad=0, explodeT=0;
+
+window.toggleSide=()=>{
+  sideOn=!sideOn;
+  document.getElementById('bSide').className='btn'+(sideOn?' on':'');
+  document.getElementById('bSide').textContent=sideOn?'AÇIK':'KAPALI';
+  tSide=sideOn?3.5:0;
+};
+window.togglePad=()=>{
+  padOn=!padOn;
+  document.getElementById('bPad').className='btn'+(padOn?' on2':'');
+  document.getElementById('bPad').textContent=padOn?'AÇIK':'KAPALI';
+  tPad=padOn?4.5:0;
+};
+window.toggleExplode=()=>{
+  exploded=!exploded;
+  document.getElementById('bExplode').className='btn'+(exploded?' on':'');
+  document.getElementById('bExplode').textContent=exploded?'Birleştir':'Parçala';
+};
+
+const wallTargets={
+  wallL:  { closed:new THREE.Vector3(-BW/2-TK/2, BH/2, 0),  open:new THREE.Vector3(-BW/2-2.5, BH/2, 0) },
+  wallR:  { closed:new THREE.Vector3( BW/2+TK/2, BH/2, 0),  open:new THREE.Vector3( BW/2+2.5, BH/2, 0) },
+  wallBk: { closed:new THREE.Vector3(0, BH/2, -BD/2-TK/2),  open:new THREE.Vector3(0, BH/2, -BD/2-2.5) },
+  wallFr: { closed:new THREE.Vector3(0, BH*0.11, BD/2+TK/2),open:new THREE.Vector3(0, BH*0.11, BD/2+2.5) },
+};
+
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+(function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+
+  // Lerp lights
+  sideL.intensity=lerp(sideL.intensity,tSide,0.07);
+  sideR.intensity=lerp(sideR.intensity,tSide,0.07);
+  sideB.intensity=lerp(sideB.intensity,tSide,0.07);
+  padLt.intensity=lerp(padLt.intensity,tPad,0.07);
+
+  ledWarm.emissiveIntensity=lerp(ledWarm.emissiveIntensity, sideOn?2.8:0, 0.07);
+  ledCool.emissiveIntensity=lerp(ledCool.emissiveIntensity, padOn?2.8:0, 0.07);
+  padMat.emissiveIntensity=lerp(padMat.emissiveIntensity, padOn?1.2:0, 0.07);
+
+  // Arrow opacity
+  arrowMat.opacity=lerp(arrowMat.opacity, sideOn?0.22:0, 0.07);
+  padRays.forEach(r=>{ r.material.opacity=lerp(r.material.opacity, padOn?0.3:0, 0.07); });
+
+  // Explode animation
+  const eTarget=exploded?1:0;
+  explodeT=lerp(explodeT,eTarget,0.06);
+  for(const [key,t] of Object.entries(wallTargets)){
+    if(parts[key]){
+      parts[key].position.lerpVectors(t.closed, t.open, explodeT);
+    }
+  }
+
+  renderer.render(scene, camera);
+})();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+</script>
+</body>
+</html>

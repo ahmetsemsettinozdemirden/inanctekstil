@@ -1,5 +1,9 @@
-import { beforeEach, describe, expect, it, mock } from "bun:test";
-import { getProductData } from "../src/lib/shopify.ts";
+import { describe, expect, it, mock } from "bun:test";
+
+// Restore any module mocks from other test files before importing the real implementation
+mock.restore();
+
+const { getProductData } = await import("../src/lib/shopify.ts");
 
 const mockProduct = {
 	title: "HAVUZ Blackout Perde",
@@ -8,10 +12,6 @@ const mockProduct = {
 	curtainType: { value: "BLACKOUT" },
 	curtainColor: { value: "beyaz" },
 };
-
-beforeEach(() => {
-	mock.restore();
-});
 
 describe("getProductData", () => {
 	it("returns product data when product is found and PMS returns swatch", async () => {
@@ -25,7 +25,6 @@ describe("getProductData", () => {
 					},
 				);
 			}
-			// PMS swatch URL
 			return new Response(
 				JSON.stringify({
 					imageUrl: "https://pms.inanctekstil.store/swatch.jpg",
@@ -57,7 +56,6 @@ describe("getProductData", () => {
 					},
 				);
 			}
-			// PMS fails
 			return new Response("not found", { status: 404 });
 		}) as unknown as typeof fetch;
 
@@ -76,5 +74,57 @@ describe("getProductData", () => {
 
 		const result = await getProductData("gid://shopify/Product/999");
 		expect(result).toBeNull();
+	});
+
+	it("returns null when Shopify returns HTTP 500", async () => {
+		global.fetch = mock(async (_url: string) => {
+			return new Response("Internal Server Error", { status: 500 });
+		}) as unknown as typeof fetch;
+
+		const result = await getProductData("gid://shopify/Product/123");
+		expect(result).toBeNull();
+	});
+
+	it("returns null when Shopify returns GraphQL errors", async () => {
+		global.fetch = mock(async (_url: string) => {
+			return new Response(
+				JSON.stringify({ errors: [{ message: "Access denied" }] }),
+				{ status: 200, headers: { "Content-Type": "application/json" } },
+			);
+		}) as unknown as typeof fetch;
+
+		const result = await getProductData("gid://shopify/Product/123");
+		expect(result).toBeNull();
+	});
+
+	it("returns null when fetch throws (network error)", async () => {
+		global.fetch = mock(async (_url: string) => {
+			throw new Error("network error");
+		}) as unknown as typeof fetch;
+
+		const result = await getProductData("gid://shopify/Product/123");
+		expect(result).toBeNull();
+	});
+
+	it("uses Shopify image when product has no SKU", async () => {
+		const productNoSku = {
+			...mockProduct,
+			variants: { nodes: [{ sku: "" }] },
+		};
+
+		global.fetch = mock(async (url: string) => {
+			if (String(url).includes("/admin/api")) {
+				return new Response(
+					JSON.stringify({ data: { product: productNoSku } }),
+					{ status: 200, headers: { "Content-Type": "application/json" } },
+				);
+			}
+			return new Response("not found", { status: 404 });
+		}) as unknown as typeof fetch;
+
+		const result = await getProductData("gid://shopify/Product/123");
+		expect(result).not.toBeNull();
+		expect(result?.imageUrl).toBe("https://cdn.shopify.com/havuz.jpg");
+		expect(result?.sku).toBe("");
 	});
 });

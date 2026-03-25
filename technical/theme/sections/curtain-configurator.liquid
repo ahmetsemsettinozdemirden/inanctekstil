@@ -449,6 +449,54 @@
       display: block;
     }
 
+    /* ── Variant picker ──────────────────────────────────────── */
+    .perde-variant-picker {
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border: 1px solid #1B2A4A;
+      border-radius: 8px;
+    }
+
+    .perde-variant-picker__label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1B2A4A;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 10px 0;
+    }
+
+    .perde-variant-picker__options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .perde-variant-btn {
+      border: 2px solid #E5E5E5;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #333;
+      background: #F8F8F8;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+
+    .perde-variant-btn:hover {
+      border-color: #1B2A4A;
+      background: #F0F3F9;
+    }
+
+    .perde-variant-btn.is-selected {
+      border-color: #1B2A4A;
+      background: #1B2A4A;
+      color: #FFFFFF;
+    }
+
     /* ── Step 4: curtain preview ─────────────────────────────── */
     .perde-preview {
       background: #EAF0F6;
@@ -488,6 +536,24 @@
     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
     data-api-url="{{ section.settings.draft_order_api_url | escape }}">
     <div class="perde-conf">
+
+      {%- unless product.has_only_default_variant -%}
+      <div class="perde-variant-picker" id="perde-variant-picker">
+        <p class="perde-variant-picker__label">
+          {%- for option in product.options -%}{{ option }}{%- unless forloop.last %} / {% endunless %}{%- endfor -%}
+        </p>
+        <div class="perde-variant-picker__options">
+          {%- for variant in product.variants -%}
+            <button
+              class="perde-variant-btn{% if forloop.first %} is-selected{% endif %}"
+              data-variant-id="{{ variant.id }}"
+              data-variant-price="{{ variant.price | divided_by: 100.0 }}"
+              type="button"
+            >{{ variant.title }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endunless -%}
 
       <!-- ── Step 1: Ölçü ── -->
       <div id="perde-acc-1" class="perde-acc__item is-active">
@@ -759,6 +825,27 @@
       var API_URL    = confEl.dataset.apiUrl || '';
 
       log('init', { basePrice: BASE_PRICE, variantId: VARIANT_ID, maxBoy: MAX_BOY });
+
+      /* ── Variant picker ──────────────────────────────────────── */
+      document.querySelectorAll('.perde-variant-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.perde-variant-btn').forEach(function(b) {
+            b.classList.remove('is-selected');
+          });
+          btn.classList.add('is-selected');
+          VARIANT_ID = parseInt(btn.dataset.variantId, 10);
+          BASE_PRICE = parseFloat(btn.dataset.variantPrice) || 0;
+          log('variant:select', { variantId: VARIANT_ID, basePrice: BASE_PRICE });
+          // Trigger native variant-picker to update images, price, etc.
+          var nativeInput = document.querySelector(
+            'variant-picker input[data-variant-id="' + btn.dataset.variantId + '"]'
+          );
+          if (nativeInput) {
+            nativeInput.checked = true;
+            nativeInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        });
+      });
 
       /* ── Accordion state: 'locked' | 'active' | 'done' ──────── */
       var stepState = { 1: 'active', 2: 'locked', 3: 'locked', 4: 'locked' };

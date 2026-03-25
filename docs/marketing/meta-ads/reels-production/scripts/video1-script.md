@@ -2,13 +2,15 @@
 
 **Duration target:** 25–28 seconds
 **Format:** Instagram Reels, 9:16
-**Avatar persona:** Turkish woman, 30–35, loyal 10-year customer — speaks like she's texting a friend, not presenting a brand
+**Avatar persona:** Turkish woman, 30–35, presenter — introduces the brand and product honestly, no fake personal experience claims
 
 ---
 
 ## Full Script (paste into ElevenLabs as one block)
 
-> 30 yıldır İskenderun'da perde diken aile işletmesi — ben de 10 yıldır onlardan alıyorum. Artık online da sipariş verebiliyorsunuz. inanctekstil.store — ölçünüzü girin, kumaşı seçin, size özel diksinler. Fon ve blackout seçenekleri var, her ölçüye özel dikiyorlar — hazır kalıp yok. Bir bakın derim, pişman olmazsınız.
+> Hazır perde alıyosun, ölçü tutmuyor. İnanç Tekstil — İskenderun'da 30 yıldır perde diken bir aile işletmesi. Siteden sipariş veriliyo, ölçünü giriyosun kumaşını seçiyosun, sana özel dikiyorlar. Hazır kalıp yok ya, her ölçüye göre dikiyorlar. inanç tekstil nokta store.
+
+**Note — URL in TTS:** Write `inanç tekstil nokta store` in ElevenLabs. Fix the displayed caption in CapCut to show `inanctekstil.store`.
 
 ---
 
@@ -16,10 +18,10 @@
 
 | # | Time | Line | Context video behind avatar |
 |---|------|------|-----------------------------|
-| 1 | 0–5s | "30 yıldır İskenderun'da perde diken aile işletmesi — ben de 10 yıldır onlardan alıyorum." | AI-staged living room with fon perdeler, warm afternoon light |
-| 2 | 5–14s | "Artık online da sipariş verebiliyorsunuz. inanctekstil.store — ölçünüzü girin, kumaşı seçin, size özel diksinler." | Screen recording: inanctekstil.store product page scroll on iPhone |
-| 3 | 14–22s | "Fon ve blackout seçenekleri var, her ölçüye özel dikiyorlar — hazır kalıp yok." | Cut: fon perde room (3s) → cut: blackout perde room (5s) |
-| 4 | 22–28s | "Bir bakın derim, pişman olmazsınız." | CapCut text card: website URL + WhatsApp number |
+| 1 | 0–4s | "Hazır perde alıyosun, ölçü tutmuyor." | AI-staged living room with fon perdeler |
+| 2 | 4–13s | "İnanç Tekstil — İskenderun'da 30 yıldır perde diken bir aile işletmesi. Siteden sipariş veriliyo." | Screen recording: inanctekstil.store product page scroll on iPhone |
+| 3 | 13–22s | "Ölçünü giriyosun kumaşını seçiyosun, sana özel dikiyorlar. Hazır kalıp yok ya, her ölçüye göre dikiyorlar." | Cut: fon perde room (3s) → cut: blackout perde room (5s) |
+| 4 | 22–26s | "inanç tekstil nokta store." | CapCut text card: website URL + WhatsApp number |
 
 ---
 
@@ -27,14 +29,17 @@
 
 | Setting | Value |
 |---------|-------|
-| Model | Eleven Multilingual v2 |
-| Language | Turkish |
-| Stability | 0.50 (start here; try 0.45 if it sounds robotic, 0.55 if too variable) |
+| Model | **Eleven v3** (`eleven_v3`) — flagship model, 70+ languages, best Turkish quality |
+| Stability | **Natural** preset (in the UI slider: center position ≈ 0.50) |
 | Similarity Boost | 0.75 |
-| Style | 0 |
+| Style | 0 — never raise this; non-zero values make the avatar sound performative |
 | Speaker Boost | Enabled |
 | Output format | MP3, 44.1kHz |
 | Save output as | `assets/video1-voice.mp3` |
+
+> **Model note:** The previously documented `eleven_multilingual_v2` still works but v3 is the current flagship with significantly better Turkish pronunciation and emotional range. Use v3.
+>
+> **Stability presets in v3:** Creative = more expressive but unpredictable · **Natural = recommended** · Robust = very consistent but flat
 
 **Voice selection:** Browse Turkish female voices. Test each with this single sentence before committing:
 > *"30 yıldır İskenderun'da perde diken aile işletmesi."*
@@ -51,6 +56,7 @@ Read each sentence aloud. If any sentence sounds like it belongs in a TV commerc
 
 | Too commercial ❌ | Customer voice ✅ |
 |------------------|-----------------|
-| "En kaliteli fon perdeler burada!" | "Fon ve blackout seçenekleri var." |
-| "Hemen sipariş verin!" | "Bir bakın derim." |
-| "30 yıllık tecrübemizle..." | "30 yıldır İskenderun'da..." |
+| "En kaliteli fon perdeler burada!" | "Fon ve blackout var." |
+| "Hemen sipariş verin!" | "Bir bak derim." |
+| "30 yıllık tecrübemizle..." | "30 yıldır perde diken bir aile var." |
+| "Sipariş verebilirsiniz." | "Alabiliyorsun." |

@@ -13,9 +13,14 @@
       if (btn) {
         btn.addEventListener('click', function () {
           initRoomVisualizer({
-            productId: '{{ product.admin_graphql_api_id }}',
+            productId: 'gid://shopify/Product/{{ product.id }}',
             productHandle: '{{ product.handle }}',
-            apiUrl: 'https://visualizer.inanctekstil.store'
+            productTitle: {{ product.title | json }},
+            productType: {{ product.type | json }},
+            productColor: {{ product.metafields.curtain.color | default: '' | json }},
+            productImageUrl: {{ product.featured_image | image_url: width: 400 | json }},
+            productSku: {{ product.variants.first.sku | json }},
+            apiUrl: 'https://visualizer.inanctekstil.store/api/visualize'
           });
         });
       }

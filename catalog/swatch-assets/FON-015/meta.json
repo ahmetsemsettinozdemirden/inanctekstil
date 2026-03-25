@@ -1,0 +1,25 @@
+{
+  "sku": "FON-015",
+  "design": "MONICA",
+  "colour_code": "759",
+  "appearance": null,
+  "width_cm": 300,
+  "price": "1200",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/monica/texture-512.jpg",
+  "design_texture_full": "designs/monica/texture-full.jpg",
+  "raw_colors": [
+    "#a6a49a",
+    "#deddd4",
+    "#716c60"
+  ],
+  "thread_colors": [
+    "#b4b19e"
+  ],
+  "thread_count": 1,
+  "source_heic": "FON/MONICA/1.HEIC"
+}

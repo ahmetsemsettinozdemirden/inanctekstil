@@ -1,0 +1,25 @@
+{
+  "sku": "BLK-017",
+  "design": "DARK BLACKOUT",
+  "colour_code": "8103",
+  "appearance": null,
+  "width_cm": 320,
+  "price": "1040",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.01,
+  "transparency_class": "blackout",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/dark-blackout/texture-512.jpg",
+  "design_texture_full": "designs/dark-blackout/texture-full.jpg",
+  "raw_colors": [
+    "#e0e1e0",
+    "#c4c5c4",
+    "#a7a8a7"
+  ],
+  "thread_colors": [
+    "#bc7342"
+  ],
+  "thread_count": 1,
+  "source_heic": "BLACKOUT/DARK BLACKOUT/5.HEIC"
+}

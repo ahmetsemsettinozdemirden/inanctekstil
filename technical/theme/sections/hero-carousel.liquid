@@ -1,6 +1,6 @@
 {% comment %}
   Hero Carousel — mobile-first 9:16 full-bleed carousel
-  5 slides: 4 shop photos + 1 video
+  5 slides: video first, then 4 shop photos
   Auto-advance 5s, touch/swipe, dot indicators, keyboard nav, Visibility API pause
 {% endcomment %}
 
@@ -53,10 +53,11 @@
     object-position: center;
   }
 
-  /* Dark gradient overlay */
+  /* Dark gradient — sits above track, always visible */
   .hero-carousel__overlay {
     position: absolute;
     inset: 0;
+    z-index: 2;
     background: linear-gradient(
       to top,
       rgba(12, 12, 12, 0.65) 0%,
@@ -66,22 +67,27 @@
     pointer-events: none;
   }
 
-  /* Text content — only on slide 0 */
+  /* Text content — above overlay, always visible regardless of slide */
   .hero-carousel__content {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 3;
     padding: 0 24px 80px;
     color: #fff;
-    max-width: 600px;
+    pointer-events: none;
   }
 
   @media (min-width: 750px) {
     .hero-carousel__content {
       padding: 0 48px 64px;
-      max-width: 640px;
     }
+  }
+
+  .hero-carousel__content a,
+  .hero-carousel__content button {
+    pointer-events: auto;
   }
 
   .hero-carousel__heading {
@@ -90,6 +96,7 @@
     font-weight: 700;
     margin: 0 0 12px;
     line-height: 1.2;
+    max-width: 560px;
   }
 
   .hero-carousel__subtext {
@@ -143,7 +150,7 @@
     transform: translateX(-50%);
     display: flex;
     gap: 8px;
-    z-index: 10;
+    z-index: 4;
   }
 
   .hero-carousel__dot {
@@ -169,7 +176,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 4;
     background: rgba(0, 0, 0, 0.35);
     border: none;
     border-radius: 50%;
@@ -201,11 +208,26 @@
   aria-label="Mağaza Görselleri"
   role="region"
 >
-  <!-- Track -->
+  <!-- Track — slides only contain media, no overlays or text -->
   <div class="hero-carousel__track" id="hc-track-{{ section.id }}">
 
-    {%- comment -%} Slide 0: Shop overview photo with CTA {%- endcomment -%}
-    <div class="hero-carousel__slide" data-slide-index="0" aria-label="Slayt 1">
+    {%- comment -%} Slide 0: Video {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="0" data-slide-type="video" aria-label="Slayt 1">
+      <video
+        id="hc-video-{{ section.id }}"
+        src="{{ 'hero-dukkan-video.mp4' | asset_url }}"
+        muted
+        loop
+        playsinline
+        preload="auto"
+        width="720"
+        height="1280"
+        aria-hidden="true"
+      ></video>
+    </div>
+
+    {%- comment -%} Slide 1: Shop overview {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="1" aria-label="Slayt 2">
       <img
         src="{{ 'hero-dukkan-1.jpg' | asset_url }}"
         alt="İnanç Tekstil Mağazası"
@@ -214,29 +236,10 @@
         width="1080"
         height="1920"
       >
-      <div class="hero-carousel__overlay"></div>
-      <div class="hero-carousel__content">
-        <h1 class="hero-carousel__heading">30 Yıldır İskenderun'un Perde Atölyesi</h1>
-        <p class="hero-carousel__subtext">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>
-        <div class="hero-carousel__ctas">
-          <a
-            href="https://maps.app.goo.gl/XYt5EMMGj5uBwWsV6"
-            target="_blank"
-            rel="noopener"
-            class="hero-carousel__cta--primary"
-          >
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M7.5 1C4.74 1 2.5 3.24 2.5 6c0 3.75 5 8.5 5 8.5s5-4.75 5-8.5c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5z" fill="currentColor"/>
-            </svg>
-            Haritada Gör
-          </a>
-          <a href="/collections/all" class="hero-carousel__cta--secondary">Tüm Perdeler</a>
-        </div>
-      </div>
     </div>
 
-    {%- comment -%} Slide 1: Fabric photo {%- endcomment -%}
-    <div class="hero-carousel__slide" data-slide-index="1" aria-label="Slayt 2">
+    {%- comment -%} Slide 2: Fabric {%- endcomment -%}
+    <div class="hero-carousel__slide" data-slide-index="2" aria-label="Slayt 3">
       <img
         src="{{ 'hero-dukkan-2.jpg' | asset_url }}"
         alt="Kumaş çeşitlerimiz"
@@ -244,24 +247,6 @@
         width="1080"
         height="1920"
       >
-      <div class="hero-carousel__overlay"></div>
-    </div>
-
-    {%- comment -%} Slide 2: Video {%- endcomment -%}
-    <div class="hero-carousel__slide" data-slide-index="2" data-slide-type="video" aria-label="Slayt 3">
-      <video
-        id="hc-video-{{ section.id }}"
-        src="{{ 'hero-dukkan-video.mp4' | asset_url }}"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="none"
-        width="720"
-        height="1280"
-        aria-hidden="true"
-      ></video>
-      <div class="hero-carousel__overlay"></div>
     </div>
 
     {%- comment -%} Slide 3: Atelier wide {%- endcomment -%}
@@ -273,7 +258,6 @@
         width="1080"
         height="1920"
       >
-      <div class="hero-carousel__overlay"></div>
     </div>
 
     {%- comment -%} Slide 4: Sewing close-up {%- endcomment -%}
@@ -285,10 +269,32 @@
         width="1080"
         height="1920"
       >
-      <div class="hero-carousel__overlay"></div>
     </div>
 
   </div><!-- /track -->
+
+  <!-- Gradient overlay — always on top of track, always visible -->
+  <div class="hero-carousel__overlay" aria-hidden="true"></div>
+
+  <!-- Text content — always visible on all slides -->
+  <div class="hero-carousel__content">
+    <h1 class="hero-carousel__heading">30 Yıldır İskenderun'un Perde Atölyesi</h1>
+    <p class="hero-carousel__subtext">Pile seçimi, ölçüler ve astar tipi gibi detayları kişiselleştirerek, mekanınıza uygun şık ve fonksiyonel perdeler oluşturabilirsiniz.</p>
+    <div class="hero-carousel__ctas">
+      <a
+        href="https://maps.app.goo.gl/XYt5EMMGj5uBwWsV6"
+        target="_blank"
+        rel="noopener"
+        class="hero-carousel__cta--primary"
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M7.5 1C4.74 1 2.5 3.24 2.5 6c0 3.75 5 8.5 5 8.5s5-4.75 5-8.5c0-2.76-2.24-5-5-5zm0 6.75a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5z" fill="currentColor"/>
+        </svg>
+        Haritada Gör
+      </a>
+      <a href="/collections/all" class="hero-carousel__cta--secondary">Tüm Perdeler</a>
+    </div>
+  </div>
 
   <!-- Dots -->
   <div class="hero-carousel__dots" role="tablist" aria-label="Slayt göstergeleri" id="hc-dots-{{ section.id }}">
@@ -319,6 +325,7 @@
   const SECTION_ID = {{ section.id | json }};
   const LOG_PREFIX = '[HeroCarousel]';
   const TOTAL_SLIDES = 5;
+  const VIDEO_SLIDE = 0;
   const AUTO_ADVANCE_MS = 5000;
   const SWIPE_THRESHOLD = 50; // px
 
@@ -334,7 +341,7 @@
     return;
   }
 
-  console.log(LOG_PREFIX, 'Initialising. slides:', TOTAL_SLIDES, 'autoAdvance:', AUTO_ADVANCE_MS + 'ms');
+  console.log(LOG_PREFIX, 'Initialising. slides:', TOTAL_SLIDES, 'videoSlide:', VIDEO_SLIDE, 'autoAdvance:', AUTO_ADVANCE_MS + 'ms');
 
   let currentIndex = 0;
   let autoTimer    = null;
@@ -343,7 +350,25 @@
   let touchStartX  = 0;
   let touchDeltaX  = 0;
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
+  // ── Video ────────────────────────────────────────────────────────────────────
+
+  function manageVideo(prevIdx, nextIdx) {
+    if (!video) return;
+
+    if (nextIdx === VIDEO_SLIDE) {
+      video.play().then(function () {
+        console.log(LOG_PREFIX, 'Video playing');
+      }).catch(function (err) {
+        console.warn(LOG_PREFIX, 'Video play failed:', err.message);
+      });
+    } else if (prevIdx === VIDEO_SLIDE) {
+      video.pause();
+      video.currentTime = 0;
+      console.log(LOG_PREFIX, 'Video paused');
+    }
+  }
+
+  // ── Slide transition ─────────────────────────────────────────────────────────
 
   function setSlide(index, animate) {
     if (index < 0) index = TOTAL_SLIDES - 1;
@@ -369,28 +394,12 @@
       dot.setAttribute('aria-label', 'Slayt ' + (i + 1) + (active ? ' - aktif' : ''));
     });
 
-    // Video management
     manageVideo(prev, currentIndex);
 
     console.log(LOG_PREFIX, 'Slide changed', prev, '→', currentIndex);
   }
 
-  function manageVideo(prevIdx, nextIdx) {
-    if (!video) return;
-    const VIDEO_SLIDE = 2;
-
-    if (nextIdx === VIDEO_SLIDE) {
-      video.play().then(function () {
-        console.log(LOG_PREFIX, 'Video playing (slide', VIDEO_SLIDE, ')');
-      }).catch(function (err) {
-        console.warn(LOG_PREFIX, 'Video play failed:', err.message);
-      });
-    } else if (prevIdx === VIDEO_SLIDE) {
-      video.pause();
-      video.currentTime = 0;
-      console.log(LOG_PREFIX, 'Video paused (left slide', VIDEO_SLIDE, ')');
-    }
-  }
+  // ── Auto-advance ─────────────────────────────────────────────────────────────
 
   function startAuto() {
     if (autoTimer) return;
@@ -418,15 +427,8 @@
 
   // ── Navigation ───────────────────────────────────────────────────────────────
 
-  function goNext() {
-    setSlide(currentIndex + 1, true);
-    restartAuto();
-  }
-
-  function goPrev() {
-    setSlide(currentIndex - 1, true);
-    restartAuto();
-  }
+  function goNext() { setSlide(currentIndex + 1, true); restartAuto(); }
+  function goPrev() { setSlide(currentIndex - 1, true); restartAuto(); }
 
   // ── Dots ─────────────────────────────────────────────────────────────────────
 
@@ -443,39 +445,21 @@
 
   // ── Arrows ───────────────────────────────────────────────────────────────────
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function () {
-      console.log(LOG_PREFIX, 'Prev arrow clicked');
-      goPrev();
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function () {
-      console.log(LOG_PREFIX, 'Next arrow clicked');
-      goNext();
-    });
-  }
+  if (prevBtn) prevBtn.addEventListener('click', function () { console.log(LOG_PREFIX, 'Prev arrow'); goPrev(); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { console.log(LOG_PREFIX, 'Next arrow'); goNext(); });
 
   // ── Keyboard ─────────────────────────────────────────────────────────────────
 
+  root.setAttribute('tabindex', '0');
   root.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowLeft') { console.log(LOG_PREFIX, 'Key: ArrowLeft'); goPrev(); }
+    if (e.key === 'ArrowLeft')  { console.log(LOG_PREFIX, 'Key: ArrowLeft');  goPrev(); }
     if (e.key === 'ArrowRight') { console.log(LOG_PREFIX, 'Key: ArrowRight'); goNext(); }
   });
-  root.setAttribute('tabindex', '0');
 
   // ── Hover pause ──────────────────────────────────────────────────────────────
 
-  root.addEventListener('mouseenter', function () {
-    isHovered = true;
-    console.log(LOG_PREFIX, 'Hovered — auto-advance paused');
-  });
-
-  root.addEventListener('mouseleave', function () {
-    isHovered = false;
-    console.log(LOG_PREFIX, 'Unhovered — auto-advance resuming');
-  });
+  root.addEventListener('mouseenter', function () { isHovered = true;  console.log(LOG_PREFIX, 'Hovered — paused'); });
+  root.addEventListener('mouseleave', function () { isHovered = false; console.log(LOG_PREFIX, 'Unhovered — resuming'); });
 
   // ── Touch / swipe ────────────────────────────────────────────────────────────
 
@@ -489,27 +473,18 @@
   root.addEventListener('touchmove', function (e) {
     if (!isDragging) return;
     touchDeltaX = e.touches[0].clientX - touchStartX;
-    // Live drag feedback
-    const baseOffset = -(currentIndex * 100);
-    const dragPct = (touchDeltaX / root.offsetWidth) * 100;
     track.classList.add('hero-carousel__track--no-transition');
-    track.style.transform = 'translateX(calc(' + baseOffset + '% + ' + touchDeltaX + 'px))';
+    track.style.transform = 'translateX(calc(-' + (currentIndex * 100) + '% + ' + touchDeltaX + 'px))';
   }, { passive: true });
 
   root.addEventListener('touchend', function () {
     isDragging = false;
     track.classList.remove('hero-carousel__track--no-transition');
-
     console.log(LOG_PREFIX, 'Swipe ended. delta:', touchDeltaX + 'px');
 
     if (Math.abs(touchDeltaX) >= SWIPE_THRESHOLD) {
-      if (touchDeltaX < 0) {
-        goNext();
-      } else {
-        goPrev();
-      }
+      touchDeltaX < 0 ? goNext() : goPrev();
     } else {
-      // Snap back
       track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
       console.log(LOG_PREFIX, 'Swipe below threshold — snapping back');
       startAuto();
@@ -520,13 +495,13 @@
 
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
-      console.log(LOG_PREFIX, 'Page hidden — pausing auto-advance');
+      console.log(LOG_PREFIX, 'Page hidden — pausing');
       stopAuto();
-      if (video && currentIndex === 2) video.pause();
+      if (video && currentIndex === VIDEO_SLIDE) video.pause();
     } else {
-      console.log(LOG_PREFIX, 'Page visible — resuming auto-advance');
+      console.log(LOG_PREFIX, 'Page visible — resuming');
       startAuto();
-      if (video && currentIndex === 2) {
+      if (video && currentIndex === VIDEO_SLIDE) {
         video.play().catch(function (err) {
           console.warn(LOG_PREFIX, 'Video resume failed:', err.message);
         });
@@ -536,11 +511,9 @@
 
   // ── Boot ─────────────────────────────────────────────────────────────────────
 
-  // Make sure first slide is positioned correctly (no animation on load)
   setSlide(0, false);
   startAuto();
-
-  console.log(LOG_PREFIX, 'Ready. currentIndex:', currentIndex);
+  console.log(LOG_PREFIX, 'Ready');
 })();
 </script>
 

@@ -37,8 +37,21 @@ const product: ProductData = {
 
 describe("generateRoomImage", () => {
 	beforeEach(() => {
-		mockFalSubscribe.mockClear();
-		mockFalUpload.mockClear();
+		mockFalSubscribe.mockReset();
+		mockFalUpload.mockReset();
+		mockFalSubscribe.mockImplementation(async () => ({
+			data: { images: [{ url: "https://fal.ai/result.jpg" }] },
+			requestId: "test-123",
+		}));
+		mockFalUpload.mockImplementation(
+			async () => "https://fal.ai/uploaded-room.jpg",
+		);
+		global.fetch = mock(async (_url: string) => {
+			return new Response(new Uint8Array([1, 2, 3, 4]), {
+				status: 200,
+				headers: { "Content-Type": "image/jpeg" },
+			});
+		}) as unknown as typeof fetch;
 	});
 
 	it("returns highest-scored binary when multiple attempts needed", async () => {
@@ -112,5 +125,85 @@ describe("generateRoomImage", () => {
 		// Should still return the best result from 3 attempts
 		expect(result.attemptsUsed).toBe(3);
 		expect(mockFalSubscribe).toHaveBeenCalledTimes(3);
+	});
+
+	it("skips attempt when fal returns no image URL and continues to next", async () => {
+		let falCallCount = 0;
+		mockFalSubscribe.mockImplementation(async () => {
+			falCallCount++;
+			if (falCallCount === 1) {
+				// First attempt: no image URL
+				return { data: { images: [] }, requestId: "empty-1" };
+			}
+			return {
+				data: { images: [{ url: "https://fal.ai/result.jpg" }] },
+				requestId: "ok-2",
+			};
+		});
+
+		const mockEval = mock(async () => ({
+			score: 8,
+			has_curtains: true,
+			feedback: "good",
+		}));
+		setEvaluatorClient({ evaluate: mockEval });
+
+		global.fetch = mock(async () => {
+			return new Response(Buffer.from([1, 2, 3]), {
+				status: 200,
+				headers: { "Content-Type": "image/jpeg" },
+			});
+		}) as unknown as typeof fetch;
+
+		const result = await generateRoomImage(Buffer.from("room-image"), product);
+		// Should succeed on second attempt
+		expect(result.score).toBe(8);
+		expect(mockFalSubscribe).toHaveBeenCalledTimes(2);
+	});
+
+	it("throws GENERATION_FAILED when all fal calls throw", async () => {
+		mockFalSubscribe.mockImplementation(async () => {
+			throw new Error("fal network error");
+		});
+
+		setEvaluatorClient({
+			evaluate: mock(async () => ({
+				score: 8,
+				has_curtains: true,
+				feedback: "ok",
+			})),
+		});
+
+		global.fetch = mock(async () => {
+			return new Response(Buffer.from([1]), {
+				status: 200,
+				headers: { "Content-Type": "image/jpeg" },
+			});
+		}) as unknown as typeof fetch;
+
+		await expect(
+			generateRoomImage(Buffer.from("room-image"), product),
+		).rejects.toThrow("GENERATION_FAILED");
+		expect(mockFalSubscribe).toHaveBeenCalledTimes(3);
+	});
+
+	it("stops immediately when first attempt scores >= threshold with curtains", async () => {
+		const mockEval = mock(async () => ({
+			score: 9,
+			has_curtains: true,
+			feedback: "perfect",
+		}));
+		setEvaluatorClient({ evaluate: mockEval });
+
+		global.fetch = mock(async () => {
+			return new Response(Buffer.from([1, 2, 3]), {
+				status: 200,
+				headers: { "Content-Type": "image/jpeg" },
+			});
+		}) as unknown as typeof fetch;
+
+		const result = await generateRoomImage(Buffer.from("room-image"), product);
+		expect(result.attemptsUsed).toBe(1);
+		expect(mockFalSubscribe).toHaveBeenCalledTimes(1);
 	});
 });

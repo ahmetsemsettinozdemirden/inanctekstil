@@ -42,4 +42,21 @@ describe("buildPrompt", () => {
 		const { seed } = buildPrompt(product, 1, fixedSeed);
 		expect(seed).toBe(Math.floor(0.5 * 2 ** 31));
 	});
+
+	it("handles empty color and type gracefully", () => {
+		const emptyProduct = { ...product, color: "", type: "" };
+		const { prompt } = buildPrompt(emptyProduct, 1);
+		// Should still produce a valid string without crashing
+		expect(typeof prompt).toBe("string");
+		expect(prompt.length).toBeGreaterThan(0);
+		expect(prompt).toContain("modern Turkish living room");
+	});
+
+	it("seed is always a non-negative integer", () => {
+		for (let i = 0; i < 10; i++) {
+			const { seed } = buildPrompt(product, 1);
+			expect(Number.isInteger(seed)).toBe(true);
+			expect(seed).toBeGreaterThanOrEqual(0);
+		}
+	});
 });

@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"><title>Swatch Verification — 2026-03-23</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;color:#ddd;font-family:system-ui,sans-serif;padding:16px}
+h1{font-size:20px;margin-bottom:4px;color:#fff}
+.sub{color:#888;font-size:13px;margin-bottom:20px}
+.tb{display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+.tb button{background:#333;border:1px solid #555;color:#ddd;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px}
+.tb button:hover{background:#444}
+.fc{color:#e74c3c;font-size:13px;font-weight:600}
+.ds{margin-bottom:32px}
+.dh{display:flex;align-items:center;gap:16px;margin-bottom:12px;padding:12px 16px;background:#1e1e2e;border-radius:10px;border:1px solid #2a2a3a}
+.design-tile img{width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #333}
+.tile-label{font-size:10px;color:#666;text-align:center;margin-top:2px}
+.di h2{font-size:16px;color:#fff}
+.cnt{font-size:12px;color:#666}
+.cg{display:flex;flex-wrap:wrap;gap:8px}
+.pairs-grid{display:flex;flex-wrap:wrap;gap:12px}
+.pair-group{background:#1a1a2a;border:1px solid #2a2a3a;border-radius:8px;padding:8px}
+.pair-label{font-size:10px;color:#666;margin-bottom:6px;letter-spacing:.5px}
+.pair-cards{display:flex;gap:6px}
+.card{width:130px;background:#1a1a1a;border:2px solid #2a2a2a;border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:#555}
+.card.flagged{border-color:#e74c3c!important;background:#2a1010}
+.ci{width:130px;height:130px;overflow:hidden}
+.ci img{width:100%;height:100%;object-fit:cover;display:block}
+.cd{padding:6px;font-size:11px}
+.sku{color:#aaa;font-weight:600;margin-bottom:2px}
+.col-code{color:#666;margin-bottom:3px}
+.app-tag{display:inline-block;background:#2a2a1a;border:1px solid #444;border-radius:3px;padding:1px 5px;font-size:10px;color:#cc9;margin-bottom:3px}
+.tc{margin-top:3px}
+</style>
+</head><body>
+<h1>Swatch Verification</h1>
+<div class="sub">274 swatches · extracted from HEIC source · {}</div>
+<div class="tb">
+  <button onclick="document.querySelectorAll('.card.flagged').forEach(c=>c.classList.remove('flagged'))">Clear flags</button>
+  <span class="fc" id="fc"></span>
+</div>
+<script>
+setInterval(()=>{
+  const n=document.querySelectorAll('.card.flagged').length;
+  document.getElementById('fc').textContent=n?n+' flagged':'';
+},300);
+</script>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/dark-blackout/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>DARK BLACKOUT</h2>
+    <div class="cnt">28 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-001">
+<div class="ci"><img src="BLK-001/swatch-corrected.jpg" loading="lazy" alt="BLK-001"></div>
+<div class="cd">
+  <div class="sku">BLK-001</div>
+  <div class="col-code">8113</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c5c6c5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c5c6c5"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-002">
+<div class="ci"><img src="BLK-002/swatch-corrected.jpg" loading="lazy" alt="BLK-002"></div>
+<div class="cd">
+  <div class="sku">BLK-002</div>
+  <div class="col-code">8101</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bbb5a6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bbb5a6"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-003">
+<div class="ci"><img src="BLK-003/swatch-corrected.jpg" loading="lazy" alt="BLK-003"></div>
+<div class="cd">
+  <div class="sku">BLK-003</div>
+  <div class="col-code">8136</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a19f94;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a19f94"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-004">
+<div class="ci"><img src="BLK-004/swatch-corrected.jpg" loading="lazy" alt="BLK-004"></div>
+<div class="cd">
+  <div class="sku">BLK-004</div>
+  <div class="col-code">8139</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8f8178;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8f8178"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-005">
+<div class="ci"><img src="BLK-005/swatch-corrected.jpg" loading="lazy" alt="BLK-005"></div>
+<div class="cd">
+  <div class="sku">BLK-005</div>
+  <div class="col-code">8117</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8a7c6f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8a7c6f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-006">
+<div class="ci"><img src="BLK-006/swatch-corrected.jpg" loading="lazy" alt="BLK-006"></div>
+<div class="cd">
+  <div class="sku">BLK-006</div>
+  <div class="col-code">8116</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3e5b5c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#3e5b5c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-007">
+<div class="ci"><img src="BLK-007/swatch-corrected.jpg" loading="lazy" alt="BLK-007"></div>
+<div class="cd">
+  <div class="sku">BLK-007</div>
+  <div class="col-code">8110</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b89e90;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b89e90"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-008">
+<div class="ci"><img src="BLK-008/swatch-corrected.jpg" loading="lazy" alt="BLK-008"></div>
+<div class="cd">
+  <div class="sku">BLK-008</div>
+  <div class="col-code">8140</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bbb0ad;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bbb0ad"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-009">
+<div class="ci"><img src="BLK-009/swatch-corrected.jpg" loading="lazy" alt="BLK-009"></div>
+<div class="cd">
+  <div class="sku">BLK-009</div>
+  <div class="col-code">8132</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#98a2a0;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#98a2a0"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-010">
+<div class="ci"><img src="BLK-010/swatch-corrected.jpg" loading="lazy" alt="BLK-010"></div>
+<div class="cd">
+  <div class="sku">BLK-010</div>
+  <div class="col-code">8111</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b3ada9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b3ada9"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-011">
+<div class="ci"><img src="BLK-011/swatch-corrected.jpg" loading="lazy" alt="BLK-011"></div>
+<div class="cd">
+  <div class="sku">BLK-011</div>
+  <div class="col-code">8104</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ababa7;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ababa7"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-012">
+<div class="ci"><img src="BLK-012/swatch-corrected.jpg" loading="lazy" alt="BLK-012"></div>
+<div class="cd">
+  <div class="sku">BLK-012</div>
+  <div class="col-code">8112</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8c9ba8;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8c9ba8"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-013">
+<div class="ci"><img src="BLK-013/swatch-corrected.jpg" loading="lazy" alt="BLK-013"></div>
+<div class="cd">
+  <div class="sku">BLK-013</div>
+  <div class="col-code">8115</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#527586;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#527586"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-014">
+<div class="ci"><img src="BLK-014/swatch-corrected.jpg" loading="lazy" alt="BLK-014"></div>
+<div class="cd">
+  <div class="sku">BLK-014</div>
+  <div class="col-code">8118</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6d7d77;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6d7d77"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-015">
+<div class="ci"><img src="BLK-015/swatch-corrected.jpg" loading="lazy" alt="BLK-015"></div>
+<div class="cd">
+  <div class="sku">BLK-015</div>
+  <div class="col-code">8119</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#757577;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#757577"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-016">
+<div class="ci"><img src="BLK-016/swatch-corrected.jpg" loading="lazy" alt="BLK-016"></div>
+<div class="cd">
+  <div class="sku">BLK-016</div>
+  <div class="col-code">8127</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#837b83;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#837b83"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-017">
+<div class="ci"><img src="BLK-017/swatch-corrected.jpg" loading="lazy" alt="BLK-017"></div>
+<div class="cd">
+  <div class="sku">BLK-017</div>
+  <div class="col-code">8103</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7e698a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7e698a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-018">
+<div class="ci"><img src="BLK-018/swatch-corrected.jpg" loading="lazy" alt="BLK-018"></div>
+<div class="cd">
+  <div class="sku">BLK-018</div>
+  <div class="col-code">8124</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#e17856;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#e17856"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-019">
+<div class="ci"><img src="BLK-019/swatch-corrected.jpg" loading="lazy" alt="BLK-019"></div>
+<div class="cd">
+  <div class="sku">BLK-019</div>
+  <div class="col-code">8141</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a12534;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a12534"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-020">
+<div class="ci"><img src="BLK-020/swatch-corrected.jpg" loading="lazy" alt="BLK-020"></div>
+<div class="cd">
+  <div class="sku">BLK-020</div>
+  <div class="col-code">8131</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#393943;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#393943"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-021">
+<div class="ci"><img src="BLK-021/swatch-corrected.jpg" loading="lazy" alt="BLK-021"></div>
+<div class="cd">
+  <div class="sku">BLK-021</div>
+  <div class="col-code">8142</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8fb7b6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8fb7b6"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-022">
+<div class="ci"><img src="BLK-022/swatch-corrected.jpg" loading="lazy" alt="BLK-022"></div>
+<div class="cd">
+  <div class="sku">BLK-022</div>
+  <div class="col-code">8120</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#757480;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#757480"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-023">
+<div class="ci"><img src="BLK-023/swatch-corrected.jpg" loading="lazy" alt="BLK-023"></div>
+<div class="cd">
+  <div class="sku">BLK-023</div>
+  <div class="col-code">8107</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#445a85;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#445a85"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-024">
+<div class="ci"><img src="BLK-024/swatch-corrected.jpg" loading="lazy" alt="BLK-024"></div>
+<div class="cd">
+  <div class="sku">BLK-024</div>
+  <div class="col-code">8114</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c1bcb1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c1bcb1"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-025">
+<div class="ci"><img src="BLK-025/swatch-corrected.jpg" loading="lazy" alt="BLK-025"></div>
+<div class="cd">
+  <div class="sku">BLK-025</div>
+  <div class="col-code">8138</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#928074;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#928074"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-026">
+<div class="ci"><img src="BLK-026/swatch-corrected.jpg" loading="lazy" alt="BLK-026"></div>
+<div class="cd">
+  <div class="sku">BLK-026</div>
+  <div class="col-code">8108</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#73728b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#73728b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-027">
+<div class="ci"><img src="BLK-027/swatch-corrected.jpg" loading="lazy" alt="BLK-027"></div>
+<div class="cd">
+  <div class="sku">BLK-027</div>
+  <div class="col-code">8128</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#907a66;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#907a66"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-028">
+<div class="ci"><img src="BLK-028/swatch-corrected.jpg" loading="lazy" alt="BLK-028"></div>
+<div class="cd">
+  <div class="sku">BLK-028</div>
+  <div class="col-code">8129</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#e3673b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#e3673b"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/havuz-blackout/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>HAVUZ BLACKOUT</h2>
+    <div class="cnt">28 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-081">
+<div class="ci"><img src="BLK-081/swatch-corrected.jpg" loading="lazy" alt="BLK-081"></div>
+<div class="cd">
+  <div class="sku">BLK-081</div>
+  <div class="col-code">913</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7bac6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7bac6"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-082">
+<div class="ci"><img src="BLK-082/swatch-corrected.jpg" loading="lazy" alt="BLK-082"></div>
+<div class="cd">
+  <div class="sku">BLK-082</div>
+  <div class="col-code">924</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b9b8ac;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b9b8ac"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-083">
+<div class="ci"><img src="BLK-083/swatch-corrected.jpg" loading="lazy" alt="BLK-083"></div>
+<div class="cd">
+  <div class="sku">BLK-083</div>
+  <div class="col-code">936</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b5ad97;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b5ad97"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-084">
+<div class="ci"><img src="BLK-084/swatch-corrected.jpg" loading="lazy" alt="BLK-084"></div>
+<div class="cd">
+  <div class="sku">BLK-084</div>
+  <div class="col-code">929</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#99917b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#99917b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-085">
+<div class="ci"><img src="BLK-085/swatch-corrected.jpg" loading="lazy" alt="BLK-085"></div>
+<div class="cd">
+  <div class="sku">BLK-085</div>
+  <div class="col-code">937</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a19c9b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a19c9b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-086">
+<div class="ci"><img src="BLK-086/swatch-corrected.jpg" loading="lazy" alt="BLK-086"></div>
+<div class="cd">
+  <div class="sku">BLK-086</div>
+  <div class="col-code">139</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#999082;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#999082"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-087">
+<div class="ci"><img src="BLK-087/swatch-corrected.jpg" loading="lazy" alt="BLK-087"></div>
+<div class="cd">
+  <div class="sku">BLK-087</div>
+  <div class="col-code">943</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#886c55;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#886c55"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-088">
+<div class="ci"><img src="BLK-088/swatch-corrected.jpg" loading="lazy" alt="BLK-088"></div>
+<div class="cd">
+  <div class="sku">BLK-088</div>
+  <div class="col-code">917</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4c4c4e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4c4c4e"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-089">
+<div class="ci"><img src="BLK-089/swatch-corrected.jpg" loading="lazy" alt="BLK-089"></div>
+<div class="cd">
+  <div class="sku">BLK-089</div>
+  <div class="col-code">939</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9a9b9a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9a9b9a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-090">
+<div class="ci"><img src="BLK-090/swatch-corrected.jpg" loading="lazy" alt="BLK-090"></div>
+<div class="cd">
+  <div class="sku">BLK-090</div>
+  <div class="col-code">128</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9d9e99;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9d9e99"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-091">
+<div class="ci"><img src="BLK-091/swatch-corrected.jpg" loading="lazy" alt="BLK-091"></div>
+<div class="cd">
+  <div class="sku">BLK-091</div>
+  <div class="col-code">903</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#675b59;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#675b59"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-092">
+<div class="ci"><img src="BLK-092/swatch-corrected.jpg" loading="lazy" alt="BLK-092"></div>
+<div class="cd">
+  <div class="sku">BLK-092</div>
+  <div class="col-code">916</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#be807b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#be807b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-093">
+<div class="ci"><img src="BLK-093/swatch-corrected.jpg" loading="lazy" alt="BLK-093"></div>
+<div class="cd">
+  <div class="sku">BLK-093</div>
+  <div class="col-code">928</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9a4938;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9a4938"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-094">
+<div class="ci"><img src="BLK-094/swatch-corrected.jpg" loading="lazy" alt="BLK-094"></div>
+<div class="cd">
+  <div class="sku">BLK-094</div>
+  <div class="col-code">933</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#645b5a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#645b5a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-095">
+<div class="ci"><img src="BLK-095/swatch-corrected.jpg" loading="lazy" alt="BLK-095"></div>
+<div class="cd">
+  <div class="sku">BLK-095</div>
+  <div class="col-code">907</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2e729e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#2e729e"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-096">
+<div class="ci"><img src="BLK-096/swatch-corrected.jpg" loading="lazy" alt="BLK-096"></div>
+<div class="cd">
+  <div class="sku">BLK-096</div>
+  <div class="col-code">901</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#426181;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#426181"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-097">
+<div class="ci"><img src="BLK-097/swatch-corrected.jpg" loading="lazy" alt="BLK-097"></div>
+<div class="cd">
+  <div class="sku">BLK-097</div>
+  <div class="col-code">922</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#313036;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#313036"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-098">
+<div class="ci"><img src="BLK-098/swatch-corrected.jpg" loading="lazy" alt="BLK-098"></div>
+<div class="cd">
+  <div class="sku">BLK-098</div>
+  <div class="col-code">918</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5f6264;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5f6264"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-099">
+<div class="ci"><img src="BLK-099/swatch-corrected.jpg" loading="lazy" alt="BLK-099"></div>
+<div class="cd">
+  <div class="sku">BLK-099</div>
+  <div class="col-code">910</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#141f32;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#141f32"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-100">
+<div class="ci"><img src="BLK-100/swatch-corrected.jpg" loading="lazy" alt="BLK-100"></div>
+<div class="cd">
+  <div class="sku">BLK-100</div>
+  <div class="col-code">904</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b1b2ad;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b1b2ad"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-101">
+<div class="ci"><img src="BLK-101/swatch-corrected.jpg" loading="lazy" alt="BLK-101"></div>
+<div class="cd">
+  <div class="sku">BLK-101</div>
+  <div class="col-code">909</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aeada4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aeada4"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-102">
+<div class="ci"><img src="BLK-102/swatch-corrected.jpg" loading="lazy" alt="BLK-102"></div>
+<div class="cd">
+  <div class="sku">BLK-102</div>
+  <div class="col-code">902</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#716f6c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#716f6c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-103">
+<div class="ci"><img src="BLK-103/swatch-corrected.jpg" loading="lazy" alt="BLK-103"></div>
+<div class="cd">
+  <div class="sku">BLK-103</div>
+  <div class="col-code">925</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#746772;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#746772"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-104">
+<div class="ci"><img src="BLK-104/swatch-corrected.jpg" loading="lazy" alt="BLK-104"></div>
+<div class="cd">
+  <div class="sku">BLK-104</div>
+  <div class="col-code">927</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#443b36;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#443b36"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-105">
+<div class="ci"><img src="BLK-105/swatch-corrected.jpg" loading="lazy" alt="BLK-105"></div>
+<div class="cd">
+  <div class="sku">BLK-105</div>
+  <div class="col-code">912</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c37680;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c37680"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-106">
+<div class="ci"><img src="BLK-106/swatch-corrected.jpg" loading="lazy" alt="BLK-106"></div>
+<div class="cd">
+  <div class="sku">BLK-106</div>
+  <div class="col-code">908</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#222224;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#222224"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-107">
+<div class="ci"><img src="BLK-107/swatch-corrected.jpg" loading="lazy" alt="BLK-107"></div>
+<div class="cd">
+  <div class="sku">BLK-107</div>
+  <div class="col-code">940</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bec1d0;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bec1d0"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-108">
+<div class="ci"><img src="BLK-108/swatch-corrected.jpg" loading="lazy" alt="BLK-108"></div>
+<div class="cd">
+  <div class="sku">BLK-108</div>
+  <div class="col-code">920</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d2cfc5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d2cfc5"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  
+  <div class="di">
+    <h2>%100 BLACKOUT</h2>
+    <div class="cnt">25 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-109">
+<div class="ci"><img src="BLK-109/swatch-corrected.jpg" loading="lazy" alt="BLK-109"></div>
+<div class="cd">
+  <div class="sku">BLK-109</div>
+  <div class="col-code">8027</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c9d2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c9d2"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-110">
+<div class="ci"><img src="BLK-110/swatch-corrected.jpg" loading="lazy" alt="BLK-110"></div>
+<div class="cd">
+  <div class="sku">BLK-110</div>
+  <div class="col-code">8006</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b2ad9a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b2ad9a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-111">
+<div class="ci"><img src="BLK-111/swatch-corrected.jpg" loading="lazy" alt="BLK-111"></div>
+<div class="cd">
+  <div class="sku">BLK-111</div>
+  <div class="col-code">8024</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#948b73;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#948b73"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-112">
+<div class="ci"><img src="BLK-112/swatch-corrected.jpg" loading="lazy" alt="BLK-112"></div>
+<div class="cd">
+  <div class="sku">BLK-112</div>
+  <div class="col-code">8005</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8f8f88;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8f8f88"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-113">
+<div class="ci"><img src="BLK-113/swatch-corrected.jpg" loading="lazy" alt="BLK-113"></div>
+<div class="cd">
+  <div class="sku">BLK-113</div>
+  <div class="col-code">8020</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#917c78;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#917c78"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-114">
+<div class="ci"><img src="BLK-114/swatch-corrected.jpg" loading="lazy" alt="BLK-114"></div>
+<div class="cd">
+  <div class="sku">BLK-114</div>
+  <div class="col-code">8035</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aca797;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aca797"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-115">
+<div class="ci"><img src="BLK-115/swatch-corrected.jpg" loading="lazy" alt="BLK-115"></div>
+<div class="cd">
+  <div class="sku">BLK-115</div>
+  <div class="col-code">8032</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9b9492;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9b9492"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-116">
+<div class="ci"><img src="BLK-116/swatch-corrected.jpg" loading="lazy" alt="BLK-116"></div>
+<div class="cd">
+  <div class="sku">BLK-116</div>
+  <div class="col-code">8031</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9d9d9a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9d9d9a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-117">
+<div class="ci"><img src="BLK-117/swatch-corrected.jpg" loading="lazy" alt="BLK-117"></div>
+<div class="cd">
+  <div class="sku">BLK-117</div>
+  <div class="col-code">8040</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4f6662;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4f6662"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-118">
+<div class="ci"><img src="BLK-118/swatch-corrected.jpg" loading="lazy" alt="BLK-118"></div>
+<div class="cd">
+  <div class="sku">BLK-118</div>
+  <div class="col-code">8008</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ad7263;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ad7263"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-119">
+<div class="ci"><img src="BLK-119/swatch-corrected.jpg" loading="lazy" alt="BLK-119"></div>
+<div class="cd">
+  <div class="sku">BLK-119</div>
+  <div class="col-code">8021</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#827664;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#827664"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-120">
+<div class="ci"><img src="BLK-120/swatch-corrected.jpg" loading="lazy" alt="BLK-120"></div>
+<div class="cd">
+  <div class="sku">BLK-120</div>
+  <div class="col-code">8014</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7d7d81;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7d7d81"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-121">
+<div class="ci"><img src="BLK-121/swatch-corrected.jpg" loading="lazy" alt="BLK-121"></div>
+<div class="cd">
+  <div class="sku">BLK-121</div>
+  <div class="col-code">8003</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#735244;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#735244"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-122">
+<div class="ci"><img src="BLK-122/swatch-corrected.jpg" loading="lazy" alt="BLK-122"></div>
+<div class="cd">
+  <div class="sku">BLK-122</div>
+  <div class="col-code">8001</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#857969;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#857969"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-123">
+<div class="ci"><img src="BLK-123/swatch-corrected.jpg" loading="lazy" alt="BLK-123"></div>
+<div class="cd">
+  <div class="sku">BLK-123</div>
+  <div class="col-code">8023</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#575759;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#575759"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-124">
+<div class="ci"><img src="BLK-124/swatch-corrected.jpg" loading="lazy" alt="BLK-124"></div>
+<div class="cd">
+  <div class="sku">BLK-124</div>
+  <div class="col-code">8011</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#445049;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#445049"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-125">
+<div class="ci"><img src="BLK-125/swatch-corrected.jpg" loading="lazy" alt="BLK-125"></div>
+<div class="cd">
+  <div class="sku">BLK-125</div>
+  <div class="col-code">8022</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#802c41;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#802c41"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-126">
+<div class="ci"><img src="BLK-126/swatch-corrected.jpg" loading="lazy" alt="BLK-126"></div>
+<div class="cd">
+  <div class="sku">BLK-126</div>
+  <div class="col-code">8039</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bfbfbb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bfbfbb"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-127">
+<div class="ci"><img src="BLK-127/swatch-corrected.jpg" loading="lazy" alt="BLK-127"></div>
+<div class="cd">
+  <div class="sku">BLK-127</div>
+  <div class="col-code">8033</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#777571;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#777571"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-128">
+<div class="ci"><img src="BLK-128/swatch-corrected.jpg" loading="lazy" alt="BLK-128"></div>
+<div class="cd">
+  <div class="sku">BLK-128</div>
+  <div class="col-code">8038</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c2c3c4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c2c3c4"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-129">
+<div class="ci"><img src="BLK-129/swatch-corrected.jpg" loading="lazy" alt="BLK-129"></div>
+<div class="cd">
+  <div class="sku">BLK-129</div>
+  <div class="col-code">8010</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#78625f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#78625f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-130">
+<div class="ci"><img src="BLK-130/swatch-corrected.jpg" loading="lazy" alt="BLK-130"></div>
+<div class="cd">
+  <div class="sku">BLK-130</div>
+  <div class="col-code">8015</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#585759;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#585759"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-131">
+<div class="ci"><img src="BLK-131/swatch-corrected.jpg" loading="lazy" alt="BLK-131"></div>
+<div class="cd">
+  <div class="sku">BLK-131</div>
+  <div class="col-code">8034</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c5c4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c5c4"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-132">
+<div class="ci"><img src="BLK-132/swatch-corrected.jpg" loading="lazy" alt="BLK-132"></div>
+<div class="cd">
+  <div class="sku">BLK-132</div>
+  <div class="col-code">8030</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#41493a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#41493a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-133">
+<div class="ci"><img src="BLK-133/swatch-corrected.jpg" loading="lazy" alt="BLK-133"></div>
+<div class="cd">
+  <div class="sku">BLK-133</div>
+  <div class="col-code">8029</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#232323;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#232323"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/hermes-blackout/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>HERMES BLACKOUT</h2>
+    <div class="cnt">52 variants</div>
+  </div>
+</div>
+<div class="pairs-grid"><div class="pair-group">
+<div class="pair-label">5004 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-029">
+<div class="ci"><img src="BLK-029/swatch-corrected.jpg" loading="lazy" alt="BLK-029"></div>
+<div class="cd">
+  <div class="sku">BLK-029</div>
+  <div class="col-code">5004</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b3b3a9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b3b3a9"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-066">
+<div class="ci"><img src="BLK-066/swatch-corrected.jpg" loading="lazy" alt="BLK-066"></div>
+<div class="cd">
+  <div class="sku">BLK-066</div>
+  <div class="col-code">5004</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#604e4a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#604e4a"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c5b4b2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c5b4b2"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5008 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-030">
+<div class="ci"><img src="BLK-030/swatch-corrected.jpg" loading="lazy" alt="BLK-030"></div>
+<div class="cd">
+  <div class="sku">BLK-030</div>
+  <div class="col-code">5008</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c7c6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c7c6"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#959998;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#959998"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-050">
+<div class="ci"><img src="BLK-050/swatch-corrected.jpg" loading="lazy" alt="BLK-050"></div>
+<div class="cd">
+  <div class="sku">BLK-050</div>
+  <div class="col-code">5008</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#87847c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#87847c"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5018 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-031">
+<div class="ci"><img src="BLK-031/swatch-corrected.jpg" loading="lazy" alt="BLK-031"></div>
+<div class="cd">
+  <div class="sku">BLK-031</div>
+  <div class="col-code">5018</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#908f7f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#908f7f"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-061">
+<div class="ci"><img src="BLK-061/swatch-corrected.jpg" loading="lazy" alt="BLK-061"></div>
+<div class="cd">
+  <div class="sku">BLK-061</div>
+  <div class="col-code">5018</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#423d3d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#423d3d"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5013 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-032">
+<div class="ci"><img src="BLK-032/swatch-corrected.jpg" loading="lazy" alt="BLK-032"></div>
+<div class="cd">
+  <div class="sku">BLK-032</div>
+  <div class="col-code">5013</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#acaea8;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#acaea8"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-068">
+<div class="ci"><img src="BLK-068/swatch-corrected.jpg" loading="lazy" alt="BLK-068"></div>
+<div class="cd">
+  <div class="sku">BLK-068</div>
+  <div class="col-code">5013</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6b7579;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6b7579"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5024 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-033">
+<div class="ci"><img src="BLK-033/swatch-corrected.jpg" loading="lazy" alt="BLK-033"></div>
+<div class="cd">
+  <div class="sku">BLK-033</div>
+  <div class="col-code">5024</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5e5e5b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5e5e5b"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bebfbb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bebfbb"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-043">
+<div class="ci"><img src="BLK-043/swatch-corrected.jpg" loading="lazy" alt="BLK-043"></div>
+<div class="cd">
+  <div class="sku">BLK-043</div>
+  <div class="col-code">5024</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c4c1b9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c4c1b9"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5021 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-034">
+<div class="ci"><img src="BLK-034/swatch-corrected.jpg" loading="lazy" alt="BLK-034"></div>
+<div class="cd">
+  <div class="sku">BLK-034</div>
+  <div class="col-code">5021</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bcbebb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bcbebb"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#737674;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#737674"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-046">
+<div class="ci"><img src="BLK-046/swatch-corrected.jpg" loading="lazy" alt="BLK-046"></div>
+<div class="cd">
+  <div class="sku">BLK-046</div>
+  <div class="col-code">5021</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#474b44;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#474b44"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7bdb6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7bdb6"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5002 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-035">
+<div class="ci"><img src="BLK-035/swatch-corrected.jpg" loading="lazy" alt="BLK-035"></div>
+<div class="cd">
+  <div class="sku">BLK-035</div>
+  <div class="col-code">5002</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#787773;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#787773"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b5b4b0;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b5b4b0"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-077">
+<div class="ci"><img src="BLK-077/swatch-corrected.jpg" loading="lazy" alt="BLK-077"></div>
+<div class="cd">
+  <div class="sku">BLK-077</div>
+  <div class="col-code">5002</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#461913;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#461913"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#af6f68;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#af6f68"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5001 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-036">
+<div class="ci"><img src="BLK-036/swatch-corrected.jpg" loading="lazy" alt="BLK-036"></div>
+<div class="cd">
+  <div class="sku">BLK-036</div>
+  <div class="col-code">5001</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a4a6a6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a4a6a6"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-063">
+<div class="ci"><img src="BLK-063/swatch-corrected.jpg" loading="lazy" alt="BLK-063"></div>
+<div class="cd">
+  <div class="sku">BLK-063</div>
+  <div class="col-code">5001</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#211d1d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#211d1d"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#757171;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#757171"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5023 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-037">
+<div class="ci"><img src="BLK-037/swatch-corrected.jpg" loading="lazy" alt="BLK-037"></div>
+<div class="cd">
+  <div class="sku">BLK-037</div>
+  <div class="col-code">5023</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#50514f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#50514f"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b8b9b7;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b8b9b7"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-056">
+<div class="ci"><img src="BLK-056/swatch-corrected.jpg" loading="lazy" alt="BLK-056"></div>
+<div class="cd">
+  <div class="sku">BLK-056</div>
+  <div class="col-code">5023</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#291f18;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#291f18"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#94867a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#94867a"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5020 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-038">
+<div class="ci"><img src="BLK-038/swatch-corrected.jpg" loading="lazy" alt="BLK-038"></div>
+<div class="cd">
+  <div class="sku">BLK-038</div>
+  <div class="col-code">5020</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#cacdcb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#cacdcb"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#888a85;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#888a85"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-060">
+<div class="ci"><img src="BLK-060/swatch-corrected.jpg" loading="lazy" alt="BLK-060"></div>
+<div class="cd">
+  <div class="sku">BLK-060</div>
+  <div class="col-code">5020</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#919597;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#919597"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5025 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-039">
+<div class="ci"><img src="BLK-039/swatch-corrected.jpg" loading="lazy" alt="BLK-039"></div>
+<div class="cd">
+  <div class="sku">BLK-039</div>
+  <div class="col-code">5025</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#797772;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#797772"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-065">
+<div class="ci"><img src="BLK-065/swatch-corrected.jpg" loading="lazy" alt="BLK-065"></div>
+<div class="cd">
+  <div class="sku">BLK-065</div>
+  <div class="col-code">5025</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#505150;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#505150"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5003 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-040">
+<div class="ci"><img src="BLK-040/swatch-corrected.jpg" loading="lazy" alt="BLK-040"></div>
+<div class="cd">
+  <div class="sku">BLK-040</div>
+  <div class="col-code">5003</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#878783;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#878783"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c3bf;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c3bf"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-062">
+<div class="ci"><img src="BLK-062/swatch-corrected.jpg" loading="lazy" alt="BLK-062"></div>
+<div class="cd">
+  <div class="sku">BLK-062</div>
+  <div class="col-code">5003</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4d4c48;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4d4c48"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a6a5a1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a6a5a1"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5007 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-041">
+<div class="ci"><img src="BLK-041/swatch-corrected.jpg" loading="lazy" alt="BLK-041"></div>
+<div class="cd">
+  <div class="sku">BLK-041</div>
+  <div class="col-code">5007</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a89e91;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a89e91"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#413b33;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#413b33"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-049">
+<div class="ci"><img src="BLK-049/swatch-corrected.jpg" loading="lazy" alt="BLK-049"></div>
+<div class="cd">
+  <div class="sku">BLK-049</div>
+  <div class="col-code">5007</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8b8c89;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8b8c89"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7b7b4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7b7b4"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5016 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-042">
+<div class="ci"><img src="BLK-042/swatch-corrected.jpg" loading="lazy" alt="BLK-042"></div>
+<div class="cd">
+  <div class="sku">BLK-042</div>
+  <div class="col-code">5016</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aebab1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aebab1"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-047">
+<div class="ci"><img src="BLK-047/swatch-corrected.jpg" loading="lazy" alt="BLK-047"></div>
+<div class="cd">
+  <div class="sku">BLK-047</div>
+  <div class="col-code">5016</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c9bbb5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c9bbb5"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5005 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-044">
+<div class="ci"><img src="BLK-044/swatch-corrected.jpg" loading="lazy" alt="BLK-044"></div>
+<div class="cd">
+  <div class="sku">BLK-044</div>
+  <div class="col-code">5005</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#949691;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#949691"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-072">
+<div class="ci"><img src="BLK-072/swatch-corrected.jpg" loading="lazy" alt="BLK-072"></div>
+<div class="cd">
+  <div class="sku">BLK-072</div>
+  <div class="col-code">5005</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#638365;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#638365"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9cbd9e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9cbd9e"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5009 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-045">
+<div class="ci"><img src="BLK-045/swatch-corrected.jpg" loading="lazy" alt="BLK-045"></div>
+<div class="cd">
+  <div class="sku">BLK-045</div>
+  <div class="col-code">5009</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c7c3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c7c3"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-057">
+<div class="ci"><img src="BLK-057/swatch-corrected.jpg" loading="lazy" alt="BLK-057"></div>
+<div class="cd">
+  <div class="sku">BLK-057</div>
+  <div class="col-code">5009</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6d665c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6d665c"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5012 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-048">
+<div class="ci"><img src="BLK-048/swatch-corrected.jpg" loading="lazy" alt="BLK-048"></div>
+<div class="cd">
+  <div class="sku">BLK-048</div>
+  <div class="col-code">5012</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#53554e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#53554e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#91948d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#91948d"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-053">
+<div class="ci"><img src="BLK-053/swatch-corrected.jpg" loading="lazy" alt="BLK-053"></div>
+<div class="cd">
+  <div class="sku">BLK-053</div>
+  <div class="col-code">5012</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#70716e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#70716e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7b8b5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7b8b5"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5015 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-051">
+<div class="ci"><img src="BLK-051/swatch-corrected.jpg" loading="lazy" alt="BLK-051"></div>
+<div class="cd">
+  <div class="sku">BLK-051</div>
+  <div class="col-code">5015</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c2c4b9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c2c4b9"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-080">
+<div class="ci"><img src="BLK-080/swatch-corrected.jpg" loading="lazy" alt="BLK-080"></div>
+<div class="cd">
+  <div class="sku">BLK-080</div>
+  <div class="col-code">5015</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a6584e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a6584e"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5017 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-052">
+<div class="ci"><img src="BLK-052/swatch-corrected.jpg" loading="lazy" alt="BLK-052"></div>
+<div class="cd">
+  <div class="sku">BLK-052</div>
+  <div class="col-code">5017</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#656462;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#656462"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-055">
+<div class="ci"><img src="BLK-055/swatch-corrected.jpg" loading="lazy" alt="BLK-055"></div>
+<div class="cd">
+  <div class="sku">BLK-055</div>
+  <div class="col-code">5017</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d1d0ca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d1d0ca"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#64645f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#64645f"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5010 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-054">
+<div class="ci"><img src="BLK-054/swatch-corrected.jpg" loading="lazy" alt="BLK-054"></div>
+<div class="cd">
+  <div class="sku">BLK-054</div>
+  <div class="col-code">5010</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2f2b29;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#2f2b29"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9c9a99;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9c9a99"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-070">
+<div class="ci"><img src="BLK-070/swatch-corrected.jpg" loading="lazy" alt="BLK-070"></div>
+<div class="cd">
+  <div class="sku">BLK-070</div>
+  <div class="col-code">5010</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#404d3d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#404d3d"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5019 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-058">
+<div class="ci"><img src="BLK-058/swatch-corrected.jpg" loading="lazy" alt="BLK-058"></div>
+<div class="cd">
+  <div class="sku">BLK-058</div>
+  <div class="col-code">5019</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a39272;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a39272"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-067">
+<div class="ci"><img src="BLK-067/swatch-corrected.jpg" loading="lazy" alt="BLK-067"></div>
+<div class="cd">
+  <div class="sku">BLK-067</div>
+  <div class="col-code">5019</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#95938b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#95938b"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5022 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-059">
+<div class="ci"><img src="BLK-059/swatch-corrected.jpg" loading="lazy" alt="BLK-059"></div>
+<div class="cd">
+  <div class="sku">BLK-059</div>
+  <div class="col-code">5022</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5c5b59;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5c5b59"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-078">
+<div class="ci"><img src="BLK-078/swatch-corrected.jpg" loading="lazy" alt="BLK-078"></div>
+<div class="cd">
+  <div class="sku">BLK-078</div>
+  <div class="col-code">5022</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#263969;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#263969"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#506393;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#506393"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5026 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-064">
+<div class="ci"><img src="BLK-064/swatch-corrected.jpg" loading="lazy" alt="BLK-064"></div>
+<div class="cd">
+  <div class="sku">BLK-064</div>
+  <div class="col-code">5026</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#202a43;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#202a43"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-073">
+<div class="ci"><img src="BLK-073/swatch-corrected.jpg" loading="lazy" alt="BLK-073"></div>
+<div class="cd">
+  <div class="sku">BLK-073</div>
+  <div class="col-code">5026</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#303440;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#303440"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#767b8a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#767b8a"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5014 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-069">
+<div class="ci"><img src="BLK-069/swatch-corrected.jpg" loading="lazy" alt="BLK-069"></div>
+<div class="cd">
+  <div class="sku">BLK-069</div>
+  <div class="col-code">5014</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#92918b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#92918b"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-076">
+<div class="ci"><img src="BLK-076/swatch-corrected.jpg" loading="lazy" alt="BLK-076"></div>
+<div class="cd">
+  <div class="sku">BLK-076</div>
+  <div class="col-code">5014</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6e614c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6e614c"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b8ab96;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b8ab96"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5006 — DÜZ / DESENLİ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-071">
+<div class="ci"><img src="BLK-071/swatch-corrected.jpg" loading="lazy" alt="BLK-071"></div>
+<div class="cd">
+  <div class="sku">BLK-071</div>
+  <div class="col-code">5006</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#1a2c29;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#1a2c29"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#708b82;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#708b82"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-074">
+<div class="ci"><img src="BLK-074/swatch-corrected.jpg" loading="lazy" alt="BLK-074"></div>
+<div class="cd">
+  <div class="sku">BLK-074</div>
+  <div class="col-code">5006</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#564e46;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#564e46"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c1bbb4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c1bbb4"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">5011 — DESENLİ / DÜZ</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="BLK-075">
+<div class="ci"><img src="BLK-075/swatch-corrected.jpg" loading="lazy" alt="BLK-075"></div>
+<div class="cd">
+  <div class="sku">BLK-075</div>
+  <div class="col-code">5011</div>
+  <div class="app-tag">DESENLİ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#312116;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#312116"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9a6b59;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9a6b59"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="BLK-079">
+<div class="ci"><img src="BLK-079/swatch-corrected.jpg" loading="lazy" alt="BLK-079"></div>
+<div class="cd">
+  <div class="sku">BLK-079</div>
+  <div class="col-code">5011</div>
+  <div class="app-tag">DÜZ</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#825f41;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#825f41"></span></div>
+</div>
+</div></div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/enza/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>ENZA</h2>
+    <div class="cnt">14 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-001">
+<div class="ci"><img src="FON-001/swatch-corrected.jpg" loading="lazy" alt="FON-001"></div>
+<div class="cd">
+  <div class="sku">FON-001</div>
+  <div class="col-code">104</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aeb0ac;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aeb0ac"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-002">
+<div class="ci"><img src="FON-002/swatch-corrected.jpg" loading="lazy" alt="FON-002"></div>
+<div class="cd">
+  <div class="sku">FON-002</div>
+  <div class="col-code">106</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9e9b92;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9e9b92"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-003">
+<div class="ci"><img src="FON-003/swatch-corrected.jpg" loading="lazy" alt="FON-003"></div>
+<div class="cd">
+  <div class="sku">FON-003</div>
+  <div class="col-code">110</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#878079;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#878079"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-004">
+<div class="ci"><img src="FON-004/swatch-corrected.jpg" loading="lazy" alt="FON-004"></div>
+<div class="cd">
+  <div class="sku">FON-004</div>
+  <div class="col-code">111</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9ea09c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9ea09c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-005">
+<div class="ci"><img src="FON-005/swatch-corrected.jpg" loading="lazy" alt="FON-005"></div>
+<div class="cd">
+  <div class="sku">FON-005</div>
+  <div class="col-code">107</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9a968e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9a968e"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-006">
+<div class="ci"><img src="FON-006/swatch-corrected.jpg" loading="lazy" alt="FON-006"></div>
+<div class="cd">
+  <div class="sku">FON-006</div>
+  <div class="col-code">102</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8a8a87;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8a8a87"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-007">
+<div class="ci"><img src="FON-007/swatch-corrected.jpg" loading="lazy" alt="FON-007"></div>
+<div class="cd">
+  <div class="sku">FON-007</div>
+  <div class="col-code">109</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#908d89;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#908d89"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-008">
+<div class="ci"><img src="FON-008/swatch-corrected.jpg" loading="lazy" alt="FON-008"></div>
+<div class="cd">
+  <div class="sku">FON-008</div>
+  <div class="col-code">105</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#928e8a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#928e8a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-009">
+<div class="ci"><img src="FON-009/swatch-corrected.jpg" loading="lazy" alt="FON-009"></div>
+<div class="cd">
+  <div class="sku">FON-009</div>
+  <div class="col-code">112</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#827e78;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#827e78"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-010">
+<div class="ci"><img src="FON-010/swatch-corrected.jpg" loading="lazy" alt="FON-010"></div>
+<div class="cd">
+  <div class="sku">FON-010</div>
+  <div class="col-code">108</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#858481;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#858481"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-011">
+<div class="ci"><img src="FON-011/swatch-corrected.jpg" loading="lazy" alt="FON-011"></div>
+<div class="cd">
+  <div class="sku">FON-011</div>
+  <div class="col-code">114</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#80807d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#80807d"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-012">
+<div class="ci"><img src="FON-012/swatch-corrected.jpg" loading="lazy" alt="FON-012"></div>
+<div class="cd">
+  <div class="sku">FON-012</div>
+  <div class="col-code">101</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#807c78;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#807c78"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-013">
+<div class="ci"><img src="FON-013/swatch-corrected.jpg" loading="lazy" alt="FON-013"></div>
+<div class="cd">
+  <div class="sku">FON-013</div>
+  <div class="col-code">103</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6e6e69;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6e6e69"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-014">
+<div class="ci"><img src="FON-014/swatch-corrected.jpg" loading="lazy" alt="FON-014"></div>
+<div class="cd">
+  <div class="sku">FON-014</div>
+  <div class="col-code">113</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#876349;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#876349"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/monica/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>MONICA</h2>
+    <div class="cnt">11 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-015">
+<div class="ci"><img src="FON-015/swatch-corrected.jpg" loading="lazy" alt="FON-015"></div>
+<div class="cd">
+  <div class="sku">FON-015</div>
+  <div class="col-code">759</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a6a49c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a6a49c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-016">
+<div class="ci"><img src="FON-016/swatch-corrected.jpg" loading="lazy" alt="FON-016"></div>
+<div class="cd">
+  <div class="sku">FON-016</div>
+  <div class="col-code">760</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9d9c98;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9d9c98"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-017">
+<div class="ci"><img src="FON-017/swatch-corrected.jpg" loading="lazy" alt="FON-017"></div>
+<div class="cd">
+  <div class="sku">FON-017</div>
+  <div class="col-code">765</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#969187;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#969187"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-018">
+<div class="ci"><img src="FON-018/swatch-corrected.jpg" loading="lazy" alt="FON-018"></div>
+<div class="cd">
+  <div class="sku">FON-018</div>
+  <div class="col-code">761</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#87857e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#87857e"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-019">
+<div class="ci"><img src="FON-019/swatch-corrected.jpg" loading="lazy" alt="FON-019"></div>
+<div class="cd">
+  <div class="sku">FON-019</div>
+  <div class="col-code">763</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#898380;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#898380"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-020">
+<div class="ci"><img src="FON-020/swatch-corrected.jpg" loading="lazy" alt="FON-020"></div>
+<div class="cd">
+  <div class="sku">FON-020</div>
+  <div class="col-code">767</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#81786f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#81786f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-021">
+<div class="ci"><img src="FON-021/swatch-corrected.jpg" loading="lazy" alt="FON-021"></div>
+<div class="cd">
+  <div class="sku">FON-021</div>
+  <div class="col-code">768</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#837c70;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#837c70"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-022">
+<div class="ci"><img src="FON-022/swatch-corrected.jpg" loading="lazy" alt="FON-022"></div>
+<div class="cd">
+  <div class="sku">FON-022</div>
+  <div class="col-code">769</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#69635c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#69635c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-023">
+<div class="ci"><img src="FON-023/swatch-corrected.jpg" loading="lazy" alt="FON-023"></div>
+<div class="cd">
+  <div class="sku">FON-023</div>
+  <div class="col-code">770</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#74726c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#74726c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-024">
+<div class="ci"><img src="FON-024/swatch-corrected.jpg" loading="lazy" alt="FON-024"></div>
+<div class="cd">
+  <div class="sku">FON-024</div>
+  <div class="col-code">771</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#73716d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#73716d"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-025">
+<div class="ci"><img src="FON-025/swatch-corrected.jpg" loading="lazy" alt="FON-025"></div>
+<div class="cd">
+  <div class="sku">FON-025</div>
+  <div class="col-code">773</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#504e4b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#504e4b"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  <div class="design-tile"><img src="designs/sultan-22260/texture-512.jpg" alt="texture"><div class="tile-label">texture tile</div></div>
+  <div class="di">
+    <h2>SULTAN 22260</h2>
+    <div class="cnt">60 variants</div>
+  </div>
+</div>
+<div class="pairs-grid"><div class="pair-group">
+<div class="pair-label">630 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-026">
+<div class="ci"><img src="FON-026/swatch-corrected.jpg" loading="lazy" alt="FON-026"></div>
+<div class="cd">
+  <div class="sku">FON-026</div>
+  <div class="col-code">630</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#cfd1d1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#cfd1d1"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#858685;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#858685"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-073">
+<div class="ci"><img src="FON-073/swatch-corrected.jpg" loading="lazy" alt="FON-073"></div>
+<div class="cd">
+  <div class="sku">FON-073</div>
+  <div class="col-code">630</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2f4341;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#2f4341"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8a9d9b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8a9d9b"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">627 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-027">
+<div class="ci"><img src="FON-027/swatch-corrected.jpg" loading="lazy" alt="FON-027"></div>
+<div class="cd">
+  <div class="sku">FON-027</div>
+  <div class="col-code">627</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#757063;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#757063"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c8c4b9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c8c4b9"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-033">
+<div class="ci"><img src="FON-033/swatch-corrected.jpg" loading="lazy" alt="FON-033"></div>
+<div class="cd">
+  <div class="sku">FON-033</div>
+  <div class="col-code">627</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5f5d57;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5f5d57"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a8a6a1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a8a6a1"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">629 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-028">
+<div class="ci"><img src="FON-028/swatch-corrected.jpg" loading="lazy" alt="FON-028"></div>
+<div class="cd">
+  <div class="sku">FON-028</div>
+  <div class="col-code">629</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6d6e6e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6d6e6e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c2c3c3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c2c3c3"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-072">
+<div class="ci"><img src="FON-072/swatch-corrected.jpg" loading="lazy" alt="FON-072"></div>
+<div class="cd">
+  <div class="sku">FON-072</div>
+  <div class="col-code">629</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#878985;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#878985"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c9cac6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c9cac6"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">634 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-029">
+<div class="ci"><img src="FON-029/swatch-corrected.jpg" loading="lazy" alt="FON-029"></div>
+<div class="cd">
+  <div class="sku">FON-029</div>
+  <div class="col-code">634</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#676c6c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#676c6c"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c1c6c5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c1c6c5"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-031">
+<div class="ci"><img src="FON-031/swatch-corrected.jpg" loading="lazy" alt="FON-031"></div>
+<div class="cd">
+  <div class="sku">FON-031</div>
+  <div class="col-code">634</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#646057;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#646057"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b5b2a9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b5b2a9"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">612 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-030">
+<div class="ci"><img src="FON-030/swatch-corrected.jpg" loading="lazy" alt="FON-030"></div>
+<div class="cd">
+  <div class="sku">FON-030</div>
+  <div class="col-code">612</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5d6d70;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5d6d70"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c0c7ca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c0c7ca"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-063">
+<div class="ci"><img src="FON-063/swatch-corrected.jpg" loading="lazy" alt="FON-063"></div>
+<div class="cd">
+  <div class="sku">FON-063</div>
+  <div class="col-code">612</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#817f5d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#817f5d"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d6d5b4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d6d5b4"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">626 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-032">
+<div class="ci"><img src="FON-032/swatch-corrected.jpg" loading="lazy" alt="FON-032"></div>
+<div class="cd">
+  <div class="sku">FON-032</div>
+  <div class="col-code">626</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7a7974;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7a7974"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c7c6c2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c7c6c2"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-081">
+<div class="ci"><img src="FON-081/swatch-corrected.jpg" loading="lazy" alt="FON-081"></div>
+<div class="cd">
+  <div class="sku">FON-081</div>
+  <div class="col-code">626</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#0f1627;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#0f1627"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#555e6e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#555e6e"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">608 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-034">
+<div class="ci"><img src="FON-034/swatch-corrected.jpg" loading="lazy" alt="FON-034"></div>
+<div class="cd">
+  <div class="sku">FON-034</div>
+  <div class="col-code">608</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7b7c7e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7b7c7e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c7c8ca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c7c8ca"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-042">
+<div class="ci"><img src="FON-042/swatch-corrected.jpg" loading="lazy" alt="FON-042"></div>
+<div class="cd">
+  <div class="sku">FON-042</div>
+  <div class="col-code">608</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4f4d49;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4f4d49"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aaa7a3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aaa7a3"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">615 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-035">
+<div class="ci"><img src="FON-035/swatch-corrected.jpg" loading="lazy" alt="FON-035"></div>
+<div class="cd">
+  <div class="sku">FON-035</div>
+  <div class="col-code">615</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6c6d66;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6c6d66"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7b8b2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7b8b2"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-047">
+<div class="ci"><img src="FON-047/swatch-corrected.jpg" loading="lazy" alt="FON-047"></div>
+<div class="cd">
+  <div class="sku">FON-047</div>
+  <div class="col-code">615</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#746553;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#746553"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c9bca9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c9bca9"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">613 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-036">
+<div class="ci"><img src="FON-036/swatch-corrected.jpg" loading="lazy" alt="FON-036"></div>
+<div class="cd">
+  <div class="sku">FON-036</div>
+  <div class="col-code">613</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#626764;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#626764"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#babebc;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#babebc"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-046">
+<div class="ci"><img src="FON-046/swatch-corrected.jpg" loading="lazy" alt="FON-046"></div>
+<div class="cd">
+  <div class="sku">FON-046</div>
+  <div class="col-code">613</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#928c78;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#928c78"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d7d2be;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d7d2be"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">605 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-037">
+<div class="ci"><img src="FON-037/swatch-corrected.jpg" loading="lazy" alt="FON-037"></div>
+<div class="cd">
+  <div class="sku">FON-037</div>
+  <div class="col-code">605</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#74797b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#74797b"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c5c9cb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c5c9cb"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-041">
+<div class="ci"><img src="FON-041/swatch-corrected.jpg" loading="lazy" alt="FON-041"></div>
+<div class="cd">
+  <div class="sku">FON-041</div>
+  <div class="col-code">605</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#645c54;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#645c54"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bab4ab;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bab4ab"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">610 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-038">
+<div class="ci"><img src="FON-038/swatch-corrected.jpg" loading="lazy" alt="FON-038"></div>
+<div class="cd">
+  <div class="sku">FON-038</div>
+  <div class="col-code">610</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#736c63;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#736c63"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b8b1a7;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b8b1a7"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-078">
+<div class="ci"><img src="FON-078/swatch-corrected.jpg" loading="lazy" alt="FON-078"></div>
+<div class="cd">
+  <div class="sku">FON-078</div>
+  <div class="col-code">610</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3e5969;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#3e5969"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#92abb9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#92abb9"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">602 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-039">
+<div class="ci"><img src="FON-039/swatch-corrected.jpg" loading="lazy" alt="FON-039"></div>
+<div class="cd">
+  <div class="sku">FON-039</div>
+  <div class="col-code">602</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#736168;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#736168"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ccbcc2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ccbcc2"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-067">
+<div class="ci"><img src="FON-067/swatch-corrected.jpg" loading="lazy" alt="FON-067"></div>
+<div class="cd">
+  <div class="sku">FON-067</div>
+  <div class="col-code">602</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#420e1a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#420e1a"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#894c5b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#894c5b"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">609 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-040">
+<div class="ci"><img src="FON-040/swatch-corrected.jpg" loading="lazy" alt="FON-040"></div>
+<div class="cd">
+  <div class="sku">FON-040</div>
+  <div class="col-code">609</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#54504e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#54504e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b1aca8;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b1aca8"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-085">
+<div class="ci"><img src="FON-085/swatch-corrected.jpg" loading="lazy" alt="FON-085"></div>
+<div class="cd">
+  <div class="sku">FON-085</div>
+  <div class="col-code">609</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#303233;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#303233"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7b7c7c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7b7c7c"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">607 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-043">
+<div class="ci"><img src="FON-043/swatch-corrected.jpg" loading="lazy" alt="FON-043"></div>
+<div class="cd">
+  <div class="sku">FON-043</div>
+  <div class="col-code">607</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#82837e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#82837e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c3c4bf;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c3c4bf"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-084">
+<div class="ci"><img src="FON-084/swatch-corrected.jpg" loading="lazy" alt="FON-084"></div>
+<div class="cd">
+  <div class="sku">FON-084</div>
+  <div class="col-code">607</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#323b4b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#323b4b"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#828b98;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#828b98"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">619 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-044">
+<div class="ci"><img src="FON-044/swatch-corrected.jpg" loading="lazy" alt="FON-044"></div>
+<div class="cd">
+  <div class="sku">FON-044</div>
+  <div class="col-code">619</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6b665c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6b665c"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b7b3a9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b7b3a9"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-049">
+<div class="ci"><img src="FON-049/swatch-corrected.jpg" loading="lazy" alt="FON-049"></div>
+<div class="cd">
+  <div class="sku">FON-049</div>
+  <div class="col-code">619</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#584d47;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#584d47"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b1a8a2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b1a8a2"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">632 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-045">
+<div class="ci"><img src="FON-045/swatch-corrected.jpg" loading="lazy" alt="FON-045"></div>
+<div class="cd">
+  <div class="sku">FON-045</div>
+  <div class="col-code">632</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c6bcab;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c6bcab"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#726859;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#726859"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-082">
+<div class="ci"><img src="FON-082/swatch-corrected.jpg" loading="lazy" alt="FON-082"></div>
+<div class="cd">
+  <div class="sku">FON-082</div>
+  <div class="col-code">632</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#0e1f34;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#0e1f34"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3e5065;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#3e5065"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">617 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-048">
+<div class="ci"><img src="FON-048/swatch-corrected.jpg" loading="lazy" alt="FON-048"></div>
+<div class="cd">
+  <div class="sku">FON-048</div>
+  <div class="col-code">617</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#858365;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#858365"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d0ceb1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d0ceb1"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-062">
+<div class="ci"><img src="FON-062/swatch-corrected.jpg" loading="lazy" alt="FON-062"></div>
+<div class="cd">
+  <div class="sku">FON-062</div>
+  <div class="col-code">617</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6c6861;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6c6861"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bdbab3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bdbab3"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">631 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-050">
+<div class="ci"><img src="FON-050/swatch-corrected.jpg" loading="lazy" alt="FON-050"></div>
+<div class="cd">
+  <div class="sku">FON-050</div>
+  <div class="col-code">631</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c2c1bc;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c2c1bc"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7a7974;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7a7974"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-058">
+<div class="ci"><img src="FON-058/swatch-corrected.jpg" loading="lazy" alt="FON-058"></div>
+<div class="cd">
+  <div class="sku">FON-058</div>
+  <div class="col-code">631</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#746252;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#746252"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d0bead;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d0bead"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">611 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-051">
+<div class="ci"><img src="FON-051/swatch-corrected.jpg" loading="lazy" alt="FON-051"></div>
+<div class="cd">
+  <div class="sku">FON-051</div>
+  <div class="col-code">611</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5c5952;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5c5952"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b0ada5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b0ada5"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-056">
+<div class="ci"><img src="FON-056/swatch-corrected.jpg" loading="lazy" alt="FON-056"></div>
+<div class="cd">
+  <div class="sku">FON-056</div>
+  <div class="col-code">611</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7d7b79;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7d7b79"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#cecdca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#cecdca"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">622 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-052">
+<div class="ci"><img src="FON-052/swatch-corrected.jpg" loading="lazy" alt="FON-052"></div>
+<div class="cd">
+  <div class="sku">FON-052</div>
+  <div class="col-code">622</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bdc2c4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bdc2c4"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#878c8e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#878c8e"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-077">
+<div class="ci"><img src="FON-077/swatch-corrected.jpg" loading="lazy" alt="FON-077"></div>
+<div class="cd">
+  <div class="sku">FON-077</div>
+  <div class="col-code">622</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#818582;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#818582"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ced2ce;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ced2ce"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">628 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-053">
+<div class="ci"><img src="FON-053/swatch-corrected.jpg" loading="lazy" alt="FON-053"></div>
+<div class="cd">
+  <div class="sku">FON-053</div>
+  <div class="col-code">628</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3c4041;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#3c4041"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9b9d9c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9b9d9c"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-066">
+<div class="ci"><img src="FON-066/swatch-corrected.jpg" loading="lazy" alt="FON-066"></div>
+<div class="cd">
+  <div class="sku">FON-066</div>
+  <div class="col-code">628</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#555451;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#555451"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a8a8a4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a8a8a4"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">620 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-054">
+<div class="ci"><img src="FON-054/swatch-corrected.jpg" loading="lazy" alt="FON-054"></div>
+<div class="cd">
+  <div class="sku">FON-054</div>
+  <div class="col-code">620</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6a6257;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6a6257"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c1bbb1;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c1bbb1"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-076">
+<div class="ci"><img src="FON-076/swatch-corrected.jpg" loading="lazy" alt="FON-076"></div>
+<div class="cd">
+  <div class="sku">FON-076</div>
+  <div class="col-code">620</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#20444e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#20444e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#5d818b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#5d818b"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">601 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-055">
+<div class="ci"><img src="FON-055/swatch-corrected.jpg" loading="lazy" alt="FON-055"></div>
+<div class="cd">
+  <div class="sku">FON-055</div>
+  <div class="col-code">601</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4b4e4d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4b4e4d"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#afb0ad;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#afb0ad"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-059">
+<div class="ci"><img src="FON-059/swatch-corrected.jpg" loading="lazy" alt="FON-059"></div>
+<div class="cd">
+  <div class="sku">FON-059</div>
+  <div class="col-code">601</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#494b4a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#494b4a"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#aaaba7;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#aaaba7"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">625 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-057">
+<div class="ci"><img src="FON-057/swatch-corrected.jpg" loading="lazy" alt="FON-057"></div>
+<div class="cd">
+  <div class="sku">FON-057</div>
+  <div class="col-code">625</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#50514d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#50514d"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a8a9a4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a8a9a4"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-060">
+<div class="ci"><img src="FON-060/swatch-corrected.jpg" loading="lazy" alt="FON-060"></div>
+<div class="cd">
+  <div class="sku">FON-060</div>
+  <div class="col-code">625</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#828179;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#828179"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d1d0c9;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d1d0c9"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">604 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-061">
+<div class="ci"><img src="FON-061/swatch-corrected.jpg" loading="lazy" alt="FON-061"></div>
+<div class="cd">
+  <div class="sku">FON-061</div>
+  <div class="col-code">604</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#47423c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#47423c"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a19c95;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a19c95"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-075">
+<div class="ci"><img src="FON-075/swatch-corrected.jpg" loading="lazy" alt="FON-075"></div>
+<div class="cd">
+  <div class="sku">FON-075</div>
+  <div class="col-code">604</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#1e3946;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#1e3946"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#74909c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#74909c"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">618 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-064">
+<div class="ci"><img src="FON-064/swatch-corrected.jpg" loading="lazy" alt="FON-064"></div>
+<div class="cd">
+  <div class="sku">FON-064</div>
+  <div class="col-code">618</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#cccbc4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#cccbc4"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#87877f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#87877f"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-079">
+<div class="ci"><img src="FON-079/swatch-corrected.jpg" loading="lazy" alt="FON-079"></div>
+<div class="cd">
+  <div class="sku">FON-079</div>
+  <div class="col-code">618</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#263742;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#263742"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#81929d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#81929d"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">623 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-065">
+<div class="ci"><img src="FON-065/swatch-corrected.jpg" loading="lazy" alt="FON-065"></div>
+<div class="cd">
+  <div class="sku">FON-065</div>
+  <div class="col-code">623</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#843c1e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#843c1e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c88161;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c88161"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-071">
+<div class="ci"><img src="FON-071/swatch-corrected.jpg" loading="lazy" alt="FON-071"></div>
+<div class="cd">
+  <div class="sku">FON-071</div>
+  <div class="col-code">623</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#484e4e;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#484e4e"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a7adab;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a7adab"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">614 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-068">
+<div class="ci"><img src="FON-068/swatch-corrected.jpg" loading="lazy" alt="FON-068"></div>
+<div class="cd">
+  <div class="sku">FON-068</div>
+  <div class="col-code">614</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4e0d1a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4e0d1a"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8a3f50;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8a3f50"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-074">
+<div class="ci"><img src="FON-074/swatch-corrected.jpg" loading="lazy" alt="FON-074"></div>
+<div class="cd">
+  <div class="sku">FON-074</div>
+  <div class="col-code">614</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#555556;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#555556"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b2b3b4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b2b3b4"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">606 — KOYU / AÇIK</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-069">
+<div class="ci"><img src="FON-069/swatch-corrected.jpg" loading="lazy" alt="FON-069"></div>
+<div class="cd">
+  <div class="sku">FON-069</div>
+  <div class="col-code">606</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#856869;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#856869"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d2b5b7;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d2b5b7"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-083">
+<div class="ci"><img src="FON-083/swatch-corrected.jpg" loading="lazy" alt="FON-083"></div>
+<div class="cd">
+  <div class="sku">FON-083</div>
+  <div class="col-code">606</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#424142;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#424142"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9f9d9d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9f9d9d"></span></div>
+</div>
+</div></div>
+</div><div class="pair-group">
+<div class="pair-label">633 — AÇIK / KOYU</div>
+<div class="pair-cards"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-070">
+<div class="ci"><img src="FON-070/swatch-corrected.jpg" loading="lazy" alt="FON-070"></div>
+<div class="cd">
+  <div class="sku">FON-070</div>
+  <div class="col-code">633</div>
+  <div class="app-tag">AÇIK</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d2d1ca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d2d1ca"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7e7e79;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#7e7e79"></span></div>
+</div>
+</div> <div class="card" onclick="this.classList.toggle('flagged')" title="FON-080">
+<div class="ci"><img src="FON-080/swatch-corrected.jpg" loading="lazy" alt="FON-080"></div>
+<div class="cd">
+  <div class="sku">FON-080</div>
+  <div class="col-code">633</div>
+  <div class="app-tag">KOYU</div>
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3f413f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#3f413f"></span><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9e9d9b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9e9d9b"></span></div>
+</div>
+</div></div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  
+  <div class="di">
+    <h2>SÜET</h2>
+    <div class="cnt">45 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-086">
+<div class="ci"><img src="FON-086/swatch-corrected.jpg" loading="lazy" alt="FON-086"></div>
+<div class="cd">
+  <div class="sku">FON-086</div>
+  <div class="col-code">9001</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d8d7d2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d8d7d2"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-087">
+<div class="ci"><img src="FON-087/swatch-corrected.jpg" loading="lazy" alt="FON-087"></div>
+<div class="cd">
+  <div class="sku">FON-087</div>
+  <div class="col-code">9033</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ccc3b0;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ccc3b0"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-088">
+<div class="ci"><img src="FON-088/swatch-corrected.jpg" loading="lazy" alt="FON-088"></div>
+<div class="cd">
+  <div class="sku">FON-088</div>
+  <div class="col-code">9014</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b6bda3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b6bda3"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-089">
+<div class="ci"><img src="FON-089/swatch-corrected.jpg" loading="lazy" alt="FON-089"></div>
+<div class="cd">
+  <div class="sku">FON-089</div>
+  <div class="col-code">9005</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b6a998;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b6a998"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-090">
+<div class="ci"><img src="FON-090/swatch-corrected.jpg" loading="lazy" alt="FON-090"></div>
+<div class="cd">
+  <div class="sku">FON-090</div>
+  <div class="col-code">9004</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bba992;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bba992"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-091">
+<div class="ci"><img src="FON-091/swatch-corrected.jpg" loading="lazy" alt="FON-091"></div>
+<div class="cd">
+  <div class="sku">FON-091</div>
+  <div class="col-code">9007</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a89573;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a89573"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-092">
+<div class="ci"><img src="FON-092/swatch-corrected.jpg" loading="lazy" alt="FON-092"></div>
+<div class="cd">
+  <div class="sku">FON-092</div>
+  <div class="col-code">9006</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9b8670;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9b8670"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-093">
+<div class="ci"><img src="FON-093/swatch-corrected.jpg" loading="lazy" alt="FON-093"></div>
+<div class="cd">
+  <div class="sku">FON-093</div>
+  <div class="col-code">9009</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#948479;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#948479"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-094">
+<div class="ci"><img src="FON-094/swatch-corrected.jpg" loading="lazy" alt="FON-094"></div>
+<div class="cd">
+  <div class="sku">FON-094</div>
+  <div class="col-code">9011</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#95808f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#95808f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-095">
+<div class="ci"><img src="FON-095/swatch-corrected.jpg" loading="lazy" alt="FON-095"></div>
+<div class="cd">
+  <div class="sku">FON-095</div>
+  <div class="col-code">9029</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#987a55;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#987a55"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-096">
+<div class="ci"><img src="FON-096/swatch-corrected.jpg" loading="lazy" alt="FON-096"></div>
+<div class="cd">
+  <div class="sku">FON-096</div>
+  <div class="col-code">9002</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#be7a35;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#be7a35"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-097">
+<div class="ci"><img src="FON-097/swatch-corrected.jpg" loading="lazy" alt="FON-097"></div>
+<div class="cd">
+  <div class="sku">FON-097</div>
+  <div class="col-code">9013</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d39f4a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d39f4a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-098">
+<div class="ci"><img src="FON-098/swatch-corrected.jpg" loading="lazy" alt="FON-098"></div>
+<div class="cd">
+  <div class="sku">FON-098</div>
+  <div class="col-code">9018</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#c08764;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#c08764"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-099">
+<div class="ci"><img src="FON-099/swatch-corrected.jpg" loading="lazy" alt="FON-099"></div>
+<div class="cd">
+  <div class="sku">FON-099</div>
+  <div class="col-code">9041</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#736d71;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#736d71"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-100">
+<div class="ci"><img src="FON-100/swatch-corrected.jpg" loading="lazy" alt="FON-100"></div>
+<div class="cd">
+  <div class="sku">FON-100</div>
+  <div class="col-code">9025</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8d6540;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8d6540"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-101">
+<div class="ci"><img src="FON-101/swatch-corrected.jpg" loading="lazy" alt="FON-101"></div>
+<div class="cd">
+  <div class="sku">FON-101</div>
+  <div class="col-code">9019</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#61443c;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#61443c"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-102">
+<div class="ci"><img src="FON-102/swatch-corrected.jpg" loading="lazy" alt="FON-102"></div>
+<div class="cd">
+  <div class="sku">FON-102</div>
+  <div class="col-code">9021</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#cb3648;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#cb3648"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-103">
+<div class="ci"><img src="FON-103/swatch-corrected.jpg" loading="lazy" alt="FON-103"></div>
+<div class="cd">
+  <div class="sku">FON-103</div>
+  <div class="col-code">9003</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bdaf9a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bdaf9a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-104">
+<div class="ci"><img src="FON-104/swatch-corrected.jpg" loading="lazy" alt="FON-104"></div>
+<div class="cd">
+  <div class="sku">FON-104</div>
+  <div class="col-code">9010</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#b8b0bb;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#b8b0bb"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-105">
+<div class="ci"><img src="FON-105/swatch-corrected.jpg" loading="lazy" alt="FON-105"></div>
+<div class="cd">
+  <div class="sku">FON-105</div>
+  <div class="col-code">9045</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#384d46;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#384d46"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-106">
+<div class="ci"><img src="FON-106/swatch-corrected.jpg" loading="lazy" alt="FON-106"></div>
+<div class="cd">
+  <div class="sku">FON-106</div>
+  <div class="col-code">9036</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a1bfcd;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a1bfcd"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-107">
+<div class="ci"><img src="FON-107/swatch-corrected.jpg" loading="lazy" alt="FON-107"></div>
+<div class="cd">
+  <div class="sku">FON-107</div>
+  <div class="col-code">9020</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#78b2cc;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#78b2cc"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-108">
+<div class="ci"><img src="FON-108/swatch-corrected.jpg" loading="lazy" alt="FON-108"></div>
+<div class="cd">
+  <div class="sku">FON-108</div>
+  <div class="col-code">9024</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4f738b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#4f738b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-109">
+<div class="ci"><img src="FON-109/swatch-corrected.jpg" loading="lazy" alt="FON-109"></div>
+<div class="cd">
+  <div class="sku">FON-109</div>
+  <div class="col-code">9044</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#e9c2b3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#e9c2b3"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-110">
+<div class="ci"><img src="FON-110/swatch-corrected.jpg" loading="lazy" alt="FON-110"></div>
+<div class="cd">
+  <div class="sku">FON-110</div>
+  <div class="col-code">9012</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ea9a9a;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ea9a9a"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-111">
+<div class="ci"><img src="FON-111/swatch-corrected.jpg" loading="lazy" alt="FON-111"></div>
+<div class="cd">
+  <div class="sku">FON-111</div>
+  <div class="col-code">9035</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#afa8a4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#afa8a4"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-112">
+<div class="ci"><img src="FON-112/swatch-corrected.jpg" loading="lazy" alt="FON-112"></div>
+<div class="cd">
+  <div class="sku">FON-112</div>
+  <div class="col-code">9028</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ac767b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ac767b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-113">
+<div class="ci"><img src="FON-113/swatch-corrected.jpg" loading="lazy" alt="FON-113"></div>
+<div class="cd">
+  <div class="sku">FON-113</div>
+  <div class="col-code">9017</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ae7685;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ae7685"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-114">
+<div class="ci"><img src="FON-114/swatch-corrected.jpg" loading="lazy" alt="FON-114"></div>
+<div class="cd">
+  <div class="sku">FON-114</div>
+  <div class="col-code">9034</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#bc5d84;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#bc5d84"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-115">
+<div class="ci"><img src="FON-115/swatch-corrected.jpg" loading="lazy" alt="FON-115"></div>
+<div class="cd">
+  <div class="sku">FON-115</div>
+  <div class="col-code">9008</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#687292;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#687292"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-116">
+<div class="ci"><img src="FON-116/swatch-corrected.jpg" loading="lazy" alt="FON-116"></div>
+<div class="cd">
+  <div class="sku">FON-116</div>
+  <div class="col-code">9023</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a8a0b6;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a8a0b6"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-117">
+<div class="ci"><img src="FON-117/swatch-corrected.jpg" loading="lazy" alt="FON-117"></div>
+<div class="cd">
+  <div class="sku">FON-117</div>
+  <div class="col-code">9026</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#abb9d2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#abb9d2"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-118">
+<div class="ci"><img src="FON-118/swatch-corrected.jpg" loading="lazy" alt="FON-118"></div>
+<div class="cd">
+  <div class="sku">FON-118</div>
+  <div class="col-code">9031</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8c9cab;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8c9cab"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-119">
+<div class="ci"><img src="FON-119/swatch-corrected.jpg" loading="lazy" alt="FON-119"></div>
+<div class="cd">
+  <div class="sku">FON-119</div>
+  <div class="col-code">9040</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d0cfca;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#d0cfca"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-120">
+<div class="ci"><img src="FON-120/swatch-corrected.jpg" loading="lazy" alt="FON-120"></div>
+<div class="cd">
+  <div class="sku">FON-120</div>
+  <div class="col-code">9032</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#9659b0;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#9659b0"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-121">
+<div class="ci"><img src="FON-121/swatch-corrected.jpg" loading="lazy" alt="FON-121"></div>
+<div class="cd">
+  <div class="sku">FON-121</div>
+  <div class="col-code">9038</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8d4472;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8d4472"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-122">
+<div class="ci"><img src="FON-122/swatch-corrected.jpg" loading="lazy" alt="FON-122"></div>
+<div class="cd">
+  <div class="sku">FON-122</div>
+  <div class="col-code">9022</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#233760;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#233760"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-123">
+<div class="ci"><img src="FON-123/swatch-corrected.jpg" loading="lazy" alt="FON-123"></div>
+<div class="cd">
+  <div class="sku">FON-123</div>
+  <div class="col-code">9043</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#333b62;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#333b62"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-124">
+<div class="ci"><img src="FON-124/swatch-corrected.jpg" loading="lazy" alt="FON-124"></div>
+<div class="cd">
+  <div class="sku">FON-124</div>
+  <div class="col-code">9016</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#66a1c3;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#66a1c3"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-125">
+<div class="ci"><img src="FON-125/swatch-corrected.jpg" loading="lazy" alt="FON-125"></div>
+<div class="cd">
+  <div class="sku">FON-125</div>
+  <div class="col-code">9039</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#74533f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#74533f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-126">
+<div class="ci"><img src="FON-126/swatch-corrected.jpg" loading="lazy" alt="FON-126"></div>
+<div class="cd">
+  <div class="sku">FON-126</div>
+  <div class="col-code">9015</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#ad6f29;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#ad6f29"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-127">
+<div class="ci"><img src="FON-127/swatch-corrected.jpg" loading="lazy" alt="FON-127"></div>
+<div class="cd">
+  <div class="sku">FON-127</div>
+  <div class="col-code">9037</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6b3543;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6b3543"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-128">
+<div class="ci"><img src="FON-128/swatch-corrected.jpg" loading="lazy" alt="FON-128"></div>
+<div class="cd">
+  <div class="sku">FON-128</div>
+  <div class="col-code">9042</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#63a0c4;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#63a0c4"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-129">
+<div class="ci"><img src="FON-129/swatch-corrected.jpg" loading="lazy" alt="FON-129"></div>
+<div class="cd">
+  <div class="sku">FON-129</div>
+  <div class="col-code">9027</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#68a4c5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#68a4c5"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-130">
+<div class="ci"><img src="FON-130/swatch-corrected.jpg" loading="lazy" alt="FON-130"></div>
+<div class="cd">
+  <div class="sku">FON-130</div>
+  <div class="col-code">9030</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#dbdad5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#dbdad5"></span></div>
+</div>
+</div></div>
+</div>
+<div class="ds">
+<div class="dh">
+  
+  <div class="di">
+    <h2>YAĞMUR</h2>
+    <div class="cnt">11 variants</div>
+  </div>
+</div>
+<div class="cg"><div class="card" onclick="this.classList.toggle('flagged')" title="FON-131">
+<div class="ci"><img src="FON-131/swatch-corrected.jpg" loading="lazy" alt="FON-131"></div>
+<div class="cd">
+  <div class="sku">FON-131</div>
+  <div class="col-code">7008</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a9a9a5;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a9a9a5"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-132">
+<div class="ci"><img src="FON-132/swatch-corrected.jpg" loading="lazy" alt="FON-132"></div>
+<div class="cd">
+  <div class="sku">FON-132</div>
+  <div class="col-code">7010</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#999a97;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#999a97"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-133">
+<div class="ci"><img src="FON-133/swatch-corrected.jpg" loading="lazy" alt="FON-133"></div>
+<div class="cd">
+  <div class="sku">FON-133</div>
+  <div class="col-code">7007</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8e8f8d;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8e8f8d"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-134">
+<div class="ci"><img src="FON-134/swatch-corrected.jpg" loading="lazy" alt="FON-134"></div>
+<div class="cd">
+  <div class="sku">FON-134</div>
+  <div class="col-code">7011</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#99988f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#99988f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-135">
+<div class="ci"><img src="FON-135/swatch-corrected.jpg" loading="lazy" alt="FON-135"></div>
+<div class="cd">
+  <div class="sku">FON-135</div>
+  <div class="col-code">7005</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#8e8f8b;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#8e8f8b"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-136">
+<div class="ci"><img src="FON-136/swatch-corrected.jpg" loading="lazy" alt="FON-136"></div>
+<div class="cd">
+  <div class="sku">FON-136</div>
+  <div class="col-code">7001</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#908c84;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#908c84"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-137">
+<div class="ci"><img src="FON-137/swatch-corrected.jpg" loading="lazy" alt="FON-137"></div>
+<div class="cd">
+  <div class="sku">FON-137</div>
+  <div class="col-code">7003</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#969998;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#969998"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-138">
+<div class="ci"><img src="FON-138/swatch-corrected.jpg" loading="lazy" alt="FON-138"></div>
+<div class="cd">
+  <div class="sku">FON-138</div>
+  <div class="col-code">7002</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#818483;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#818483"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-139">
+<div class="ci"><img src="FON-139/swatch-corrected.jpg" loading="lazy" alt="FON-139"></div>
+<div class="cd">
+  <div class="sku">FON-139</div>
+  <div class="col-code">7009</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#767473;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#767473"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-140">
+<div class="ci"><img src="FON-140/swatch-corrected.jpg" loading="lazy" alt="FON-140"></div>
+<div class="cd">
+  <div class="sku">FON-140</div>
+  <div class="col-code">7004</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6c6f6f;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#6c6f6f"></span></div>
+</div>
+</div><div class="card" onclick="this.classList.toggle('flagged')" title="FON-141">
+<div class="ci"><img src="FON-141/swatch-corrected.jpg" loading="lazy" alt="FON-141"></div>
+<div class="cd">
+  <div class="sku">FON-141</div>
+  <div class="col-code">7006</div>
+  
+  <div class="tc"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#a7a7a2;border:1px solid #444;vertical-align:middle;margin-right:3px;" title="#a7a7a2"></span></div>
+</div>
+</div></div>
+</div>
+
+</body></html>

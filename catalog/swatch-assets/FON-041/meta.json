@@ -1,0 +1,26 @@
+{
+  "sku": "FON-041",
+  "design": "SULTAN 22260",
+  "colour_code": "605",
+  "appearance": "AÇIK",
+  "width_cm": 310,
+  "price": "860",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/sultan-22260/texture-512.jpg",
+  "design_texture_full": "designs/sultan-22260/texture-full.jpg",
+  "raw_colors": [
+    "#5d5a57",
+    "#8f8c89",
+    "#cfccca"
+  ],
+  "thread_colors": [
+    "#b2a693",
+    "#887c6b"
+  ],
+  "thread_count": 2,
+  "source_heic": "FON/SULTAN 22260/2.HEIC"
+}

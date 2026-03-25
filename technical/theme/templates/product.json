@@ -265,10 +265,8 @@
       }
     },
     "odanda_gor_button": {
-      "type": "custom-liquid",
-      "settings": {
-        "custom_liquid": "{% render 'room-visualizer-button', product: product %}"
-      }
+      "type": "odanda-gor-pdp",
+      "settings": {}
     },
     "curtain_configurator": {
       "type": "curtain-configurator",

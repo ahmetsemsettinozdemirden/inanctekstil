@@ -1,0 +1,35 @@
+[project]
+name = "adloop"
+version = "0.2.0"
+description = "MCP server connecting Google Ads + GA4 + codebase into one AI-driven feedback loop"
+readme = "README.md"
+authors = [
+    { name = "Daniel Klose", email = "info@daniel-klose.com" }
+]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["mcp", "google-ads", "google-analytics", "ga4", "cursor", "marketing"]
+dependencies = [
+    "fastmcp>=3.0.0",
+    "google-ads>=29.0.0",
+    "google-analytics-data>=0.20.0",
+    "google-analytics-admin>=0.27.0",
+    "google-auth-oauthlib>=1.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/kLOsk/adloop"
+Repository = "https://github.com/kLOsk/adloop"
+Issues = "https://github.com/kLOsk/adloop/issues"
+Changelog = "https://github.com/kLOsk/adloop/releases"
+
+[project.scripts]
+adloop = "adloop:main"
+
+[build-system]
+requires = ["uv_build>=0.10.8,<0.11.0"]
+build-backend = "uv_build"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]

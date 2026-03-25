@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kutu Studio — 5 Köpük Plaka</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0d0d1a; font-family:system-ui,sans-serif; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; }
+  #ui {
+    position:fixed; top:16px; left:50%; transform:translateX(-50%);
+    display:flex; gap:8px; z-index:10; align-items:center; flex-wrap:wrap; justify-content:center;
+  }
+  .btn {
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+    color:#ccc; padding:6px 14px; border-radius:6px; cursor:pointer; font-size:12px; font-family:system-ui;
+  }
+  .btn.on  { background:rgba(255,224,102,0.2); border-color:#ffe066; color:#ffe066; }
+  .btn.on2 { background:rgba(126,200,227,0.2); border-color:#7ec8e3; color:#7ec8e3; }
+  #info {
+    position:fixed; bottom:0; left:0; right:0;
+    background:rgba(10,10,20,0.93); border-top:1px solid rgba(255,255,255,0.07);
+    padding:12px 20px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+  }
+  .tip { font-size:11px; color:#666; max-width:200px; }
+  .tip b { display:block; margin-bottom:2px; }
+  .tip.y b { color:#ffe066; }
+  .tip.g b { color:#44cc88; }
+  .tip.b b { color:#7ec8e3; }
+  .tip.w b { color:#f0ede0; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <span style="color:#555;font-size:11px;">Shot:</span>
+  <button class="btn on" id="b1" onclick="setShot(1)">1 — Şerit LED (renk + doku)</button>
+  <button class="btn"    id="b2" onclick="setShot(2)">2 — Backlit (şeffaflık)</button>
+  <button class="btn"    id="bX" onclick="toggleExplode()">Katmanları Ayır</button>
+</div>
+<div id="info">
+  <div class="tip w"><b>📦 Kutu — 5 plaka 50×70cm</b>İç ölçü: 38×38×30cm. Açık alt. Üst levhada 3×4cm delik.</div>
+  <div class="tip y"><b>💡 2 Şerit, U şeklinde</b>Şerit 1: sol üst → arka köşe → sağ üst. Şerit 2: sol alt → arka köşe → sağ alt. Köşede 90° bük, devam et.</div>
+  <div class="tip b"><b>💡 Backlit Tepsi</b>9 LED enjeksiyon modülü 3×3. Shot 2'de kutunun altına kaydır. Tek kat kumaş.</div>
+  <div class="tip g"><b>📱 iPhone 16 Pro</b>Üst levhaya, deliğin üstüne koy. 2× lens. MacBook iPhone Mirroring ile tetikle.</div>
+  <div class="tip b"><b>🔲 Cam 40×40cm</b>Kutunun içine, kumaşın üstüne. Kumaşı düzler. ColorChecker ön köşede görünür.</div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ── Renderer ──────────────────────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d0d1a);
+scene.fog = new THREE.FogExp2(0x0d0d1a, 0.013);
+
+const camera = new THREE.PerspectiveCamera(44, window.innerWidth/window.innerHeight, 0.1, 80);
+camera.position.set(9, 9, 12);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.5, 0);
+controls.enableDamping = true; controls.dampingFactor = 0.07;
+controls.minDistance = 3; controls.maxDistance = 40;
+controls.maxPolarAngle = Math.PI * 0.85;
+controls.update();
+
+// ── Lights ────────────────────────────────────────────────────────────────────
+const ambient = new THREE.AmbientLight(0x1a1a2e, 4);
+scene.add(ambient);
+
+// Upper strips
+const wallLedLtop = new THREE.PointLight(0xfff5dd, 0, 5);
+wallLedLtop.position.set(-1.9, 2.7, 0);
+scene.add(wallLedLtop);
+
+const wallLedRtop = new THREE.PointLight(0xfff5dd, 0, 5);
+wallLedRtop.position.set(1.9, 2.7, 0);
+scene.add(wallLedRtop);
+
+// Lower strips
+const wallLedLbot = new THREE.PointLight(0xfff5dd, 0, 5);
+wallLedLbot.position.set(-1.9, 0.1, 0);
+scene.add(wallLedLbot);
+
+const wallLedRbot = new THREE.PointLight(0xfff5dd, 0, 5);
+wallLedRbot.position.set(1.9, 0.1, 0);
+scene.add(wallLedRbot);
+
+// Back strip mid
+const wallLedB = new THREE.PointLight(0xfff5dd, 0, 5);
+wallLedB.position.set(0, 1.5, -1.9);
+scene.add(wallLedB);
+
+const backlitLight = new THREE.PointLight(0x9de8ff, 0, 8);
+backlitLight.position.set(0, -0.2, 0);
+scene.add(backlitLight);
+
+const rim1 = new THREE.DirectionalLight(0x4455aa, 1.2);
+rim1.position.set(-6, 14, 8);
+scene.add(rim1);
+const rim2 = new THREE.DirectionalLight(0x334455, 0.8);
+rim2.position.set(6, 8, -4);
+scene.add(rim2);
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const std = (c, r=0.7, m=0) => new THREE.MeshStandardMaterial({color:c, roughness:r, metalness:m});
+function box(w,h,d, mat, x,y,z) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+  mesh.position.set(x,y,z);
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  scene.add(mesh); return mesh;
+}
+
+// ── Scale: 1 unit = 10cm ──────────────────────────────────────────────────────
+// Box inner: 40×40cm = 4.0×4.0u, height 30cm = 3.0u, wall 5mm = 0.05u
+const W = 4.0, D = 4.0, H = 3.0, T = 0.05;
+
+// ── Floor & table ─────────────────────────────────────────────────────────────
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), std(0x111118, 0.95));
+floor.rotation.x = -Math.PI/2; floor.position.y = -0.1; floor.receiveShadow = true;
+scene.add(floor);
+box(18, 0.1, 14, std(0xc89a60, 0.8), 0, -0.05, 0);
+
+// ── Fabric swatch: 120×30cm = 12×3u (hangs over left+right sides) ─────────────
+const fabCanvas = document.createElement('canvas');
+fabCanvas.width=512; fabCanvas.height=128;
+const fc = fabCanvas.getContext('2d');
+fc.fillStyle='#c8a464'; fc.fillRect(0,0,512,128);
+fc.strokeStyle='rgba(0,0,0,0.07)'; fc.lineWidth=1;
+for(let i=0;i<512;i+=8){ fc.beginPath(); fc.moveTo(i,0); fc.lineTo(i,128); fc.stroke(); }
+for(let i=0;i<128;i+=6){ fc.beginPath(); fc.moveTo(0,i); fc.lineTo(512,i); fc.stroke(); }
+const fabTex = new THREE.CanvasTexture(fabCanvas);
+fabTex.wrapS = fabTex.wrapT = THREE.RepeatWrapping;
+fabTex.repeat.set(8, 2);
+const fabMat = new THREE.MeshStandardMaterial({map:fabTex, roughness:0.92, side:THREE.DoubleSide});
+
+// Inside box (40×30cm portion — swatch 30cm wide, box 40cm, some gap on Z sides)
+const fabricMesh = box(4.0, 0.015, 3.0, fabMat, 0, 0.04, 0);
+
+// Hanging ends (each ~41cm = 4.1u, drooping down from box edge)
+const dropL = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.015, 3.0), fabMat);
+dropL.position.set(-4.0, -1.5, 0); dropL.rotation.z = 0.38;
+dropL.castShadow = true; scene.add(dropL);
+
+const dropR = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.015, 3.0), fabMat);
+dropR.position.set(4.0, -1.5, 0); dropR.rotation.z = -0.38;
+dropR.castShadow = true; scene.add(dropR);
+
+// ── Glass 40×40cm = 4.0×4.0u ──────────────────────────────────────────────────
+const glassMesh = box(4.0, 0.02, 4.0,
+  new THREE.MeshPhysicalMaterial({color:0xc8e8f0, transparent:true, opacity:0.18, roughness:0, transmission:0.9}),
+  0, 0.06, 0);
+glassMesh.renderOrder = 2;
+
+// ── ColorChecker card (inside box, front-right corner) ────────────────────────
+const ccC = document.createElement('canvas'); ccC.width=192; ccC.height=128;
+const cc = ccC.getContext('2d');
+cc.fillStyle='#fff'; cc.fillRect(0,0,192,128);
+['#c8302a','#d4622a','#c89832','#5d8c38','#3068a0','#5c3870',
+ '#c85028','#3888a0','#a83858','#68a060','#7878c8','#d0a030',
+ '#f0f0f0','#c0c0c0','#888','#484848','#222','#080808'].forEach((c,i)=>{
+  cc.fillStyle=c; cc.fillRect(4+(i%6)*31, 4+Math.floor(i/6)*38, 27, 32);
+});
+const ccMesh = box(0.72, 0.010, 0.52,
+  new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(ccC), roughness:0.5}),
+  1.2, 0.075, 1.1);
+
+// ── Capture zone indicator (on fabric) ────────────────────────────────────────
+const czEdge = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(2.2, 0.002, 1.7)),
+  new THREE.LineBasicMaterial({color:0x44ff88, transparent:true, opacity:0.9})
+);
+czEdge.position.set(0, 0.055, 0);
+scene.add(czEdge);
+
+// ── BOX WALLS ─────────────────────────────────────────────────────────────────
+const foamMat = std(0xf2efe3, 0.92);
+
+// Left wall
+box(T, H, D, foamMat, -(W/2+T/2), H/2, 0);
+// Right wall
+box(T, H, D, foamMat, (W/2+T/2), H/2, 0);
+// Back wall (wider to cover left/right wall edges)
+box(W+2*T, H, T, foamMat, 0, H/2, -(D/2+T/2));
+// Front wall — semi-transparent so we can see inside
+box(W+2*T, H, T,
+  new THREE.MeshStandardMaterial({color:0xf2efe3, roughness:0.92, transparent:true, opacity:0.22}),
+  0, H/2, (D/2+T/2));
+
+// ── TOP PLATE with hole ────────────────────────────────────────────────────────
+// Hole: 3×4cm = 0.3×0.4u, centered
+const topMat = foamMat;
+const OW = W+2*T; // outer = 3.9
+const OD = D+2*T;
+const hx = 0.20; // half hole width
+const hz = 0.15; // half hole depth
+
+// 4 segments around the hole
+box(OW/2-hx, T, OD, topMat, -(OW/4+hx/2), H+T/2, 0);
+box(OW/2-hx, T, OD, topMat,  (OW/4+hx/2), H+T/2, 0);
+box(hx*2, T, OD/2-hz, topMat, 0, H+T/2, -(OD/4+hz/2));
+box(hx*2, T, OD/2-hz, topMat, 0, H+T/2,  (OD/4+hz/2));
+
+// Hole visual (dark rectangle on top surface)
+box(hx*2, 0.005, hz*2, std(0x050510, 0.99), 0, H+T+0.002, 0);
+
+// ── LED STRIPS: 2 continuous U-shaped strips ──────────────────────────────────
+// Strip 1 (upper U): left-top → corner → back-top → corner → right-top
+// Strip 2 (lower U): left-bottom → corner → back-bottom → corner → right-bottom
+// Each strip is one piece, bent 90° at both back corners.
+const ledStripMat = new THREE.MeshStandardMaterial({
+  color:0xffe488, emissive:0xffe488, emissiveIntensity:2.0, roughness:0.3
+});
+
+const lx = -(W/2-0.025); // left inner wall x
+const rx =  (W/2-0.025); // right inner wall x
+const bz = -(D/2-0.025); // back inner wall z
+const T2 = 0.035;        // strip thickness
+
+// ── Strip 1 (UPPER U): y = H-0.08
+const yu = H - 0.08;
+// Left segment
+box(T2, T2, D, ledStripMat, lx, yu, 0);
+// Back segment
+box(W,  T2, T2, ledStripMat, 0, yu, bz);
+// Right segment
+box(T2, T2, D, ledStripMat, rx, yu, 0);
+// Corner fill cubes (visual join at bend points)
+box(T2*3, T2*3, T2*3, ledStripMat, lx, yu, bz);
+box(T2*3, T2*3, T2*3, ledStripMat, rx, yu, bz);
+
+// ── Strip 2 (LOWER U): y = 0.08
+const yl = 0.08;
+box(T2, T2, D, ledStripMat, lx, yl, 0);
+box(W,  T2, T2, ledStripMat, 0, yl, bz);
+box(T2, T2, D, ledStripMat, rx, yl, 0);
+box(T2*3, T2*3, T2*3, ledStripMat, lx, yl, bz);
+box(T2*3, T2*3, T2*3, ledStripMat, rx, yl, bz);
+
+// ── Routing arrows: show strip path with lines ────────────────────────────────
+const stripRouteMat = new THREE.LineBasicMaterial({color:0xffe066, transparent:true, opacity:0.5});
+function routeLine(pts) {
+  const g = new THREE.BufferGeometry().setFromPoints(pts.map(([x,y,z])=>new THREE.Vector3(x,y,z)));
+  scene.add(new THREE.Line(g, stripRouteMat));
+}
+// Strip 1 path
+routeLine([[lx, yu+0.06, D/2-0.1], [lx, yu+0.06, bz], [rx, yu+0.06, bz], [rx, yu+0.06, D/2-0.1]]);
+// Strip 2 path
+routeLine([[lx, yl-0.06, D/2-0.1], [lx, yl-0.06, bz], [rx, yl-0.06, bz], [rx, yl-0.06, D/2-0.1]]);
+
+// ── BACKLIT TRAY (9 LED injection modules 3×3) ────────────────────────────────
+const trayC = document.createElement('canvas'); trayC.width=256; trayC.height=256;
+const tc = trayC.getContext('2d');
+tc.fillStyle='#0a1a2a'; tc.fillRect(0,0,256,256);
+[[64,64],[128,64],[192,64],[64,128],[128,128],[192,128],[64,192],[128,192],[192,192]].forEach(([x,y])=>{
+  const g = tc.createRadialGradient(x,y,2,x,y,22);
+  g.addColorStop(0,'rgba(160,230,255,0.95)');
+  g.addColorStop(1,'rgba(100,180,220,0.0)');
+  tc.fillStyle=g; tc.fillRect(x-22,y-22,44,44);
+  tc.fillStyle='rgba(200,240,255,0.9)';
+  tc.beginPath(); tc.arc(x,y,8,0,Math.PI*2); tc.fill();
+});
+const trayMat = new THREE.MeshStandardMaterial({
+  map: new THREE.CanvasTexture(trayC),
+  emissive:0x224488, emissiveIntensity:0,
+  roughness:0.3, color:0x223344
+});
+
+const trayGroup = new THREE.Group();
+const trayBase = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.14, 3.8), trayMat);
+trayBase.castShadow = true;
+trayGroup.add(trayBase);
+
+// Diffuser paper on top of tray
+const diffuser = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.008, 3.8), std(0xfafafa, 0.98));
+diffuser.position.y = 0.075;
+trayGroup.add(diffuser);
+
+// Tray outer frame
+const frameMat = std(0x223344, 0.7, 0.3);
+[[-1.8,0],[1.8,0],[0,-1.8],[0,1.8]].forEach(([fx,fz])=>{
+  const isX = fz===0;
+  const fw = isX ? 0.2 : 3.8, fd = isX ? 3.8 : 0.2;
+  const fm = new THREE.Mesh(new THREE.BoxGeometry(fw, 0.16, fd), frameMat);
+  fm.position.set(fx, 0, fz);
+  trayGroup.add(fm);
+});
+
+// Start to the right side (Shot 1 position)
+trayGroup.position.set(7.5, 0.07, 0);
+scene.add(trayGroup);
+
+// ── iPhone ────────────────────────────────────────────────────────────────────
+const phoneGroup = new THREE.Group();
+
+// Body lying flat: width=0.77u (~7.7cm), thickness=0.065u, length=1.6u (~16cm)
+const phoneMesh = new THREE.Mesh(
+  new THREE.BoxGeometry(0.77, 0.065, 1.6),
+  std(0x1a1a1c, 0.12, 0.75)
+);
+phoneGroup.add(phoneMesh);
+
+// Screen (facing UP)
+const scC = document.createElement('canvas'); scC.width=128; scC.height=256;
+const sc = scC.getContext('2d');
+const scG = sc.createLinearGradient(0,0,0,256);
+scG.addColorStop(0,'#091128'); scG.addColorStop(1,'#1a3560');
+sc.fillStyle=scG; sc.fillRect(0,0,128,256);
+sc.fillStyle='#2a8a42'; sc.fillRect(8,20,112,180);
+sc.fillStyle='rgba(0,0,0,0.4)'; sc.fillRect(28,44,72,72);
+sc.strokeStyle='rgba(255,255,255,0.6)'; sc.lineWidth=2;
+sc.beginPath(); sc.arc(64,80,22,0,Math.PI*2); sc.stroke();
+sc.beginPath(); sc.arc(64,80,9,0,Math.PI*2); sc.stroke();
+sc.fillStyle='rgba(255,255,255,0.9)';
+sc.beginPath(); sc.arc(64,222,14,0,Math.PI*2); sc.fill();
+const screenMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(0.64, 1.45),
+  new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(scC), emissive:0x0a2018, emissiveIntensity:0.8})
+);
+screenMesh.rotation.x = -Math.PI/2;
+screenMesh.position.y = 0.034;
+phoneGroup.add(screenMesh);
+
+// Camera module on back face (pointing DOWN through hole)
+const camMod = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.022, 0.28), std(0x0a0a0a, 0.05, 0.9));
+camMod.position.set(-0.17, -0.044, -0.52);
+phoneGroup.add(camMod);
+// 3 lenses
+[[-0.13, -0.050, -0.50], [-0.21, -0.050, -0.54], [-0.13, -0.050, -0.58]].forEach(([lx,ly,lz])=>{
+  const lens = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.028, 0.028, 0.009, 16),
+    new THREE.MeshStandardMaterial({color:0x040408, roughness:0.02, metalness:0.98})
+  );
+  lens.position.set(lx, ly, lz);
+  phoneGroup.add(lens);
+});
+
+// Phone sits on top plate, 2× lens centered over hole
+phoneGroup.position.set(0, H + T + 0.0325 + 0.005, 0);
+scene.add(phoneGroup);
+
+// ── FOV: lines from hole down to capture area ─────────────────────────────────
+const fovMat = new THREE.LineBasicMaterial({color:0x44ff88, transparent:true, opacity:0.22});
+[[-1.1,-0.85],[1.1,-0.85],[1.1,0.85],[-1.1,0.85]].forEach(([cx,cz])=>{
+  const g = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, H, 0),
+    new THREE.Vector3(cx, 0.05, cz)
+  ]);
+  scene.add(new THREE.Line(g, fovMat));
+});
+
+// ── Light rays: strips → wall → bounce → fabric ───────────────────────────────
+// Upper strips: ray hits opposite wall face, then bounces down to fabric center
+// Lower strips: ray hits wall, bounces up-inward
+const rayMat = new THREE.LineBasicMaterial({color:0xffe488, transparent:true, opacity:0.0});
+const rays = [];
+const rayMatB = new THREE.LineBasicMaterial({color:0xffcc44, transparent:true, opacity:0.0});
+
+for(let z=-1.2;z<=1.2;z+=0.6){
+  // Upper strip L → wall → fabric (2-segment bounce)
+  const bounceX = -(W/2-0.1);
+  [[-(W/2-0.025), H-0.08, z, bounceX, 0.5, z],   // strip to wall
+   [bounceX, 0.5, z, 0, 0.05, z*0.5]              // wall to fabric
+  ].forEach(([sx,sy,sz,ex,ey,ez], i)=>{
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(sx,sy,sz), new THREE.Vector3(ex,ey,ez)
+    ]);
+    const mat = i===0 ? rayMat.clone() : rayMatB.clone();
+    const l = new THREE.Line(g, mat);
+    scene.add(l); rays.push(l);
+  });
+  // Upper strip R → wall → fabric
+  const bounceXr = (W/2-0.1);
+  [[(W/2-0.025), H-0.08, z, bounceXr, 0.5, z],
+   [bounceXr, 0.5, z, 0, 0.05, z*0.5]
+  ].forEach(([sx,sy,sz,ex,ey,ez], i)=>{
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(sx,sy,sz), new THREE.Vector3(ex,ey,ez)
+    ]);
+    const mat = i===0 ? rayMat.clone() : rayMatB.clone();
+    const l = new THREE.Line(g, mat);
+    scene.add(l); rays.push(l);
+  });
+}
+// Back strip → back wall → fabric
+for(let x=-1;x<=1;x+=0.5){
+  const g = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, H/2, -(D/2-0.025)),
+    new THREE.Vector3(x*0.4, 0.05, 0)
+  ]);
+  const l = new THREE.Line(g, rayMatB.clone());
+  scene.add(l); rays.push(l);
+}
+
+// ── Backlit rays upward ────────────────────────────────────────────────────────
+const padRayMat = new THREE.LineBasicMaterial({color:0x7ec8e3, transparent:true, opacity:0.0});
+const padRays = [];
+for(let x=-1;x<=1;x+=0.5){
+  for(let z=-1;z<=1;z+=0.5){
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(x, -0.05, z),
+      new THREE.Vector3(x*0.7, 0.5, z*0.7)
+    ]);
+    const l = new THREE.Line(g, padRayMat.clone());
+    scene.add(l); padRays.push(l);
+  }
+}
+
+// ── Sprite labels ─────────────────────────────────────────────────────────────
+function addLabel(text, x, y, z, fg='#ffe066', w=320) {
+  const c = document.createElement('canvas'); c.width=w; c.height=46;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle='rgba(8,8,18,0.9)';
+  ctx.beginPath(); ctx.roundRect(0,0,w,46,8); ctx.fill();
+  ctx.fillStyle=fg; ctx.font='bold 14px system-ui';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(text, w/2, 23);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c), transparent:true}));
+  sp.scale.set(w/190, 0.26, 1);
+  sp.position.set(x, y, z);
+  scene.add(sp);
+}
+
+addLabel('iPhone 16 Pro — 2× lens, delikten aşağı', 0, H+T+1.1, 0, '#ffffff', 380);
+addLabel('Üst levha — 3×4cm delik ortada', 3.0, H+0.45, 0, '#f2efe3', 340);
+addLabel('Şerit 1 — U üst (sol→arka→sağ)', -3.8, H-0.05, 0, '#ffe066', 360);
+addLabel('Şerit 2 — U alt (sol→arka→sağ)',  3.8, 0.08,   0, '#ffe066', 360);
+addLabel('2 şerit, 4 köşe bükümü', 0, H+0.45, -3.2, '#f5a623', 300);
+addLabel('Cam 40×40cm', 3.4, 0.45, -1.2, '#7ec8e3', 240);
+addLabel('ColorChecker (ön köşe)', 3.2, 0.32, 1.4, '#f5a623', 300);
+addLabel('Kumaş 120×30cm — uçlar dışarı sarkar', 0, 0.25, 2.8, '#c8a464', 400);
+addLabel('Capture zone ~22×17cm', 0, 0.09, 0, '#44ff88', 340);
+addLabel('Backlit tepsi → Shot 2\'de altına kay', 7.5, 0.55, 0, '#7ec8e3', 380);
+
+// ── Explode layers ────────────────────────────────────────────────────────────
+const explodeLayers = [
+  { mesh: fabricMesh, baseY: 0.04,  expY: -1.0 },
+  { mesh: glassMesh,  baseY: 0.06,  expY: 0.6  },
+  { mesh: ccMesh,     baseY: 0.075, expY: 1.5  },
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let shotMode = 1, exploded = false, explodeT = 0;
+let tWall = 3.0, tPad = 0, trayTargetX = 7.5;
+
+window.setShot = s => {
+  shotMode = s;
+  document.getElementById('b1').className = 'btn'+(s===1?' on':'');
+  document.getElementById('b2').className = 'btn'+(s===2?' on2':'');
+  tWall = s===1 ? 3.0 : 0;
+  tPad  = s===2 ? 4.5 : 0;
+  trayTargetX = s===2 ? 0 : 7.5;
+};
+
+window.toggleExplode = () => {
+  exploded = !exploded;
+  const btn = document.getElementById('bX');
+  btn.className = 'btn'+(exploded?' on':'');
+  btn.textContent = exploded ? 'Birleştir' : 'Katmanları Ayır';
+};
+
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+
+  wallLedLtop.intensity = lerp(wallLedLtop.intensity, tWall, 0.07);
+  wallLedRtop.intensity = lerp(wallLedRtop.intensity, tWall, 0.07);
+  wallLedLbot.intensity = lerp(wallLedLbot.intensity, tWall, 0.07);
+  wallLedRbot.intensity = lerp(wallLedRbot.intensity, tWall, 0.07);
+  wallLedB.intensity    = lerp(wallLedB.intensity,    tWall, 0.07);
+  backlitLight.intensity = lerp(backlitLight.intensity, tPad, 0.07);
+
+  ledStripMat.emissiveIntensity = lerp(ledStripMat.emissiveIntensity, shotMode===1?2.0:0.08, 0.07);
+  trayMat.emissiveIntensity     = lerp(trayMat.emissiveIntensity,     shotMode===2?2.0:0,    0.07);
+
+  rays.forEach(r => { r.material.opacity = lerp(r.material.opacity, shotMode===1?0.25:0, 0.07); });
+  padRays.forEach(r => { r.material.opacity = lerp(r.material.opacity, shotMode===2?0.30:0, 0.07); });
+
+  trayGroup.position.x = lerp(trayGroup.position.x, trayTargetX, 0.05);
+
+  explodeT = lerp(explodeT, exploded?1:0, 0.06);
+  explodeLayers.forEach(({mesh, baseY, expY}) => {
+    mesh.position.y = lerp(mesh.position.y, exploded?expY:baseY, 0.06);
+  });
+
+  renderer.render(scene, camera);
+})();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

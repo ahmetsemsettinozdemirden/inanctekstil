@@ -1,0 +1,58 @@
+# AdLoop configuration
+# Copy this file to ~/.adloop/config.yaml and fill in your values.
+#
+# To get started, you need:
+#   1. A Google Cloud project with Analytics + Ads APIs enabled
+#   2. OAuth 2.0 Desktop credentials (download JSON → credentials.json)
+#   3. A Google Ads developer token (MCC → Tools → API Center)
+#
+# See README.md for detailed setup instructions.
+
+google:
+  # Your Google Cloud project ID.
+  project_id: ""
+
+  # Path to your OAuth client JSON file (Desktop app type) or service account key.
+  credentials_path: "~/.adloop/credentials.json"
+
+  # OAuth token is stored here automatically after first login.
+  # You shouldn't need to touch this.
+  token_path: "~/.adloop/token.json"
+
+ga4:
+  # Your GA4 property ID (numeric).
+  # Find it in GA4 → Admin → Property Settings.
+  property_id: ""
+
+ads:
+  # Google Ads API developer token.
+  # Find it in your MCC account → Tools & Settings → API Center.
+  # Explorer access (automatic) gives 2,880 operations/day.
+  # Apply for Basic access for 15,000 operations/day.
+  developer_token: ""
+
+  # Default Google Ads customer ID (e.g. "123-456-7890").
+  # This is the account you want to manage, not the MCC.
+  customer_id: ""
+
+  # Your MCC (Manager) account ID (e.g. "123-456-7890").
+  # Required for API access — even if you only manage one account.
+  login_customer_id: ""
+
+safety:
+  # Maximum daily budget allowed per campaign (in your account's currency).
+  # AdLoop will reject any campaign creation or budget change above this.
+  max_daily_budget: 50.00
+
+  # Maximum percentage a bid can increase in a single operation.
+  max_bid_increase_pct: 100
+
+  # Force all write operations to dry-run mode.
+  # Set to false only when you're ready to make real changes.
+  require_dry_run: true
+
+  # Path to the audit log file. All operations are logged here.
+  log_file: "~/.adloop/audit.log"
+
+  # List of operations to block entirely (e.g. ["remove_entity"]).
+  blocked_operations: []

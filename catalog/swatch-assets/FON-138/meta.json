@@ -1,0 +1,25 @@
+{
+  "sku": "FON-138",
+  "design": "YAĞMUR",
+  "colour_code": "7002",
+  "appearance": null,
+  "width_cm": 310,
+  "price": "1000",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/yag-mur/texture-512.jpg",
+  "design_texture_full": "designs/yag-mur/texture-full.jpg",
+  "raw_colors": [
+    "#9b9c99",
+    "#656663",
+    "#d4d5d3"
+  ],
+  "thread_colors": [
+    "#797c7d"
+  ],
+  "thread_count": 1,
+  "source_heic": "FON/YAĞMUR/4.HEIC"
+}

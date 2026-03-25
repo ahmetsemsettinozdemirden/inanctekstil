@@ -1,0 +1,2636 @@
+{
+  "version": "2.0",
+  "generated": "2026-03-23",
+  "source_folder": "ecommerce/raw-heic-categorized",
+  "notes": [
+    "TENTATIVE mapping — SKU order within each photo must be verified against physical swatch position.",
+    "Fan photos: position 1 = leftmost (vertical fan) or topmost (horizontal fan).",
+    "HERMES/SULTAN: paired layouts — DESENLİ+DÜZ or KOYU+AÇIK alternate within each photo.",
+    "MONICA: 1 swatch per photo, background page visible but ignored during extraction.",
+    "SÜET: verify swatch boundaries carefully — dense fan may have partial overlaps between photos."
+  ],
+  "designs": {
+    "DARK BLACKOUT": {
+      "folder": "BLACKOUT/DARK BLACKOUT",
+      "design_photo": "design.HEIC",
+      "layout": "fan",
+      "swatches_per_photo": 4,
+      "notes": "Photo 1: horizontal fan (top→bottom). Photos 2-7: vertical fan (left→right). 4 swatches/photo.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-001",
+              "colour": "8103",
+              "appearance": null,
+              "extracted_hex": "#a79e93"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-002",
+              "colour": "8104",
+              "appearance": null,
+              "extracted_hex": "#a2998e"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-003",
+              "colour": "8108",
+              "appearance": null,
+              "extracted_hex": "#a79c91"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-004",
+              "colour": "8107",
+              "appearance": null,
+              "extracted_hex": "#a99f93"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-005",
+              "colour": "8115",
+              "appearance": null,
+              "extracted_hex": "#9fa09d"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-006",
+              "colour": "8116",
+              "appearance": null,
+              "extracted_hex": "#b4b0a7"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-007",
+              "colour": "8110",
+              "appearance": null,
+              "extracted_hex": "#c3ab9b"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-008",
+              "colour": "8101",
+              "appearance": null,
+              "extracted_hex": "#735a4a"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-009",
+              "colour": "8111",
+              "appearance": null,
+              "extracted_hex": "#657772"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-010",
+              "colour": "8113",
+              "appearance": null,
+              "extracted_hex": "#668583"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-011",
+              "colour": "8114",
+              "appearance": null,
+              "extracted_hex": "#91a4a3"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-012",
+              "colour": "8128",
+              "appearance": null,
+              "extracted_hex": "#b1afac"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-013",
+              "colour": "8140",
+              "appearance": null,
+              "extracted_hex": "#d26749"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-014",
+              "colour": "8117",
+              "appearance": null,
+              "extracted_hex": "#927894"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-015",
+              "colour": "8131",
+              "appearance": null,
+              "extracted_hex": "#95777f"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-016",
+              "colour": "8132",
+              "appearance": null,
+              "extracted_hex": "#6b7e7c"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-017",
+              "colour": "8138",
+              "appearance": null,
+              "extracted_hex": "#5f627c"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-018",
+              "colour": "8142",
+              "appearance": null,
+              "extracted_hex": "#9b9eaa"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-019",
+              "colour": "8141",
+              "appearance": null,
+              "extracted_hex": "#9b2a38"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-020",
+              "colour": "8129",
+              "appearance": null,
+              "extracted_hex": "#bb3a34"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-021",
+              "colour": "8127",
+              "appearance": null,
+              "extracted_hex": "#6a6a6d"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-022",
+              "colour": "8139",
+              "appearance": null,
+              "extracted_hex": "#989594"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-023",
+              "colour": "8112",
+              "appearance": null,
+              "extracted_hex": "#afada0"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-024",
+              "colour": "8124",
+              "appearance": null,
+              "extracted_hex": "#40527b"
+            }
+          ]
+        },
+        {
+          "file": "7.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-025",
+              "colour": "8118",
+              "appearance": null,
+              "extracted_hex": "#83a6a5"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-026",
+              "colour": "8119",
+              "appearance": null,
+              "extracted_hex": "#44454e"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-027",
+              "colour": "8120",
+              "appearance": null,
+              "extracted_hex": "#595968"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-028",
+              "colour": "8136",
+              "appearance": null,
+              "extracted_hex": "#7a767f"
+            }
+          ]
+        }
+      ]
+    },
+    "HAVUZ BLACKOUT": {
+      "folder": "BLACKOUT/HAVUZ BLACKOUT",
+      "design_photo": "design.HEIC",
+      "layout": "fan",
+      "swatches_per_photo": 4,
+      "notes": "Vertical fan, left→right. 4 swatches/photo.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-081",
+              "colour": "901",
+              "appearance": null,
+              "extracted_hex": "#b3b3ae"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-082",
+              "colour": "902",
+              "appearance": null,
+              "extracted_hex": "#aeaca7"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-083",
+              "colour": "903",
+              "appearance": null,
+              "extracted_hex": "#b2b0aa"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-084",
+              "colour": "916",
+              "appearance": null,
+              "extracted_hex": "#999791"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-085",
+              "colour": "918",
+              "appearance": null,
+              "extracted_hex": "#8b8174"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-086",
+              "colour": "917",
+              "appearance": null,
+              "extracted_hex": "#897f72"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-087",
+              "colour": "920",
+              "appearance": null,
+              "extracted_hex": "#887d70"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-088",
+              "colour": "933",
+              "appearance": null,
+              "extracted_hex": "#877c6f"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-089",
+              "colour": "922",
+              "appearance": null,
+              "extracted_hex": "#927e7c"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-090",
+              "colour": "909",
+              "appearance": null,
+              "extracted_hex": "#947f7c"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-091",
+              "colour": "910",
+              "appearance": null,
+              "extracted_hex": "#8f7875"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-092",
+              "colour": "925",
+              "appearance": null,
+              "extracted_hex": "#8e7672"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-093",
+              "colour": "924",
+              "appearance": null,
+              "extracted_hex": "#6a6375"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-094",
+              "colour": "912",
+              "appearance": null,
+              "extracted_hex": "#6b6374"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-095",
+              "colour": "927",
+              "appearance": null,
+              "extracted_hex": "#675e6e"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-096",
+              "colour": "928",
+              "appearance": null,
+              "extracted_hex": "#665d6c"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-097",
+              "colour": "929",
+              "appearance": null,
+              "extracted_hex": "#5a6e76"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-098",
+              "colour": "936",
+              "appearance": null,
+              "extracted_hex": "#596b71"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-099",
+              "colour": "937",
+              "appearance": null,
+              "extracted_hex": "#5b696e"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-100",
+              "colour": "913",
+              "appearance": null,
+              "extracted_hex": "#606d71"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-101",
+              "colour": "904",
+              "appearance": null,
+              "extracted_hex": "#8a8c88"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-102",
+              "colour": "139",
+              "appearance": null,
+              "extracted_hex": "#878884"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-103",
+              "colour": "940",
+              "appearance": null,
+              "extracted_hex": "#888884"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-104",
+              "colour": "943",
+              "appearance": null,
+              "extracted_hex": "#8c8c87"
+            }
+          ]
+        },
+        {
+          "file": "7.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-105",
+              "colour": "128",
+              "appearance": null,
+              "extracted_hex": "#5f6064"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-106",
+              "colour": "907",
+              "appearance": null,
+              "extracted_hex": "#5d5d60"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-107",
+              "colour": "908",
+              "appearance": null,
+              "extracted_hex": "#5c5a5c"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-108",
+              "colour": "939",
+              "appearance": null,
+              "extracted_hex": "#5f5c5d"
+            }
+          ]
+        }
+      ]
+    },
+    "%100 BLACKOUT": {
+      "folder": "BLACKOUT/%100 BLACKOUT",
+      "design_photo": "design.HEIC",
+      "layout": "fan",
+      "notes": "Photos 1-4: 4 swatches. Photos 5-7: 3 swatches. Total 25.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-109",
+              "colour": "8001",
+              "appearance": null,
+              "extracted_hex": "#959b97"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-110",
+              "colour": "8003",
+              "appearance": null,
+              "extracted_hex": "#949994"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-111",
+              "colour": "8005",
+              "appearance": null,
+              "extracted_hex": "#929692"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-112",
+              "colour": "8006",
+              "appearance": null,
+              "extracted_hex": "#8e938e"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-113",
+              "colour": "8008",
+              "appearance": null,
+              "extracted_hex": "#a49f8e"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-114",
+              "colour": "8010",
+              "appearance": null,
+              "extracted_hex": "#a39d8d"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-115",
+              "colour": "8011",
+              "appearance": null,
+              "extracted_hex": "#a29b8c"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-116",
+              "colour": "8014",
+              "appearance": null,
+              "extracted_hex": "#989283"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-117",
+              "colour": "8015",
+              "appearance": null,
+              "extracted_hex": "#99988f"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-118",
+              "colour": "8040",
+              "appearance": null,
+              "extracted_hex": "#9a988e"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-119",
+              "colour": "8020",
+              "appearance": null,
+              "extracted_hex": "#9a978e"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-120",
+              "colour": "8021",
+              "appearance": null,
+              "extracted_hex": "#99968c"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-121",
+              "colour": "8022",
+              "appearance": null,
+              "extracted_hex": "#926b5e"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-122",
+              "colour": "8023",
+              "appearance": null,
+              "extracted_hex": "#92695b"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-123",
+              "colour": "8024",
+              "appearance": null,
+              "extracted_hex": "#93685a"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-124",
+              "colour": "8027",
+              "appearance": null,
+              "extracted_hex": "#8b6254"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-125",
+              "colour": "8029",
+              "appearance": null,
+              "extracted_hex": "#6a5e66"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-126",
+              "colour": "8030",
+              "appearance": null,
+              "extracted_hex": "#66595f"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-127",
+              "colour": "8031",
+              "appearance": null,
+              "extracted_hex": "#514649"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-128",
+              "colour": "8032",
+              "appearance": null,
+              "extracted_hex": "#919390"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-129",
+              "colour": "8033",
+              "appearance": null,
+              "extracted_hex": "#929390"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-130",
+              "colour": "8034",
+              "appearance": null,
+              "extracted_hex": "#605d57"
+            }
+          ]
+        },
+        {
+          "file": "7.HEIC",
+          "fan_direction": "vertical",
+          "position_order": "left_to_right",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-131",
+              "colour": "8035",
+              "appearance": null,
+              "extracted_hex": "#5e5f62"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-132",
+              "colour": "8038",
+              "appearance": null,
+              "extracted_hex": "#5b5a5c"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-133",
+              "colour": "8039",
+              "appearance": null,
+              "extracted_hex": "#5b534a"
+            }
+          ]
+        }
+      ]
+    },
+    "HERMES BLACKOUT": {
+      "folder": "BLACKOUT/HERMES BLACKOUT",
+      "design_photo": "design.HEIC",
+      "layout": "fan_paired",
+      "notes": "Each color has DESENLİ+DÜZ pair shown as adjacent strips. Photos 1-8: 3 color pairs (6 strips). Photo 9: 2 color pairs (4 strips).",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-029",
+              "colour": "5001",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#98978f"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-030",
+              "colour": "5001",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#a3a6a4"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-031",
+              "colour": "5002",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#908f8b"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-032",
+              "colour": "5002",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#a4a7a3"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-033",
+              "colour": "5003",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#9a9b96"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-034",
+              "colour": "5003",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#acaea9"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-035",
+              "colour": "5004",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#8d8b85"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-036",
+              "colour": "5004",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#979690"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-037",
+              "colour": "5005",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#88847c"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-038",
+              "colour": "5005",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#b2b4b0"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-039",
+              "colour": "5006",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#9b988e"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-040",
+              "colour": "5006",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#b0b2ae"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-041",
+              "colour": "5007",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#9d9e9b"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-042",
+              "colour": "5007",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#7d7e7c"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-043",
+              "colour": "5008",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#9c9d9a"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-044",
+              "colour": "5008",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#9b9d9b"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-045",
+              "colour": "5009",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#a0a2a0"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-046",
+              "colour": "5009",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#a9aaa6"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-047",
+              "colour": "5010",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#746d65"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-048",
+              "colour": "5010",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#6d6b67"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-049",
+              "colour": "5011",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#747471"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-050",
+              "colour": "5011",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#636563"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-051",
+              "colour": "5013",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#a5aaa3"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-052",
+              "colour": "5013",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#8d8c89"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "5.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-053",
+              "colour": "5014",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#464444"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-054",
+              "colour": "5014",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#5a5957"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-055",
+              "colour": "5022",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#766f65"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-056",
+              "colour": "5022",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#7a7368"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-057",
+              "colour": "5015",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#918672"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-058",
+              "colour": "5015",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#736a5b"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "6.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-059",
+              "colour": "5016",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#465853"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-060",
+              "colour": "5016",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#9ca79e"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-061",
+              "colour": "5023",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#9e9d96"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-062",
+              "colour": "5023",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#b5a49e"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-063",
+              "colour": "5012",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#6c6160"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-064",
+              "colour": "5012",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#393636"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "7.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-065",
+              "colour": "5017",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#3a3d45"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-066",
+              "colour": "5017",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#75777a"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-067",
+              "colour": "5018",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#5b5b5a"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-068",
+              "colour": "5018",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#788589"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-069",
+              "colour": "5019",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#5d6c62"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-070",
+              "colour": "5019",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#637a62"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "8.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-071",
+              "colour": "5020",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#676a64"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-072",
+              "colour": "5020",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#9b554b"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-073",
+              "colour": "5021",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#7a453d"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-074",
+              "colour": "5021",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#baa680"
+            },
+            {
+              "position": 5,
+              "sku": "BLK-075",
+              "colour": "5024",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#625f60"
+            },
+            {
+              "position": 6,
+              "sku": "BLK-076",
+              "colour": "5024",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#2c3b5f"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        },
+        {
+          "file": "9.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 2,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "BLK-077",
+              "colour": "5025",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#a4a49e"
+            },
+            {
+              "position": 2,
+              "sku": "BLK-078",
+              "colour": "5025",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#929285"
+            },
+            {
+              "position": 3,
+              "sku": "BLK-079",
+              "colour": "5026",
+              "appearance": "DESENLİ",
+              "strip_note": "textured/DESENLİ",
+              "extracted_hex": "#5c4f40"
+            },
+            {
+              "position": 4,
+              "sku": "BLK-080",
+              "colour": "5026",
+              "appearance": "DÜZ",
+              "strip_note": "plain/DÜZ",
+              "extracted_hex": "#783f2f"
+            }
+          ],
+          "notes": "Strips alternate: textured(DESENLİ) / plain(DÜZ) per color pair"
+        }
+      ]
+    },
+    "ENZA": {
+      "folder": "FON/ENZA",
+      "design_photo": "design.HEIC",
+      "layout": "double_horizontal",
+      "swatches_per_photo": 2,
+      "notes": "2 swatches stacked horizontally per photo. Top = position 1, bottom = position 2.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-001",
+              "colour": "101",
+              "appearance": null,
+              "extracted_hex": "#959087"
+            },
+            {
+              "position": 2,
+              "sku": "FON-002",
+              "colour": "102",
+              "appearance": null,
+              "extracted_hex": "#a9aaa5"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-003",
+              "colour": "103",
+              "appearance": null,
+              "extracted_hex": "#90908e"
+            },
+            {
+              "position": 2,
+              "sku": "FON-004",
+              "colour": "104",
+              "appearance": null,
+              "extracted_hex": "#939087"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-005",
+              "colour": "105",
+              "appearance": null,
+              "extracted_hex": "#8a837d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-006",
+              "colour": "106",
+              "appearance": null,
+              "extracted_hex": "#94908b"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-007",
+              "colour": "107",
+              "appearance": null,
+              "extracted_hex": "#848481"
+            },
+            {
+              "position": 2,
+              "sku": "FON-008",
+              "colour": "108",
+              "appearance": null,
+              "extracted_hex": "#908d8a"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-009",
+              "colour": "109",
+              "appearance": null,
+              "extracted_hex": "#9b9c99"
+            },
+            {
+              "position": 2,
+              "sku": "FON-010",
+              "colour": "110",
+              "appearance": null,
+              "extracted_hex": "#807c77"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-011",
+              "colour": "111",
+              "appearance": null,
+              "extracted_hex": "#80807d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-012",
+              "colour": "112",
+              "appearance": null,
+              "extracted_hex": "#74736e"
+            }
+          ]
+        },
+        {
+          "file": "7.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-013",
+              "colour": "113",
+              "appearance": null,
+              "extracted_hex": "#8c684e"
+            },
+            {
+              "position": 2,
+              "sku": "FON-014",
+              "colour": "114",
+              "appearance": null,
+              "extracted_hex": "#7e807f"
+            }
+          ]
+        }
+      ]
+    },
+    "MONICA": {
+      "folder": "FON/MONICA",
+      "design_photo": "design.HEIC",
+      "layout": "single_closeup",
+      "swatches_per_photo": 1,
+      "notes": "1 swatch per photo (1:1 mapping). Adjacent page visible in background, ignore it.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-015",
+              "colour": "759",
+              "appearance": null,
+              "extracted_hex": "#a6a39a"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-016",
+              "colour": "760",
+              "appearance": null,
+              "extracted_hex": "#9b9b97"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-017",
+              "colour": "761",
+              "appearance": null,
+              "extracted_hex": "#8a8881"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-018",
+              "colour": "763",
+              "appearance": null,
+              "extracted_hex": "#87827e"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-019",
+              "colour": "765",
+              "appearance": null,
+              "extracted_hex": "#928d82"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-020",
+              "colour": "767",
+              "appearance": null,
+              "extracted_hex": "#817a6e"
+            }
+          ]
+        },
+        {
+          "file": "7.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-021",
+              "colour": "768",
+              "appearance": null,
+              "extracted_hex": "#7e756c"
+            }
+          ]
+        },
+        {
+          "file": "8.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-022",
+              "colour": "769",
+              "appearance": null,
+              "extracted_hex": "#6b665e"
+            }
+          ]
+        },
+        {
+          "file": "9.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-023",
+              "colour": "770",
+              "appearance": null,
+              "extracted_hex": "#74726c"
+            }
+          ]
+        },
+        {
+          "file": "10.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-024",
+              "colour": "771",
+              "appearance": null,
+              "extracted_hex": "#74726e"
+            }
+          ]
+        },
+        {
+          "file": "11.HEIC",
+          "layout": "single_closeup",
+          "notes": "Adjacent catalog page may be visible in background - extract center region only",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-025",
+              "colour": "773",
+              "appearance": null,
+              "extracted_hex": "#5c5a57"
+            }
+          ]
+        }
+      ]
+    },
+    "SULTAN 22260": {
+      "folder": "FON/SULTAN 22260",
+      "design_photo": "design.HEIC",
+      "layout": "fan_paired",
+      "notes": "Each color has KOYU+AÇIK pair. Photos 1-3: 4 color pairs (8 strips). Photos 4-9: 3 color pairs (6 strips).",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 4,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-026",
+              "colour": "601",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9f9f9d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-027",
+              "colour": "601",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#918e8c"
+            },
+            {
+              "position": 3,
+              "sku": "FON-028",
+              "colour": "602",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#a6a59e"
+            },
+            {
+              "position": 4,
+              "sku": "FON-029",
+              "colour": "602",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#9c988f"
+            },
+            {
+              "position": 5,
+              "sku": "FON-030",
+              "colour": "604",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#a7acae"
+            },
+            {
+              "position": 6,
+              "sku": "FON-031",
+              "colour": "604",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#9da1a1"
+            },
+            {
+              "position": 7,
+              "sku": "FON-032",
+              "colour": "605",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#999a94"
+            },
+            {
+              "position": 8,
+              "sku": "FON-033",
+              "colour": "605",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#a1a199"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 4,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-034",
+              "colour": "606",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#898177"
+            },
+            {
+              "position": 2,
+              "sku": "FON-035",
+              "colour": "606",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#99968d"
+            },
+            {
+              "position": 3,
+              "sku": "FON-036",
+              "colour": "607",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#918e82"
+            },
+            {
+              "position": 4,
+              "sku": "FON-037",
+              "colour": "607",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#9b9992"
+            },
+            {
+              "position": 5,
+              "sku": "FON-038",
+              "colour": "608",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#8f8b85"
+            },
+            {
+              "position": 6,
+              "sku": "FON-039",
+              "colour": "608",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#a1a29d"
+            },
+            {
+              "position": 7,
+              "sku": "FON-040",
+              "colour": "609",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#a2a49f"
+            },
+            {
+              "position": 8,
+              "sku": "FON-041",
+              "colour": "609",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#a4a7a9"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 4,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-042",
+              "colour": "610",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#88867d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-043",
+              "colour": "610",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#6f6d67"
+            },
+            {
+              "position": 3,
+              "sku": "FON-044",
+              "colour": "611",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9fa4a6"
+            },
+            {
+              "position": 4,
+              "sku": "FON-045",
+              "colour": "611",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#838483"
+            },
+            {
+              "position": 5,
+              "sku": "FON-046",
+              "colour": "612",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#918e85"
+            },
+            {
+              "position": 6,
+              "sku": "FON-047",
+              "colour": "612",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#7e796e"
+            },
+            {
+              "position": 7,
+              "sku": "FON-048",
+              "colour": "613",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#a69a87"
+            },
+            {
+              "position": 8,
+              "sku": "FON-049",
+              "colour": "613",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#9c917e"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-050",
+              "colour": "614",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9e9c81"
+            },
+            {
+              "position": 2,
+              "sku": "FON-051",
+              "colour": "614",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#737270"
+            },
+            {
+              "position": 3,
+              "sku": "FON-052",
+              "colour": "615",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#848686"
+            },
+            {
+              "position": 4,
+              "sku": "FON-053",
+              "colour": "615",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#777675"
+            },
+            {
+              "position": 5,
+              "sku": "FON-054",
+              "colour": "617",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#7c736c"
+            },
+            {
+              "position": 6,
+              "sku": "FON-055",
+              "colour": "617",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#85847f"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "5.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-056",
+              "colour": "618",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9b9ba0"
+            },
+            {
+              "position": 2,
+              "sku": "FON-057",
+              "colour": "618",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#8d6d78"
+            },
+            {
+              "position": 3,
+              "sku": "FON-058",
+              "colour": "619",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#592330"
+            },
+            {
+              "position": 4,
+              "sku": "FON-059",
+              "colour": "619",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#99583f"
+            },
+            {
+              "position": 5,
+              "sku": "FON-060",
+              "colour": "620",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9a6d53"
+            },
+            {
+              "position": 6,
+              "sku": "FON-061",
+              "colour": "620",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#9c9879"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "6.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-062",
+              "colour": "622",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#4d6c7d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-063",
+              "colour": "622",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#516a6e"
+            },
+            {
+              "position": 3,
+              "sku": "FON-064",
+              "colour": "623",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#5a6e69"
+            },
+            {
+              "position": 4,
+              "sku": "FON-065",
+              "colour": "623",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#929896"
+            },
+            {
+              "position": 5,
+              "sku": "FON-066",
+              "colour": "625",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#958a89"
+            },
+            {
+              "position": 6,
+              "sku": "FON-067",
+              "colour": "625",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#956d73"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "7.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-068",
+              "colour": "626",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9e9e9a"
+            },
+            {
+              "position": 2,
+              "sku": "FON-069",
+              "colour": "626",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#4b5562"
+            },
+            {
+              "position": 3,
+              "sku": "FON-070",
+              "colour": "627",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#313b4a"
+            },
+            {
+              "position": 4,
+              "sku": "FON-071",
+              "colour": "627",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#50606a"
+            },
+            {
+              "position": 5,
+              "sku": "FON-072",
+              "colour": "628",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#949a99"
+            },
+            {
+              "position": 6,
+              "sku": "FON-073",
+              "colour": "628",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#798c8e"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "8.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-074",
+              "colour": "629",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#6b6d6a"
+            },
+            {
+              "position": 2,
+              "sku": "FON-075",
+              "colour": "629",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#78766f"
+            },
+            {
+              "position": 3,
+              "sku": "FON-076",
+              "colour": "630",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#7b7975"
+            },
+            {
+              "position": 4,
+              "sku": "FON-077",
+              "colour": "630",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#7b7c7a"
+            },
+            {
+              "position": 5,
+              "sku": "FON-078",
+              "colour": "631",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#979e9c"
+            },
+            {
+              "position": 6,
+              "sku": "FON-079",
+              "colour": "631",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#3c4c5e"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        },
+        {
+          "file": "9.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "top_to_bottom",
+          "colours_in_photo": 3,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-080",
+              "colour": "632",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#9a8979"
+            },
+            {
+              "position": 2,
+              "sku": "FON-081",
+              "colour": "632",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#515455"
+            },
+            {
+              "position": 3,
+              "sku": "FON-082",
+              "colour": "633",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#5d6363"
+            },
+            {
+              "position": 4,
+              "sku": "FON-083",
+              "colour": "633",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#525859"
+            },
+            {
+              "position": 5,
+              "sku": "FON-084",
+              "colour": "634",
+              "appearance": "KOYU",
+              "strip_note": "darker/KOYU",
+              "extracted_hex": "#696b6a"
+            },
+            {
+              "position": 6,
+              "sku": "FON-085",
+              "colour": "634",
+              "appearance": "AÇIK",
+              "strip_note": "lighter/AÇIK",
+              "extracted_hex": "#7d7d77"
+            }
+          ],
+          "notes": "Strips alternate: KOYU (darker) / AÇIK (lighter) per color pair"
+        }
+      ]
+    },
+    "SÜET": {
+      "folder": "FON/SÜET",
+      "design_photo": "design.HEIC",
+      "layout": "large_fan",
+      "notes": "Dense horizontal fan. Photo 1: 12 swatches. Photos 2-4: 11 swatches each. Position order: left→right. CAUTION: verify boundaries carefully.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "left_to_right",
+          "swatches_count": 12,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-086",
+              "colour": "9001",
+              "appearance": null,
+              "extracted_hex": "#9f9d90"
+            },
+            {
+              "position": 2,
+              "sku": "FON-087",
+              "colour": "9002",
+              "appearance": null,
+              "extracted_hex": "#a09888"
+            },
+            {
+              "position": 3,
+              "sku": "FON-088",
+              "colour": "9003",
+              "appearance": null,
+              "extracted_hex": "#ab987f"
+            },
+            {
+              "position": 4,
+              "sku": "FON-089",
+              "colour": "9004",
+              "appearance": null,
+              "extracted_hex": "#a69279"
+            },
+            {
+              "position": 5,
+              "sku": "FON-090",
+              "colour": "9005",
+              "appearance": null,
+              "extracted_hex": "#aa937a"
+            },
+            {
+              "position": 6,
+              "sku": "FON-091",
+              "colour": "9006",
+              "appearance": null,
+              "extracted_hex": "#af967c"
+            },
+            {
+              "position": 7,
+              "sku": "FON-092",
+              "colour": "9009",
+              "appearance": null,
+              "extracted_hex": "#ad947a"
+            },
+            {
+              "position": 8,
+              "sku": "FON-093",
+              "colour": "9007",
+              "appearance": null,
+              "extracted_hex": "#635546"
+            },
+            {
+              "position": 9,
+              "sku": "FON-094",
+              "colour": "9008",
+              "appearance": null,
+              "extracted_hex": "#9e634c"
+            },
+            {
+              "position": 10,
+              "sku": "FON-095",
+              "colour": "9010",
+              "appearance": null,
+              "extracted_hex": "#777065"
+            },
+            {
+              "position": 11,
+              "sku": "FON-096",
+              "colour": "9015",
+              "appearance": null,
+              "extracted_hex": "#3e3932"
+            },
+            {
+              "position": 12,
+              "sku": "FON-097",
+              "colour": "9016",
+              "appearance": null,
+              "extracted_hex": "#231d15"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "left_to_right",
+          "swatches_count": 11,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-098",
+              "colour": "9017",
+              "appearance": null,
+              "extracted_hex": "#afafab"
+            },
+            {
+              "position": 2,
+              "sku": "FON-099",
+              "colour": "9011",
+              "appearance": null,
+              "extracted_hex": "#969e9c"
+            },
+            {
+              "position": 3,
+              "sku": "FON-100",
+              "colour": "9012",
+              "appearance": null,
+              "extracted_hex": "#8c9089"
+            },
+            {
+              "position": 4,
+              "sku": "FON-101",
+              "colour": "9013",
+              "appearance": null,
+              "extracted_hex": "#8d9088"
+            },
+            {
+              "position": 5,
+              "sku": "FON-102",
+              "colour": "9014",
+              "appearance": null,
+              "extracted_hex": "#909189"
+            },
+            {
+              "position": 6,
+              "sku": "FON-103",
+              "colour": "9018",
+              "appearance": null,
+              "extracted_hex": "#919289"
+            },
+            {
+              "position": 7,
+              "sku": "FON-104",
+              "colour": "9019",
+              "appearance": null,
+              "extracted_hex": "#8b8b82"
+            },
+            {
+              "position": 8,
+              "sku": "FON-105",
+              "colour": "9020",
+              "appearance": null,
+              "extracted_hex": "#89655a"
+            },
+            {
+              "position": 9,
+              "sku": "FON-106",
+              "colour": "9021",
+              "appearance": null,
+              "extracted_hex": "#99827a"
+            },
+            {
+              "position": 10,
+              "sku": "FON-107",
+              "colour": "9022",
+              "appearance": null,
+              "extracted_hex": "#5a5652"
+            },
+            {
+              "position": 11,
+              "sku": "FON-108",
+              "colour": "9023",
+              "appearance": null,
+              "extracted_hex": "#332c25"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "left_to_right",
+          "swatches_count": 11,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-109",
+              "colour": "9024",
+              "appearance": null,
+              "extracted_hex": "#b2ad9f"
+            },
+            {
+              "position": 2,
+              "sku": "FON-110",
+              "colour": "9025",
+              "appearance": null,
+              "extracted_hex": "#9098a0"
+            },
+            {
+              "position": 3,
+              "sku": "FON-111",
+              "colour": "9026",
+              "appearance": null,
+              "extracted_hex": "#9897a3"
+            },
+            {
+              "position": 4,
+              "sku": "FON-112",
+              "colour": "9027",
+              "appearance": null,
+              "extracted_hex": "#9a97a2"
+            },
+            {
+              "position": 5,
+              "sku": "FON-113",
+              "colour": "9028",
+              "appearance": null,
+              "extracted_hex": "#9e99a6"
+            },
+            {
+              "position": 6,
+              "sku": "FON-114",
+              "colour": "9029",
+              "appearance": null,
+              "extracted_hex": "#9e99a5"
+            },
+            {
+              "position": 7,
+              "sku": "FON-115",
+              "colour": "9030",
+              "appearance": null,
+              "extracted_hex": "#9c95a0"
+            },
+            {
+              "position": 8,
+              "sku": "FON-116",
+              "colour": "9031",
+              "appearance": null,
+              "extracted_hex": "#8b5d4f"
+            },
+            {
+              "position": 9,
+              "sku": "FON-117",
+              "colour": "9032",
+              "appearance": null,
+              "extracted_hex": "#8d7869"
+            },
+            {
+              "position": 10,
+              "sku": "FON-118",
+              "colour": "9033",
+              "appearance": null,
+              "extracted_hex": "#514a42"
+            },
+            {
+              "position": 11,
+              "sku": "FON-119",
+              "colour": "9042",
+              "appearance": null,
+              "extracted_hex": "#2f271d"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "fan_direction": "horizontal",
+          "position_order": "left_to_right",
+          "swatches_count": 11,
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-120",
+              "colour": "9043",
+              "appearance": null,
+              "extracted_hex": "#bfbdb1"
+            },
+            {
+              "position": 2,
+              "sku": "FON-121",
+              "colour": "9044",
+              "appearance": null,
+              "extracted_hex": "#76829a"
+            },
+            {
+              "position": 3,
+              "sku": "FON-122",
+              "colour": "9034",
+              "appearance": null,
+              "extracted_hex": "#72637d"
+            },
+            {
+              "position": 4,
+              "sku": "FON-123",
+              "colour": "9035",
+              "appearance": null,
+              "extracted_hex": "#74637e"
+            },
+            {
+              "position": 5,
+              "sku": "FON-124",
+              "colour": "9036",
+              "appearance": null,
+              "extracted_hex": "#755f7a"
+            },
+            {
+              "position": 6,
+              "sku": "FON-125",
+              "colour": "9037",
+              "appearance": null,
+              "extracted_hex": "#79607b"
+            },
+            {
+              "position": 7,
+              "sku": "FON-126",
+              "colour": "9038",
+              "appearance": null,
+              "extracted_hex": "#79647e"
+            },
+            {
+              "position": 8,
+              "sku": "FON-127",
+              "colour": "9039",
+              "appearance": null,
+              "extracted_hex": "#9c6658"
+            },
+            {
+              "position": 9,
+              "sku": "FON-128",
+              "colour": "9040",
+              "appearance": null,
+              "extracted_hex": "#9d887c"
+            },
+            {
+              "position": 10,
+              "sku": "FON-129",
+              "colour": "9041",
+              "appearance": null,
+              "extracted_hex": "#5d5650"
+            },
+            {
+              "position": 11,
+              "sku": "FON-130",
+              "colour": "9045",
+              "appearance": null,
+              "extracted_hex": "#393026"
+            }
+          ]
+        }
+      ]
+    },
+    "YAĞMUR": {
+      "folder": "FON/YAĞMUR",
+      "design_photo": "design.HEIC",
+      "layout": "single_or_double",
+      "notes": "Photos 1-5: 2 swatches per photo. Photo 6: 1 swatch. Top=position 1, bottom=position 2.",
+      "photos": [
+        {
+          "file": "1.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-131",
+              "colour": "7001",
+              "appearance": null,
+              "extracted_hex": "#acaca7"
+            },
+            {
+              "position": 2,
+              "sku": "FON-132",
+              "colour": "7002",
+              "appearance": null,
+              "extracted_hex": "#7c7e7d"
+            }
+          ]
+        },
+        {
+          "file": "2.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-133",
+              "colour": "7003",
+              "appearance": null,
+              "extracted_hex": "#92928d"
+            },
+            {
+              "position": 2,
+              "sku": "FON-134",
+              "colour": "7004",
+              "appearance": null,
+              "extracted_hex": "#989896"
+            }
+          ]
+        },
+        {
+          "file": "3.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-135",
+              "colour": "7005",
+              "appearance": null,
+              "extracted_hex": "#939492"
+            },
+            {
+              "position": 2,
+              "sku": "FON-136",
+              "colour": "7006",
+              "appearance": null,
+              "extracted_hex": "#97958b"
+            }
+          ]
+        },
+        {
+          "file": "4.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-137",
+              "colour": "7007",
+              "appearance": null,
+              "extracted_hex": "#8f9291"
+            },
+            {
+              "position": 2,
+              "sku": "FON-138",
+              "colour": "7008",
+              "appearance": null,
+              "extracted_hex": "#8f8b82"
+            }
+          ]
+        },
+        {
+          "file": "5.HEIC",
+          "layout": "double_horizontal",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-139",
+              "colour": "7009",
+              "appearance": null,
+              "extracted_hex": "#767574"
+            },
+            {
+              "position": 2,
+              "sku": "FON-140",
+              "colour": "7010",
+              "appearance": null,
+              "extracted_hex": "#858886"
+            }
+          ]
+        },
+        {
+          "file": "6.HEIC",
+          "layout": "single_closeup",
+          "position_order": "top_to_bottom",
+          "swatches": [
+            {
+              "position": 1,
+              "sku": "FON-141",
+              "colour": "7011",
+              "appearance": null,
+              "extracted_hex": "#666867"
+            }
+          ]
+        }
+      ]
+    },
+    "SATEN": {
+      "folder": "SATEN",
+      "design_photo": null,
+      "layout": "missing",
+      "notes": "No photos found in raw-heic-categorized. May need separate photography session.",
+      "photos": []
+    }
+  }
+}

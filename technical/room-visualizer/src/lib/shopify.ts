@@ -95,11 +95,24 @@ export async function getProductData(
 	const pmsUrl = sku ? await getPmsSwatchUrl(sku) : null;
 	const imageUrl = pmsUrl ?? shopifyImageUrl;
 
-	return {
+	const result = {
 		title: product.title,
 		type: product.curtainType?.value ?? "",
 		color: product.curtainColor?.value ?? "",
 		imageUrl,
 		sku,
 	};
+
+	logger.info(
+		{
+			event: "shopify_product_fetched",
+			productId,
+			title: result.title,
+			sku,
+			using_pms_swatch: !!pmsUrl,
+		},
+		"Product data fetched",
+	);
+
+	return result;
 }
