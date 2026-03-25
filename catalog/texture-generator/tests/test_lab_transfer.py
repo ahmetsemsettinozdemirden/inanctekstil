@@ -51,11 +51,12 @@ class TestLabTransfer:
         assert result.dtype == np.uint8
 
     def test_pixel_values_in_valid_range(self):
-        design = make_solid((220, 30, 10))
-        variant = make_solid((10, 30, 220))
+        """Extreme colors (pure red design, pure blue variant) trigger LAB clipping."""
+        design = make_solid((0, 0, 255))  # pure red in BGR
+        variant = make_solid((255, 0, 0))  # pure blue in BGR
         result = lab_transfer(design, variant)
-        assert int(result.min()) >= 0
-        assert int(result.max()) <= 255
+        assert int(result.min()) >= 0, f"Min value {int(result.min())} is below 0"
+        assert int(result.max()) <= 255, f"Max value {int(result.max())} exceeds 255"
 
     def test_solid_design_takes_variant_color(self):
         """Solid design recolored to solid variant: output mean ~ variant mean."""
@@ -88,6 +89,41 @@ class TestLabTransfer:
         even_mean = result[::2].mean()
         odd_mean = result[1::2].mean()
         assert abs(float(even_mean) - float(odd_mean)) > 10
+
+    def test_textured_design_with_flat_variant_preserves_structure(self):
+        """Textured design + flat variant: mean-shift-only should preserve design structure.
+
+        This tests the v_std < 1e-6 branch (line 43-45 in lab_transfer.py) where the
+        variant has near-zero standard deviation (solid color). The algorithm performs
+        mean-shift-only: result = (design - d_mean) + v_mean, preserving design contrast.
+        """
+        # Design: alternating high/low contrast pattern
+        design = np.zeros((32, 32, 3), dtype=np.uint8)
+        design[::2] = 180  # even rows bright
+        design[1::2] = 50   # odd rows dark
+
+        # Variant: completely flat/solid color (triggers v_std < 1e-6)
+        variant = make_solid((100, 100, 100), 32)  # uniform gray
+
+        result = lab_transfer(design, variant)
+
+        # Verify structure is preserved: brightness difference between rows should persist
+        even_mean = result[::2].mean()
+        odd_mean = result[1::2].mean()
+        brightness_diff = abs(float(even_mean) - float(odd_mean))
+        assert brightness_diff > 10, (
+            f"Design structure not preserved: brightness diff {brightness_diff} too small"
+        )
+
+        # Verify output color is close to variant mean (neutral gray)
+        for ch in range(3):
+            result_ch_mean = result[:, :, ch].mean()
+            variant_ch_mean = variant[:, :, ch].mean()
+            diff = abs(result_ch_mean - variant_ch_mean)
+            assert diff < 15, (
+                f"Channel {ch}: result mean {result_ch_mean:.1f} "
+                f"vs variant {variant_ch_mean:.1f}, diff {diff:.1f}"
+            )
 
 
 from texture_generator.lab_transfer import delta_e_dominant
