@@ -1,0 +1,1927 @@
+{
+  "generated_at": "2026-03-25T16:27:27.674159+00:00",
+  "total": 274,
+  "generated": 272,
+  "skipped": 2,
+  "failed": 0,
+  "results": [
+    {
+      "sku": "FON-097",
+      "design": "SÜET",
+      "delta_e": 87.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-097/texture-512.jpg"
+    },
+    {
+      "sku": "FON-096",
+      "design": "SÜET",
+      "delta_e": 86.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-096/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-114",
+      "design": "%100 BLACKOUT",
+      "delta_e": 75.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-114/texture-512.jpg"
+    },
+    {
+      "sku": "FON-098",
+      "design": "SÜET",
+      "delta_e": 74.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-098/texture-512.jpg"
+    },
+    {
+      "sku": "FON-127",
+      "design": "SÜET",
+      "delta_e": 70.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-127/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-109",
+      "design": "%100 BLACKOUT",
+      "delta_e": 68.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-109/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-126",
+      "design": "%100 BLACKOUT",
+      "delta_e": 68.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-126/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-082",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 68.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-082/texture-512.jpg"
+    },
+    {
+      "sku": "FON-126",
+      "design": "SÜET",
+      "delta_e": 66.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-126/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-110",
+      "design": "%100 BLACKOUT",
+      "delta_e": 65.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-110/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-081",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 65.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-081/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-083",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 64.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-083/texture-512.jpg"
+    },
+    {
+      "sku": "FON-103",
+      "design": "SÜET",
+      "delta_e": 64.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-103/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-118",
+      "design": "%100 BLACKOUT",
+      "delta_e": 63.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-118/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-112",
+      "design": "%100 BLACKOUT",
+      "delta_e": 63.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-112/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-116",
+      "design": "%100 BLACKOUT",
+      "delta_e": 63.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-116/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-115",
+      "design": "%100 BLACKOUT",
+      "delta_e": 62.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-115/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-017",
+      "design": "DARK BLACKOUT",
+      "delta_e": 62.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-017/texture-512.jpg"
+    },
+    {
+      "sku": "FON-102",
+      "design": "SÜET",
+      "delta_e": 62.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-102/texture-512.jpg"
+    },
+    {
+      "sku": "FON-087",
+      "design": "SÜET",
+      "delta_e": 61.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-087/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-128",
+      "design": "%100 BLACKOUT",
+      "delta_e": 59.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-128/texture-512.jpg"
+    },
+    {
+      "sku": "FON-110",
+      "design": "SÜET",
+      "delta_e": 58.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-110/texture-512.jpg"
+    },
+    {
+      "sku": "FON-104",
+      "design": "SÜET",
+      "delta_e": 58.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-104/texture-512.jpg"
+    },
+    {
+      "sku": "FON-086",
+      "design": "SÜET",
+      "delta_e": 57.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-086/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-100",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 56.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-100/texture-512.jpg"
+    },
+    {
+      "sku": "FON-088",
+      "design": "SÜET",
+      "delta_e": 56.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-088/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-101",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 55.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-101/texture-512.jpg"
+    },
+    {
+      "sku": "FON-095",
+      "design": "SÜET",
+      "delta_e": 55.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-095/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-113",
+      "design": "%100 BLACKOUT",
+      "delta_e": 55.3,
+      "status": "generated",
+      "output": "swatch-assets/BLK-113/texture-512.jpg"
+    },
+    {
+      "sku": "FON-092",
+      "design": "SÜET",
+      "delta_e": 55.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-092/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-086",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 54.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-086/texture-512.jpg"
+    },
+    {
+      "sku": "FON-111",
+      "design": "SÜET",
+      "delta_e": 54.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-111/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-127",
+      "design": "%100 BLACKOUT",
+      "delta_e": 54.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-127/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-111",
+      "design": "%100 BLACKOUT",
+      "delta_e": 54.3,
+      "status": "generated",
+      "output": "swatch-assets/BLK-111/texture-512.jpg"
+    },
+    {
+      "sku": "FON-109",
+      "design": "SÜET",
+      "delta_e": 53.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-109/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-007",
+      "design": "DARK BLACKOUT",
+      "delta_e": 51.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-007/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-089",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 51.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-089/texture-512.jpg"
+    },
+    {
+      "sku": "FON-090",
+      "design": "SÜET",
+      "delta_e": 50.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-090/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-002",
+      "design": "DARK BLACKOUT",
+      "delta_e": 50.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-002/texture-512.jpg"
+    },
+    {
+      "sku": "FON-091",
+      "design": "SÜET",
+      "delta_e": 49.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-091/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-008",
+      "design": "DARK BLACKOUT",
+      "delta_e": 48.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-008/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-085",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 48.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-085/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-001",
+      "design": "DARK BLACKOUT",
+      "delta_e": 48.3,
+      "status": "skipped",
+      "output": "swatch-assets/BLK-001/texture-512.jpg"
+    },
+    {
+      "sku": "FON-089",
+      "design": "SÜET",
+      "delta_e": 48.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-089/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-092",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 47.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-092/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-084",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 47.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-084/texture-512.jpg"
+    },
+    {
+      "sku": "FON-119",
+      "design": "SÜET",
+      "delta_e": 47.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-119/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-122",
+      "design": "%100 BLACKOUT",
+      "delta_e": 47.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-122/texture-512.jpg"
+    },
+    {
+      "sku": "FON-129",
+      "design": "SÜET",
+      "delta_e": 47.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-129/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-093",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 46.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-093/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-129",
+      "design": "%100 BLACKOUT",
+      "delta_e": 46.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-129/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-073",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 45.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-073/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-087",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 44.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-087/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-090",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 44.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-090/texture-512.jpg"
+    },
+    {
+      "sku": "FON-124",
+      "design": "SÜET",
+      "delta_e": 43.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-124/texture-512.jpg"
+    },
+    {
+      "sku": "FON-093",
+      "design": "SÜET",
+      "delta_e": 43.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-093/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-102",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 42.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-102/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-061",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 42.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-061/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-018",
+      "design": "DARK BLACKOUT",
+      "delta_e": 42.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-018/texture-512.jpg"
+    },
+    {
+      "sku": "FON-072",
+      "design": "SULTAN 22260",
+      "delta_e": 41.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-072/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-003",
+      "design": "DARK BLACKOUT",
+      "delta_e": 40.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-003/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-074",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 40.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-074/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-076",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 40.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-076/texture-512.jpg"
+    },
+    {
+      "sku": "FON-100",
+      "design": "SÜET",
+      "delta_e": 40.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-100/texture-512.jpg"
+    },
+    {
+      "sku": "FON-107",
+      "design": "SÜET",
+      "delta_e": 40.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-107/texture-512.jpg"
+    },
+    {
+      "sku": "FON-106",
+      "design": "SÜET",
+      "delta_e": 39.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-106/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-009",
+      "design": "DARK BLACKOUT",
+      "delta_e": 39.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-009/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-059",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 39.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-059/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-103",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 39.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-103/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-117",
+      "design": "%100 BLACKOUT",
+      "delta_e": 39.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-117/texture-512.jpg"
+    },
+    {
+      "sku": "FON-025",
+      "design": "MONICA",
+      "delta_e": 38.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-025/texture-512.jpg"
+    },
+    {
+      "sku": "FON-073",
+      "design": "SULTAN 22260",
+      "delta_e": 38.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-073/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-078",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 38.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-078/texture-512.jpg"
+    },
+    {
+      "sku": "FON-112",
+      "design": "SÜET",
+      "delta_e": 38.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-112/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-010",
+      "design": "DARK BLACKOUT",
+      "delta_e": 38.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-010/texture-512.jpg"
+    },
+    {
+      "sku": "FON-084",
+      "design": "SULTAN 22260",
+      "delta_e": 37.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-084/texture-512.jpg"
+    },
+    {
+      "sku": "FON-094",
+      "design": "SÜET",
+      "delta_e": 37.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-094/texture-512.jpg"
+    },
+    {
+      "sku": "FON-058",
+      "design": "SULTAN 22260",
+      "delta_e": 37.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-058/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-004",
+      "design": "DARK BLACKOUT",
+      "delta_e": 36.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-004/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-119",
+      "design": "%100 BLACKOUT",
+      "delta_e": 36.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-119/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-023",
+      "design": "DARK BLACKOUT",
+      "delta_e": 36.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-023/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-024",
+      "design": "DARK BLACKOUT",
+      "delta_e": 36.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-024/texture-512.jpg"
+    },
+    {
+      "sku": "FON-066",
+      "design": "SULTAN 22260",
+      "delta_e": 36.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-066/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-120",
+      "design": "%100 BLACKOUT",
+      "delta_e": 35.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-120/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-077",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 35.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-077/texture-512.jpg"
+    },
+    {
+      "sku": "FON-113",
+      "design": "SÜET",
+      "delta_e": 35.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-113/texture-512.jpg"
+    },
+    {
+      "sku": "FON-128",
+      "design": "SÜET",
+      "delta_e": 35.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-128/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-020",
+      "design": "DARK BLACKOUT",
+      "delta_e": 34.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-020/texture-512.jpg"
+    },
+    {
+      "sku": "FON-082",
+      "design": "SULTAN 22260",
+      "delta_e": 34.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-082/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-069",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 34.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-069/texture-512.jpg"
+    },
+    {
+      "sku": "FON-099",
+      "design": "SÜET",
+      "delta_e": 33.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-099/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-071",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 33.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-071/texture-512.jpg"
+    },
+    {
+      "sku": "FON-059",
+      "design": "SULTAN 22260",
+      "delta_e": 32.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-059/texture-512.jpg"
+    },
+    {
+      "sku": "FON-101",
+      "design": "SÜET",
+      "delta_e": 32.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-101/texture-512.jpg"
+    },
+    {
+      "sku": "FON-120",
+      "design": "SÜET",
+      "delta_e": 32.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-120/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-104",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 32.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-104/texture-512.jpg"
+    },
+    {
+      "sku": "FON-022",
+      "design": "MONICA",
+      "delta_e": 31.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-022/texture-512.jpg"
+    },
+    {
+      "sku": "FON-117",
+      "design": "SÜET",
+      "delta_e": 31.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-117/texture-512.jpg"
+    },
+    {
+      "sku": "FON-085",
+      "design": "SULTAN 22260",
+      "delta_e": 30.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-085/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-067",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 30.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-067/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-091",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 30.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-091/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-011",
+      "design": "DARK BLACKOUT",
+      "delta_e": 29.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-011/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-125",
+      "design": "%100 BLACKOUT",
+      "delta_e": 29.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-125/texture-512.jpg"
+    },
+    {
+      "sku": "FON-114",
+      "design": "SÜET",
+      "delta_e": 29.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-114/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-062",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 29.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-062/texture-512.jpg"
+    },
+    {
+      "sku": "FON-070",
+      "design": "SULTAN 22260",
+      "delta_e": 29.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-070/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-131",
+      "design": "%100 BLACKOUT",
+      "delta_e": 29.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-131/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-105",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 28.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-105/texture-512.jpg"
+    },
+    {
+      "sku": "FON-116",
+      "design": "SÜET",
+      "delta_e": 28.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-116/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-019",
+      "design": "DARK BLACKOUT",
+      "delta_e": 28.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-019/texture-512.jpg"
+    },
+    {
+      "sku": "FON-067",
+      "design": "SULTAN 22260",
+      "delta_e": 27.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-067/texture-512.jpg"
+    },
+    {
+      "sku": "FON-130",
+      "design": "SÜET",
+      "delta_e": 27.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-130/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-005",
+      "design": "DARK BLACKOUT",
+      "delta_e": 27.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-005/texture-512.jpg"
+    },
+    {
+      "sku": "FON-105",
+      "design": "SÜET",
+      "delta_e": 27.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-105/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-016",
+      "design": "DARK BLACKOUT",
+      "delta_e": 26.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-016/texture-512.jpg"
+    },
+    {
+      "sku": "FON-055",
+      "design": "SULTAN 22260",
+      "delta_e": 26.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-055/texture-512.jpg"
+    },
+    {
+      "sku": "FON-121",
+      "design": "SÜET",
+      "delta_e": 26.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-121/texture-512.jpg"
+    },
+    {
+      "sku": "FON-140",
+      "design": "YAĞMUR",
+      "delta_e": 26.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-140/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-123",
+      "design": "%100 BLACKOUT",
+      "delta_e": 26.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-123/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-022",
+      "design": "DARK BLACKOUT",
+      "delta_e": 26.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-022/texture-512.jpg"
+    },
+    {
+      "sku": "FON-141",
+      "design": "YAĞMUR",
+      "delta_e": 26.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-141/texture-512.jpg"
+    },
+    {
+      "sku": "FON-083",
+      "design": "SULTAN 22260",
+      "delta_e": 26.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-083/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-070",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 25.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-070/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-095",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 25.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-095/texture-512.jpg"
+    },
+    {
+      "sku": "FON-056",
+      "design": "SULTAN 22260",
+      "delta_e": 25.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-056/texture-512.jpg"
+    },
+    {
+      "sku": "FON-064",
+      "design": "SULTAN 22260",
+      "delta_e": 25.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-064/texture-512.jpg"
+    },
+    {
+      "sku": "FON-125",
+      "design": "SÜET",
+      "delta_e": 25.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-125/texture-512.jpg"
+    },
+    {
+      "sku": "FON-035",
+      "design": "SULTAN 22260",
+      "delta_e": 25.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-035/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-015",
+      "design": "DARK BLACKOUT",
+      "delta_e": 24.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-015/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-079",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 24.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-079/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-064",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 24.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-064/texture-512.jpg"
+    },
+    {
+      "sku": "FON-057",
+      "design": "SULTAN 22260",
+      "delta_e": 24.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-057/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-060",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 24.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-060/texture-512.jpg"
+    },
+    {
+      "sku": "FON-069",
+      "design": "SULTAN 22260",
+      "delta_e": 23.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-069/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-075",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 23.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-075/texture-512.jpg"
+    },
+    {
+      "sku": "FON-071",
+      "design": "SULTAN 22260",
+      "delta_e": 23.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-071/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-021",
+      "design": "DARK BLACKOUT",
+      "delta_e": 23.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-021/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-072",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 23.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-072/texture-512.jpg"
+    },
+    {
+      "sku": "FON-054",
+      "design": "SULTAN 22260",
+      "delta_e": 22.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-054/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-097",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 22.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-097/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-121",
+      "design": "%100 BLACKOUT",
+      "delta_e": 22.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-121/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-057",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 22.3,
+      "status": "generated",
+      "output": "swatch-assets/BLK-057/texture-512.jpg"
+    },
+    {
+      "sku": "FON-081",
+      "design": "SULTAN 22260",
+      "delta_e": 22.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-081/texture-512.jpg"
+    },
+    {
+      "sku": "FON-115",
+      "design": "SÜET",
+      "delta_e": 22.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-115/texture-512.jpg"
+    },
+    {
+      "sku": "FON-063",
+      "design": "SULTAN 22260",
+      "delta_e": 21.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-063/texture-512.jpg"
+    },
+    {
+      "sku": "FON-001",
+      "design": "ENZA",
+      "delta_e": 21.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-001/texture-512.jpg"
+    },
+    {
+      "sku": "FON-065",
+      "design": "SULTAN 22260",
+      "delta_e": 21.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-065/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-130",
+      "design": "%100 BLACKOUT",
+      "delta_e": 21.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-130/texture-512.jpg"
+    },
+    {
+      "sku": "FON-078",
+      "design": "SULTAN 22260",
+      "delta_e": 21.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-078/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-068",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 21.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-068/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-014",
+      "design": "DARK BLACKOUT",
+      "delta_e": 21.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-014/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-106",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 20.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-106/texture-512.jpg"
+    },
+    {
+      "sku": "FON-122",
+      "design": "SÜET",
+      "delta_e": 20.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-122/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-006",
+      "design": "DARK BLACKOUT",
+      "delta_e": 20.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-006/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-038",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 20.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-038/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-027",
+      "design": "DARK BLACKOUT",
+      "delta_e": 20.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-027/texture-512.jpg"
+    },
+    {
+      "sku": "FON-131",
+      "design": "YAĞMUR",
+      "delta_e": 20.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-131/texture-512.jpg"
+    },
+    {
+      "sku": "FON-037",
+      "design": "SULTAN 22260",
+      "delta_e": 19.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-037/texture-512.jpg"
+    },
+    {
+      "sku": "FON-014",
+      "design": "ENZA",
+      "delta_e": 19.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-014/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-028",
+      "design": "DARK BLACKOUT",
+      "delta_e": 19.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-028/texture-512.jpg"
+    },
+    {
+      "sku": "FON-029",
+      "design": "SULTAN 22260",
+      "delta_e": 19.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-029/texture-512.jpg"
+    },
+    {
+      "sku": "FON-046",
+      "design": "SULTAN 22260",
+      "delta_e": 19.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-046/texture-512.jpg"
+    },
+    {
+      "sku": "FON-080",
+      "design": "SULTAN 22260",
+      "delta_e": 19.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-080/texture-512.jpg"
+    },
+    {
+      "sku": "FON-123",
+      "design": "SÜET",
+      "delta_e": 19.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-123/texture-512.jpg"
+    },
+    {
+      "sku": "FON-068",
+      "design": "SULTAN 22260",
+      "delta_e": 19.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-068/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-029",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 18.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-029/texture-512.jpg"
+    },
+    {
+      "sku": "FON-062",
+      "design": "SULTAN 22260",
+      "delta_e": 18.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-062/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-044",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 18.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-044/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-066",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 18.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-066/texture-512.jpg"
+    },
+    {
+      "sku": "FON-050",
+      "design": "SULTAN 22260",
+      "delta_e": 18.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-050/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-055",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 18.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-055/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-080",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 18.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-080/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-096",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 18.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-096/texture-512.jpg"
+    },
+    {
+      "sku": "FON-013",
+      "design": "ENZA",
+      "delta_e": 17.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-013/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-108",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 17.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-108/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-132",
+      "design": "%100 BLACKOUT",
+      "delta_e": 17.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-132/texture-512.jpg"
+    },
+    {
+      "sku": "FON-028",
+      "design": "SULTAN 22260",
+      "delta_e": 17.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-028/texture-512.jpg"
+    },
+    {
+      "sku": "FON-024",
+      "design": "MONICA",
+      "delta_e": 16.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-024/texture-512.jpg"
+    },
+    {
+      "sku": "FON-061",
+      "design": "SULTAN 22260",
+      "delta_e": 16.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-061/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-088",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 16.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-088/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-053",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 15.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-053/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-098",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 15.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-098/texture-512.jpg"
+    },
+    {
+      "sku": "FON-045",
+      "design": "SULTAN 22260",
+      "delta_e": 15.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-045/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-030",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 15.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-030/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-046",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 15.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-046/texture-512.jpg"
+    },
+    {
+      "sku": "FON-039",
+      "design": "SULTAN 22260",
+      "delta_e": 15.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-039/texture-512.jpg"
+    },
+    {
+      "sku": "FON-027",
+      "design": "SULTAN 22260",
+      "delta_e": 14.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-027/texture-512.jpg"
+    },
+    {
+      "sku": "FON-075",
+      "design": "SULTAN 22260",
+      "delta_e": 14.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-075/texture-512.jpg"
+    },
+    {
+      "sku": "FON-036",
+      "design": "SULTAN 22260",
+      "delta_e": 14.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-036/texture-512.jpg"
+    },
+    {
+      "sku": "FON-048",
+      "design": "SULTAN 22260",
+      "delta_e": 14.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-048/texture-512.jpg"
+    },
+    {
+      "sku": "FON-015",
+      "design": "MONICA",
+      "delta_e": 14.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-015/texture-512.jpg"
+    },
+    {
+      "sku": "FON-052",
+      "design": "SULTAN 22260",
+      "delta_e": 14.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-052/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-025",
+      "design": "DARK BLACKOUT",
+      "delta_e": 14.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-025/texture-512.jpg"
+    },
+    {
+      "sku": "FON-076",
+      "design": "SULTAN 22260",
+      "delta_e": 14.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-076/texture-512.jpg"
+    },
+    {
+      "sku": "FON-051",
+      "design": "SULTAN 22260",
+      "delta_e": 14.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-051/texture-512.jpg"
+    },
+    {
+      "sku": "FON-079",
+      "design": "SULTAN 22260",
+      "delta_e": 14.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-079/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-036",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 13.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-036/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-042",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 13.7,
+      "status": "generated",
+      "output": "swatch-assets/BLK-042/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-040",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 13.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-040/texture-512.jpg"
+    },
+    {
+      "sku": "FON-118",
+      "design": "SÜET",
+      "delta_e": 13.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-118/texture-512.jpg"
+    },
+    {
+      "sku": "FON-011",
+      "design": "ENZA",
+      "delta_e": 13.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-011/texture-512.jpg"
+    },
+    {
+      "sku": "FON-026",
+      "design": "SULTAN 22260",
+      "delta_e": 13.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-026/texture-512.jpg"
+    },
+    {
+      "sku": "FON-021",
+      "design": "MONICA",
+      "delta_e": 13.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-021/texture-512.jpg"
+    },
+    {
+      "sku": "FON-044",
+      "design": "SULTAN 22260",
+      "delta_e": 13.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-044/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-124",
+      "design": "%100 BLACKOUT",
+      "delta_e": 12.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-124/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-026",
+      "design": "DARK BLACKOUT",
+      "delta_e": 12.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-026/texture-512.jpg"
+    },
+    {
+      "sku": "FON-033",
+      "design": "SULTAN 22260",
+      "delta_e": 12.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-033/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-054",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 12.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-054/texture-512.jpg"
+    },
+    {
+      "sku": "FON-074",
+      "design": "SULTAN 22260",
+      "delta_e": 12.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-074/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-034",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 11.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-034/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-041",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 11.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-041/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-056",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 11.9,
+      "status": "generated",
+      "output": "swatch-assets/BLK-056/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-047",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 11.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-047/texture-512.jpg"
+    },
+    {
+      "sku": "FON-031",
+      "design": "SULTAN 22260",
+      "delta_e": 11.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-031/texture-512.jpg"
+    },
+    {
+      "sku": "FON-042",
+      "design": "SULTAN 22260",
+      "delta_e": 11.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-042/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-032",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 11.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-032/texture-512.jpg"
+    },
+    {
+      "sku": "FON-034",
+      "design": "SULTAN 22260",
+      "delta_e": 11.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-034/texture-512.jpg"
+    },
+    {
+      "sku": "FON-010",
+      "design": "ENZA",
+      "delta_e": 11.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-010/texture-512.jpg"
+    },
+    {
+      "sku": "FON-060",
+      "design": "SULTAN 22260",
+      "delta_e": 11.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-060/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-063",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 10.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-063/texture-512.jpg"
+    },
+    {
+      "sku": "FON-139",
+      "design": "YAĞMUR",
+      "delta_e": 10.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-139/texture-512.jpg"
+    },
+    {
+      "sku": "FON-012",
+      "design": "ENZA",
+      "delta_e": 10.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-012/texture-512.jpg"
+    },
+    {
+      "sku": "FON-016",
+      "design": "MONICA",
+      "delta_e": 10.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-016/texture-512.jpg"
+    },
+    {
+      "sku": "FON-038",
+      "design": "SULTAN 22260",
+      "delta_e": 10.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-038/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-012",
+      "design": "DARK BLACKOUT",
+      "delta_e": 10.0,
+      "status": "generated",
+      "output": "swatch-assets/BLK-012/texture-512.jpg"
+    },
+    {
+      "sku": "FON-053",
+      "design": "SULTAN 22260",
+      "delta_e": 9.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-053/texture-512.jpg"
+    },
+    {
+      "sku": "FON-041",
+      "design": "SULTAN 22260",
+      "delta_e": 9.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-041/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-048",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 9.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-048/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-049",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 9.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-049/texture-512.jpg"
+    },
+    {
+      "sku": "FON-002",
+      "design": "ENZA",
+      "delta_e": 8.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-002/texture-512.jpg"
+    },
+    {
+      "sku": "FON-032",
+      "design": "SULTAN 22260",
+      "delta_e": 8.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-032/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-050",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 8.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-050/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-107",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 8.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-107/texture-512.jpg"
+    },
+    {
+      "sku": "FON-077",
+      "design": "SULTAN 22260",
+      "delta_e": 8.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-077/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-052",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 8.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-052/texture-512.jpg"
+    },
+    {
+      "sku": "FON-023",
+      "design": "MONICA",
+      "delta_e": 8.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-023/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-099",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 8.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-099/texture-512.jpg"
+    },
+    {
+      "sku": "FON-043",
+      "design": "SULTAN 22260",
+      "delta_e": 8.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-043/texture-512.jpg"
+    },
+    {
+      "sku": "FON-047",
+      "design": "SULTAN 22260",
+      "delta_e": 8.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-047/texture-512.jpg"
+    },
+    {
+      "sku": "FON-049",
+      "design": "SULTAN 22260",
+      "delta_e": 8.0,
+      "status": "generated",
+      "output": "swatch-assets/FON-049/texture-512.jpg"
+    },
+    {
+      "sku": "FON-030",
+      "design": "SULTAN 22260",
+      "delta_e": 7.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-030/texture-512.jpg"
+    },
+    {
+      "sku": "FON-136",
+      "design": "YAĞMUR",
+      "delta_e": 7.9,
+      "status": "generated",
+      "output": "swatch-assets/FON-136/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-037",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 7.8,
+      "status": "generated",
+      "output": "swatch-assets/BLK-037/texture-512.jpg"
+    },
+    {
+      "sku": "FON-134",
+      "design": "YAĞMUR",
+      "delta_e": 7.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-134/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-058",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 7.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-058/texture-512.jpg"
+    },
+    {
+      "sku": "FON-135",
+      "design": "YAĞMUR",
+      "delta_e": 7.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-135/texture-512.jpg"
+    },
+    {
+      "sku": "FON-009",
+      "design": "ENZA",
+      "delta_e": 7.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-009/texture-512.jpg"
+    },
+    {
+      "sku": "FON-138",
+      "design": "YAĞMUR",
+      "delta_e": 7.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-138/texture-512.jpg"
+    },
+    {
+      "sku": "FON-132",
+      "design": "YAĞMUR",
+      "delta_e": 7.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-132/texture-512.jpg"
+    },
+    {
+      "sku": "FON-018",
+      "design": "MONICA",
+      "delta_e": 6.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-018/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-051",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 6.3,
+      "status": "generated",
+      "output": "swatch-assets/BLK-051/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-035",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 6.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-035/texture-512.jpg"
+    },
+    {
+      "sku": "FON-004",
+      "design": "ENZA",
+      "delta_e": 6.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-004/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-039",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 6.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-039/texture-512.jpg"
+    },
+    {
+      "sku": "FON-108",
+      "design": "SÜET",
+      "delta_e": 6.1,
+      "status": "generated",
+      "output": "swatch-assets/FON-108/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-031",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 5.6,
+      "status": "generated",
+      "output": "swatch-assets/BLK-031/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-065",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 5.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-065/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-045",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 5.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-045/texture-512.jpg"
+    },
+    {
+      "sku": "FON-006",
+      "design": "ENZA",
+      "delta_e": 5.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-006/texture-512.jpg"
+    },
+    {
+      "sku": "FON-003",
+      "design": "ENZA",
+      "delta_e": 4.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-003/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-133",
+      "design": "%100 BLACKOUT",
+      "delta_e": 4.5,
+      "status": "generated",
+      "output": "swatch-assets/BLK-133/texture-512.jpg"
+    },
+    {
+      "sku": "FON-008",
+      "design": "ENZA",
+      "delta_e": 4.4,
+      "status": "generated",
+      "output": "swatch-assets/FON-008/texture-512.jpg"
+    },
+    {
+      "sku": "FON-019",
+      "design": "MONICA",
+      "delta_e": 4.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-019/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-094",
+      "design": "HAVUZ BLACKOUT",
+      "delta_e": 4.1,
+      "status": "generated",
+      "output": "swatch-assets/BLK-094/texture-512.jpg"
+    },
+    {
+      "sku": "FON-017",
+      "design": "MONICA",
+      "delta_e": 3.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-017/texture-512.jpg"
+    },
+    {
+      "sku": "FON-040",
+      "design": "SULTAN 22260",
+      "delta_e": 3.3,
+      "status": "generated",
+      "output": "swatch-assets/FON-040/texture-512.jpg"
+    },
+    {
+      "sku": "FON-005",
+      "design": "ENZA",
+      "delta_e": 2.8,
+      "status": "generated",
+      "output": "swatch-assets/FON-005/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-013",
+      "design": "DARK BLACKOUT",
+      "delta_e": 2.7,
+      "status": "skipped",
+      "output": "swatch-assets/BLK-013/texture-512.jpg"
+    },
+    {
+      "sku": "FON-133",
+      "design": "YAĞMUR",
+      "delta_e": 2.7,
+      "status": "generated",
+      "output": "swatch-assets/FON-133/texture-512.jpg"
+    },
+    {
+      "sku": "FON-007",
+      "design": "ENZA",
+      "delta_e": 2.6,
+      "status": "generated",
+      "output": "swatch-assets/FON-007/texture-512.jpg"
+    },
+    {
+      "sku": "FON-020",
+      "design": "MONICA",
+      "delta_e": 2.5,
+      "status": "generated",
+      "output": "swatch-assets/FON-020/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-033",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 2.2,
+      "status": "generated",
+      "output": "swatch-assets/BLK-033/texture-512.jpg"
+    },
+    {
+      "sku": "FON-137",
+      "design": "YAĞMUR",
+      "delta_e": 2.2,
+      "status": "generated",
+      "output": "swatch-assets/FON-137/texture-512.jpg"
+    },
+    {
+      "sku": "BLK-043",
+      "design": "HERMES BLACKOUT",
+      "delta_e": 1.4,
+      "status": "generated",
+      "output": "swatch-assets/BLK-043/texture-512.jpg"
+    }
+  ]
+}
