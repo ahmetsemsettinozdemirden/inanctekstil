@@ -547,7 +547,7 @@ describe('POST /api/checkout/complete — happy path', () => {
   beforeEach(() => { mockState.sqlQueue = []; mockState.sqlCalls = []; rateLimitMap.clear(); });
 
   test('valid request with 2 items creates draft order with 2 line items and returns checkoutUrl', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []]; // SELECT → 2 rows; DELETE → success
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → 2 rows; INSERT draft_orders → ok
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -571,35 +571,36 @@ describe('POST /api/checkout/complete — happy path', () => {
   });
 
   test('empty cart returns 404 NO_ITEMS', async () => {
-    mockState.sqlQueue = [[]]; // SELECT → 0 rows
+    mockState.sqlQueue = [[], []]; // pending check → none; SELECT → 0 rows
     const res = await postComplete({ cartToken: 'abc123' });
     expect(res.status).toBe(404);
     const body = await res.json() as { error: string };
     expect(body.error).toBe('NO_ITEMS');
   });
 
-  test('rows are deleted after successful draft order creation', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []]; // SELECT → rows; DELETE → success
-    const deletedCalls: string[] = [];
-    globalThis.fetch = mock((url: string, init?: RequestInit) => {
+  test('draft_order row is inserted and cart_items are NOT deleted after draft order creation', async () => {
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders → ok
+    globalThis.fetch = mock((url: string) => {
       if (url.includes('access_token')) {
         return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
       }
-      deletedCalls.push(init?.body as string);
       return Promise.resolve(new Response(
-        JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }),
+        JSON.stringify({ draft_order: { id: 42, invoice_url: 'https://x' } }),
         { status: 201 },
       ));
     }) as unknown as typeof fetch;
 
     await postComplete({ cartToken: 'abc123' });
 
-    // The DELETE call consumes the second queue entry (sqlQueue should now be empty)
-    expect(mockState.sqlQueue.length).toBe(0);
+    // Exactly 3 SQL calls: pending check, SELECT cart_items, INSERT draft_orders — no DELETE
+    expect(mockState.sqlCalls.length).toBe(3);
+    // INSERT call contains draft_order id and invoice_url
+    expect(mockState.sqlCalls[2]).toContain(42);
+    expect(mockState.sqlCalls[2]).toContain('https://x');
   });
 
   test('returns 500 AUTH_FAILED when Shopify token request fails', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS]; // SELECT succeeds
+    mockState.sqlQueue = [[], SAMPLE_ROWS]; // pending check → none; SELECT succeeds
     globalThis.fetch = mockCompleteShopify({ tokenOk: false });
     const res = await postComplete({ cartToken: 'abc123' });
     expect(res.status).toBe(500);
@@ -608,7 +609,7 @@ describe('POST /api/checkout/complete — happy path', () => {
   });
 
   test('returns 500 DRAFT_ORDER_FAILED when Shopify draft order fails', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS]; // SELECT succeeds
+    mockState.sqlQueue = [[], SAMPLE_ROWS]; // pending check → none; SELECT succeeds
     globalThis.fetch = mockCompleteShopify({ draftOrderOk: false });
     const res = await postComplete({ cartToken: 'abc123' });
     expect(res.status).toBe(500);
@@ -616,7 +617,7 @@ describe('POST /api/checkout/complete — happy path', () => {
     expect(body.error).toBe('DRAFT_ORDER_FAILED');
   });
 
-  test('returns 500 DB_ERROR when Postgres SELECT throws', async () => {
+  test('returns 500 DB_ERROR when Postgres pending-check throws', async () => {
     mockState.sqlQueue = [new Error('db down')];
     globalThis.fetch = mockCompleteShopify();
     const res = await postComplete({ cartToken: 'abc123' });
@@ -626,7 +627,7 @@ describe('POST /api/checkout/complete — happy path', () => {
   });
 
   test('draft order line items have correct title, price, and properties (no variant_id)', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []];
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -674,7 +675,7 @@ describe('POST /api/checkout/complete — happy path', () => {
   });
 
   test('draft order note summarises each item with dimensions', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []];
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -700,7 +701,7 @@ describe('POST /api/checkout/complete — happy path', () => {
   });
 
   test('checkoutUrl uses invoice_url (not checkout_url)', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []];
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders
     globalThis.fetch = mock((url: string) => {
       if (url.includes('access_token')) {
         return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
@@ -721,6 +722,108 @@ describe('POST /api/checkout/complete — happy path', () => {
     const body = await res.json() as { checkoutUrl: string };
     expect(body.checkoutUrl).toContain('invoices');
     expect(body.checkoutUrl).not.toContain('checkouts');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/checkout/complete — new draft order behavior
+// ---------------------------------------------------------------------------
+
+describe('POST /api/checkout/complete — new draft order behavior', () => {
+  beforeAll(setEnv);
+  afterAll(clearEnv);
+  beforeEach(() => {
+    rateLimitMap.clear();
+    mockState.sqlQueue = [];
+    mockState.sqlCalls = [];
+  });
+
+  test('sends note_attributes with cart_token in draft order payload', async () => {
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders
+
+    const draftBodies: string[] = [];
+    globalThis.fetch = mock((url: string, opts: RequestInit) => {
+      if (String(url).includes('/admin/oauth/access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      draftBodies.push(opts.body as string);
+      return Promise.resolve(
+        new Response(JSON.stringify({ draft_order: { id: 42, invoice_url: 'https://x' } }), { status: 201 }),
+      );
+    }) as unknown as typeof fetch;
+
+    await postComplete({ cartToken: 'abc123' });
+
+    const payload = JSON.parse(draftBodies[0]) as {
+      draft_order: { note_attributes: Array<{ name: string; value: string }> };
+    };
+    const attr = payload.draft_order.note_attributes?.find((a) => a.name === 'cart_token');
+    expect(attr).toBeDefined();
+    expect(attr?.value).toBe('abc123');
+  });
+
+  test('saves draft_order_id and invoice_url to draft_orders table', async () => {
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT
+
+    globalThis.fetch = mock((url: string) => {
+      if (String(url).includes('/admin/oauth/access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({ draft_order: { id: 777, invoice_url: 'https://invoice/777' } }),
+          { status: 201 },
+        ),
+      );
+    }) as unknown as typeof fetch;
+
+    await postComplete({ cartToken: 'abc123' });
+
+    // 3rd SQL call (index 2) is the INSERT into draft_orders
+    const insertValues = mockState.sqlCalls[2];
+    expect(insertValues).toContain('abc123');          // cart_token
+    expect(insertValues).toContain(777);               // shopify_draft_order_id
+    expect(insertValues).toContain('https://invoice/777'); // invoice_url
+  });
+
+  test('does NOT delete cart_items after draft order creation', async () => {
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT
+
+    globalThis.fetch = mock((url: string) => {
+      if (String(url).includes('/admin/oauth/access_token')) {
+        return Promise.resolve(new Response(JSON.stringify({ access_token: 'tok' }), { status: 200 }));
+      }
+      return Promise.resolve(
+        new Response(JSON.stringify({ draft_order: { id: 1, invoice_url: 'https://x' } }), { status: 201 }),
+      );
+    }) as unknown as typeof fetch;
+
+    await postComplete({ cartToken: 'abc123' });
+
+    // Exactly 3 SQL calls: pending check, SELECT cart_items, INSERT draft_orders — no DELETE
+    expect(mockState.sqlCalls.length).toBe(3);
+    const flatArgs = mockState.sqlCalls.flat().map(String);
+    expect(flatArgs.some((v) => v.includes('DELETE'))).toBe(false);
+  });
+
+  test('returns existing invoice_url when a pending draft order already exists for cart_token', async () => {
+    // First SQL call returns an existing pending row — no further calls should happen
+    mockState.sqlQueue = [
+      [{ shopify_draft_order_id: 55, invoice_url: 'https://existing-invoice/55', status: 'pending' }],
+    ];
+
+    let fetchCalled = false;
+    globalThis.fetch = mock(() => {
+      fetchCalled = true;
+      return Promise.resolve(new Response('{}', { status: 200 }));
+    }) as unknown as typeof fetch;
+
+    const res = await postComplete({ cartToken: 'abc123' });
+    const data = await res.json() as { checkoutUrl: string };
+
+    expect(res.status).toBe(200);
+    expect(data.checkoutUrl).toBe('https://existing-invoice/55');
+    expect(fetchCalled).toBe(false); // no Shopify API call made
   });
 });
 
@@ -900,7 +1003,7 @@ describe('POST /api/checkout/item — real-world prices', () => {
       kanat_count: 2,
       calculated_price: '7000.00',
     }];
-    mockState.sqlQueue = [rowWithCalculatedPrice, []];
+    mockState.sqlQueue = [[], rowWithCalculatedPrice, []]; // pending check → none; SELECT → row; INSERT draft_orders
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -930,9 +1033,9 @@ describe('POST /api/checkout/complete — resilience', () => {
   afterAll(clearEnv);
   beforeEach(() => { mockState.sqlQueue = []; mockState.sqlCalls = []; rateLimitMap.clear(); });
 
-  test('DB delete failure after draft order creation still returns 200 checkoutUrl', async () => {
-    // SELECT succeeds; DELETE throws
-    mockState.sqlQueue = [SAMPLE_ROWS, new Error('delete failed')];
+  test('INSERT draft_orders failure still returns 200 checkoutUrl (graceful degradation)', async () => {
+    // pending check → none; SELECT succeeds; INSERT draft_orders throws
+    mockState.sqlQueue = [[], SAMPLE_ROWS, new Error('insert failed')];
     globalThis.fetch = mockCompleteShopify({ invoiceUrl: 'https://checkout.shopify.com/draft/99' });
     const res = await postComplete({ cartToken: 'abc123' });
     expect(res.status).toBe(200);
@@ -942,7 +1045,7 @@ describe('POST /api/checkout/complete — resilience', () => {
 
   test('single item cart creates draft order with exactly 1 line item', async () => {
     const singleRow = [SAMPLE_ROWS[0]];
-    mockState.sqlQueue = [singleRow, []];
+    mockState.sqlQueue = [[], singleRow, []]; // pending check → none; SELECT → 1 row; INSERT draft_orders
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {
@@ -962,7 +1065,7 @@ describe('POST /api/checkout/complete — resilience', () => {
   });
 
   test('all line items have requires_shipping=true and taxable=true', async () => {
-    mockState.sqlQueue = [SAMPLE_ROWS, []];
+    mockState.sqlQueue = [[], SAMPLE_ROWS, []]; // pending check → none; SELECT → rows; INSERT draft_orders
     const draftBodies: string[] = [];
     globalThis.fetch = mock((url: string, init?: RequestInit) => {
       if (url.includes('access_token')) {

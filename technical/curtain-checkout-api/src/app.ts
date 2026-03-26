@@ -247,6 +247,29 @@ app.post("/api/checkout/complete", async (c) => {
 
   log("INFO", "Checkout complete request", { cartToken });
 
+  // Guard: return existing pending draft order if one already exists.
+  // Prevents duplicate draft orders when user clicks checkout multiple times.
+  let pendingRows: Array<{ shopify_draft_order_id: number; invoice_url: string; status: string }>;
+  try {
+    pendingRows = await sql<typeof pendingRows>`
+      SELECT shopify_draft_order_id, invoice_url, status
+      FROM draft_orders
+      WHERE cart_token = ${cartToken} AND status = 'pending'
+      LIMIT 1
+    `;
+  } catch (err) {
+    log("ERROR", "DB pending draft order check failed", { cartToken, err: String(err) });
+    return c.json({ error: "DB_ERROR", message: "Veritabanı hatası" }, 500);
+  }
+
+  if (pendingRows.length > 0) {
+    log("INFO", "Returning existing pending draft order", {
+      cartToken,
+      draftOrderId: pendingRows[0].shopify_draft_order_id,
+    });
+    return c.json({ checkoutUrl: pendingRows[0].invoice_url });
+  }
+
   // Read all cart items for this token
   let rows: CartItemRow[];
   try {
@@ -286,7 +309,6 @@ app.post("/api/checkout/complete", async (c) => {
   const shopifyHeaders = { "X-Shopify-Access-Token": token, "Content-Type": "application/json" };
 
   // Build draft order line items from all cart rows.
-  // variant_id links the line item to the actual product for order management.
   // title and price override the variant defaults so configured dimensions and
   // calculated price are honoured even though the variant has a different base price.
   const lineItems = rows.map((row) => ({
@@ -315,7 +337,14 @@ app.post("/api/checkout/complete", async (c) => {
     {
       method: "POST",
       headers: shopifyHeaders,
-      body: JSON.stringify({ draft_order: { line_items: lineItems, note } }),
+      body: JSON.stringify({
+        draft_order: {
+          line_items: lineItems,
+          note,
+          // Embeds cart_token so the orders/paid webhook can find these cart_items
+          note_attributes: [{ name: "cart_token", value: cartToken }],
+        },
+      }),
     },
   );
 
@@ -328,12 +357,16 @@ app.post("/api/checkout/complete", async (c) => {
   const { draft_order } = await draftRes.json() as { draft_order: { id: number; invoice_url: string } };
   log("INFO", "Draft order created", { draftOrderId: draft_order.id, cartToken, checkoutUrl: draft_order.invoice_url });
 
-  // Delete rows after successful draft order creation
+  // Save draft order record — cart_items are NOT deleted here.
+  // The orders/paid webhook deletes cart_items after confirmed payment.
   try {
-    await sql`DELETE FROM cart_items WHERE cart_token = ${cartToken}`;
+    await sql`
+      INSERT INTO draft_orders (cart_token, shopify_draft_order_id, invoice_url)
+      VALUES (${cartToken}, ${draft_order.id}, ${draft_order.invoice_url})
+    `;
   } catch (err) {
-    // Log but don't fail — rows will be cleaned up by the 7-day TTL job
-    log("WARN", "DB delete after checkout failed", { cartToken, err: String(err) });
+    // Log but don't fail — cart_items TTL will clean up orphaned rows after 7 days
+    log("WARN", "DB insert draft_orders failed", { cartToken, draftOrderId: draft_order.id, err: String(err) });
   }
 
   return c.json({ checkoutUrl: draft_order.invoice_url });
