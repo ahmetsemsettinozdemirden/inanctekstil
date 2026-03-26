@@ -1,4 +1,38 @@
 import { describe, test, expect, beforeAll, afterAll, mock, beforeEach } from 'bun:test';
+import { createHmac } from 'node:crypto';
+
+// ---------------------------------------------------------------------------
+// verifyShopifyHmac — unit tests (no app/DB needed)
+// ---------------------------------------------------------------------------
+
+import { verifyShopifyHmac } from './hmac.ts';
+
+describe('verifyShopifyHmac', () => {
+  const SECRET = 'test_webhook_secret';
+
+  function sign(body: string): string {
+    return createHmac('sha256', SECRET).update(body).digest('base64');
+  }
+
+  test('returns true for a valid signature', async () => {
+    const body = '{"id":1}';
+    expect(await verifyShopifyHmac(SECRET, body, sign(body))).toBe(true);
+  });
+
+  test('returns false for a wrong signature', async () => {
+    expect(await verifyShopifyHmac(SECRET, '{"id":1}', 'bad_sig')).toBe(false);
+  });
+
+  test('returns false for empty header', async () => {
+    expect(await verifyShopifyHmac(SECRET, '{"id":1}', '')).toBe(false);
+  });
+
+  test('returns false when lengths differ', async () => {
+    const body = '{"id":1}';
+    const short = sign(body).slice(0, 10);
+    expect(await verifyShopifyHmac(SECRET, body, short)).toBe(false);
+  });
+});
 
 // ---------------------------------------------------------------------------
 // Mock DB module — must be set up before importing app
