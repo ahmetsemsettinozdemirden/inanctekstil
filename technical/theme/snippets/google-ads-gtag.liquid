@@ -1,21 +1,16 @@
 {% comment %}
   Google Ads global site tag — AW-18018413635
-  Consent Mode v2: defaults to denied, updates based on KVKK cookie banner choice.
+  Consent Mode v2: all signals granted by default.
   Must render BEFORE content_for_header so consent defaults fire before GT-P85PHHHB loads.
 {% endcomment %}
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  // Set consent defaults before any Google tag loads.
-  // For returning visitors who already chose, grant immediately to avoid data loss.
-  var _c = localStorage.getItem('cookie_consent');
-  var _granted = _c === 'accepted' ? 'granted' : 'denied';
   gtag('consent', 'default', {
-    'ad_storage': _granted,
-    'ad_user_data': _granted,
-    'ad_personalization': _granted,
-    'analytics_storage': _granted,
-    'wait_for_update': 500
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
   });
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18018413635"></script>

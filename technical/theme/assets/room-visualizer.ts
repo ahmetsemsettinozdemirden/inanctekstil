@@ -223,7 +223,10 @@ const STYLES = `
   @keyframes rv-spin { to { transform: rotate(360deg); } }
 
   /* — Result — */
-  .rv-result-img { width: 100%; border-radius: 8px; display: block; }
+  .rv-result-img {
+    width: 100%; border-radius: 8px; display: block;
+    max-height: min(60vh, 480px); object-fit: cover;
+  }
   .rv-result-meta {
     display: flex; align-items: center; justify-content: space-between;
     margin: 12px 0 14px;

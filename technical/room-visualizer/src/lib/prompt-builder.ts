@@ -7,16 +7,26 @@ export interface PromptResult {
 
 export function buildPrompt(
 	product: ProductData,
-	attempt: number,
 	seedFn: () => number = Math.random,
+	hasTextureImage = false,
 ): PromptResult {
-	const base = `Add ${product.color} ${product.type} curtains to all windows in this room, floor-length drapes, neatly hanging, photorealistic, interior design photography`;
+	const parts = [
+		`Add ${product.color} ${product.type} curtains to all windows in this room, floor-length drapes, neatly hanging, photorealistic, interior design photography`,
+	];
 
-	const prompt =
-		attempt > 1
-			? `${base}, curtains clearly visible on every window, elegant window treatment`
-			: base;
+	if (hasTextureImage) {
+		parts.push("replicate the fabric texture pattern from the reference image exactly");
+	}
 
+	if (product.threadColors.length > 0) {
+		parts.push(`thread tones: ${product.threadColors.join(", ")}`);
+	}
+
+	if (product.pixelsPerCm !== null) {
+		parts.push(`fabric scale: ${product.pixelsPerCm}px/cm`);
+	}
+
+	const prompt = parts.join(", ");
 	const seed = Math.floor(seedFn() * 2 ** 31);
 
 	return { prompt, seed };

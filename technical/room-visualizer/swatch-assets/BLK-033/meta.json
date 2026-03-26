@@ -1,0 +1,26 @@
+{
+  "sku": "BLK-033",
+  "design": "HERMES BLACKOUT",
+  "colour_code": "5024",
+  "appearance": "DESENLİ",
+  "width_cm": 310,
+  "price": "1500",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.01,
+  "transparency_class": "blackout",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/hermes-blackout/texture-512.jpg",
+  "design_texture_full": "designs/hermes-blackout/texture-full.jpg",
+  "raw_colors": [
+    "#23211e",
+    "#6c6a67",
+    "#c5c4c2"
+  ],
+  "thread_colors": [
+    "#9d9c97",
+    "#5c5b55"
+  ],
+  "thread_count": 2,
+  "source_heic": "BLACKOUT/HERMES BLACKOUT/1.HEIC"
+}

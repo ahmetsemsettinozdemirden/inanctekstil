@@ -1,6 +1,5 @@
 import { config } from "../config.ts";
 import logger from "./logger.ts";
-import { getPmsSwatchUrl } from "./pms.ts";
 
 export interface ProductData {
 	title: string;
@@ -8,6 +7,8 @@ export interface ProductData {
 	color: string;
 	imageUrl: string;
 	sku: string;
+	threadColors: string[];
+	pixelsPerCm: number | null;
 }
 
 const PRODUCT_QUERY = `
@@ -89,11 +90,7 @@ export async function getProductData(
 
 	const product = body.data.product;
 	const sku = product.variants.nodes[0]?.sku ?? "";
-	const shopifyImageUrl = product.images.nodes[0]?.url ?? "";
-
-	// Prefer PMS swatch over Shopify image
-	const pmsUrl = sku ? await getPmsSwatchUrl(sku) : null;
-	const imageUrl = pmsUrl ?? shopifyImageUrl;
+	const imageUrl = product.images.nodes[0]?.url ?? "";
 
 	const result = {
 		title: product.title,
@@ -101,6 +98,8 @@ export async function getProductData(
 		color: product.curtainColor?.value ?? "",
 		imageUrl,
 		sku,
+		threadColors: [] as string[],
+		pixelsPerCm: null as number | null,
 	};
 
 	logger.info(
@@ -109,7 +108,6 @@ export async function getProductData(
 			productId,
 			title: result.title,
 			sku,
-			using_pms_swatch: !!pmsUrl,
 		},
 		"Product data fetched",
 	);

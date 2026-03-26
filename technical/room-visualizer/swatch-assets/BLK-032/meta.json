@@ -1,0 +1,25 @@
+{
+  "sku": "BLK-032",
+  "design": "HERMES BLACKOUT",
+  "colour_code": "5013",
+  "appearance": "DÜZ",
+  "width_cm": 310,
+  "price": "1500",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.01,
+  "transparency_class": "blackout",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/hermes-blackout/texture-512.jpg",
+  "design_texture_full": "designs/hermes-blackout/texture-full.jpg",
+  "raw_colors": [
+    "#2c302d",
+    "#767874",
+    "#c9ccc8"
+  ],
+  "thread_colors": [
+    "#a1a39f"
+  ],
+  "thread_count": 1,
+  "source_heic": "BLACKOUT/HERMES BLACKOUT/1.HEIC"
+}

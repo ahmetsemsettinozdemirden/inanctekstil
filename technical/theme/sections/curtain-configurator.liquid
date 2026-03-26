@@ -545,7 +545,7 @@
         <div class="perde-variant-picker__options">
           {%- for variant in product.variants -%}
             <button
-              class="perde-variant-btn{% if forloop.first %} is-selected{% endif %}"
+              class="perde-variant-btn{% if variant.id == product.selected_or_first_available_variant.id %} is-selected{% endif %}"
               data-variant-id="{{ variant.id }}"
               data-variant-price="{{ variant.price | divided_by: 100.0 }}"
               type="button"

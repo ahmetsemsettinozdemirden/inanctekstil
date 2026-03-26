@@ -1,0 +1,25 @@
+{
+  "sku": "FON-124",
+  "design": "SÜET",
+  "colour_code": "9016",
+  "appearance": null,
+  "width_cm": 300,
+  "price": "860",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.12,
+  "transparency_class": "opaque",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/su-et/texture-512.jpg",
+  "design_texture_full": "designs/su-et/texture-full.jpg",
+  "raw_colors": [
+    "#d29841",
+    "#be842d",
+    "#eab25a"
+  ],
+  "thread_colors": [
+    "#653a8b"
+  ],
+  "thread_count": 1,
+  "source_heic": "FON/SÜET/4.HEIC"
+}

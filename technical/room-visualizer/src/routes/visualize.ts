@@ -32,11 +32,11 @@ const CORS_HEADERS = {
 	"Access-Control-Allow-Origin": "https://inanctekstil.store",
 	"Access-Control-Allow-Methods": "POST, OPTIONS",
 	"Access-Control-Allow-Headers": "Content-Type",
-	"Access-Control-Expose-Headers":
-		"X-Product-Title, X-Attempts-Used, X-Final-Score",
+	"Access-Control-Expose-Headers": "X-Product-Title",
 };
 
 export interface VisualizeDeps {
+	getProductDataFromSwatch: (sku: string) => ProductData | null;
 	getProductData: (id: string) => Promise<ProductData | null>;
 	generateRoomImage: (
 		buf: Buffer,
@@ -161,9 +161,12 @@ export function createVisualizeRoute(deps: VisualizeDeps): Hono {
 			);
 		}
 
+		const clientSku = (formData.get("product_sku") as string | null)?.trim() ?? "";
+
 		logger.info({
 			event: "visualize_start",
 			product_id: productId,
+			product_sku: clientSku,
 			image_size_bytes: roomImageFile.size,
 			image_type: roomImageFile.type,
 			image_name: roomImageFile.name,
@@ -171,26 +174,64 @@ export function createVisualizeRoute(deps: VisualizeDeps): Hono {
 
 		const startMs = Date.now();
 
-		// Use client-provided product data if available (avoids Shopify API call)
-		const clientTitle = formData.get("product_title");
+		// Resolve product data: swatch-assets → client fields → Shopify API
 		let productData: ProductData | null = null;
-		if (typeof clientTitle === "string" && clientTitle.trim()) {
-			productData = {
-				title: clientTitle,
-				type: (formData.get("product_type") as string) ?? "",
-				color: (formData.get("product_color") as string) ?? "",
-				imageUrl: (formData.get("product_image_url") as string) ?? "",
-				sku: (formData.get("product_sku") as string) ?? "",
-			};
-			logger.info({
-				event: "product_from_client",
-				product_id: productId,
-				title: productData.title,
-				type: productData.type,
-			});
-		} else {
-			productData = await deps.getProductData(productId);
+		let resolvedSource = "not_found";
+
+		if (clientSku) {
+			productData = deps.getProductDataFromSwatch(clientSku);
+			if (productData) resolvedSource = "swatch";
 		}
+
+		if (!productData) {
+			const clientTitle = formData.get("product_title");
+			if (typeof clientTitle === "string" && clientTitle.trim()) {
+				const rawThreadColors = formData.get("product_thread_colors");
+				let threadColors: string[] = [];
+				if (typeof rawThreadColors === "string" && rawThreadColors.trim()) {
+					try {
+						threadColors = JSON.parse(rawThreadColors) as string[];
+					} catch {
+						// ignore malformed JSON
+					}
+				}
+				const rawPixelsPerCm = formData.get("product_pixels_per_cm");
+				const pixelsPerCm =
+					typeof rawPixelsPerCm === "string" && rawPixelsPerCm.trim()
+						? Number(rawPixelsPerCm)
+						: null;
+				productData = {
+					title: clientTitle,
+					type: (formData.get("product_type") as string) ?? "",
+					color: (formData.get("product_color") as string) ?? "",
+					imageUrl: (formData.get("product_image_url") as string) ?? "",
+					sku: clientSku,
+					threadColors,
+					pixelsPerCm: pixelsPerCm !== null && !isNaN(pixelsPerCm) ? pixelsPerCm : null,
+				};
+				resolvedSource = "client_fields";
+			}
+		}
+
+		if (!productData) {
+			const shopifyData = await deps.getProductData(productId);
+			if (shopifyData) {
+				// Attempt swatch enrichment with the SKU returned by Shopify
+				const swatchData = shopifyData.sku
+					? deps.getProductDataFromSwatch(shopifyData.sku)
+					: null;
+				productData = swatchData ?? shopifyData;
+				resolvedSource = swatchData ? "shopify_swatch" : "shopify_api";
+			}
+		}
+
+		logger.info({
+			event: "product_resolved",
+			product_id: productId,
+			product_sku: clientSku,
+			resolved_sku: productData?.sku ?? "",
+			source: resolvedSource,
+		});
 
 		if (!productData) {
 			return new Response(
@@ -210,7 +251,9 @@ export function createVisualizeRoute(deps: VisualizeDeps): Hono {
 			product_id: productId,
 			title: productData.title,
 			type: productData.type,
-			has_pms_swatch: productData.imageUrl.includes("pms.inanctekstil"),
+			color: productData.color,
+			thread_colors: productData.threadColors,
+			pixels_per_cm: productData.pixelsPerCm,
 		});
 
 		const roomImageBuffer = Buffer.from(await roomImageFile.arrayBuffer());
@@ -236,21 +279,18 @@ export function createVisualizeRoute(deps: VisualizeDeps): Hono {
 		}
 
 		const durationMs = Date.now() - startMs;
-		logger.info({
-			event: "visualize_complete",
-			best_attempt: result.attemptsUsed,
-			final_score: result.score,
-			duration_ms: durationMs,
-		});
+		logger.info({ event: "visualize_complete", duration_ms: durationMs });
+
+		// Detect image format from magic bytes
+		const isPng = result.binary[0] === 0x89 && result.binary[1] === 0x50;
+		const contentType = isPng ? "image/png" : "image/jpeg";
 
 		return new Response(result.binary.buffer as ArrayBuffer, {
 			status: 200,
 			headers: {
 				...CORS_HEADERS,
-				"Content-Type": "image/jpeg",
+				"Content-Type": contentType,
 				"X-Product-Title": encodeURIComponent(productData.title),
-				"X-Attempts-Used": String(result.attemptsUsed),
-				"X-Final-Score": String(result.score),
 			},
 		});
 	});
@@ -261,7 +301,9 @@ export function createVisualizeRoute(deps: VisualizeDeps): Hono {
 // Default export for production use
 import { generateRoomImage } from "../lib/fal.ts";
 import { getProductData } from "../lib/shopify.ts";
+import { getProductDataFromSwatch } from "../lib/swatch.ts";
 export const visualizeRoute = createVisualizeRoute({
+	getProductDataFromSwatch,
 	getProductData,
 	generateRoomImage,
 });

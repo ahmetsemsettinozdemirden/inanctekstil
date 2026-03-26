@@ -9,6 +9,18 @@
   <script src="{{ 'room-visualizer.js' | asset_url }}"></script>
   <script>
     (function () {
+      var variantSkus = {
+        {%- for variant in product.variants -%}
+          "{{ variant.id }}": {{ variant.sku | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      };
+
+      function getCurrentSku() {
+        var input = document.querySelector('form[data-type="add-to-cart-form"] input[name="id"]');
+        var id = input ? input.value : new URLSearchParams(location.search).get('variant');
+        return id ? (variantSkus[id] || '') : '';
+      }
+
       var btn = document.getElementById('odanda-gor-btn');
       if (btn) {
         btn.addEventListener('click', function () {
@@ -19,7 +31,7 @@
             productType: {{ product.type | json }},
             productColor: {{ product.metafields.curtain.color | default: '' | json }},
             productImageUrl: {{ product.featured_image | image_url: width: 400 | json }},
-            productSku: {{ product.variants.first.sku | json }},
+            productSku: getCurrentSku(),
             apiUrl: 'https://visualizer.inanctekstil.store/api/visualize'
           });
         });

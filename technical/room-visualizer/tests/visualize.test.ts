@@ -6,8 +6,6 @@ import {
 
 const mockGenerateRoomImage = mock(async () => ({
 	binary: Buffer.from([1, 2, 3, 4]),
-	score: 8,
-	attemptsUsed: 1,
 }));
 
 const mockGetProductData = mock(async (_id: string) => ({
@@ -16,9 +14,14 @@ const mockGetProductData = mock(async (_id: string) => ({
 	color: "beyaz",
 	imageUrl: "https://cdn.shopify.com/havuz.jpg",
 	sku: "blk-havuz",
+	threadColors: [] as string[],
+	pixelsPerCm: null as number | null,
 }));
 
+const mockGetProductDataFromSwatch = mock((_sku: string) => null as ReturnType<typeof import("../src/lib/swatch.ts").getProductDataFromSwatch>);
+
 const visualizeRoute = createVisualizeRoute({
+	getProductDataFromSwatch: mockGetProductDataFromSwatch,
 	getProductData: mockGetProductData,
 	generateRoomImage: mockGenerateRoomImage,
 });
@@ -39,18 +42,19 @@ describe("POST /api/visualize", () => {
 		resetRateLimiter();
 		mockGenerateRoomImage.mockReset();
 		mockGetProductData.mockReset();
-		// Restore default implementations after each test
+		mockGetProductDataFromSwatch.mockReset();
+		mockGetProductDataFromSwatch.mockImplementation(() => null);
 		mockGetProductData.mockImplementation(async () => ({
 			title: "HAVUZ Blackout Perde",
 			type: "BLACKOUT",
 			color: "beyaz",
 			imageUrl: "https://cdn.shopify.com/havuz.jpg",
 			sku: "blk-havuz",
+			threadColors: [],
+			pixelsPerCm: null,
 		}));
 		mockGenerateRoomImage.mockImplementation(async () => ({
 			binary: Buffer.from([1, 2, 3, 4]),
-			score: 8,
-			attemptsUsed: 1,
 		}));
 	});
 
@@ -72,16 +76,7 @@ describe("POST /api/visualize", () => {
 	});
 
 	it("returns CORS headers on 404 PRODUCT_NOT_FOUND", async () => {
-		mockGetProductData.mockImplementation(
-			async () =>
-				null as unknown as {
-					title: string;
-					type: string;
-					color: string;
-					imageUrl: string;
-					sku: string;
-				},
-		);
+		mockGetProductData.mockImplementation(async () => null as unknown as import("../src/lib/shopify.ts").ProductData);
 
 		const req = new Request("http://localhost/", {
 			method: "POST",
@@ -106,6 +101,8 @@ describe("POST /api/visualize", () => {
 			color: "beyaz",
 			imageUrl: "https://example.com/img.jpg",
 			sku: "test",
+			threadColors: [],
+			pixelsPerCm: null,
 		}));
 		mockGenerateRoomImage.mockImplementation(async () => {
 			throw new Error("GENERATION_FAILED");
@@ -134,11 +131,11 @@ describe("POST /api/visualize", () => {
 			color: "beyaz",
 			imageUrl: "https://cdn.shopify.com/havuz.jpg",
 			sku: "blk-havuz",
+			threadColors: ["#0e101e"],
+			pixelsPerCm: 42.3,
 		}));
 		mockGenerateRoomImage.mockImplementation(async () => ({
 			binary: Buffer.from([10, 20, 30]),
-			score: 9,
-			attemptsUsed: 2,
 		}));
 
 		const req = new Request("http://localhost/", {
@@ -147,9 +144,8 @@ describe("POST /api/visualize", () => {
 		});
 		const res = await visualizeRoute.fetch(req);
 		expect(res.status).toBe(200);
-		expect(res.headers.get("Content-Type")).toBe("image/jpeg");
-		expect(res.headers.get("X-Attempts-Used")).toBe("2");
-		expect(res.headers.get("X-Final-Score")).toBe("9");
+		const ct = res.headers.get("Content-Type") ?? "";
+		expect(["image/jpeg", "image/png"]).toContain(ct);
 		expect(res.headers.get("X-Product-Title")).toBe(
 			encodeURIComponent("HAVUZ Blackout Perde"),
 		);
@@ -232,11 +228,11 @@ describe("POST /api/visualize", () => {
 			color: "beyaz",
 			imageUrl: "https://cdn.shopify.com/test.jpg",
 			sku: "tul-test",
+			threadColors: [],
+			pixelsPerCm: null,
 		}));
 		mockGenerateRoomImage.mockImplementation(async () => ({
 			binary: Buffer.from([1, 2, 3]),
-			score: 8,
-			attemptsUsed: 1,
 		}));
 
 		const req = new Request("http://localhost/", {
@@ -258,11 +254,11 @@ describe("POST /api/visualize", () => {
 			color: "beyaz",
 			imageUrl: "https://cdn.test.com/img.jpg",
 			sku: "tul-test",
+			threadColors: [],
+			pixelsPerCm: null,
 		}));
 		mockGenerateRoomImage.mockImplementation(async () => ({
 			binary: Buffer.from([1]),
-			score: 8,
-			attemptsUsed: 1,
 		}));
 
 		// Use a unique IP to avoid pollution from other tests

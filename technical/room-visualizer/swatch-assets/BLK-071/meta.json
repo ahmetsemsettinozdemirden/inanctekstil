@@ -1,0 +1,26 @@
+{
+  "sku": "BLK-071",
+  "design": "HERMES BLACKOUT",
+  "colour_code": "5006",
+  "appearance": "DÜZ",
+  "width_cm": 310,
+  "price": "1500",
+  "source_crop": null,
+  "extraction_date": "2026-03-23",
+  "transparency_pct": 0.01,
+  "transparency_class": "blackout",
+  "pattern_repeat_cm": null,
+  "design_texture_tile": "designs/hermes-blackout/texture-512.jpg",
+  "design_texture_full": "designs/hermes-blackout/texture-full.jpg",
+  "raw_colors": [
+    "#a9aaa4",
+    "#878982",
+    "#cdcfc8"
+  ],
+  "thread_colors": [
+    "#1a1b21",
+    "#505761"
+  ],
+  "thread_count": 2,
+  "source_heic": "BLACKOUT/HERMES BLACKOUT/8.HEIC"
+}

@@ -1,0 +1,21 @@
+[project]
+name = "room-generator"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "fal-client>=0.10",
+    "python-dotenv",
+    "requests",
+    "numpy",
+    "Pillow",
+    "opencv-python",
+    "transformers>=4.40",
+    "torch",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

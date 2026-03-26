@@ -8,30 +8,42 @@ const product: ProductData = {
 	color: "beyaz",
 	imageUrl: "https://cdn.shopify.com/havuz.jpg",
 	sku: "blk-havuz-100x200",
+	threadColors: ["#0e101e", "#262b40"],
+	pixelsPerCm: 42.3,
 };
 
 describe("buildPrompt", () => {
-	it("base prompt uses color and type from product on attempt 1", () => {
-		const { prompt } = buildPrompt(product, 1);
+	it("prompt includes color and type from product", () => {
+		const { prompt } = buildPrompt(product);
 		expect(prompt).toContain("beyaz BLACKOUT curtains");
-		expect(prompt).toContain("modern Turkish living room");
 		expect(prompt).toContain("photorealistic");
-		expect(prompt).not.toContain("prominently visible");
 	});
 
-	it("retry prompt appends prominence text on attempt 2+", () => {
-		const { prompt: p2 } = buildPrompt(product, 2);
-		expect(p2).toContain("curtains prominently visible on windows");
-		expect(p2).toContain("window treatment focal point");
+	it("prompt includes thread colors when present", () => {
+		const { prompt } = buildPrompt(product);
+		expect(prompt).toContain("thread tones:");
+		expect(prompt).toContain("#0e101e");
+		expect(prompt).toContain("#262b40");
+	});
 
-		const { prompt: p3 } = buildPrompt(product, 3);
-		expect(p3).toContain("curtains prominently visible on windows");
+	it("prompt includes fabric scale when pixelsPerCm is set", () => {
+		const { prompt } = buildPrompt(product);
+		expect(prompt).toContain("fabric scale: 42.3px/cm");
+	});
+
+	it("omits thread tones when threadColors is empty", () => {
+		const { prompt } = buildPrompt({ ...product, threadColors: [] });
+		expect(prompt).not.toContain("thread tones");
+	});
+
+	it("omits fabric scale when pixelsPerCm is null", () => {
+		const { prompt } = buildPrompt({ ...product, pixelsPerCm: null });
+		expect(prompt).not.toContain("fabric scale");
 	});
 
 	it("each call produces a different seed via default random", () => {
-		const { seed: s1 } = buildPrompt(product, 1);
-		const { seed: s2 } = buildPrompt(product, 1);
-		// With overwhelming probability these will differ
+		const { seed: s1 } = buildPrompt(product);
+		const { seed: s2 } = buildPrompt(product);
 		expect(typeof s1).toBe("number");
 		expect(typeof s2).toBe("number");
 		expect(s1).toBeGreaterThanOrEqual(0);
@@ -39,22 +51,20 @@ describe("buildPrompt", () => {
 
 	it("seed is deterministic when seedFn is injected", () => {
 		const fixedSeed = () => 0.5;
-		const { seed } = buildPrompt(product, 1, fixedSeed);
+		const { seed } = buildPrompt(product, fixedSeed);
 		expect(seed).toBe(Math.floor(0.5 * 2 ** 31));
 	});
 
 	it("handles empty color and type gracefully", () => {
 		const emptyProduct = { ...product, color: "", type: "" };
-		const { prompt } = buildPrompt(emptyProduct, 1);
-		// Should still produce a valid string without crashing
+		const { prompt } = buildPrompt(emptyProduct);
 		expect(typeof prompt).toBe("string");
 		expect(prompt.length).toBeGreaterThan(0);
-		expect(prompt).toContain("modern Turkish living room");
 	});
 
 	it("seed is always a non-negative integer", () => {
 		for (let i = 0; i < 10; i++) {
-			const { seed } = buildPrompt(product, 1);
+			const { seed } = buildPrompt(product);
 			expect(Number.isInteger(seed)).toBe(true);
 			expect(seed).toBeGreaterThanOrEqual(0);
 		}

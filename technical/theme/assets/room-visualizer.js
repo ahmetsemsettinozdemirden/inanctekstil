@@ -1,27 +1,5 @@
-var __rv = (() => {
-  var __defProp = Object.defineProperty;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __export = (target, all) => {
-    for (var name in all)
-      __defProp(target, name, { get: all[name], enumerable: true });
-  };
-  var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
-      for (let key of __getOwnPropNames(from))
-        if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-    }
-    return to;
-  };
-  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
+(() => {
   // technical/theme/assets/room-visualizer.ts
-  var room_visualizer_exports = {};
-  __export(room_visualizer_exports, {
-    initRoomVisualizer: () => initRoomVisualizer
-  });
   var TYPE_LABELS = {
     FON: "Fon",
     BLK: "Blackout",
@@ -29,7 +7,8 @@ var __rv = (() => {
     TUL: "T\xFCl"
   };
   function typeLabel(type) {
-    return TYPE_LABELS[type] ?? type;
+    var _a;
+    return (_a = TYPE_LABELS[type]) != null ? _a : type;
   }
   var STYLES = `
   #rv-overlay {
@@ -218,7 +197,10 @@ var __rv = (() => {
   @keyframes rv-spin { to { transform: rotate(360deg); } }
 
   /* \u2014 Result \u2014 */
-  .rv-result-img { width: 100%; border-radius: 8px; display: block; }
+  .rv-result-img {
+    width: 100%; border-radius: 8px; display: block;
+    max-height: min(60vh, 480px); object-fit: cover;
+  }
   .rv-result-meta {
     display: flex; align-items: center; justify-content: space-between;
     margin: 12px 0 14px;
@@ -280,7 +262,8 @@ var __rv = (() => {
     }
   }
   function renderUploadState(body) {
-    const isLandingFlow = !currentConfig?.productId;
+    var _a;
+    const isLandingFlow = !(currentConfig == null ? void 0 : currentConfig.productId);
     const showProductChip = !!selectedProduct;
     const productChip = showProductChip && selectedProduct ? `
     <div class="rv-selected-product">
@@ -324,28 +307,30 @@ var __rv = (() => {
       uploadedFile = file;
       proceedFromUpload();
     }
-    dropzone?.addEventListener("click", () => fileInput?.click());
-    dropzone?.addEventListener("keydown", (e) => {
+    dropzone == null ? void 0 : dropzone.addEventListener("click", () => fileInput == null ? void 0 : fileInput.click());
+    dropzone == null ? void 0 : dropzone.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        fileInput?.click();
+        fileInput == null ? void 0 : fileInput.click();
       }
     });
-    dropzone?.addEventListener("dragover", (e) => {
+    dropzone == null ? void 0 : dropzone.addEventListener("dragover", (e) => {
       e.preventDefault();
       dropzone.classList.add("rv-dragover");
     });
-    dropzone?.addEventListener("dragleave", () => dropzone.classList.remove("rv-dragover"));
-    dropzone?.addEventListener("drop", (e) => {
+    dropzone == null ? void 0 : dropzone.addEventListener("dragleave", () => dropzone.classList.remove("rv-dragover"));
+    dropzone == null ? void 0 : dropzone.addEventListener("drop", (e) => {
+      var _a2;
       e.preventDefault();
       dropzone.classList.remove("rv-dragover");
-      const file = e.dataTransfer?.files[0];
+      const file = (_a2 = e.dataTransfer) == null ? void 0 : _a2.files[0];
       if (file) handleFile(file);
     });
-    fileInput?.addEventListener("change", () => {
-      if (fileInput.files?.[0]) handleFile(fileInput.files[0]);
+    fileInput == null ? void 0 : fileInput.addEventListener("change", () => {
+      var _a2;
+      if ((_a2 = fileInput.files) == null ? void 0 : _a2[0]) handleFile(fileInput.files[0]);
     });
-    body.querySelector("#rv-change-product")?.addEventListener("click", (e) => {
+    (_a = body.querySelector("#rv-change-product")) == null ? void 0 : _a.addEventListener("click", (e) => {
       e.stopPropagation();
       selectedProduct = null;
       setState("picker");
@@ -358,6 +343,7 @@ var __rv = (() => {
     return null;
   }
   function proceedFromUpload() {
+    var _a, _b, _c, _d, _e, _f;
     if (!currentConfig) return;
     if (selectedProduct) {
       setState("loading");
@@ -365,12 +351,12 @@ var __rv = (() => {
     } else if (currentConfig.productId) {
       selectedProduct = {
         id: currentConfig.productId,
-        handle: currentConfig.productHandle ?? "",
-        title: currentConfig.productTitle ?? "",
-        type: currentConfig.productType ?? "",
-        color: currentConfig.productColor ?? "",
-        imageUrl: currentConfig.productImageUrl ?? "",
-        sku: currentConfig.productSku ?? ""
+        handle: (_a = currentConfig.productHandle) != null ? _a : "",
+        title: (_b = currentConfig.productTitle) != null ? _b : "",
+        type: (_c = currentConfig.productType) != null ? _c : "",
+        color: (_d = currentConfig.productColor) != null ? _d : "",
+        imageUrl: (_e = currentConfig.productImageUrl) != null ? _e : "",
+        sku: (_f = currentConfig.productSku) != null ? _f : ""
       };
       setState("loading");
       runVisualization();
@@ -379,13 +365,15 @@ var __rv = (() => {
     }
   }
   function renderPickerState(body) {
-    const products = currentConfig?.dataProductsJson ? JSON.parse(currentConfig.dataProductsJson) : [];
-    const cards = products.map((p) => `
+    const products = (currentConfig == null ? void 0 : currentConfig.dataProductsJson) ? JSON.parse(currentConfig.dataProductsJson) : [];
+    const cards = products.map((p) => {
+      var _a, _b;
+      return `
     <div class="rv-product-card"
       data-id="${p.id}" data-handle="${p.handle}"
       data-title="${p.title}" data-type="${p.type}"
-      data-color="${p.color ?? ""}" data-image-url="${p.imageUrl}"
-      data-sku="${p.sku ?? ""}"
+      data-color="${(_a = p.color) != null ? _a : ""}" data-image-url="${p.imageUrl}"
+      data-sku="${(_b = p.sku) != null ? _b : ""}"
       tabindex="0" role="button" aria-label="${p.title}">
       <img src="${p.imageUrl}" alt="${p.title}" loading="lazy" />
       <div class="rv-card-info">
@@ -393,7 +381,8 @@ var __rv = (() => {
         <div class="rv-card-title">${p.title}</div>
       </div>
     </div>
-  `).join("");
+  `;
+    }).join("");
     body.innerHTML = `
     <p class="rv-picker-hint">Odan\u0131za eklemek istedi\u011Finiz perdeyi se\xE7in.</p>
     <div class="rv-products-grid">
@@ -402,16 +391,17 @@ var __rv = (() => {
   `;
     body.querySelectorAll(".rv-product-card").forEach((card) => {
       function select() {
+        var _a, _b, _c, _d, _e;
         body.querySelectorAll(".rv-product-card").forEach((c) => c.classList.remove("selected"));
         card.classList.add("selected");
         selectedProduct = {
           id: card.dataset["id"],
           handle: card.dataset["handle"],
-          title: card.dataset["title"] ?? "",
-          type: card.dataset["type"] ?? "",
-          color: card.dataset["color"] ?? "",
-          imageUrl: card.dataset["imageUrl"] ?? "",
-          sku: card.dataset["sku"] ?? ""
+          title: (_a = card.dataset["title"]) != null ? _a : "",
+          type: (_b = card.dataset["type"]) != null ? _b : "",
+          color: (_c = card.dataset["color"]) != null ? _c : "",
+          imageUrl: (_d = card.dataset["imageUrl"]) != null ? _d : "",
+          sku: (_e = card.dataset["sku"]) != null ? _e : ""
         };
         setTimeout(() => {
           if (uploadedFile) {
@@ -452,8 +442,9 @@ var __rv = (() => {
     }
   }
   function renderResultState(body, blobUrl, productTitle) {
-    const fromProductPage = !!currentConfig?.productId;
-    const handle = selectedProduct?.handle ?? "";
+    var _a, _b, _c;
+    const fromProductPage = !!(currentConfig == null ? void 0 : currentConfig.productId);
+    const handle = (_a = selectedProduct == null ? void 0 : selectedProduct.handle) != null ? _a : "";
     body.innerHTML = `
     <img class="rv-result-img" src="${blobUrl}" alt="AI ile olu\u015Fturulmu\u015F oda g\xF6rseli" />
     <div class="rv-result-meta">
@@ -465,7 +456,7 @@ var __rv = (() => {
       <button class="rv-btn-secondary" id="rv-save-btn">Kaydet</button>
     </div>
   `;
-    body.querySelector("#rv-order-btn")?.addEventListener("click", () => {
+    (_b = body.querySelector("#rv-order-btn")) == null ? void 0 : _b.addEventListener("click", () => {
       closeModal();
       if (fromProductPage) {
         const configurator = document.querySelector(
@@ -485,7 +476,7 @@ var __rv = (() => {
             const blob = await res.blob();
             const file = new File([blob], "odanda-gor.jpg", { type: "image/jpeg" });
             await navigator.share({ files: [file], title: productTitle });
-          } catch {
+          } catch (e) {
             downloadImage(blobUrl);
           }
         });
@@ -493,10 +484,10 @@ var __rv = (() => {
         saveBtn.addEventListener("click", () => downloadImage(blobUrl));
       }
     }
-    body.querySelector("#rv-try-again")?.addEventListener("click", () => {
+    (_c = body.querySelector("#rv-try-again")) == null ? void 0 : _c.addEventListener("click", () => {
       uploadedFile = null;
       selectedProduct = null;
-      setState(currentConfig?.productId ? "upload" : "picker");
+      setState((currentConfig == null ? void 0 : currentConfig.productId) ? "upload" : "picker");
     });
   }
   function downloadImage(blobUrl) {
@@ -506,6 +497,7 @@ var __rv = (() => {
     a.click();
   }
   function renderErrorState(body) {
+    var _a;
     body.innerHTML = `
     <div class="rv-error-wrap">
       <div class="rv-error-icon">\u26A0\uFE0F</div>
@@ -513,10 +505,10 @@ var __rv = (() => {
       <button class="rv-btn-primary" id="rv-retry-btn">Tekrar Dene</button>
     </div>
   `;
-    body.querySelector("#rv-retry-btn")?.addEventListener("click", () => {
+    (_a = body.querySelector("#rv-retry-btn")) == null ? void 0 : _a.addEventListener("click", () => {
       uploadedFile = null;
       selectedProduct = null;
-      setState(currentConfig?.productId ? "upload" : "picker");
+      setState((currentConfig == null ? void 0 : currentConfig.productId) ? "upload" : "picker");
     });
   }
   var STATE_TITLES = {
@@ -539,6 +531,7 @@ var __rv = (() => {
     else if (state === "error") renderErrorState(body);
   }
   async function runVisualization() {
+    var _a;
     if (!uploadedFile || !selectedProduct || !currentConfig) return;
     const fd = new FormData();
     fd.append("product_id", selectedProduct.id);
@@ -557,7 +550,7 @@ var __rv = (() => {
       const blob = await res.blob();
       if (resultBlobUrl) URL.revokeObjectURL(resultBlobUrl);
       resultBlobUrl = URL.createObjectURL(blob);
-      const rawTitle = res.headers.get("X-Product-Title") ?? "";
+      const rawTitle = (_a = res.headers.get("X-Product-Title")) != null ? _a : "";
       const productTitle = decodeURIComponent(rawTitle) || selectedProduct.title;
       currentState = "result";
       if (!modalEl) return;
@@ -565,11 +558,12 @@ var __rv = (() => {
       const body = modalEl.querySelector(".rv-body");
       if (titleEl) titleEl.textContent = STATE_TITLES["result"];
       if (body) renderResultState(body, resultBlobUrl, productTitle);
-    } catch {
+    } catch (e) {
       setState("error");
     }
   }
   function buildModal() {
+    var _a;
     const overlay = document.createElement("div");
     overlay.id = "rv-overlay";
     overlay.setAttribute("role", "dialog");
@@ -588,7 +582,7 @@ var __rv = (() => {
       <div class="rv-body"></div>
     </div>
   `;
-    overlay.querySelector("#rv-close")?.addEventListener("click", closeModal);
+    (_a = overlay.querySelector("#rv-close")) == null ? void 0 : _a.addEventListener("click", closeModal);
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) closeModal();
     });
@@ -611,5 +605,4 @@ var __rv = (() => {
     openModal();
   }
   globalThis["initRoomVisualizer"] = initRoomVisualizer;
-  return __toCommonJS(room_visualizer_exports);
 })();

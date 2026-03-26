@@ -14,21 +14,10 @@ const mockProduct = {
 };
 
 describe("getProductData", () => {
-	it("returns product data when product is found and PMS returns swatch", async () => {
-		global.fetch = mock(async (url: string) => {
-			if (String(url).includes("/admin/api")) {
-				return new Response(
-					JSON.stringify({ data: { product: mockProduct } }),
-					{
-						status: 200,
-						headers: { "Content-Type": "application/json" },
-					},
-				);
-			}
+	it("returns product data from Shopify", async () => {
+		global.fetch = mock(async (_url: string) => {
 			return new Response(
-				JSON.stringify({
-					imageUrl: "https://pms.inanctekstil.store/swatch.jpg",
-				}),
+				JSON.stringify({ data: { product: mockProduct } }),
 				{
 					status: 200,
 					headers: { "Content-Type": "application/json" },
@@ -41,27 +30,11 @@ describe("getProductData", () => {
 		expect(result?.title).toBe("HAVUZ Blackout Perde");
 		expect(result?.type).toBe("BLACKOUT");
 		expect(result?.color).toBe("beyaz");
-		expect(result?.imageUrl).toBe("https://pms.inanctekstil.store/swatch.jpg");
-		expect(result?.sku).toBe("blk-havuz-100x200");
-	});
-
-	it("falls back to Shopify image when PMS returns null", async () => {
-		global.fetch = mock(async (url: string) => {
-			if (String(url).includes("/admin/api")) {
-				return new Response(
-					JSON.stringify({ data: { product: mockProduct } }),
-					{
-						status: 200,
-						headers: { "Content-Type": "application/json" },
-					},
-				);
-			}
-			return new Response("not found", { status: 404 });
-		}) as unknown as typeof fetch;
-
-		const result = await getProductData("gid://shopify/Product/123");
-		expect(result).not.toBeNull();
 		expect(result?.imageUrl).toBe("https://cdn.shopify.com/havuz.jpg");
+		expect(result?.sku).toBe("blk-havuz-100x200");
+		// Shopify API path defaults — enriched by swatch lookup if SKU matches
+		expect(result?.threadColors).toEqual([]);
+		expect(result?.pixelsPerCm).toBeNull();
 	});
 
 	it("returns null when product not found in Shopify", async () => {
@@ -112,14 +85,11 @@ describe("getProductData", () => {
 			variants: { nodes: [{ sku: "" }] },
 		};
 
-		global.fetch = mock(async (url: string) => {
-			if (String(url).includes("/admin/api")) {
-				return new Response(
-					JSON.stringify({ data: { product: productNoSku } }),
-					{ status: 200, headers: { "Content-Type": "application/json" } },
-				);
-			}
-			return new Response("not found", { status: 404 });
+		global.fetch = mock(async (_url: string) => {
+			return new Response(
+				JSON.stringify({ data: { product: productNoSku } }),
+				{ status: 200, headers: { "Content-Type": "application/json" } },
+			);
 		}) as unknown as typeof fetch;
 
 		const result = await getProductData("gid://shopify/Product/123");

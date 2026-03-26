@@ -17,6 +17,17 @@ gitopsprod/docker/traefik/acme.json
 .venv/
 __pycache__/
 *.pyc
+.env
+
+# Generated room images
+catalog/output/
+catalog/swatch-assets/*/room.jpg
+catalog/swatch-assets/*/rooms/
+catalog/swatch-assets/designs/*/room-*.png
+catalog/room-generator-input/*.jpg
+catalog/room-generator-input/*.png
+catalog/room-templates/
+catalog/room-generator/.env
 
 # Raw source images (large, not for git)
 ecommerce/products/00-raw-katalog-images/

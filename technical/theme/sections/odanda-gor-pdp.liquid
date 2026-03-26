@@ -161,6 +161,13 @@
   }
 
   .odg-pdp__frame {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+    text-align: left;
     position: relative;
     width: 100%;
     max-width: 340px;
@@ -309,10 +316,11 @@
     </div>
 
     <!-- ── Right: product image ── -->
-    <div class="odg-pdp__visual" aria-hidden="true">
-      <div class="odg-pdp__frame">
+    <div class="odg-pdp__visual">
+      <button type="button" id="odanda-gor-img-btn-{{ section.id }}" class="odg-pdp__frame" aria-label="Odamda dene">
         <img
-          src="{{ product.featured_image | image_url: width: 600 }}"
+          id="odg-pdp-img-{{ section.id }}"
+          src="{{ product.selected_or_first_available_variant.featured_image | default: product.featured_image | image_url: width: 600 }}"
           alt="{{ product.title | escape }}"
           loading="lazy"
           width="600"
@@ -332,7 +340,7 @@
             </svg>
           </div>
         </div>
-      </div>
+      </button>
     </div>
 
   </div>
@@ -341,20 +349,94 @@
 <script src="{{ 'room-visualizer.js' | asset_url }}"></script>
 <script>
   (function () {
-    var btn = document.getElementById('odanda-gor-btn-{{ section.id }}');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
+    var variantSkus = {
+      {%- for variant in product.variants -%}
+        "{{ variant.id }}": {{ variant.sku | json }}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    };
+    var variantColors = {
+      {%- for variant in product.variants -%}
+        "{{ variant.id }}": {{ variant.option1 | json }}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    };
+    // Same logic as product-media-gallery-content.liquid: media.alt == selected_color
+    var mediaByColor = {};
+    [
+      {%- for media in product.media -%}
+        {%- if media.media_type == 'image' and media.alt != blank -%}
+          { alt: {{ media.alt | json }}, url: {{ media | image_url: width: 600 | json }} }{% unless forloop.last %},{% endunless %}
+        {%- endif -%}
+      {%- endfor -%}
+    ].forEach(function(m) { if (!mediaByColor[m.alt]) mediaByColor[m.alt] = m.url; });
+
+    var img = document.getElementById('odg-pdp-img-{{ section.id }}');
+
+    // Track selected variant ID reliably: start from page-load variant,
+    // update synchronously on curtain-configurator button click,
+    // and confirm via variant:update (fires after async morph with server-confirmed ID).
+    var currentVariantId = '{{ product.selected_or_first_available_variant.id }}';
+
+    // Sync update: curtain-configurator button click sets the variant immediately
+    document.querySelectorAll('.perde-variant-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.dataset.variantId) {
+          currentVariantId = btn.dataset.variantId;
+          updateImage();
+          console.log('[odanda-gor] variant btn click -> currentVariantId:', currentVariantId);
+        }
+      });
+    });
+
+    // Async-confirmed update: fires after fetch + morph completes
+    document.addEventListener('variant:update', function(e) {
+      if (e.detail && e.detail.resource && e.detail.resource.id) {
+        currentVariantId = String(e.detail.resource.id);
+        updateImage();
+        console.log('[odanda-gor] variant:update -> currentVariantId:', currentVariantId);
+      }
+    });
+
+    function getCurrentVariantId() {
+      return currentVariantId;
+    }
+
+    function getCurrentSku() {
+      var id = getCurrentVariantId();
+      return id ? (variantSkus[id] || '') : '';
+    }
+
+    function getCurrentImageUrl() {
+      var id = getCurrentVariantId();
+      var color = id && variantColors[id];
+      return (color && mediaByColor[color]) || {{ product.selected_or_first_available_variant.featured_image | default: product.featured_image | image_url: width: 600 | json }};
+    }
+
+    function updateImage() {
+      var url = getCurrentImageUrl();
+      if (img && url) img.src = url;
+    }
+
+
+    function openVisualizer() {
+      var sku = getCurrentSku();
+      console.log('[odanda-gor] openVisualizer -> variantId:', getCurrentVariantId(), 'sku:', sku);
       initRoomVisualizer({
         productId: 'gid://shopify/Product/{{ product.id }}',
         productHandle: '{{ product.handle }}',
         productTitle: {{ product.title | json }},
         productType: {{ product.type | json }},
         productColor: {{ product.metafields.curtain.color | default: '' | json }},
-        productImageUrl: {{ product.featured_image | image_url: width: 400 | json }},
-        productSku: {{ product.variants.first.sku | json }},
+        productImageUrl: getCurrentImageUrl(),
+        productSku: sku,
         apiUrl: 'https://visualizer.inanctekstil.store/api/visualize'
       });
-    });
+    }
+
+    var btn = document.getElementById('odanda-gor-btn-{{ section.id }}');
+    if (btn) btn.addEventListener('click', openVisualizer);
+
+    var imgBtn = document.getElementById('odanda-gor-img-btn-{{ section.id }}');
+    if (imgBtn) imgBtn.addEventListener('click', openVisualizer);
   })();
 </script>
 
