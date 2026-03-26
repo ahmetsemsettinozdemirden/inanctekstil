@@ -76,6 +76,12 @@
             return res.json().then(function (data) {
               if (data && data.checkoutUrl) {
                 log('redirecting to draft order checkout', { url: data.checkoutUrl.substring(0, 60) });
+                if (window.posthog) {
+                  posthog.capture('checkout_started', {
+                    cart_token: cartToken,
+                    item_count: cart.item_count
+                  });
+                }
                 // Cart is NOT cleared here — it stays intact so users can return if they abandon checkout.
                 // The cart is cleared by the order status page script after confirmed payment.
                 window.location.href = data.checkoutUrl;
