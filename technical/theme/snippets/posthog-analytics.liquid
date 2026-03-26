@@ -10,8 +10,15 @@
     session_recording: { maskAllInputs: true },
     persistence: 'localStorage+cookie',
     enable_heatmaps: true,
-    opt_out_capturing_by_default: true
+    opt_out_capturing_by_default: false
   });
+
+  {% if customer %}
+  posthog.identify({{ customer.id | json }}, {
+    email: {{ customer.email | json }},
+    name: {{ customer.first_name | append: ' ' | append: customer.last_name | strip | json }}
+  });
+  {% endif %}
 
   {% if request.page_type == 'product' %}
   posthog.capture('product_viewed', {
