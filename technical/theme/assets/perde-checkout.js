@@ -76,8 +76,8 @@
             return res.json().then(function (data) {
               if (data && data.checkoutUrl) {
                 log('redirecting to draft order checkout', { url: data.checkoutUrl.substring(0, 60) });
-                // Clear the Shopify cart — configured items now live in the draft order
-                fetch('/cart/clear.js', { method: 'POST' }).catch(function () {});
+                // Cart is NOT cleared here — it stays intact so users can return if they abandon checkout.
+                // The cart is cleared by the order status page script after confirmed payment.
                 window.location.href = data.checkoutUrl;
               } else {
                 log('no checkoutUrl in response — falling through');
