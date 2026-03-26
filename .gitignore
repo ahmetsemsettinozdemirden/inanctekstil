@@ -31,6 +31,7 @@ catalog/room-generator/.env
 
 # Raw source images (large, not for git)
 ecommerce/products/00-raw-katalog-images/
+catalog/raw/
 
 # Archive
 archive/
