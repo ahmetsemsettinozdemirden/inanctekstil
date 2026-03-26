@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { sql } from "./db.ts";
+import { verifyShopifyHmac } from "./hmac.ts";
 
 const VALID_PILE_ORANI = new Set([1.0, 2.5, 3.0]);
 const ADMIN_API_VERSION = "2025-01";
@@ -370,4 +371,64 @@ app.post("/api/checkout/complete", async (c) => {
   }
 
   return c.json({ checkoutUrl: draft_order.invoice_url });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/webhooks/orders/paid
+// ---------------------------------------------------------------------------
+
+interface ShopifyOrderWebhook {
+  id: number;
+  order_number: number;
+  source_name?: string;
+  note_attributes?: Array<{ name: string; value: string }>;
+}
+
+app.post("/api/webhooks/orders/paid", async (c) => {
+  const secret = process.env.SHOPIFY_WEBHOOK_SECRET;
+  if (!secret) {
+    log("ERROR", "SHOPIFY_WEBHOOK_SECRET not set");
+    return c.json({ error: "CONFIG_ERROR" }, 500);
+  }
+
+  const headerHmac = c.req.header("x-shopify-hmac-sha256") ?? "";
+  // Read raw body as text BEFORE any JSON parse — HMAC is computed over raw bytes
+  const rawBody = await c.req.text();
+
+  const valid = await verifyShopifyHmac(secret, rawBody, headerHmac);
+  if (!valid) {
+    log("WARN", "Webhook HMAC invalid — rejected");
+    return c.json({ error: "UNAUTHORIZED" }, 401);
+  }
+
+  let order: ShopifyOrderWebhook;
+  try {
+    order = JSON.parse(rawBody) as ShopifyOrderWebhook;
+  } catch {
+    log("WARN", "Webhook body is not valid JSON");
+    // Return 200 anyway — malformed payload won't get better on retry
+    return c.json({ ok: true });
+  }
+
+  const cartTokenAttr = order.note_attributes?.find((a) => a.name === "cart_token");
+  if (!cartTokenAttr) {
+    // Not a curtain draft order — ignore silently
+    log("INFO", "Webhook: no cart_token in note_attributes, skipping", { orderId: order.id });
+    return c.json({ ok: true });
+  }
+
+  const cartToken = cartTokenAttr.value;
+  log("INFO", "Webhook: order paid, cleaning up cart", { orderId: order.id, cartToken });
+
+  try {
+    await sql`DELETE FROM cart_items WHERE cart_token = ${cartToken}`;
+    await sql`UPDATE draft_orders SET status = 'paid' WHERE cart_token = ${cartToken} AND status = 'pending'`;
+    log("INFO", "Webhook: cart cleanup complete", { cartToken });
+  } catch (err) {
+    // Log but return 200 — a failed cleanup is not worth a Shopify retry storm
+    log("ERROR", "Webhook: DB cleanup failed", { cartToken, err: String(err) });
+  }
+
+  // Always 200 — non-200 causes Shopify to retry up to 19 times over 48h
+  return c.json({ ok: true });
 });

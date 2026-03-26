@@ -1089,3 +1089,93 @@ describe('POST /api/checkout/complete — resilience', () => {
     }
   });
 });
+
+// ---------------------------------------------------------------------------
+// POST /api/webhooks/orders/paid
+// ---------------------------------------------------------------------------
+
+describe('POST /api/webhooks/orders/paid', () => {
+  const WEBHOOK_SECRET = 'test_webhook_secret_456';
+
+  function makeOrderPayload(noteAttributes: Array<{ name: string; value: string }> = []) {
+    return JSON.stringify({
+      id: 1001,
+      order_number: 5001,
+      source_name: 'draft_order',
+      note_attributes: noteAttributes,
+    });
+  }
+
+  function sign(body: string, secret = WEBHOOK_SECRET): string {
+    return createHmac('sha256', secret).update(body).digest('base64');
+  }
+
+  function postWebhook(body: string, hmac: string) {
+    return app.request('/api/webhooks/orders/paid', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-shopify-hmac-sha256': hmac,
+      },
+      body,
+    });
+  }
+
+  beforeEach(() => {
+    process.env.SHOPIFY_WEBHOOK_SECRET = WEBHOOK_SECRET;
+    mockState.sqlQueue = [];
+    mockState.sqlCalls = [];
+  });
+
+  afterAll(() => {
+    delete process.env.SHOPIFY_WEBHOOK_SECRET;
+  });
+
+  test('returns 401 when HMAC is invalid', async () => {
+    const body = makeOrderPayload();
+    const res = await postWebhook(body, 'bad_hmac');
+    expect(res.status).toBe(401);
+  });
+
+  test('returns 500 when SHOPIFY_WEBHOOK_SECRET is not set', async () => {
+    delete process.env.SHOPIFY_WEBHOOK_SECRET;
+    const body = makeOrderPayload();
+    const res = await postWebhook(body, sign(body));
+    expect(res.status).toBe(500);
+  });
+
+  test('returns 200 and is a no-op when note_attributes has no cart_token', async () => {
+    const body = makeOrderPayload([{ name: 'other_key', value: 'other_value' }]);
+    const res = await postWebhook(body, sign(body));
+    expect(res.status).toBe(200);
+    expect(mockState.sqlCalls.length).toBe(0);
+  });
+
+  test('returns 200 and is a no-op when note_attributes is absent', async () => {
+    const body = JSON.stringify({ id: 999, order_number: 1 });
+    const res = await postWebhook(body, sign(body));
+    expect(res.status).toBe(200);
+    expect(mockState.sqlCalls.length).toBe(0);
+  });
+
+  test('deletes cart_items and marks draft_orders as paid when cart_token found', async () => {
+    mockState.sqlQueue.push([]); // DELETE cart_items
+    mockState.sqlQueue.push([]); // UPDATE draft_orders
+
+    const body = makeOrderPayload([{ name: 'cart_token', value: 'token_abc' }]);
+    const res = await postWebhook(body, sign(body));
+
+    expect(res.status).toBe(200);
+    expect(mockState.sqlCalls.length).toBe(2);
+    expect(mockState.sqlCalls[0]).toContain('token_abc'); // DELETE uses cart_token
+    expect(mockState.sqlCalls[1]).toContain('token_abc'); // UPDATE uses cart_token
+  });
+
+  test('returns 200 even when DB operations fail (Shopify must not retry)', async () => {
+    mockState.sqlQueue.push(new Error('DB down'));
+
+    const body = makeOrderPayload([{ name: 'cart_token', value: 'token_abc' }]);
+    const res = await postWebhook(body, sign(body));
+    expect(res.status).toBe(200);
+  });
+});
